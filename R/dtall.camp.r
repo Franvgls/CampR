@@ -1,0 +1,177 @@
+#' Crea un histograma distribución de tallas estratificada especie y campañas
+#' 
+#'  Histograma de la distribución de tallas media estratificada por sexos a partir de ficheros del camp
+#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
+#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
+#' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
+#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param cor.time Si T corrige las abundancias en función de la duración del lance
+#' @param ti Si T añade título al gráfico, el nombre de la especie en latín
+#' @param sub Si caracter lo añade como subtítulo en el gráfico
+#' @param leg Si T añade leyenda
+#' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda 
+#' @param bw Gráfico en blanco en negro si T o en color si F
+#' @param es Si T gráfico en castellano, si F gráfico en inglés
+#' @param sex Sacar la distribución de tallas por sexos si existen (T), o conjunta (F)
+#' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
+#' @param idi Nombre científico de la especie ("l") o nombre común ("e")
+#' @param clms Número de columnas para ordenar la serie histórica
+#' @param layout Organización de gráficos en filas ó columnas c(r,c) 
+#' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
+#' @param ymax Valor máximo del eje y
+#' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
+#' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
+#' @return Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(filas)xCampañas(columnas)
+#' @seealso {\link{dtallbarplot}} {\link{dtall.lan}}
+#' @examples dtall.camp(1,63,Psh,"Pnew",es=F,sex=F,ti=T,years=T) dtall.camp(1,50,Psh,"Pnew",es=F,ti=T,years=T,out.dat=T)
+#' @export
+dtall.camp<- function(gr,esp,camp,dns,cor.time=T,ti=F,sub=NA,leg=T,cexleg=1,bw=T,es=T,sex=T,plot=T,idi="l",clms=2,
+  layout=NA,excl.sect=NA,ymax=NA,out.dat=F,years=F) {
+	require(lattice)
+  options(scipen=2)
+  esp<-format(esp,width=3,justify="r")
+  if (length(esp)>1 | any(esp=="999")) {
+    print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
+    medida<-c("cm")
+    }
+  else { medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm") }
+	if (bw) {
+    colbars<-c("black",gray(.5),"white")
+		trellis.par.set("strip.background",list(col=c(gray(.80))))
+    }
+	else {
+    colbars<-c("lightyellow","steelblue","yellow1")
+    trellis.par.set(col.whitebg())
+    }
+	if (es) {sxn<-c("Indet","Machos","Hembras")
+		ax<-c(paste("Talla (",medida,")",sep=""),expression("Ind"%*%"lan"^-1))}
+	else {sxn<-c("Undet","Male","Female")
+		ax<-c(paste("Length (",medida,")",sep=""),expression("Ind"%*%"haul"^-1))}
+	sexn<-c("2","3","1")
+	sixn<-c("1","2","3")
+	dtalln<-c("machos","hembras","indet")
+	if (is.logical(ti)) {
+		if (ti) {tit<-list(label=buscaesp(gr,esp,id=idi),font=ifelse(idi=="l",4,2),cex=1*cexleg)}
+		else {tit<-NULL}
+		}
+	else {
+    if(is.list(ti)) tit<-ti
+    else tit<-list(label=ti)
+    }
+#	if (!plot & !is.na(titlab)) tit<-list(label=titlab,font=2,cex=.9)
+	ndat<-length(camp)
+	for (i in 1:ndat) {
+    #browser()
+		dtall<-dattal.camp(gr,esp,camp[i],dns,excl.sect=excl.sect,cor.time=cor.time)
+		names(dtall)<-c("talla",sexn[which(!is.na(match(dtalln,names(dtall)[2:ncol(dtall)])))])
+		sxs<- sixn %in% names(dtall)[2:length(names(dtall))]
+		if (sex) {
+			ard<-c(NULL,NULL,NULL,NULL)
+			if (sxs[2]) a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,match("2",names(dtall))],rep(2,nrow(dtall)))
+			else a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),rep(0,nrow(dtall)),rep(2,nrow(dtall)))
+			ard<-rbind(ard,a1)
+			if (sxs[3]) a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,match("3",names(dtall))],rep(3,nrow(dtall)))
+			else a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),rep(0,nrow(dtall)),rep(3,nrow(dtall)))
+			ard<-rbind(ard,a1)
+			if (sxs[1]) a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,match("1",names(dtall))],rep(1,nrow(dtall)))
+			else a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),rep(0,nrow(dtall)),rep(1,nrow(dtall)))
+			ard<-rbind(ard,a1)
+			}
+		else {
+			if (ncol(dtall)>2) {
+         ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),rowSums(dtall[,c(2:ncol(dtall))]),rep(1,nrow(dtall))))
+			}
+			else ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,2],rep(1,nrow(dtall))))
+			}
+		if (i==1) a<-ard
+		else a<-rbind(a,ard)
+		}
+	a<-as.data.frame(a)
+	names(a)<-c("talla","camp","n","sex")
+	if (years) {
+    acamp<-a
+    acamps<-camp
+    camp<-camptoyear(camp)
+    a$camp<-camptoyear(a$camp)
+    }
+	a$camp<-factor(as.character(a$camp),levels=camp)
+	a$talla<-as.numeric(as.character(a$talla))
+	a$n<-as.numeric(as.character(a$n))
+	a$sex<-factor(as.character(a$sex))
+	maxy<-tapply(a$n,a[,c(1,2)],sum)
+	maxy[which(is.na(maxy))]<-0
+	ylim<-c(0,ifelse(is.na(ymax),max(maxy)*1.05,ymax))
+	haysex<-sum(tapply(a$n,a$sex,sum)[c(2,3)])
+	if (sex & (haysex != 0)) {
+#		if (length(camp)==1) {
+			sxn<-sxn[sxs]
+			colbars<-colbars[sxs]
+			a$sex<-factor((a$sex),exclude=sixn[!sxs])
+#			}
+		}
+	else {
+		if (bw) colbars<-"grey"
+		else colbars<-"lightyellow"
+		leg=F
+		}
+  #browser()
+  if (leg & (haysex != 0)) {
+  	ddd<-tapply(a$n,a$sex,sum)
+    leg<-list(columns=sum(ddd>0),space="top",rectangles=list(T,size=5),
+		  col=colbars,text=list(labels=sxn,col="black",cex=cexleg*ifelse(!plot,.7,.9)))}     #,col=colbars
+	else {leg<-NULL}
+	xlimi<-c(min(a$talla)*(.95-1),max(a$talla)*1.05)
+	if (is.character(sub)) sub=list(label=sub,font=2,cex=cexleg*.9)
+  if (length(camp)==1) {
+		foo<-barchart(n~talla,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,ylim=ylim,xlim=xlimi,
+			scales=list(alternating=F,tck=c(1,0),x=list(tick.number=10)),stack=T,h=F,main=tit,
+			xlab=list(label=ax[1],cex=cexleg*1.2),ylab=list(label=ax[2],cex=cexleg*1.2),sub=sub,
+			panel=function(x,y,...) {panel.fill(col="white")
+#  			media=sum((x)*y*100)/sum(y*100)
+				panel.grid(-1,0,lty=3,col="black")
+#  			panel.abline(v=media,lty=1)
+				panel.barchart(x,y,col=colbars,...)
+#    		ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
+        }
+			)
+			names(dtall)<-c("talla",dtalln[which(!is.na(match(sexn,names(dtall)[2:ncol(dtall)])))])
+			#print(dtall)
+			}
+	else {
+		orden=NULL
+		if (any(is.na(layout))) {
+			if (ndat>3) layout<-c(clms,ceiling(ndat/clms))
+			else {layout<-c(1,ndat)}
+			}
+    #*browser()
+		foo<-barchart(n~talla|camp,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,ylim=ylim,xlim=xlimi,col=colbars,
+			scales=list(alternating=F,tck=c(1,0),cex=cexleg*.7,x=list(tick.number=10)),stack=T,h=F,main=tit,xlab=list(label=ax[1],cex=cexleg*.9),
+			ylab=list(label=ax[2],cex=cexleg*.9),layout=layout,par.strip.text=list(cex=cexleg*.8,font=2),as.table=ifelse(!is.null(orden),F,T),sub=sub,
+			panel=function(x,y,...) {
+				panel.fill(col="white")
+#  			media=sum((x)*y*100)/sum(y*100)
+				panel.grid(-1,0,lty=3,col="gray60")
+				panel.barchart(x,y,...)
+#    		ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
+				},
+			strip = function(...) strip.default(style=1,...))
+		}
+  #browser()
+	if (plot) {print(foo)}
+	if (out.dat) {
+    if (years) {
+      a<-acamp
+      a$n<-as.numeric(as.character(a$n))
+      a$talla<-as.numeric(as.character(a$talla))
+      camp<-acamps
+      }
+#    browser()
+    tapply0<-tapply(a$n,a[,1:2],sum,na.rm=T)
+    tapply0[is.na(tapply0)]<-0
+    print(tapply0)
+#    print(tapply(a$n,a[,1:2],sum,na.rm=T)[which(rowSums(tapply(a$n,a[,1:2],sum),na.rm=T)>0),camp])
+    }
+	else {
+    if (!plot) foo
+    }
+	}

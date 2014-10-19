@@ -1,0 +1,20 @@
+#' Parámetros a y b relación talla-peso
+#'
+#' Extrae los parámetros a y b de la relación talla-peso de una especie determinada
+#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
+#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
+#' @export
+talpes.camp<-function(gr,esp) {
+  require(RODBC)
+  esp<-format(esp,width=3,justify="r")
+  ch1<-odbcConnect(dsn="camp")
+  odbcSetAutoCommit(ch1, FALSE)
+  if (length(gr)>1 | length(esp)>1) {
+    stop("Esta funci?n no permite m?s de una especie por vez")
+  }
+  else especie<-sqlQuery(ch1,paste("select ESPECIE,A,B from Especies where grupo='",gr,"' and esp='",esp,"'",sep=""))
+  odbcClose(ch1)
+  if (especie$B==0 | especie$A==0) stop(paste("No existen A o B para",especie$ESPECIE))
+  else especie<-as.vector(especie[,2:3],mode="numeric")
+  especie
+}
