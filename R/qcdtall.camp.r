@@ -16,6 +16,7 @@
 #' @references Gerritsen & McGrath. 2007. Precision estimates and suggested sample sizes for length-frequency data.Fish. Bull. 106: 116-120)
 #' @seealso dtall.camp {\link{dtall.camp}}
 #' @examples qcdtall.camp(1,43,"P08","Pnew",lance=35)
+#' @family Control de calidad
 #' @export
 qcdtall.camp<- function(gr,esp,camp="P12",dns="Pnew",lance,ti=F,legend=T,idi="l",ymax=NA) {
   require(RODBC)

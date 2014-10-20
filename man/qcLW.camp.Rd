@@ -34,4 +34,9 @@ Busca outliers en las capturas en el fichero de tallas a partir de la relación 
 \examples{
 qcLW.camp(1,50,"N08","Cant")
 }
+\seealso{
+Other Control.de.calidad: \code{\link{qcLWbucl.camp}};
+  \code{\link{qcTalPez.lan}}; \code{\link{qcdistlan.camp}};
+  \code{\link{qcdtall.camp}}; \code{\link{qcdtallrev.camp}}
+}
 

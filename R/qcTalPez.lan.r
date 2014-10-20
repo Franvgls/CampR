@@ -7,6 +7,7 @@
 #' @param gr El grupo que se quiere comprobar 1 peces, 2 crustaceos, 3 cefalópodos. 4, 5 y 6 nunca se miden.
 #' @return Devuelve la lista de especies capturadas pero no medidas o viceversa
 #' @examples qcTalPez.lan("C14",dns="Cant",24,gr=1)
+#' @family Control de calidad
 #' @export
 qcTalPez.lan<- function(camp,dns="Cant",lan,gr=1) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}

@@ -6,6 +6,7 @@
 #' @param nlans Permite no mostrar la relación talla-peso de una especie si el número de lances en que ha aparecido es menor de nlans (por defecto nlans=2) 
 #' @seealso qcdtall.camp {\link{qcdtall.camp}}
 #' @examples qcdtallrev.camp(camp="N10",dns="Cant",nlans=2)
+#' @family Control de calidad
 #' @export
 qcdtallrev.camp<- function(camp="P12",dns="Pnew",nlans=2) {
   library(RODBC)

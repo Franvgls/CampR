@@ -12,6 +12,7 @@
 #' @param breg Para cambiar el coeficiente "b" de la regresión si es distinto al archivado en el CAMP
 #' @return Saca una tabla con datos estimados, observados y el error asociado a la relación talla peso y la distribución de tallas. Si out.dat=T crea un data.frame con los datos para todos los lances de la campaña, en caso contrario sólo saca en la consola los que están fuera de los margenes de error
 #' @examples qcLW.camp(1,50,"N08","Cant")
+#' @family Control de calidad
 #' @export
 qcLW.camp<- function(gr,esp,camp="P11",dns="Pnew",margerr=20,out.dat=F,mm=F,areg=NA,breg=NA) {
   require(RODBC)

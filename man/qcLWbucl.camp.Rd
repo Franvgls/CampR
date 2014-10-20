@@ -23,5 +23,9 @@ qcLWbucl.camp("P11","Pnew",nlans=1)
 }
 \seealso{
 qcLW.camp {\link{qcLW.camp}}
+
+Other Control.de.calidad: \code{\link{qcLW.camp}};
+  \code{\link{qcTalPez.lan}}; \code{\link{qcdistlan.camp}};
+  \code{\link{qcdtall.camp}}; \code{\link{qcdtallrev.camp}}
 }
 

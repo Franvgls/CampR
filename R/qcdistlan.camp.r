@@ -7,6 +7,8 @@
 #' @param pc.error porcentaje de error aceptable para no mostrar los lances erróneos
 #' @return Devuelve un data.frame con lance, recorrido según camp, recorrido haversine y % de error
 #' @examples qcdistlan.camp("C14","Cant",pc.error=.01)
+#' @references gcd.hf function gives the haversine calculation of distance between two geographic points (see: Pineda-Krch, M. 2010. http://www.r-bloggers.com/great-circle-distance-calculations-in-r/
+#' @family Control de calidad
 #' @export
 qcdistlan.camp<-function(camp,dns="Cant",todos=F,pc.error=2) {
   gcd.hf <- function(long1, lat1, long2, lat2) {

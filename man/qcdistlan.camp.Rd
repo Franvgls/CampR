@@ -23,4 +23,12 @@ Sirve para control de calidad y asegurarse que los datos de distancias y posicio
 \examples{
 qcdistlan.camp("C14","Cant",pc.error=.01)
 }
+\references{
+gcd.hf function gives the haversine calculation of distance between two geographic points (see: Pineda-Krch, M. 2010. http://www.r-bloggers.com/great-circle-distance-calculations-in-r/
+}
+\seealso{
+Other Control.de.calidad: \code{\link{qcLW.camp}};
+  \code{\link{qcLWbucl.camp}}; \code{\link{qcTalPez.lan}};
+  \code{\link{qcdtall.camp}}; \code{\link{qcdtallrev.camp}}
+}
 

@@ -23,4 +23,10 @@ Sirve para control de calidad y asegurarse que no faltan datos o estan incomplet
 \examples{
 qcTalPez.lan("C14",dns="Cant",24,gr=1)
 }
+\seealso{
+Other Control.de.calidad: \code{\link{qcLW.camp}};
+  \code{\link{qcLWbucl.camp}};
+  \code{\link{qcdistlan.camp}}; \code{\link{qcdtall.camp}};
+  \code{\link{qcdtallrev.camp}}
+}
 

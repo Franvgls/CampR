@@ -7,6 +7,7 @@
 #' @return Produce un gráfico por cada especie de pez medida en más de nlans lances. Para salir a mitad cerrar la ventana de gráfico o escape en Rstudio.
 #' @seealso qcLW.camp {\link{qcLW.camp}}
 #' @examples qcLWbucl.camp("P11","Pnew",nlans=1)
+#' @family Control de calidad
 #' @export
 qcLWbucl.camp<- function(camp="P12",dns="Pnew",nlans=2) {
   library(RODBC)
