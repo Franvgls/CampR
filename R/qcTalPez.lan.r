@@ -1,6 +1,6 @@
-#' Comprueba que están medidas todas las especies en capturas y viceversa
+#' Comprueba que están medidas todas las especies en capturas y viceversa. Comprueba concordancia entre números y pesos en los ficheros de tallas NTALLXXX.dbf y fauna FAUNAXXX.dbf
 #' 
-#' Sirve para control de calidad y asegurarse que no faltan datos o estan incompletos
+#' Sirve para control de calidad y asegurándose que no faltan datos o están incompletos (comprueba coherencia entre faunaXXX.dbf y NtallXXX.dbf y avisa cuando no son coherentes)
 #' @param camp campaña a revisar los datos en formato Camp Xyy
 #' @param dns Origen de bases de datos: Cant cantábrico, Pnew Porcupine
 #' @param lan lance para el que se quiere comprobar que estan todas las especies medidas y talladas (sólo comprueba peces, por defecto gr=1, si se quiere otros cambiar gr)
@@ -11,26 +11,32 @@
 #' @export
 qcTalPez.lan<- function(camp,dns="Cant",lan,gr=1) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-  require(RODBC)
-  ch1<-odbcConnect(dsn=dns)
-  odbcSetAutoCommit(ch1, FALSE)
+  if (length(lan)>1) {stop("seleccionados más de un lance, no se pueden comprobar errores para más de uno")}
+  if (!gr %in% 1:3) {stop("Solo se miden los grupos peces y algunos crustáceos y moluscos, cambie parámetro gr")}
+  ch1<-RODBC::odbcConnect(dsn=dns)
+  RODBC::odbcSetAutoCommit(ch1, FALSE)
   lan<-format(lan,width=3,justify="r")
-  listsps<-sqlQuery(ch1,paste("select lance,grupo,esp,peso_gr,numero from FAUNA",camp," where lance='",lan,"'",sep=""))
+  listsps<-RODBC::sqlQuery(ch1,paste("select lance,grupo,esp,peso_gr,numero from FAUNA",camp," where lance='",lan,"'",sep=""))
   if (nrow(listsps)==0) {
-    dumblan<-datlan.camp(camp,"Cant")
+    dumblan<-datlan.camp(camp,dns)
     if (any(dumblan$lance==gsub(" ","",lan))) stop(paste("el lance",gsub(" ","",lan),"no tiene tallas"))
     else stop(paste("No existe el lance: ",gsub(" ","",lan)))
     }
-  listsps<-listsps[listsps$grupo=="1",]
-  tals<-sqlQuery(ch1,paste("select lance,grupo,esp,peso_m,peso_gr,talla,numer from NTALL",camp," where lance='",lan,"'",sep=""))
-  tals<-tals[tals$grupo=="1",]
-  odbcClose(ch1)
+  listsps<-listsps[listsps$grupo==gr,]
+  tals<-RODBC::sqlQuery(ch1,paste("select lance,grupo,esp,peso_m,peso_gr,cate,talla,numer from NTALL",camp," where lance='",lan,"'",sep=""))
+  tals<-tals[tals$grupo==gr,]
+  tals$numpond<-tals$numer*tals$peso_gr/tals$peso_m
+  RODBC::odbcClose(ch1)
   fau<-levels(as.factor(format(listsps$esp,width=3,justify="r")))
-  tals<-levels(as.factor(format(tals$esp,width=3,justify="r")))
-  nomed<-fau[is.na(match(fau,tals))]
-  sincapt<-tals[is.na(match(tals,fau))]
-  if (length(nomed)>0) {
-    print(paste("Lance ",gsub(" ","",lan),": especies con captura y sin medir:",sep=""))
+  talspes<-rowSums(tapply(tals$peso_gr,tals[,c("esp","cate")],mean),na.rm=T)
+  talsnum<-rowSums(tapply(tals$numpond,tals[,c("esp","cate")],sum),na.rm=T)
+  #rowSums(tapply(tals$peso_gr,tals[,c("esp","cate")],sum,na.rm=F))
+  talsdat<-levels(as.factor(format(tals$esp,width=3,justify="r")))
+  nomed<-fau[is.na(match(fau,talsdat))]
+  sincapt<-tals[is.na(match(talsdat,fau))]
+  print(paste("Lance ",gsub(" ","",lan),":"),sep=)
+    if (length(nomed)>0) {
+    print(paste("Especies con captura y sin medir:",sep=""))
     for (i in 1:length(nomed)) print(paste(nomed[i],"-",buscaesp(gr,nomed[i])))
   }
   if (length(sincapt)>0) {
@@ -38,4 +44,17 @@ qcTalPez.lan<- function(camp,dns="Cant",lan,gr=1) {
     for (i in 1:length(sincapt)) print(paste(sincapt[i],"-",buscaesp(gr,sincapt[i])))
   }
   if (length(sincapt)==0 & length(nomed)==0) print("No hay especies sin medir")
+  listspsmed<-listsps[! listsps$esp %in% as.numeric(nomed),] 
+  errpesos<-listspsmed[,c("peso_gr")]-talspes[as.character(listspsmed$esp)]
+  errnumer<-listspsmed[,c("numero")]-talsnum[as.character(listspsmed$esp)]
+  if (any(abs(errpesos)>1)) {
+    print(paste("Discordancias entre pesos en tallas y fauna para especie",buscaesp(gr,names(which(errpesos!=0)))))
+    print(errpesos[which(abs(errpesos)>1)])
+    print(paste("Tallas:",round(talspes[names(which(abs(errpesos)>1))],1),"- Fauna",listsps[listsps$esp==names(which(errpesos!=0)),c("peso_gr")]))
+  }
+  if (any(abs(errnumer)>1)) {
+    print(paste("Discordancias entre números en tallas y fauna para especie",buscaesp(gr,names(which(abs(errnumer)>1)))))
+    print(errnumer[which(abs(errnumer)>1)])
+    print(paste("Tallas:",round(talsnum[names(which(abs(errnumer)>1))],1),"- Fauna",listsps[listsps$esp==names(which(abs(errnumer)>1)),c("numero")]))
+  }
 }

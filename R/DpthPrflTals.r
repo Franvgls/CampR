@@ -7,8 +7,9 @@
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param tmin Talla mínima
 #' @param tmax Talla máxima
+#' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param ind Parámetro a representar, saca los datos en "p"eso o "n"úmero
-#' @param sx Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo
+#' @param sex Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
 #' @param ti Si T añade título al gráfico, el nombre de la especie en latín
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
@@ -18,13 +19,13 @@
 #' @param brks Especifica los rangos de profundidad:"Sturges" cada 100 metros, "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, "FD" cada 50 metros
 #' @param tabres Muestra una tabla resumen de la media, total de biomasa o número y frecuencia de la especie por estación según el brks especificado
 #' @param tit2 Añade un segundo título al gráfico especificando el rango de tallas
-#' @seealso DpthPrfl {\link{DpthPrfl}}
+#' @seealso {\link{DpthPrfl}}
 #' @export
-DpthPrflTals<-function(gr,esp,camps,dns="Pnew",tmin=0,tmax=999,ind="n",sx=NA,es=T,ti=T,idi="l",xmax=NA,
-                       nlans=T,spl=F,brks="Sturges",tabres=T,tit2=T) {
+DpthPrflTals<-function(gr,esp,camps,dns="Pnew",tmin=0,tmax=999,cor.time=TRUE,incl2=T,ind="n",sex=NA,es=TRUE,ti=TRUE,idi="l",xmax=NA,
+                       nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE,tit2=TRUE) {
   esp<-format(esp,width=3,justify="r")
   if (length(gr)>1 | any(gr==9)) stop("No se pueden mezclar datos de grupos distintos, solo distintas especies del mismo grupo")
-  #  if (chpar)  opar<-par(no.readonly=T)
+  #  if (chpar)  opar<-par(no.readonly=TRUE)
   #  if (length(wghts)>1) par(mfrow=c(2,2))
   #  par(mar=c(3,3,3,1))
   options(scipen=2)
@@ -36,7 +37,7 @@ DpthPrflTals<-function(gr,esp,camps,dns="Pnew",tmin=0,tmax=999,ind="n",sx=NA,es=
     medida<-c("cm")
   }
   else { medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm") }
-  dumb<-maphistal(gr,esp,camps,dns,tmin,tmax,sx,plot=F,out.dat=T,ind=ind)
+  dumb<-maphistal(gr,esp,camps,dns,tmin,tmax,cor.time=cor.time,incl2=incl2,sex=sex,plot=FALSE,out.dat=TRUE,ind=ind)
   if (ind=="n") {
     if (sum(dumb$numero)==0) {
       stop(paste("La especie",buscaesp(gr,esp),"no tiene capturas o datos de talla, saque distribuci?n con DpthPrfl"))
@@ -64,16 +65,16 @@ DpthPrflTals<-function(gr,esp,camps,dns="Pnew",tmin=0,tmax=999,ind="n",sx=NA,es=
     brks=c(0,70,120,200,500,810)
     if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[6]) stop("Existen lances fuera de los rangos de la campa?a, revise los datos")
   }
-  dumbDpth<-hist(dumb$prof,plot=F,breaks=brks)
-  if (ind=="n") {dumbDatDpth<-hist(rep(dumb$prof,dumb$numero),plot=F,breaks=dumbDpth$breaks)}
-  else {dumbDatDpth<-hist(rep(dumb$prof,dumb$peso),plot=F,breaks=dumbDpth$breaks)}
+  dumbDpth<-hist(dumb$prof,plot=FALSE,breaks=brks)
+  if (ind=="n") {dumbDatDpth<-hist(rep(dumb$prof,dumb$numero),plot=FALSE,breaks=dumbDpth$breaks)}
+  else {dumbDatDpth<-hist(rep(dumb$prof,dumb$peso),plot=FALSE,breaks=dumbDpth$breaks)}
   spln<-spline(-dumbDpth$mids,c(dumbDatDpth$counts/dumbDpth$counts),n=201)
   if (all(par("mfrow")==c(1,1))) cex.mn=.8
   else cex.mn=1.1
   if (is.logical(ti)) {
     if (ti) {
       titulo1<-list(buscaesp(gr,esp,id=idi),font=ifelse(idi==idi,4,2),cex=cex.mn)
-      titulo2<-list(paste(tmin,"-",tmax,medida,ifelse(!is.na(sx),sex,"")),font=2,cex=c(cex.mn-.1))
+      titulo2<-list(paste(tmin,"-",tmax,medida,ifelse(!is.na(sex),sex,"")),font=2,cex=c(cex.mn-.1))
     }
     else {titulo1<-NULL
           titulo2<-NULL}
@@ -90,7 +91,7 @@ DpthPrflTals<-function(gr,esp,camps,dns="Pnew",tmin=0,tmax=999,ind="n",sx=NA,es=
   }
   #  browser()
   plot(c(-dumbDpth$breaks,-ylims[2])~c(0,c(dumbDatDpth$counts/dumbDpth$counts),0),type=c("s"),xlim=c(0,ifelse(is.na(xmax),max(spln$y)*1.05,xmax*1.05)),
-       ylim=ylims,xlab=NA,ylab=ifelse(es,"Prof (m)","Depth (m)"),axes=F,
+       ylim=ylims,xlab=NA,ylab=ifelse(es,"Prof (m)","Depth (m)"),axes=FALSE,
        pch=21,bg="white",cex.lab=cex.mn)
   if (ti) title(main=titulo1,line=1.8)
   if (tit2) title(main=titulo2,cex.main=.9,line=.8)
@@ -116,22 +117,22 @@ DpthPrflTals<-function(gr,esp,camps,dns="Pnew",tmin=0,tmax=999,ind="n",sx=NA,es=
       dumb0<-dumb[dumb$numero>0,]
       nlans<-tapply(dumb$numero,dumb$strat,length)
       dlans<-tapply(dumb0$numero,dumb0$strat,length)
-      totstr<-tapply(dumb0$numero,dumb0$strat,sum,na.rm=T)
-      avgstr<-tapply(dumb$numero,dumb$strat,mean,na.rm=T)
+      totstr<-tapply(dumb0$numero,dumb0$strat,sum,na.rm=TRUE)
+      avgstr<-tapply(dumb$numero,dumb$strat,mean,na.rm=TRUE)
     }
     if (ind=="p") {
       dumb0<-dumb[dumb$peso>0,]
       nlans<-tapply(dumb$peso,dumb$strat,length)
       dlans<-tapply(dumb0$peso,dumb0$strat,length)
-      totstr<-tapply(dumb0$peso,dumb0$strat,sum,na.rm=T)
-      avgstr<-tapply(dumb$peso,dumb$strat,mean,na.rm=T)
+      totstr<-tapply(dumb0$peso,dumb0$strat,sum,na.rm=TRUE)
+      avgstr<-tapply(dumb$peso,dumb$strat,mean,na.rm=TRUE)
     }
     #    par(opar)
     resumen<-data.frame(lans=nlans,totstr=totstr,meanstr=avgstr,frecuencia=dlans)
     resumen
   }
 }
-# DpthPrflTals(1, 50, "N08", "Cant",10,20,brks = "norte",tabres=T,ind="p")
+# DpthPrflTals(1, 50, "N08", "Cant",10,20,brks = "norte",tabres=TRUE,ind="p")
 # DpthPrflTals(1,50,"P08","Pnew",brks="porcupine")
 # DpthPrflTals(1,50,"N08","Cant",brks=c(0,70,100,130,160,190,220))
 # DpthPrflTals(1,50,"N08","Cant",brks="FD")

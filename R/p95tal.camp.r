@@ -10,17 +10,17 @@
 #' @return Devuelve un data.frame con columnas camp y p95 tal con el Percentil 95 de la correspondiente campaña, una con el peso o número de cada especie del grupo solicitado, lat, long, prof
 #' @examples p95tal.camp(1,50,Nsh[7:27],"Cant")
 #' @export
-p95tal.camp<-function(gr=1,esp,camps,dns="Cant",excl.sect=NA,perc=.95) {
+p95tal.camp<-function(gr=1,esp,camps,dns="Cant",excl.sect=NA,perc=.95,cex.leg=1.1) {
   # Da el percentil perc (por defecto 95, en decimal) de la distribución de tallas de la especie en las campañas seleccionadas. 
   # Se ha eliminado el mult puesto que al revisar la forma de calcular el p95 ya no es necesario
   # Calcula la distribución de tallas estratificada de la especie sin sexos y de ah? saca el percentil 
-  if (length(esp)>1) {stop("seleccionadas más de una especie, este indicador es monoespec?fico")}
+  if (length(esp)>1) {stop("seleccionadas más de una especie, este indicador es monoespecífico")}
   esp<-format(esp,width=3,justify="r")
-  dumb<-dattal.camp(gr,esp,camps[1],dns,excl.sect=excl.sect,sx=F)
+  dumb<-dattal.camp(gr,esp,camps[1],dns,excl.sect=excl.sect,sex=FALSE)
   output<-data.frame(camp=camps[1],p95tal=dumb[cumsum(dumb$numero)>sum(dumb$numero)*perc,"talla"][1])  
   if (length(camps)>1) {
     for (i in 2:length(camps)) {
-      dumb<-dattal.camp(gr,esp,camps[i],dns,sx=F)
+      dumb<-dattal.camp(gr,esp,camps[i],dns,sex=FALSE)
       output<-rbind(output,data.frame(camp=camps[i],p95tal=dumb[cumsum(dumb$numero)>sum(dumb$numero)*perc,"talla"][1]))  
     }
   }

@@ -4,7 +4,8 @@
 #' @param x Es el vector de abundancias en peso o número
 #' @param sector Es la asignación al sector de cada muestra igual que en strmean {\link{strmean.r}} pero ha de tener dos caracteres, primero el sector geográfico y segundo el estrato batimétrico
 #' @param area El área del sector
-#' @param w Es un factor de ponderación para cada uno de los valores de x. Sirve para la función de la librería boot boot(x,strmean,R,stype="f",Porc.map=sector,sector=sector,area=area) 
+#' @param w Es un factor de ponderación para cada uno de los valores de x. Sirve para la función de la librería boot boot::boot(x,strmean,R,stype="f",Porc.map=sector,sector=sector,area=area) 
+#' @family Calculos internos no mostrado
 #' @return Devuelve la media estratificadda ponderada al área dentro de cada estrato y subestrato y la total del área
 #' @export
 strmean.dtt<-function(x,sector,area,w=rep(1,length(x))) {

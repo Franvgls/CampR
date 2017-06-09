@@ -6,12 +6,12 @@
 #' @param camp Campaña de la que se extraen los datos: un año concreto (XX): Demersales "NXX"
 #' @param dns Elige el origen de las bases de datos: sólo sirve para el Cantábrico/Galicia "Cant
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
-#' @param Nas Permite calcular los errores estándar aunque sólo haya un lance en algún estrato (haciendo varianza =0 en ese estrato, incorrecto pero da una idea válido cuando sólo un estrato entre varios tiene sólo un lance)
+#' @param Nas Permite calcular los errores estándar aunque sólo haya un lance en algún estrato (haciendo varianza =0 en ese estrato, incorrecto pero da una idea cuando sólo un estrato entre varios tiene sólo un lance)
 #' @return Devuelve un objeto en formato list con las abundancias y errores estándar de la especie elegida en la campaña elegida.
 #' @export
-TabAbsEsp.camp<-function(gr,esp,camp,dns="Cant",cor.time=T,Nas=F) {
+TabAbsEsp.camp<-function(gr,esp,camp,dns="Cant",cor.time=TRUE,Nas=FALSE) {
   esp<-format(esp,width=3,justify="r")
-  if (substr(dns,1,4)!="Cant") {stop("Función sólo disponible para Demersales Costa Norte divisiones IXa, VIIIc Este y VIIIc Oeste")}
+  if (substr(dns,1,4)!="Cant") {stop("Función sólo disponible para Demersales Costa Norte divisiones 9.a, 8.c Este y 8.c Oeste")}
   dumbw<-CV.camp(gr,esp,camp,dns,cor.time=cor.time,Nas=Nas)
   dumbn<-CV.camp(gr,esp,camp,dns,cor.time=cor.time,Nas=Nas,ind="n")
   dumbwloc<-rbind(sapply(dumbw$locales[1:2,c(1,4,7,10,13)],t),sapply(dumbw$locales[1:2,c(2,5,8,11,14)],t),sapply(dumbw$locales[1:2,c(3,6,9,12,15)],t))

@@ -9,11 +9,12 @@
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param ti Si T muestra el título con el nombre de la especie (y el sector si se elige sect o excl.sect si falso no muestra nada. También se puede dar un valor y aparece el texto incluido o dar un list(label=(título), font, cex)
 #' @param layout parámetro con dos valores, filas y columnas del gráfico de lattice, si NA lattice rellena la pantalla para optimizar la vista l*c
-#' @seealso logabage.camp {\link{logabage.camp.r}} edadstr.camp {\link{edadstr.camp}} bubbage.camp {\link{bubbage.camp}} logabage.camp {\link{logabage.camp.r}}
+#' @seealso {\link{logabage.camp}}, {\link{edadstr.camp}}, {\link{bubbage.camp}}, {\link{logabage.camp}}
 #' @examples logabage2.camp("1"," 43",Nsh,"Cant",8)
 #' @return Saca gráficos de descenso de la abundancia a lo largo de la edad con la mortalidad total
+#' @family edades
 #' @export
-logabage2.camp<-function(gr,esp,camps,dns="Pnew",plus=8,cor.time=T,ti=F,layout=NA) {
+logabage2.camp<-function(gr,esp,camps,dns="Pnew",plus=8,cor.time=TRUE,ti=FALSE,layout=NA) {
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
   }

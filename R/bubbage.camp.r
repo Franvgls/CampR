@@ -8,11 +8,11 @@
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
 #' @param recr edad de reclutamiento para especies con reclutamiento en edad 1 o mayor
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
-#' @seealso GetAlk.camp {\link{GetAlk.camp}} edadstr.camp {\link{edadstr.camp}}
-#' @examples bubbage.camp("1"," 43",Nsh,"Cant",8,0)
+#' @examples bubbage.camp(1,43,Nsh[1:29],"Cant",8,0)
 #' @return Saca un lattice de descenso de abundancia logarítmica con la edad con dato de la pendiente para cada año. También saca una matriz de abundancias por años x edad columnas x filas
+#' @family edades
 #' @export
-bubbage.camp <-function(gr,esp,camps,dns="Pnew",plus=8,recr=0,cor.time=T) {
+bubbage.camp <-function(gr,esp,camps,dns="Pnew",plus=8,recr=0,cor.time=TRUE) {
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
   }
@@ -28,18 +28,18 @@ bubbage.camp <-function(gr,esp,camps,dns="Pnew",plus=8,recr=0,cor.time=T) {
   }
   # Totals by age, median of time series by age, mad time series by age, median proportion by age...
   dumb$sumage<-rep(colSums(tapply(dumb$n,dumb[,c(2,3)],sum)),each=plus+1)
-  dumb$mediants<-rep(apply(tapply(dumb$n,dumb[,c(2,3)],sum,na.rm = T),1,median,na.rm=T),ndat)
-  dumb$madts<-(rep(apply(tapply(dumb$n,dumb[,2:3],sum),MARGIN=1,FUN=mad,na.rm=T),ndat))
-  dumb$medprpage<-rep(apply(tapply(dumb$n/dumb$sumage,dumb[,2:3],sum,na.rm=T),1,median,na.rm=T),ndat)
-  dumb$madprpage<-(rep(apply(tapply(dumb$n/dumb$sumage,dumb[,2:3],sum),MARGIN=1,FUN=mad,na.rm=T),ndat))
-  op<-par(no.readonly=T)
+  dumb$mediants<-rep(apply(tapply(dumb$n,dumb[,c(2,3)],sum,na.rm = T),1,median,na.rm=TRUE),ndat)
+  dumb$madts<-(rep(apply(tapply(dumb$n,dumb[,2:3],sum),MARGIN=1,FUN=mad,na.rm=TRUE),ndat))
+  dumb$medprpage<-rep(apply(tapply(dumb$n/dumb$sumage,dumb[,2:3],sum,na.rm=TRUE),1,median,na.rm=TRUE),ndat)
+  dumb$madprpage<-(rep(apply(tapply(dumb$n/dumb$sumage,dumb[,2:3],sum),MARGIN=1,FUN=mad,na.rm=TRUE),ndat))
+  op<-par(no.readonly=TRUE)
   par(mar=c(2,2.5,2,1)+.1,cex.main=.8,cex.lab=.7,cex.axis=.6)
   split.screen(c(3,1))
   split.screen(c(1,2),1)
   split.screen(c(1,2),2)
   ## Abundances in number
   screen(4)
-  plot(dumb$age~dumb$year,cex=2.5*sqrt(dumb$n/max(dumb$n,na.rm=T)),ylab=NA,xlab=NA,pch=16,axes=F,col=gray(.1))
+  plot(dumb$age~dumb$year,cex=2.5*sqrt(dumb$n/max(dumb$n,na.rm=TRUE)),ylab=NA,xlab=NA,pch=16,axes=FALSE,col=gray(.1))
   title("Abundance at age")                                
   title(xlab="Survey",line=1)
   title(ylab="Age",line=1.5)
@@ -48,8 +48,8 @@ bubbage.camp <-function(gr,esp,camps,dns="Pnew",plus=8,recr=0,cor.time=T) {
   box()
   # Proportion at age
   screen(5)
-  sizer<-max(dumb$n/dumb$sumage,na.rm=T)
-  plot(dumb$age~dumb$year,cex=2.5*sqrt((dumb$n/dumb$sumage)/sizer),ylab=NA,xlab=NA,pch=16,axes=F,
+  sizer<-max(dumb$n/dumb$sumage,na.rm=TRUE)
+  plot(dumb$age~dumb$year,cex=2.5*sqrt((dumb$n/dumb$sumage)/sizer),ylab=NA,xlab=NA,pch=16,axes=FALSE,
        col=gray(.1))
   title("Proportion at age")
   title(xlab="Survey",line=1)
@@ -59,9 +59,9 @@ bubbage.camp <-function(gr,esp,camps,dns="Pnew",plus=8,recr=0,cor.time=T) {
   box()
   # Abundances standardized with the median (abund-median(ts))
   screen(6)
-  sizer<-max(abs(dumb$n-dumb$mediants),na.rm=T)
+  sizer<-max(abs(dumb$n-dumb$mediants),na.rm=TRUE)
   plot(dumb$age~dumb$year,ylab=NA,xlab=NA,col=ifelse((dumb$n-dumb$mediants)>=0,"blue","red"),
-       cex=ifelse(abs(dumb$n-dumb$mediants)>0,2.5*sqrt(abs(dumb$n-dumb$mediants)/(sizer)),.5),axes=F,
+       cex=ifelse(abs(dumb$n-dumb$mediants)>0,2.5*sqrt(abs(dumb$n-dumb$mediants)/(sizer)),.5),axes=FALSE,
        pch=ifelse(abs(dumb$n-dumb$mediants)>0,16,3))
   title("Median-Standardized abundance at age")
   title(xlab="Survey",line=1)
@@ -71,10 +71,10 @@ bubbage.camp <-function(gr,esp,camps,dns="Pnew",plus=8,recr=0,cor.time=T) {
   box()
   # Proportions at age standardized with the median
   screen(7)
-  sizer<-max(abs(dumb$n/dumb$sumage-dumb$medprpage),na.rm=T)
+  sizer<-max(abs(dumb$n/dumb$sumage-dumb$medprpage),na.rm=TRUE)
   plot(dumb$age~dumb$year,ylab=NA,xlab=NA,col=ifelse((dumb$n/dumb$sumage-dumb$medprpage)>=0,"blue","red"),
        cex=ifelse(abs((dumb$n/dumb$sumage)-dumb$medprpage)>0,2.5*sqrt(abs((dumb$n/dumb$sumage)-dumb$medprpage)/sizer),.5),
-       pch=ifelse(abs((dumb$n/dumb$sumage)-dumb$medprpage)>0,16,3),axes=F)
+       pch=ifelse(abs((dumb$n/dumb$sumage)-dumb$medprpage)>0,16,3),axes=FALSE)
   title("Median-Standardized proportion at age")
   title(xlab="Survey",line=1)
   title(ylab="Age",line=1.5)
@@ -85,9 +85,9 @@ bubbage.camp <-function(gr,esp,camps,dns="Pnew",plus=8,recr=0,cor.time=T) {
   screen(3)
   par(mar=c(2.5,2.5,1.5,1)+.1)
   agex<-tapply(dumb$n,dumb[,c(2,3)],sum)[recr+1,]
-  ymax<-max(agex,na.rm=T)*1.05
+  ymax<-max(agex,na.rm=TRUE)*1.05
   plot(as.numeric(colnames(tapply(dumb$n,dumb[,c(2,3)],sum))),agex,ylab=NA,xlab=NA,pch=16,
-       type="o",ylim=c(0,ymax),axes=F)
+       type="o",ylim=c(0,ymax),axes=FALSE)
   title(paste("Abundance at age",recr),cex.main=.9)
   title(xlab="Survey",line=1)
   title(ylab="Ind./30 min haul ",line=1.5)

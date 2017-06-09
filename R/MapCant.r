@@ -1,7 +1,7 @@
 #' Mapa de Demersales Norte para una sola campaña
 #'
 #' Crea un mapa para el Cantábrico y Galicia con información para la especie solicitada en la campaña solicitada, sólo una campaña para mas campañas ver maphist
-#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 Moluscos 4 equinodermos 5 invertebrados
+#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos
 #' @param esp Código de la especie númerico o caracter con tres espacios. 999 para todas las especies del grupo 
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
@@ -9,14 +9,15 @@
 #' @param add Si T añade los puntos al gráfico actual, si F dibuja uno nuevo
 #' @param escala Varia el tamaño de los puntos
 #' @param ti Si T añade titulo al mapa, el nombre de la especie en latín
-#' @param peso Si T representa los datos de biomasa, si F representa los datos de abundancia
-#' @seealso maphist {\link{maphist}}
+#' @param ind Si "p" representa los datos de biomasa, si "n" representa los datos de abundancia
+#' @param ceros Si T representa los ceros con cruces +, si F no representa lances sin captura
+#' @seealso {\link{maphist}}
+#' @family mapas base
+#' @family Norte Demersales
 #' @export
-MapCant<- function(gr,esp,camp,dns,color=1,add=F,escala=NA,ti=F,peso=T){
+MapCant<- function(gr,esp,camp,dns="Cant",color=1,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F){
   if (length(camp)>1) {stop("Seleccionadas mas de una campaña, no se pueden sacar resultados de más de una")}
-	require(RODBC)
   options(scipen=2)
-	require(maps)
   esp<-format(esp,width=3,justify="r")
 	if (!add) {
     MapNort(lwdl=1)
@@ -25,31 +26,24 @@ MapCant<- function(gr,esp,camp,dns,color=1,add=F,escala=NA,ti=F,peso=T){
     especie<-buscaesp(gr,esp)
 		}
 	else {especie=NULL}
-	ch1<-odbcConnect(dsn=dns)
-	odbcSetAutoCommit(ch1, FALSE)
+	ch1<-RODBC::odbcConnect(dsn=dns)
+	RODBC::odbcSetAutoCommit(ch1, FALSE)
   #browser()
-	absp<-sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camp," where grupo='",gr,"' and esp='",esp,"'",sep=""))
-	lan<-sqlQuery(ch1,paste("select lance,latitud_l,latitud_v,longitud_l,longitud_v,ewl,ewv from LANCE",camp," where validez<>'0'",sep=""))
+	absp<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camp," where grupo='",gr,"' and esp='",esp,"'",sep=""))
 	if (ti) {
-		ident<-sqlQuery(ch1,paste("select ident from CAMP",camp,sep=""))[[1]]
+		ident<-RODBC::sqlQuery(ch1,paste("select ident from CAMP",camp,sep=""))[[1]]
 		ident<-as.character(ident)
 		}
-	odbcClose(ch1)
-#	names(lan)<-gsub("_",".",names(lan))
-#	names(absp)<-gsub("_",".",names(absp))
-	lan[,"latitud_l"]<-sapply(lan[,"latitud_l"],gradec)
-	lan[,"latitud_v"]<-sapply(lan[,"latitud_v"],gradec)
-	lan[,"longitud_l"]<-sapply(lan[,"longitud_l"],gradec)*ifelse(lan$ewl=="W",-1,1)
-	lan[,"longitud_v"]<-sapply(lan[,"longitud_v"],gradec)*ifelse(lan$ewv=="W",-1,1)
-	lan[,"lat"]<-(lan[,"latitud_l"]+lan[,"latitud_v"])/2
-	lan[,"long"]<-(lan[,"longitud_l"]+lan[,"longitud_v"])/2
+	RODBC::odbcClose(ch1)
+  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=TRUE,incl0=FALSE)
 	lan<-lan[,c("lance","lat","long")]
 	names(lan)<-c("lan","lat","long")
-	mm<-merge(lan,absp,by.x="lan",by.y="lance",all.x=T)
+	mm<-merge(lan,absp,by.x="lan",by.y="lance",all.x=TRUE)
 	if (!identical(as.numeric(which(is.na(mm[,4]))),numeric(0))) {
 		mm[which(is.na(mm[,4])),4]<-0
 		mm[which(is.na(mm[,5])),5]<-0
 		}
+  if (ind=="p") peso=T else peso=F
 	mi<-ifelse(peso,4,5)
 	milab<-ifelse(peso,"kg/lance","N/lance")
 	if (peso) {maxmm<-max(mm[,mi])}
@@ -66,7 +60,7 @@ MapCant<- function(gr,esp,camp,dns,color=1,add=F,escala=NA,ti=F,peso=T){
 	if (is.na(escala)) {
 		for (i in 1:length(mm[,1])) {
 			points(mm[i,3],mm[i,2],cex=sqrt(mm[i,mi]*7/maxmm),lwd=2,col=color,pch=19)
-			if (mm[i,mi]==0) {points(mm[i,3],mm[i,2],cex=0.6,pch="+",col=color)}
+			if (mm[i,mi]==0 & ceros) {points(mm[i,3],mm[i,2],cex=0.6,pch="+",col=color)}
 			}
 		if (!add) {
 			leyenda<-cbind(rep(-4,5),seq(42.2,43,by=.2),maxml*c(.05,.1,.25,.5,1))

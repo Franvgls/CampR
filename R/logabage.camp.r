@@ -9,12 +9,12 @@
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param clms Número de columnas del gráfico
 #' @param layout parámetro con dos valores, filas y columnas del gráfico de lattice
-#' @seealso logabage2.camp {\link{logabage2.camp.r}}  edadstr.camp {\link{edadstr.camp}} bubbage.camp {\link{bubbage.camp.r}}
-#' @examples logabage.camp("1"," 43",Nsh,"Cant",8,0)
+#' @seealso {\link{logabage2.camp}}, {\link{edadstr.camp}}, {\link{bubbage.camp}}
+#' @examples logabage.camp(1,43,Nsh,"Cant",8,0)
 #' @return Saca gráficos de descenso de la abundancia a lo largo de la edad con la mortalidad total
+#' @family edades
 #' @export
-logabage.camp<-function(gr,esp,camps,dns="Pnew",plus=8,cor.time=T,clms=2,layout=NA) {
-  library(lattice)
+logabage.camp<-function(gr,esp,camps,dns="Pnew",plus=8,cor.time=TRUE,clms=2,layout=NA) {
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
   }
@@ -29,9 +29,8 @@ logabage.camp<-function(gr,esp,camps,dns="Pnew",plus=8,cor.time=T,clms=2,layout=
     }
   }
   cohts$cohort<-cohts$year-cohts$age
-  library(lattice)
-  trellis.par.set(col.whitebg())
-  trellis.par.set("strip.background",list(col=c(gray(.80))))
+  lattice::trellis.par.set(lattice::col.whitebg())
+  lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
   ndat<-length(levels(factor(cohts$cohort)))
   orden<-NULL
   ylims<-ceiling(max(abs(log(cohts$abund[which(cohts$abund>0)]))))
@@ -41,16 +40,16 @@ logabage.camp<-function(gr,esp,camps,dns="Pnew",plus=8,cor.time=T,clms=2,layout=
     if (ndats-floorndats^2>floorndats) layout<-c(ceiling(sqrt(ndats)),ceiling(sqrt(ndats)))
     else layout<-c(floorndats,floorndats)
   }
-  print(xyplot(log(abund)~age|factor(cohort),cohts,subset=(cohts$abund!=0),
-               as.table=F,layout=layout,ylim=c(-ylims,ylims),main=list(label="Abundance along age by cohort",cex=.8),
+  print(lattice::xyplot(log(abund)~age|factor(cohort),cohts,subset=(cohts$abund!=0),
+               as.table=FALSE,layout=layout,ylim=c(-ylims,ylims),main=list(label="Abundance along age by cohort",cex=.8),
                xlab=list(label="Age",cex=.7),ylab=list(label="Log(Abundance)",cex=.7),
-               par.strip.text=list(cex=.7,font=2),scales=list(alternating=F,tck=c(1,0),cex=.6,
+               par.strip.text=list(cex=.7,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.6,
                                                               x=list(at=c(0,seq(1,plus,by=1))),y=list(at=seq(-ylims+1,ylims-1,by=2))),
                panel=function(x,y,...) {
-                 #if (length(x)>1) panel.abline(lm(y~x,na.action=na.omit),col=4,lty=1)
-                 panel.xyplot(x,y,pch=20,col=gray(.3),type="o")
-                 ltext(plus-1,ylims-1,label=round(coef(lm(y~x,na.action=na.omit))[2],2),cex=.7)
-                 panel.abline(lm(log(abund)~age,cohts,subset=(cohts$abund!=0))$coef,col=2,lty=2)
+                 #if (length(x)>1) lattice::panel.abline(lm(y~x,na.action=na.omit),col=4,lty=1)
+                 lattice::panel.xyplot(x,y,pch=20,col=gray(.3),type="o")
+                 lattice::ltext(plus-1,ylims-1,label=round(coef(lm(y~x,na.action=na.omit))[2],2),cex=.7)
+                 lattice::panel.abline(lm(log(abund)~age,cohts,subset=(cohts$abund!=0))$coef,col=2,lty=2)
                }))
   print(tapply(cohts$abund,cohts[c(1,2)],sum))	
   #print(tapply(cohts$abund,cohts[c(1,4)],sum))

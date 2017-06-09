@@ -5,6 +5,7 @@
 #' @docType data
 #' @title Serie histórica de la campaña Demersales plataforma Norte
 #' @usage Nsh
-#' @format A vector with codes for the surveys from 1983 to 2013
-#' @seealso Psh {\link{Psh}} Ash {\link{Ash}}
-Nsh<-c(paste("N",c(83:86,88:99),sep=""),paste("N0",0:9,sep=""),paste("N",10:14,sep="")) # Demersales Norte
+#' @format Vector con los códigos de las campañas realizadas desde 1983 hasta 2016
+#' @family Series datos
+#' @family Norte demersales
+Nsh<-c(paste("N",c(83:86,88:99),sep=""),paste("N0",0:9,sep=""),paste("N",10:16,sep="")) # Demersales Norte

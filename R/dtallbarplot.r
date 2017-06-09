@@ -8,13 +8,13 @@
 #' @param camp campaña para comparar con las serie historica camps, debe ser una de las campañas dentro de la serie. Si NA (por defecto) compara la primera con el conjunto de la serie histórica incluida la primera
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
-#' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @param ymax Valor maximo del eje de la y para ambos gráficos de barras
 #' @param horiz F por defecto saca el histograma en vertical, se puede poner horizontal haciendolo T
-#' @seealso {\link{dtall.camp}}
+#' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
+#' @family Distribuciones de tallas
 #' @examples dtallbarplot(1,34,Nsh[19:28],"Cnew",excl.sect=c(1),ymax=1.5)
 #' @export
-dtallbarplot<-function (gr, esp, camps, dns, camp = NA, excl.sect=NA, cor.time=T, ymax = NA, horiz = T, years=F) 
+dtallbarplot<-function (gr, esp, camps, dns, camp = NA, excl.sect=NA, cor.time=TRUE, ymax = NA, horiz = T, years=TRUE) 
 {
   dumb <- dtall.camp(gr, esp, camps, dns, excl.sect=excl.sect,cor.time=cor.time,out.dat = T, plot = F,years=years)
   if (years & !is.na(camp)) {camptoyear(camp)}

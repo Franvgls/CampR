@@ -7,30 +7,27 @@
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
-#' @param AltAlk ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf
-#' @seealso GetAlk.camp {\link{GetAlk.camp}} 
+#' @param AltAlk ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf sin ruta ni extensión
 #' @examples edadsect.camp("1"," 45","P01","Pnew",8)
+#' @family edades
 #' @export
-edadsect.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=T,AltAlk=NA) {
+edadsect.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,AltAlk=NA) {
   #calcula las abundancias estratificadas por edad para cada sector a partir de los datos del camp.
-  if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de m?s de una")}
+  if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
   }
-  require(RODBC)
   esp<-format(esp,width=3,justify="r")
-  ch1<-odbcConnect(dns)
-  ntalls<-sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+  ch1<-RODBC::odbcConnect(dns)
+  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
                              " where grupo='",gr,"' and esp='",esp,"'",sep=""))
+  RODBC::odbcCloseAll()
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
-  durlan<-sqlQuery(ch1,paste("select * from CAMP",camp,sep=""))$DURLAN
-  lan<-sqlQuery(ch1,paste("select lance,sector,estrato,hora_l,hora_v from LANCE",camp," where validez='1'",sep=""))
-  lan<-data.frame(lance=lan$lance,sector=paste(lan$sector,lan$estrato,sep=""),hora_v=as.numeric(lan$hora_v),
-                  hora_l=as.numeric(lan$hora_l))
-  lan<-data.frame(lance=lan$lance,sector=paste(lan$sector,lan$estrato,sep=""),
-                  weight.time=ifelse(durlan==60,1,2)*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6))))
+  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=FALSE,incl0=FALSE)
+  lan<-lan[,c("lance","sector","weight.time")]
   ntalls<-ntalls[ntalls$lance %in% as.character(lan$lance),]
   if (any(cor.time,camp=="N83",camp=="N84")) {
     ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
@@ -42,7 +39,7 @@ edadsect.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=T,AltAlk=NA) {
   agebysex<-ifelse(any(edad$sexo!=3),T,F)
   if (agebysex) {
     if (all(ntalls$sexo==3)) {
-      print("ALK por sexos datos tallas no, simplifique la ALK",quote=F)
+      print("ALK por sexos datos tallas no, simplifique la ALK",quote=FALSE)
       agebysex<-F
       b<-1
       break
@@ -65,31 +62,33 @@ edadsect.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=T,AltAlk=NA) {
   }
   if (any(sapply(b,length)>0)) {
     if (agebysex) {
-      print("Tallas que no aparecen en ALK:",quote=F)
+      print("Tallas que no aparecen en ALK:",quote=FALSE)
       print(paste("sex",names(edadsx),b))
-      print("Tallas en ALK que no aparecen en distribuci?n:",quote=F)
+      print("Tallas en ALK que no aparecen en distribuci?n:",quote=FALSE)
       print(paste("sex",names(edadsx),bb))
     }
     else {
-      print("Las tallas: ",quote=F)
+      print("Las tallas: ",quote=FALSE)
       print(a[b])
-      print("no estan en la clave talla edad",quote=F)
+      print("no estan en la clave talla edad",quote=FALSE)
+      stop()
     }
   }
   else {
     sonedad<-which(substr(names(edad),1,1)=="E",T)
     for (i in sonedad) {edad[,i]<-edad[,i]/rowSums(edad[,sonedad])}
-    ch1<-odbcConnect(dns)
-    lan<-sqlQuery(ch1,paste("select lance,sector,estrato from LANCE",camp," where validez='1'",sep=""))
-    lan<-as.data.frame(cbind(as.numeric(as.character(lan$lance)),paste(lan$sector,lan$estrato,sep="")))
+    lan<-datlan.camp(camp,dns,redux=TRUE,incl2=FALSE)
+    lan<-lan[!is.na(lan$estrato),c("lance","sector")]
     area<-NULL
-    dumb<-as.character(names(sqlQuery(ch1,paste("select * from CAMP",camp,sep=""))))
+    ch1<-RODBC::odbcConnect(dns)
+    RODBC::odbcSetAutoCommit(ch1, FALSE)
+    dumb<-as.character(names(RODBC::sqlQuery(ch1,paste("select * from CAMP",camp,sep=""))))
     for (i in 21:45) {
       area<-paste(area,dumb[i],sep=",")
     }
     area<-substr(area,2,nchar(area))
-    area<-sqlQuery(ch1,paste("select ",area," from CAMP",camp,sep=""))
-    odbcCloseAll()
+    area<-RODBC::sqlQuery(ch1,paste("select ",area," from CAMP",camp,sep=""))
+    RODBC::odbcCloseAll()
     area<-area[-which(is.na(area) | area==0)]
     area<-as.data.frame(cbind(substr(names(area),2,3),as.numeric(t(area))))
     names(area)<-c("sector","arsect")
@@ -99,8 +98,8 @@ edadsect.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=T,AltAlk=NA) {
     lan$lance<-as.numeric(as.character(lan$lance))
     dumbtal<-data.frame(talla=c(0:(trunc(max(ntalls[,4])/10)*10+10)))
     #		browser()
-    ntalls<-merge(dumbtal,ntalls,by.x="talla",by.y="talla",all.x=T)
-    edad<-merge(dumbtal,edad,by.x="talla",by.y="talla",all.x=T)
+    ntalls<-merge(dumbtal,ntalls,by.x="talla",by.y="talla",all.x=TRUE)
+    edad<-merge(dumbtal,edad,by.x="talla",by.y="talla",all.x=TRUE)
     for (i in 1:ncol(ntalls)) {
       if (!identical(as.numeric(which(is.na(ntalls[,i]))),numeric(0))) {ntalls[which(is.na(ntalls[,i])),i]<-0}
     }
@@ -137,11 +136,11 @@ edadsect.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=T,AltAlk=NA) {
     nedad<-substr(names(lanedad),2,nchar(names(lanedad)))
     lanedad<-cbind(as.numeric(as.character(dimnames(lanedad)[[1]])),lanedad)
     names(lanedad)<-c("lance",nedad)
-    lanedad<-merge(lan,lanedad,by.x="lance",by.y="lance",all.x=T)
+    lanedad<-merge(lan,lanedad,by.x="lance",by.y="lance",all.x=TRUE)
     for (i in 1:ncol(lanedad)) {
       if (!identical(as.numeric(which(is.na(lanedad[,i]))),numeric(0))) {lanedad[which(is.na(lanedad[,i])),i]<-0}
     }
-    meansect.dt<- function(x,sector,area,Nas=F) {
+    meansect.dt<- function(x,sector,area,Nas=FALSE) {
       area<-tapply(area,sector,mean)
       avgloc<-tapply(x,sector,mean)
       sumsect<-tapply(avgloc*area,as.factor(substr(names(area),1,1)),sum)
@@ -156,4 +155,3 @@ edadsect.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=T,AltAlk=NA) {
   }
   dumb
 }
-#edadsect.camp("1"," 90","N06","Cant",15)

@@ -4,7 +4,8 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos. 4 equinodermos y 5 invertebrados no se miden
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew" o "Porc", Cantábrico "Cant" o "Cnew", Golfo de Cádiz "Arsa" y Mediterráneo "Medi" P
+#' @param cor.time Corrige la abundancia por la duración del lance frente al estándar de la campaña, al ser distribución de frecuencias no afecta a resultados pero se incluye por consistencia con otras fundiones de esta librería
 #' @param ti Si T añade título al gráfico, el nombre de la especie en latín
 #' @param bw Gráfico en blanco y negro si T o en color si F
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
@@ -13,12 +14,13 @@
 #' @param layout Organización de gráficos en filas ó columnas c(r,c)
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
+#' @family Distribuciones de tallas
+#' @examples denstall.camp(gr=1,esp=50,camp=Psh,dns="Porc",years=TRUE)
 #' @export
-denstall.camp<- function(gr,esp,camp,dns,ti=F,bw=T,es=T,plot=T,idi="l",
-  layout=NA,years=F,cexleg=1) {
-  require(lattice)
+denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,bw=TRUE,es=TRUE,plot=TRUE,idi="l",
+  layout=NA,years=TRUE,cexleg=1) {
   options(scipen=2)
-  if (plot) trellis.par.set(col.whitebg())
+  if (plot) lattice::trellis.par.set(lattice::col.whitebg())
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1 | any(esp=="999")) {
     print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
@@ -27,7 +29,7 @@ denstall.camp<- function(gr,esp,camp,dns,ti=F,bw=T,es=T,plot=T,idi="l",
   else { medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm") }
   if (bw) {
     colbars<-c("black",gray(.5),"white")
-    trellis.par.set("strip.background",list(col=c(gray(.80))))
+    lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
   }
   else {colbars<-c("lightyellow","steelblue","yellow1")}
   if (es) {ax<-c(paste("Talla (",medida,")",sep=""),"Número")}
@@ -42,10 +44,10 @@ denstall.camp<- function(gr,esp,camp,dns,ti=F,bw=T,es=T,plot=T,idi="l",
   }
   #	if (ti) tit<-list(label=buscaesp(gr,esp,id=id),font=4,cex=1.2)
   #	else tit<-NULL
-  if (!plot) tit<-list(label=ifelse(es,"Distribuci?n de tallas","Length distribution"),font=2,cex=.9) 
+  # if (!plot) tit<-list(label=ifelse(es,"Distribución de tallas","Length distribution"),font=2,cex=.9) 
   ndat<-length(camp)
   for (i in 1:ndat) {
-    dtall<-data.frame(talla=dattal.camp(gr,esp,camp[i],dns)[,1],n=rowSums(dattal.camp(gr,esp,camp[i],dns)[-1]))
+    dtall<-data.frame(talla=dattal.camp(gr,esp,camp[i],dns,cor.time=cor.time)[,1],n=rowSums(dattal.camp(gr,esp,camp[i],dns,cor.time=cor.time)[-1]))
     ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall$n))
     if (i==1) a<-ard
     else a<-rbind(a,ard)
@@ -69,31 +71,30 @@ denstall.camp<- function(gr,esp,camp,dns,ti=F,bw=T,es=T,plot=T,idi="l",
   if (ylim[2]<20) ylim[1]<-10
   if (ylim[2]<100 & ylim[2]>20) ylim[1]<-1
   if (length(camp)==1) {
-    foo<-densityplot(~rep(talla,a$n*ylim[1]),a,plot.points=F,lwd=2,xlim=xlimi,nint=40,
-                     scales=list(alternating=F,tck=c(1,0),x=list(tick.number=10)),main=tit,
+    foo<-densityplot(~rep(talla,a$n*ylim[1]),a,plot.points=FALSE,lwd=2,xlim=xlimi,nint=40,
+                     scales=list(alternating=FALSE,tck=c(1,0),x=list(tick.number=10)),main=tit,
                      xlab=list(label=ax[1],cex=1.2),ylab=list(label="density",cex=1.2),
-                     panel=function(x,subscripts,...) {panel.fill(col="white")
-                                                       panel.grid(-1,0,lty=3,col="gray70")
-                                                       panel.abline(v=quantile(x,c(.5),na.rm=T)+.5,lty=1,col="blue",lwd=1)
-                                                       panel.densityplot(x,...)}
+                     panel=function(x,subscripts,...) {lattice::panel.fill(col="white")
+                                                       lattice::panel.grid(-1,0,lty=3,col="gray70")
+                                                       lattice::panel.abline(v=quantile(x,c(.5),na.rm=TRUE)+.5,lty=1,col="blue",lwd=1)
+                                                       lattice::panel.densityplot(x,...)}
     )
   }
   else {
     if (ndat>2 & (ndat/2-trunc(ndat/2))==0 & any(is.na(layout))) layouti<- c(2,ndat/2)
     else layouti<- c(1,ndat)
-    foo<-densityplot(~rep(talla,a$n*ylim[1])|rep(camp,a$n*ylim[1]),a,subscripts=T,xlim=xlimi,plot.points=F,nint=15,
-                     scales=list(alternating=F,tck=c(1,0),cex=.7,x=list(tick.number=10)),main=tit,xlab=list(label=ax[1],cex=.9),
-                     ylab=list(label="density",cex=cexleg*.9),layout=layouti,par.strip.text=list(cex=cexleg*.8,font=2),as.table=T,
+    foo<-densityplot(~rep(talla,a$n*ylim[1])|rep(camp,a$n*ylim[1]),a,subscripts=TRUE,xlim=xlimi,plot.points=FALSE,nint=15,
+                     scales=list(alternating=FALSE,tck=c(1,0),cex=.7,x=list(tick.number=10)),main=tit,xlab=list(label=ax[1],cex=.9),
+                     ylab=list(label="density",cex=cexleg*.9),layout=layouti,par.strip.text=list(cex=cexleg*.8,font=2),as.table=TRUE,
                      panel=function(x,...) {
-                       panel.fill(col="white")
-                       panel.grid(-1,0,lty=3,col="gray60")
-                       print(quantile(x,c(.5),na.rm=T))
-                       panel.abline(v=quantile(x,c(.5),na.rm=T)+.5,lty=1,col="blue",lwd=1)
-                       panel.densityplot(x,...)},
+                       lattice::panel.fill(col="white")
+                       lattice::panel.grid(-1,0,lty=3,col="gray60")
+                       print(quantile(x,c(.5),na.rm=TRUE))
+                       lattice::panel.abline(v=quantile(x,c(.5),na.rm=TRUE)+.5,lty=1,col="blue",lwd=1)
+                       lattice::panel.densityplot(x,...)},
                      strip = function(...) strip.default(style=1,...))
   }
   if (plot) {print(foo)}
   else foo
 }
 # Comando para ordenar columnas lattice: as.numeric(unlist(strsplit(paste(c(0:7),c(8:15))," ")))
-# denstall.camp(1,50,Psh,"Pnew",years=T)

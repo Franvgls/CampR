@@ -9,20 +9,20 @@
 #' @return Devuelve la fecha de la que se toman los datos, un listado de lances contemplados y un data.frame con variables Especie,captura (kgs) ordenados por abundancia en las capturas
 #' @export
 captdia.camp<-function(camp="C14",dns="Cant",dias,peces=c(50,42,43,44,45,50,51,80,90,60,99),crust=c(19,29)) {
-  require(RODBC)
   for (i in 1:length(dias)) {
     if (nchar(dias[i])==1) dias[i]<-paste(0,dias[i],sep="")
   }
   #browser()
-  ch1<-odbcConnect(dsn=dns)
-  odbcSetAutoCommit(ch1, FALSE)
-  lan<-sqlQuery(ch1,paste("select lance,fecha from LANCE",camp," where validez<>'0'",sep=""))
-  fauna<-sqlFetch(ch1,paste("FAUNA",camp,sep=""))
-  odbcCloseAll()
-  lansdia<-substr(as.Date(lan$fecha),9,10)
+  ch1<-RODBC::odbcConnect(dsn=dns)
+  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=TRUE,incl0=FALSE)
+  lan<-lan[,c("lance","fecha")]
+  fauna<-RODBC::sqlFetch(ch1,paste("FAUNA",camp,sep=""))
+  RODBC::odbcCloseAll()
+  lansdia<-substr(as.Date(lan$fecha,format="%d-%m-%y"),9,10)
   #browser()
-  fecha<-levels(as.factor(lan[substr(as.Date(lan$fecha),9,10) %in% dias,2]))
-  lan<-lan[substr(as.Date(lan$fecha),9,10) %in% dias,1]
+  fecha<-levels(as.factor(lan[substr(as.Date(lan$fecha,format="%d-%m-%y"),9,10) %in% dias,2]))
+  lan<-lan[substr(as.Date(lan$fecha,format="%d-%m-%y"),9,10) %in% dias,1]
   fecha<-paste("Fecha:",paste(substr(fecha,9,10),substr(fecha,6,7),substr(fecha,3,4),sep="/"))
   fauna<-fauna[fauna$LANCE %in% lan,]
   total<-sum(fauna$PESO)
@@ -42,5 +42,5 @@ captdia.camp<-function(camp="C14",dns="Cant",dias,peces=c(50,42,43,44,45,50,51,8
   print(paste("Lances: ",paste(lan,collapse=", ",sep=""),".",sep=""))
   nlansscapt<-length(lan[!lan %in% names(totlan)])
   if (nlansscapt>0) print(paste(ifelse(nlansscapt==1,"Lance: ","Lances: "),paste(lan[!lan %in% names(totlan)],collapse=" "),"sin captura"))
-  dumb[order(dumb$Captura,decreasing=T),]
+  dumb[order(dumb$Captura,decreasing=TRUE),]
 }

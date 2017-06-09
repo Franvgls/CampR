@@ -21,27 +21,25 @@
 #' @param ymax Valor máximo del eje y
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
+#' @param verbose Si T saca avisos de consistencia en tallas, sino los omite
 #' @return Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(filas)xCampañas(columnas)
 #' @seealso {\link{dtallbarplot}} {\link{dtall.lan}}
 #' @examples dtall.camp(1,63,Psh,"Pnew",es=F,sex=F,ti=T,years=T) dtall.camp(1,50,Psh,"Pnew",es=F,ti=T,years=T,out.dat=T)
 #' @export
-dtall.camp<- function(gr,esp,camp,dns,cor.time=T,ti=F,sub=NA,leg=T,cexleg=1,bw=T,es=T,sex=T,plot=T,idi="l",clms=2,
-  layout=NA,excl.sect=NA,ymax=NA,out.dat=F,years=F) {
-	require(lattice)
+dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cexleg=1,bw=TRUE,es=TRUE,sex=TRUE,plot=T,idi="l",clms=2,
+  layout=NA,excl.sect=NA,ymax=NA,out.dat=FALSE,years=TRUE,verbose=TRUE) {
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1 | any(esp=="999")) {
-    print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
+    if (verbose) print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
     medida<-c("cm")
     }
   else { medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm") }
 	if (bw) {
     colbars<-c("black",gray(.5),"white")
-		trellis.par.set("strip.background",list(col=c(gray(.80))))
     }
 	else {
     colbars<-c("lightyellow","steelblue","yellow1")
-    trellis.par.set(col.whitebg())
     }
 	if (es) {sxn<-c("Indet","Machos","Hembras")
 		ax<-c(paste("Talla (",medida,")",sep=""),expression("Ind"%*%"lan"^-1))}
@@ -62,22 +60,22 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=T,ti=F,sub=NA,leg=T,cexleg=1,bw=T
 	ndat<-length(camp)
 	for (i in 1:ndat) {
     #browser()
-		dtall<-dattal.camp(gr,esp,camp[i],dns,excl.sect=excl.sect,cor.time=cor.time)
+		dtall<-dattal.camp(gr,esp,camp[i],dns,cor.time=cor.time,excl.sect=excl.sect,sex=sex,verbose=verbose)
 		names(dtall)<-c("talla",sexn[which(!is.na(match(dtalln,names(dtall)[2:ncol(dtall)])))])
-		sxs<- sixn %in% names(dtall)[2:length(names(dtall))]
+		sxs<- match(sixn,names(dtall)[2:length(names(dtall))])
 		if (sex) {
 			ard<-c(NULL,NULL,NULL,NULL)
-			if (sxs[2]) a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,match("2",names(dtall))],rep(2,nrow(dtall)))
+			if (!is.na(sxs[2])) a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,match("2",names(dtall))],rep(2,nrow(dtall)))
 			else a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),rep(0,nrow(dtall)),rep(2,nrow(dtall)))
 			ard<-rbind(ard,a1)
-			if (sxs[3]) a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,match("3",names(dtall))],rep(3,nrow(dtall)))
+			if (!is.na(sxs[3])) a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,match("3",names(dtall))],rep(3,nrow(dtall)))
 			else a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),rep(0,nrow(dtall)),rep(3,nrow(dtall)))
 			ard<-rbind(ard,a1)
-			if (sxs[1]) a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,match("1",names(dtall))],rep(1,nrow(dtall)))
+			if (!is.na(sxs[1])) a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,match("1",names(dtall))],rep(1,nrow(dtall)))
 			else a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),rep(0,nrow(dtall)),rep(1,nrow(dtall)))
 			ard<-rbind(ard,a1)
 			}
-		else {
+		else {       
 			if (ncol(dtall)>2) {
          ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),rowSums(dtall[,c(2:ncol(dtall))]),rep(1,nrow(dtall))))
 			}
@@ -88,50 +86,51 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=T,ti=F,sub=NA,leg=T,cexleg=1,bw=T
 		}
 	a<-as.data.frame(a)
 	names(a)<-c("talla","camp","n","sex")
-	if (years) {
+  if (years) {
     acamp<-a
-    acamps<-camp
+    acamps<-camp                                                                              
     camp<-camptoyear(camp)
     a$camp<-camptoyear(a$camp)
     }
 	a$camp<-factor(as.character(a$camp),levels=camp)
 	a$talla<-as.numeric(as.character(a$talla))
 	a$n<-as.numeric(as.character(a$n))
-	a$sex<-factor(as.character(a$sex))
+	if (sum(a$n)==0) stop(paste0(ifelse(es,"No hay capturas de la especie ","No catches of species "),buscaesp(gr,esp),ifelse(es," en las campañas seleccionadas"," in surveys selected")))
+	a$sex<-factor(as.character(a$sex),levels=c(1:3))
 	maxy<-tapply(a$n,a[,c(1,2)],sum)
 	maxy[which(is.na(maxy))]<-0
 	ylim<-c(0,ifelse(is.na(ymax),max(maxy)*1.05,ymax))
 	haysex<-sum(tapply(a$n,a$sex,sum)[c(2,3)])
 	if (sex & (haysex != 0)) {
 #		if (length(camp)==1) {
-			sxn<-sxn[sxs]
-			colbars<-colbars[sxs]
-			a$sex<-factor((a$sex),exclude=sixn[!sxs])
+			sxn<-sxn[(sxs)]          # sxn<-sxn[which(!is.na(sxs))]
+			colbars<-colbars[which(!is.na(sxs))]
+			a$sex<-factor((a$sex),exclude=sixn[which(is.na(sxs))])  # a$sex<-factor((a$sex),exclude=sixn[which(is.na(sxs))])
 #			}
 		}
 	else {
 		if (bw) colbars<-"grey"
-		else colbars<-"lightyellow"
+		else colbars<-"olivedrab1"
 		leg=F
 		}
   #browser()
   if (leg & (haysex != 0)) {
   	ddd<-tapply(a$n,a$sex,sum)
-    leg<-list(columns=sum(ddd>0),space="top",rectangles=list(T,size=5),
-		  col=colbars,text=list(labels=sxn,col="black",cex=cexleg*ifelse(!plot,.7,.9)))}     #,col=colbars
+    leg<-list(columns=3,space="top",rectangles=list(T,size=5),
+		  col=colbars[c(2,3,1)],text=list(labels=sxn[c(3,1,2)],col="black",cex=cexleg*ifelse(!plot,.7,.9)))}     #,col=colbars
 	else {leg<-NULL}
 	xlimi<-c(min(a$talla)*(.95-1),max(a$talla)*1.05)
 	if (is.character(sub)) sub=list(label=sub,font=2,cex=cexleg*.9)
   if (length(camp)==1) {
-		foo<-barchart(n~talla,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,ylim=ylim,xlim=xlimi,
-			scales=list(alternating=F,tck=c(1,0),x=list(tick.number=10)),stack=T,h=F,main=tit,
-			xlab=list(label=ax[1],cex=cexleg*1.2),ylab=list(label=ax[2],cex=cexleg*1.2),sub=sub,
-			panel=function(x,y,...) {panel.fill(col="white")
+		foo<-lattice::barchart(n~talla,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,ylim=ylim,xlim=xlimi,
+			scales=list(alternating=F,tck=c(1,0),x=list(tick.number=10)),stack=T,h=F,main=tit,par.strip.text=list(cex=cexleg*.8,font=2),
+			xlab=list(label=ax[1],cex=cexleg*1.2),ylab=list(label=ax[2],cex=cexleg*1.2),sub=sub,strip=TRUE,
+			panel=function(x,y,...) {lattice::panel.fill(col="white")
 #  			media=sum((x)*y*100)/sum(y*100)
-				panel.grid(-1,0,lty=3,col="black")
-#  			panel.abline(v=media,lty=1)
-				panel.barchart(x,y,col=colbars,...)
-#    		ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
+				lattice::panel.grid(-1,0,lty=3,col="black")
+#  			lattice::panel.abline(v=media,lty=1)
+				lattice::panel.barchart(x,y,col=colbars,...)
+#    		lattice::ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
         }
 			)
 			names(dtall)<-c("talla",dtalln[which(!is.na(match(sexn,names(dtall)[2:ncol(dtall)])))])
@@ -139,25 +138,35 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=T,ti=F,sub=NA,leg=T,cexleg=1,bw=T
 			}
 	else {
 		orden=NULL
-		if (any(is.na(layout))) {
+    if (any(is.na(layout))) {
 			if (ndat>3) layout<-c(clms,ceiling(ndat/clms))
 			else {layout<-c(1,ndat)}
 			}
     #*browser()
-		foo<-barchart(n~talla|camp,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,ylim=ylim,xlim=xlimi,col=colbars,
+		foo<-lattice::barchart(n~talla|camp,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,ylim=ylim,xlim=xlimi,col=colbars,drop.unused.levels=FALSE,
 			scales=list(alternating=F,tck=c(1,0),cex=cexleg*.7,x=list(tick.number=10)),stack=T,h=F,main=tit,xlab=list(label=ax[1],cex=cexleg*.9),
 			ylab=list(label=ax[2],cex=cexleg*.9),layout=layout,par.strip.text=list(cex=cexleg*.8,font=2),as.table=ifelse(!is.null(orden),F,T),sub=sub,
 			panel=function(x,y,...) {
-				panel.fill(col="white")
+				lattice::panel.fill(col="white")
 #  			media=sum((x)*y*100)/sum(y*100)
-				panel.grid(-1,0,lty=3,col="gray60")
-				panel.barchart(x,y,...)
-#    		ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
+				lattice::panel.grid(-1,0,lty=3,col="gray60")
+				lattice::panel.barchart(x,y,...)
+#    		lattice::ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
 				},
 			strip = function(...) strip.default(style=1,...))
 		}
   #browser()
-	if (plot) {print(foo)}
+	if (plot) {
+     	if (bw) {
+    colbars<-c("black",gray(.5),"white")
+		lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
+    }
+	else {
+    colbars<-c("lightyellow", "steelblue", "yellow1")
+    lattice::trellis.par.set(lattice::col.whitebg())
+    }
+print(foo)
+     }
 	if (out.dat) {
     if (years) {
       a<-acamp

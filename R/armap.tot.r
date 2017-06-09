@@ -13,32 +13,30 @@
 #' @param noval Si T añade las estaciones nulas
 #' @param CTDs Si T añade las estaciones de CTD realizadas
 #' @param strat strat Si T represent los estratos 
+#' @return Saca mapa con el desarrollo de la campaña con la zona y estratificación incluyendo tierra (Porcupine)
+#' @examples
+#' armap.tot("P14",dns="Porc",noval=TRUE,CTDs=FALSE,bw=TRUE,strat=FALSE,leg=TRUE)
+#' armap.tot("N14",dns="Cant",noval=TRUE,CTDs=FALSE,bw=FALSE,leg=TRUE)
+#' @family mapas
+#' @family resumen general
 #' @export
-armap.tot<-function(camp,dns="Pnew",lwdl=1,col=2,argr=2,arrow=F,leg=F,es=F,bw=T,noval=F,
-	CTDs=F,strat=F) {
+armap.tot<-function(camp,dns="Pnew",lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,es=FALSE,bw=TRUE,noval=FALSE,
+	CTDs=FALSE,strat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-	require(RODBC)
-	ch1<-odbcConnect(dsn=dns)
-	odbcSetAutoCommit(ch1, FALSE)
-	lan<-sqlQuery(ch1,paste("select lance,latitud_l,latitud_v,longitud_l,longitud_v,validez,ewl,ewv from LANCE",camp,sep=""))
-	if (any(sqlTables(ch1)$TABLE_NAME==paste("HIDRO",camp,sep="")))
-    {hidro<-sqlQuery(ch1,paste("select latitud,longitud,eswe from HIDRO",camp,sep=""))}
+	ch1<-RODBC::odbcConnect(dsn=dns)
+	RODBC::odbcSetAutoCommit(ch1, FALSE)
+	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE)
+	if (any(RODBC::sqlTables(ch1)$TABLE_NAME==paste("HIDRO",camp,sep="")))
+    {hidro<-RODBC::sqlQuery(ch1,paste("select latitud,longitud,eswe from HIDRO",camp,sep=""))}
   else CTDs=F
-	odbcClose(ch1)
-	names(lan)<-gsub("_",".",names(lan))
-  lan$latitud.l<-sapply(lan$latitud.l,gradec)
-  lan$longitud.l<-sapply(lan$longitud.l,gradec)*ifelse(lan$ewl=="W",-1,1)
-  lan$latitud.v<-sapply(lan$latitud.v,gradec)
-  lan$longitud.v<-sapply(lan$longitud.v,gradec)*ifelse(lan$ewv=="W",-1,1)
+	RODBC::odbcClose(ch1)
  	if (CTDs) {
     hidro$latitud<-gradec(hidro$latitud)
     hidro$longitud<-gradec(hidro$longitud)*ifelse(hidro$eswe=="W",-1,1)
     }
-	lan[,"lat"]<-(lan[,"latitud.l"]+lan[,"latitud.v"])/2
-	lan[,"long"]<-(lan[,"longitud.l"]+lan[,"longitud.v"])/2
 	lan<-lan[,c("lance","lat","long","validez")]
 	names(lan)<-c("lan","lat","long","val")
-	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=F,bw=bw)
+	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=FALSE,bw=bw)
   else {
 	  if (dns=="Cant" | dns=="Cnew") MapNort(strat=strat,bw=bw,es=es)
     else {
@@ -54,8 +52,8 @@ armap.tot<-function(camp,dns="Pnew",lwdl=1,col=2,argr=2,arrow=F,leg=F,es=F,bw=T,
 	if (noval) points(lan[lan$val==0,c(3,2)],pch=13,cex=1.5)
 	if (CTDs) points(hidro[,c(2,1)],pch=25,cex=1,bg="lightblue")
 	points(lan[lan$val==1,c(3,2)],pch=16)
-	points(lan[lan$val==2,c(3,2)],pch=16,col=3)
-	print(str(hidro))
+	points(lan[lan$val>1,c(3,2)],pch=16,col=3)
+	# print(str(hidro))
 	if (leg) {
 		l1<-c(ifelse(es,"Lances válidos","Valid tows"),ifelse(es,"Lances extra","Extra tows"))
 		pts<-c(16,21)
@@ -73,9 +71,9 @@ armap.tot<-function(camp,dns="Pnew",lwdl=1,col=2,argr=2,arrow=F,leg=F,es=F,bw=T,
 			bgs<-c(bgs,"lightblue")
 			cexs<-c(cexs,1.3)
 			}
-		legend("bottom",l1,pch=pts,pt.bg=bgs,pt.cex=cexs,inset=.05,bg="white",cex=.9)
+		legend("bottomright",l1,pch=pts,pt.bg=bgs,pt.cex=cexs,inset=.05,bg="white",cex=.9)
 		}
 	}
-#armap.tot("P08","Pnew",noval=F,CTDs=T,arrow=F,cols=F,leg=T)
-#armap.tot("P06",cols=F,arrow=F,leg=F,es=T,CTDs=F)
+#armap.tot("P08","Pnew",noval=FALSE,CTDs=TRUE,arrow=FALSE,leg=TRUE)
+#armap.tot("P06",cols=FALSE,arrow=FALSE,leg=FALSE,es=TRUE,CTDs=FALSE)
 #title("Porcupine 2006",line=2.5)

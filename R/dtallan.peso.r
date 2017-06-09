@@ -9,14 +9,15 @@
 #' @param sex por defecto (T) da valores por sexos si los hay, si F suma todos, si todos son indeterminados no afecta.
 #' @param areg Para cambiar el coeficiente "a" de la regresión si es distinto al archivado en el CAMP.
 #' @param breg Para cambiar el coeficiente "b" de la regresión si es distinto al archivado en el CAMP.
+#' @family Distribuciones de tallas
 #' @examples dtallan.peso(gr=1,esp=9,camp="N02",dns="Cant",lance=50)
 #' @export
-dtallan.peso<-function(gr,esp,camp,dns="Cant",lance=NA,sex=T,areg=NA,breg=NA) {
+dtallan.peso<-function(gr,esp,camp,dns="Cant",lances=NA,sex=TRUE,areg=NA,breg=NA) {
   if (length(esp)>1 | length(camp)>1) {
     stop("la función sólo sirve para una campaña y una especie")
   }
   esp<-format(esp,width=3,justify="r")
-  dumb<-dtallan.camp(gr,esp,camp,dns,lances=lance,sex=sex)
+  dumb<-dtallan.camp(gr,esp,camp,dns,lances=lances,sex=sex)
   if (is.na(areg) & is.na(breg)) abdumb<-talpes.camp(gr,esp)
   else abdumb<-c(areg,breg)
   if (ncol(dumb)==2) {

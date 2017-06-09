@@ -1,10 +1,11 @@
 #' Serie histórica Porcupine
 #' 
-#' Serie completa con las campañas realizadas en Porcupine
+#' Serie completa con las campañas realizadas en Porcupine Bank
 #' @name Psh
 #' @docType data
-#' @title Serie histórica de la campaña Porcupine Bank
+#' @title Serie histórica de la campaña Porcupine realizada por el IEO en el Banco Porcupine
 #' @usage Psh
-#' @format A vector with codes for the surveys from 2001 to 2014
-#' @seealso Nsh {\link{Nsh}} Ash {\link{Ash}}
-Psh<-c(paste("P0",1:9,sep=""),paste("P",10:14,sep=""))                                  # Porcupine
+#' @format A vector with codes for the surveys from 2001 to 2016
+#' @family Series datos
+#' @family Porcupine
+Psh<-c(paste("P0",1:9,sep=""),paste("P",10:16,sep=""))                                  # Porcupine

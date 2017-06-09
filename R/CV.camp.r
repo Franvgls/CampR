@@ -1,7 +1,7 @@
 #' Abundancias, SE y coeficientes de variación paramétricos por subestrato, estrato y total
 #'
 #' Función de resultados 
-#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
+#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
 #' @param camp Campaña de la que sacar los dato un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
@@ -10,13 +10,14 @@
 #' @param kg Si T saca los resultados en Kg, si F en gramos
 #' @param Nas Si F el error estándar de los subestratos y estratos con un solo lance son NA. Si T utiliza el valor del estrato y evita los NAs
 #' @param excl.sect Excluye los sectores o subsectores dados como caracteres
+#' @param verbose si T avisa de que distintas especies pueden pertenecer a grupos distintos y hay que valorar el sendio que tiene mezclarlas
 #' @return Devuelve una lista con valorees de media, SE y CV para los subestratos, estratos y total de la campaña
-#' @seealso CV.camps {\link{CV.camps.r}} CV.bt.camp {\link{CV.bt.camp.r}}
+#' @seealso {\link{CV.camps}}, {\link{CV.bt.camp}}
 #' @export
-CV.camp<- function(gr,esp,camp,dns,ind="p",cor.time=T,kg=T,Nas=F,excl.sect=NA) {
+CV.camp<- function(gr,esp,camp,dns,ind="p",cor.time=TRUE,kg=TRUE,Nas=FALSE,excl.sect=NA,verbose=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de m?s de una")}
   esp<-format(esp,width=3,justify="r")
-  mm<-datos.camp(gr,esp,camp,dns,kg=kg,cor.time=cor.time)
+  mm<-datos.camp(gr,esp,camp,dns,kg=kg,cor.time=cor.time,verbose=verbose)
   if (any(!is.na(excl.sect))) {
     for (i in 1:length(excl.sect)) {mm<-mm[-grep(excl.sect[i],as.character(mm$sector)),]}
     mm$sector<-factor(as.character(mm$sector))

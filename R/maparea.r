@@ -5,16 +5,16 @@
 #' @param leg incluye la leyenda con los colores/patrones de los estratos
 #' @param bw Si T mapa en blanco y negro, si F colorea los estratos y sectores
 #' @param dens si mayor de 0 las superficies de los estratos tienen patrones de líneas
+#' @family mapas
+#' @family Porcupine
 #' @export
-maparea<-function(es=T,leg=T,bw=F,dens=0) {
-	require(mapdata)
-	require(maps)
-	map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
-		fill=T,col="saddlebrown",type="n")
+maparea<-function(es=TRUE,leg=TRUE,bw=FALSE,dens=0) {
+	maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
+		fill=TRUE,col="saddlebrown",type="n")
 	box()
 	rect(-16,50.,-8.,55)
 	abline(v=c(-15:-6),h=c(51:54),lty=3,col=gray(.2))
-	map("worldHires",c("ireland","UK:Northern Ireland"),fill=T,col=ifelse(!bw,"wheat","gray95"),add=T)
+	maps::map("worldHires",c("ireland","UK:Northern Ireland"),fill=TRUE,col=ifelse(!bw,"wheat","gray95"),add=TRUE)
 	detach("package:mapdata")
 	points(-(9+.0303/.6),(53+.1623/.6),pch=16,col=1)
 	text(-(9+.0303/.6),(53+.1623/.6),label="Galway",pos=3,cex=.7,font=2)
@@ -24,14 +24,14 @@ maparea<-function(es=T,leg=T,bw=F,dens=0) {
 		colrs=c("white","white","white","white","white","white",gray(.7))
 		#dens=0
 		}
-	map(Porc.map,add=T,fill=T,col=colrs)
+	maps::map(Porc.map,add=TRUE,fill=TRUE,col=colrs)
 	if (dens>0) {
-		polygon(map(Porc.map,"1Aa",plot=F)$x,map(Porc.map,"1Aa",plot=F)$y,density=dens)
-		polygon(map(Porc.map,"1Ab",plot=F)$x,map(Porc.map,"1Ab",plot=F)$y,density=dens)
-		polygon(map(Porc.map,"1B",plot=F)$x,map(Porc.map,"1B",plot=F)$y,density=dens,angle=0)
-		polygon(map(Porc.map,"2B",plot=F)$x,map(Porc.map,"2B",plot=F)$y,density=dens,angle=0)
-		polygon(map(Porc.map,"2C",plot=F)$x,map(Porc.map,"2C",plot=F)$y,density=dens,angle=135)
-		polygon(map(Porc.map,"1C",plot=F)$x,map(Porc.map,"1C",plot=F)$y,density=dens,angle=135)
+		polygon(maps::map(Porc.map,"1Aa",plot=FALSE)$x,maps::map(Porc.map,"1Aa",plot=FALSE)$y,density=dens)
+		polygon(maps::map(Porc.map,"1Ab",plot=FALSE)$x,maps::map(Porc.map,"1Ab",plot=FALSE)$y,density=dens)
+		polygon(maps::map(Porc.map,"1B",plot=FALSE)$x,maps::map(Porc.map,"1B",plot=FALSE)$y,density=dens,angle=0)
+		polygon(maps::map(Porc.map,"2B",plot=FALSE)$x,maps::map(Porc.map,"2B",plot=FALSE)$y,density=dens,angle=0)
+		polygon(maps::map(Porc.map,"2C",plot=FALSE)$x,maps::map(Porc.map,"2C",plot=FALSE)$y,density=dens,angle=135)
+		polygon(maps::map(Porc.map,"1C",plot=FALSE)$x,maps::map(Porc.map,"1C",plot=FALSE)$y,density=dens,angle=135)
 	   }
 	if (leg) {
 		rect(-13.2,50.7,-10.3,51.3,col="white")

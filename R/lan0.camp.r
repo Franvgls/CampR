@@ -6,6 +6,6 @@
 #' @export
 lan0.camp<-function(camp,dns) {
   if (length(camp)>1) stop("Sólo se puede seleccionar una campaña, proces individualmente")
-  datlan.camp(camp,dns,incl0=T)[datlan.camp(camp,dns,incl0=T)[,3]==0,"lance"]
+  datlan.camp(camp,dns,incl0=TRUE)[datlan.camp(camp,dns,incl0=TRUE)[,3]==0,"lance"]
 }
 # lan0.camp("P01","Pnew")

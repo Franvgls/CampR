@@ -8,31 +8,33 @@
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
-#' @param sx Si T muestra los datos por sexo
-#' @return Devuelve un data.frame con variables: talla, machos, hembras e indet(erminados) si existen todos y si sx=T
-#' @seealso datos.camp {\link{datos.camp}}
+#' @param sex Si T muestra los datos por sexo
+#' @param verbose Si T muestra avisos problemas de tallas entre distintas especies
+#' @return Devuelve un data.frame con variables: talla, machos, hembras e indet(erminados) si existen todos y si sex=TRUE
+#' @seealso {\link{datos.camp}}
+#' @examples dattal.camp("1"," 50",paste("P0",7,sep=""),"Pnew",excl.sect=c("B","C"))
 #' @export
-dattal.camp<- function(gr,esp,camp,dns,cor.time=T,excl.sect=NA,sx=T) {
+dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbose=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
   abesp<-datos.camp(gr,esp,camp,dns,cor.time=cor.time)
-  ch1<-odbcConnect(dsn=dns)
-  odbcSetAutoCommit(ch1, FALSE)
+  ch1<-RODBC::odbcConnect(dsn=dns)
+  RODBC::odbcSetAutoCommit(ch1, FALSE)
   if (length(esp)==1) {
     if (esp!="999") {
-      ntalls<-sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"' and esp='",esp,"'",sep=""))
+      ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"' and esp='",esp,"'",sep=""))
       #browser()
       if (nrow(ntalls)==0 | sum(abesp$numero)==0) {ntalls<-data.frame(lance=abesp[1,"lance"],peso_gr=0,peso_m=.1,talla=1,sexo="3",numer=0,stringsAsFactors=FALSE)}
     }
     if (esp=="999") {
-      ntalls<-sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'",sep=""))
+      ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'",sep=""))
     }
   }
   if (length(esp)>1) {
-    ntalls<-sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+    ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
                                " where grupo='",gr,"' and esp='",esp[1],"'",sep=""))
     for (i in 2:length(esp)) {
-      ntalls<-rbind(ntalls,sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+      ntalls<-rbind(ntalls,RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
                                               " where grupo='",gr,"' and esp='",esp[i],"'",sep="")))
     }
     ntalls$sexo<-3
@@ -40,25 +42,27 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=T,excl.sect=NA,sx=T) {
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
-  lan<-sqlQuery(ch1,paste("select lance,sector,estrato,hora_l,hora_v from LANCE",camp," where validez='1'",sep=""))
+  lan<-datlan.camp(camp,dns,incl2=FALSE)[,c("lance","sector","weight.time","estrato")]
   lan<-lan[!is.na(lan$estrato),]
-  lan<-data.frame(lance=lan$lance,sector=paste(lan$sector,lan$estrato,sep=""),hora_v=as.numeric(lan$hora_v),
-                  hora_l=as.numeric(lan$hora_l))
-  lan<-data.frame(lance=lan$lance,sector=paste(lan$sector,lan$estrato,sep=""),
-                  weight.time=2*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6))))
-  if (max(lan$weight.time>=1.5)) {
+  lan<-lan[,c("lance","sector","weight.time")]
+#  lan<-data.frame(lance=lan$lance,sector=paste(lan$sector,lan$estrato,sep=""),hora_v=as.numeric(lan$hora_v),
+#                  hora_l=as.numeric(lan$hora_l))
+#  lan<-data.frame(lance=lan$lance,sector=paste(lan$sector,lan$estrato,sep=""),
+#                  weight.time=2*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6)#)))
+#  if (max(lan$weight.time>=1.5)) {
+  if (any(cor.time,camp=="N83",camp=="N84")) {
     ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
     ntalls$numer<-ntalls$numer/ntalls$weight.time
     ntalls<-ntalls[,1:6]
-  }
-  odbcClose(ch1)
+  }                                 
+  RODBC::odbcClose(ch1)
   if (any(!is.na(excl.sect))) {
     abesp$sector<-gsub("NA","N",abesp$sector) # print(datos)
     for (i in 1:length(excl.sect)) {if (length(grep(excl.sect[i],as.character(abesp$sector)))>0) abesp<-abesp[-grep(excl.sect[i],as.character(abesp$sector)),]}
     print(abesp)
     abesp$sector<-factor(as.character(abesp$sector))
   }
-  dumb<-merge(abesp,ntalls,by.x="lance",by.y="lance",all.x=T)
+  dumb<-merge(abesp,ntalls,by.x="lance",by.y="lance",all.x=TRUE)
   for (i in 1:ncol(dumb)) {
     if (!identical(as.numeric(which(is.na(dumb[,i]))),numeric(0))) {
       dumb[which(is.na(dumb[,i])),i]<-0
@@ -66,13 +70,13 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=T,excl.sect=NA,sx=T) {
   }
   dumb$lance<-as.numeric(dumb$lance)
   dumb$arsect<-as.numeric(dumb$arsect)
-  dumb$sexo<-factor(dumb$sexo,exclude=0)
+    if (any(levels(factor(dumb$sexo,exclude=0))!="3")) dumb$sexo<-factor(dumb$sexo,levels=c(1:3),exclude=0) else dumb$sexo=3
   abesp$arsect<-as.numeric(abesp$arsect)
   if (all(is.na(dumb$sexo))) {
     dumb$sexo<-as.character(dumb$sexo)
     dumb[is.na(dumb$sexo),"sexo"]<-3
   }
-  if (sum(dumb$peso.m,na.rm=T)==0) dumb[1,c("peso.m","talla")]<-c(.1,1)   
+  if (sum(dumb$peso.m,na.rm=TRUE)==0) dumb[1,c("peso.m","talla")]<-c(.1,1)   
   dumb1<-tapply(dumb$numer,dumb[,c("talla","sector","sexo")],sum)
   dumb1[which(is.na(dumb1))]<-0
   lansect<-as.vector(tapply(abesp$sector,abesp$sector,length))
@@ -104,7 +108,7 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=T,excl.sect=NA,sx=T) {
     else dumb1i<-dumb1i/lansect
   }
   areas<-as.vector(tapply(abesp$arsect,abesp$sector,mean))
-  weiman<-function(a,b) {weighted.mean(a,b)}
+  weiman<-function(a,b) {weighted.mean(a,b,na.rm=TRUE)}
   if (length(areas)>1) {
     #browser()
     dtall<- data.frame(cbind(if (!is.na(sxs[1])) apply(dumb1m,1,weiman,b=areas),
@@ -119,18 +123,17 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=T,excl.sect=NA,sx=T) {
   names(dtall)<-c("V1",dtalln[which(!is.na(sxs))])
   dumb<-as.data.frame(c(1:(trunc(ifelse(nrow(dtall)>0,max(dtall[,1]),1)/10)*10+10)))
   names(dumb)<-"talla"
-  dtall<-merge(dumb,dtall,by.x="talla",by.y="V1",all.x=T)
+  dtall<-merge(dumb,dtall,by.x="talla",by.y="V1",all.x=TRUE)
   for (i in 2:ncol(dtall)) {
     if (!identical(as.numeric(which(is.na(dtall[,i]))),numeric(0))) {
       dtall[which(is.na(dtall[,i])),i]<-0
     }
   }
-  if (length(esp)>1) {
+  if (length(esp)>1 & verbose) {
     print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
   }
-  if (!sx & ncol(dtall)>2) { dtall<-data.frame(talla=dtall[,1],numero=rowSums(dtall[,2:ncol(dtall)])) }
-  if (!sx & ncol(dtall)==2) names(dtall)<-c("talla","numero")	
+  if (!sex & ncol(dtall)>2) { dtall<-data.frame(talla=dtall[,1],numero=rowSums(dtall[,2:ncol(dtall)])) }
+  if (!sex & ncol(dtall)==2) names(dtall)<-c("talla","numero")	
   #browser()
   as.data.frame(dtall)
 }
-#dattal.camp("1"," 50",paste("P0",7,sep=""),"Pnew",excl.sect=c("B","C"))

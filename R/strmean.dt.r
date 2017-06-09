@@ -11,7 +11,7 @@
 # a cada estrato y sector junto con sus SE y sus CV param?tricos.
 # Las variables son las mismas que en el caso anterior. El campo Nas sirve para calcular a pesar de 
 # estratos sin varianza por tener un sólo lance.  area<-as.numeric(as.character(area))
-strmean.dt<- function(x,sector,area,Nas=F) {
+strmean.dt<- function(x,sector,area,Nas=FALSE) {
   area<-tapply(area,sector,mean)
   avgloc<-tapply(x,sector,mean)
   SEloc<-sqrt(tapply(x,sector,var))/sqrt(tapply(x,sector,length))

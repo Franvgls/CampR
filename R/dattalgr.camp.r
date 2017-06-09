@@ -8,21 +8,21 @@
 #' @param tmin Talla mínima
 #' @param tmax Talla máxima
 #' @param cor.time Si T corrige abundancias con la duración del lance para llevarlo a 30 minutos
-#' @param sx Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo
+#' @param incl2 Si F no tiene en cuenta los lances especiales, si T si los tiene en cuenta, pero da problemas por que no puede calcular las abundancias estratificadas
+#' @param sex Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo
 #' @param ind Parámetro a representar saca los datos en "p"eso o "n"úmero
-#' @seealso datgr.camp {\link{datgr.camp}}
+#' @seealso {\link{datgr.camp}}
 #' @examples dattalgr.camp("1",c(44:45),"N94","Cant",0,45,ind="p")
 #' @export
-dattalgr.camp<- function(gr,esp,camp,dns="Pnew",tmin=1,tmax=999,cor.time=T,sx=NA,ind="n") {
+dattalgr.camp<- function(gr,esp,camp,dns="Pnew",tmin=1,tmax=999,cor.time=TRUE,incl2=TRUE,sex=NA,ind="n") {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-  require(RODBC)
   esp<-format(esp,width=3,justify="r")
-  ch1<-odbcConnect(dsn=dns)
-  odbcSetAutoCommit(ch1, FALSE)
-  tallas<-sqlFetch(ch1,paste("NTALL",camp,sep=""))
+  ch1<-RODBC::odbcConnect(dsn=dns)
+  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  tallas<-RODBC::sqlFetch(ch1,paste("NTALL",camp,sep=""))
   #  browser()
   if (length(esp)>1 | any(esp=="999")) {
-    if (!is.na(sx)) {
+    if (!is.na(sex)) {
       stop("No tiene sentido elegir sexo de más de una especie")
     }
     if (ind=="p") stop("No se pueden sacar pesos de más de una especie")
@@ -38,22 +38,12 @@ dattalgr.camp<- function(gr,esp,camp,dns="Pnew",tmin=1,tmax=999,cor.time=T,sx=NA
   else {
     ntalls<-tallas[tallas$GR==gr & tallas$ESP %in% as.integer(esp),c(1,4,7,6,8,5,9)]
   }
-  lan<-sqlQuery(ch1,paste("select lance,latitud_l,latitud_v,longitud_l,longitud_v,prof_l,prof_v,ewl,ewv,hora_l,hora_v from LANCE",
-                          camp," where validez<>'0'",sep=""),errors=F)
-  durlan<-sqlQuery(ch1,paste("select * from CAMP",camp,sep=""))$DURLAN
-  odbcClose(ch1)
-  lan$latitud_l<-sapply(lan$latitud_l,gradec)
-  lan$longitud_l<-sapply(lan$longitud_l,gradec)*ifelse(lan$ewl=="W",-1,1)
-  lan$latitud_v<-sapply(lan$latitud_v,gradec)
-  lan$longitud_v<-sapply(lan$longitud_v,gradec)*ifelse(lan$ewv=="W",-1,1)
-  lan[,"lat"]<-(lan[,"latitud_l"]+lan[,"latitud_v"])/2
-  lan[,"long"]<-(lan[,"longitud_l"]+lan[,"longitud_v"])/2
-  lan[,"prof"]<-(lan[,"prof_l"]+lan[,"prof_v"])/2
-  lan$weight.time<-ifelse(durlan==60,1,2)*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6)))
+  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=incl2)
+  RODBC::odbcClose(ch1)
   lan<-lan[,c("lance","lat","long","prof","weight.time")]
   names(lan)<-c("lan","lat","long","prof","weight.time")
   names(ntalls)<-gsub("_", ".",tolower(names(ntalls)))
-  if (!is.na(sx)) ntalls<-ntalls[ntalls$sexo==sx,]
+  if (!is.na(sex)) ntalls<-ntalls[ntalls$sexo==sex,]
   if (!any(ntalls$talla<=tmax & ntalls$talla>=tmin)) {
     if (ind=="n") mm<-data.frame(lan=lan$lan,lat=lan$lat,long=lan$long,prof=lan$prof,weight.time=lan$weight.time,numero=0)
     else mm<-data.frame(lan=lan$lan,lat=lan$lat,long=lan$long,prof=lan$prof,weight.time=lan$weight.time,peso=0)
@@ -83,11 +73,11 @@ dattalgr.camp<- function(gr,esp,camp,dns="Pnew",tmin=1,tmax=999,cor.time=T,sx=NA
       ntalls<-tapply(ntalls$numer,ntalls$lance,sum)
       absp<-data.frame(lance=as.numeric(as.character(names(ntalls))),numero=ntalls)
     }
-    mm<-merge(lan,absp,by.x="lan",by.y="lance",all.x=T)
+    mm<-merge(lan,absp,by.x="lan",by.y="lance",all.x=TRUE)
     if (!identical(as.numeric(which(is.na(mm[,6]))),numeric(0))) {
       mm[which(is.na(mm[,6])),6]<-0
     }
-    if (any(cor.time,camp=="N83",camp=="N84")) {
+    if (any(cor.time,camp=="N83",camp=="N84",na.rm=TRUE)) {
       if(ind=="n") mm$numero<-round(mm$numero/mm$weight.time,1)
       if(ind=="p") mm$peso<-round(mm$peso/mm$weight.time,3)
     }
@@ -96,7 +86,7 @@ dattalgr.camp<- function(gr,esp,camp,dns="Pnew",tmin=1,tmax=999,cor.time=T,sx=NA
     print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
   }
   if (ind=="p") {
-    if (any(ntalls.error>.3,na.rm=T)) {
+    if (any(ntalls.error>.3,na.rm=TRUE)) {
       texto<-paste(paste("qcLW.camp(",gr,sep=""),esp,camp,paste(dns,")",sep=""),sep=",")
       print(paste("Estimaciones peso regresión mayores que datos en un 30% para algún lance, compruebe",texto))
     }
