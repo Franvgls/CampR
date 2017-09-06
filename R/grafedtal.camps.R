@@ -14,6 +14,7 @@
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
 #' @param clms Número de columnas para ordenar la serie histórica
 #' @param layout Organización de gráficos en filas ó columnas c(r,c) 
+#' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param ymax Valor máximo del eje y
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
@@ -22,7 +23,7 @@
 #' @examples grafedtal.camps(1,43,Nsh[22:31],"Cant",plus=7,years=T,es=FALSE)
 #' @family edades
 #' @export
-grafedtal.camps <- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,excl.sect=NA,ti=FALSE,leg=TRUE,es=TRUE,layout=NA,clms=2,plot=TRUE,ymax=NA,out.dat=FALSE,years=TRUE)  {
+grafedtal.camps <- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,excl.sect=NA,ti=FALSE,leg=TRUE,es=TRUE,layout=NA,idi="l",cexleg=1,clms=2,plot=TRUE,ymax=NA,out.dat=FALSE,years=TRUE)  {
   if (length(camp)==1) {stop("Ha seleccionado sólo una campaña, utilice grafedtal.camp")}
   ndat=length(camp)
   if (length(esp)>1) {
@@ -34,7 +35,14 @@ grafedtal.camps <- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,excl.sec
     dumb<-rbind(dumb,grafedtal.camp(gr,esp,i,dns,plus,cor.time=cor.time,AltAlk=NA,excl.sect,ti=FALSE,leg=TRUE,es,plot=FALSE,out.dat=TRUE))
   }  
   colo<-rainbow(plus+1)
-  tit<-""
+  if (is.logical(ti)) {
+    if (ti) {tit<-list(label=buscaesp(gr,esp,id=idi),font=ifelse(idi=="l",4,2),cex=1*cexleg)}
+    else {tit<-NULL}
+  }
+  else {
+    if(is.list(ti)) tit<-ti
+    else tit<-list(label=ti)
+  }
   cols<-ifelse((plus+1)/2-trunc((plus+1)/2)==0,(plus+1)/2,trunc((plus+1)/2)+1)
   leg<-list(columns=cols,space="top",rect=list(T,col=colo,size=3),
             text=list(labels=c(0:c(plus-1),paste(plus,"+",sep="")),col="black",cex=.7))
@@ -53,7 +61,7 @@ grafedtal.camps <- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,excl.sec
     if (ndat>3) layout<-c(clms,ceiling(ndat/clms))
     else {layout<-c(1,ndat)}
   }
-  a<-lattice::barchart(n~talla|camp,dumb,groups=factor(dumb$edad),col=colo,main=list(label=tit,font=3),xlim=xlimi,
+  a<-lattice::barchart(n~talla|camp,dumb,groups=factor(dumb$edad),col=colo,main=tit,xlim=xlimi,
               scales=list(alternating=F,tck=c(1,0),cex=.7,x=list(tick.number=10)),box.ratio=1000,h=F,stack=T,
               key=leg,xlab=paste(ifelse(F,"talla","Length"),"(cm)"),layout=layout,par.strip.text=list(cex=.7,font=2),
               ylab="Number",par.strip.background=list(col=c("grey90")),as.table=T,

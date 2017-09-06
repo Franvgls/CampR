@@ -41,9 +41,15 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
   dumbtal<-dumbtal[dumbtal$talla>=tmin & dumbtal$talla<=tmax,]
   if (years) colnames(dumbtal)<-c("talla",camptoyear(colnames(dumbtal[,2:ncol(dumbtal)])))
   #  browser()
-  if (ind=="p") print(paste("Peso medio estratificado en gramos por lance de",buscaesp(gr,esp),"entre",tmin,"y",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm")))
-  else print(paste("número medio estratificado de individuos por lance de",buscaesp(gr,esp),"entre",tmin,"y",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm")))
-  if (plot) {
+  if (es){
+    if (ind=="p") print(paste("Peso medio estratificado en gramos por lance de",buscaesp(gr,esp),"entre",tmin,"y",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm")))
+    else print(paste("número medio estratificado de individuos por lance de",buscaesp(gr,esp),"entre",tmin,"y",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm")))
+  }
+  else {
+    if (ind=="p") print(paste(buscaesp(gr,esp),"between",tmin,"and",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm"),"mean stratified weight in grams per haul"))
+    else print(paste(buscaesp(gr,esp),"between",tmin,"and",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm"),"mean stratified number of individuals per haul"))
+  }
+    if (plot) {
 #    op<-par(no.readonly=TRUE)
     par(mgp=c(2,.6,0))
     yetiq<-ifelse(es,expression("Ind"%*%"lan"^-1),expression("Ind"%*%"haul"^-1))

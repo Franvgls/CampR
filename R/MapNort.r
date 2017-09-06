@@ -7,10 +7,12 @@
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
 #' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD) 
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
+#' @param leg Si T saca una leyenda con los estratos batimétricos que salen de color o con grises en bw
 #' @param bw si T mapa con tierra en gris, si F tierra en color
+#' @param dens si mayor de 0 las superficies de los estratos tienen patrones de líneas
 #' @param es si T saca textos en español, si F en inglés
 #' @param ax Si T saca los ejes x e y
-#' @param strat Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes
+#' @param strat Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)
 #' @param places Si T saca ciudades y puntos geográficos de referencia
 #' @param xlims Define los limites longitudinales del mapa, por defecto -10.25 y -1.4 oeste
 #' @param ylims Define los limites longitudinales del mapa, por defecto 41.82 y 44.48 norte
@@ -19,7 +21,7 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
+MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   data(CampR)
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (ax) {
@@ -52,6 +54,20 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,bw=TRUE,es
   maps::map(Nort.map,Nort.map$names[1:16],add=TRUE,col=c("gray"),lwd=lwdl)
   maps::map(Nort.map,Nort.map$names[17],add=TRUE,col=c("black"),lwd=lwdl)
   box(lwd=2)
+  if (leg) {
+    if (!bw) {
+      maps::map(Nort.map,Nort.map$names[grep(".a",Nort.map$names,fixed=T)],add=TRUE,fill=TRUE,col="lightblue")
+      maps::map(Nort.map,Nort.map$names[grep(".b",Nort.map$names,fixed=T)],add=TRUE,fill=TRUE,col="blue")
+      maps::map(Nort.map,Nort.map$names[grep(".c",Nort.map$names,fixed=T)],add=TRUE,fill=TRUE,col="darkblue")
+      legend("bottomright",c("A: 70-120 m","B: 121-200 m","C: 201-500 m"),fill=c("lightblue","blue","darkblue"),title=ifelse(es,"Estr. prof","Depth strata"),cex=.8,inset=.05,bg="white")
+    }
+    else {
+      maps::map(Nort.map,Nort.map$names[grep(".a",Nort.map$names,fixed=T)],add=TRUE,fill=TRUE,col=gray(.8))
+      maps::map(Nort.map,Nort.map$names[grep(".b",Nort.map$names,fixed=T)],add=TRUE,fill=TRUE,col=gray(.6))
+      maps::map(Nort.map,Nort.map$names[grep(".c",Nort.map$names,fixed=T)],add=TRUE,fill=TRUE,col=gray(.3))
+      legend("bottomright",c("A: 70-120 m","B: 121-200 m","C: 201-500 m"),fill=c(gray(.8),gray(.6),gray(.3)),title=ifelse(es,"Estr. prof","Depth strata"),cex=.8,inset=.05,bg="white")
+      }
+    }
   if (places) {
     legend("bottom",ifelse(es,"España","Spain"),cex=2,inset=.15,bty="n")
     text(-8.383,43.367,"A Coruña",cex=.85,font=2,pos=1)

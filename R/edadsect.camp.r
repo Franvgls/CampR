@@ -34,7 +34,7 @@ edadsect.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,AltAlk=NA) {
     ntalls$numer<-ntalls$numer/ntalls$weight.time
     ntalls<-ntalls[,1:6]
   }
-  edad<-GetAlk.camp(gr,esp,camp,dns,plus,AltAlk)
+  edad<-GetAlk.camp(gr,esp,camp,dns,plus,n.ots=FALSE,AltAlk)
   # identifica si la ALK est? hecha por sexos o conjunta
   agebysex<-ifelse(any(edad$sexo!=3),T,F)
   if (agebysex) {

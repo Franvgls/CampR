@@ -7,6 +7,7 @@
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
 #' @param cuadrMSFD Si T dibuja cuadrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD) 
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
+#' @param leg si T incluye una legenda con los estratos de profundidad y los estratos se colorean respectivamente
 #' @param ax Si T saca los ejes x e y
 #' @param bw si T mapa con tierra en gris, si F tierra en color
 #' @param es Si T saca titulos y ejes en español
@@ -18,7 +19,7 @@
 #' @family mapas base
 #' @family ARSA
 #' @export
-MapArsa<-function(xlims=c(-8,-5.55),ylims=c(35.95,37.33),lwdl=1,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
+MapArsa<-function(xlims=c(-8,-5.55),ylims=c(35.95,37.33),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
   data(CampR)
   asp<-diff(c(35.95,37.33))/(diff(c(-8,-5.55))*cos(mean(c(35.95,37.29))*pi/180))
   if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
@@ -39,7 +40,25 @@ MapArsa<-function(xlims=c(-8,-5.55),ylims=c(35.95,37.33),lwdl=1,cuadr=FALSE,cuad
   }
   maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,5),ifelse(bw,"light gray","wheat")),lwd=lwdl)
   maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,6),ifelse(bw,"light gray","wheat")),lwd=lwdl)
-  if (places) {
+  if (leg) {
+    if (!bw) {
+      maps::map(Arsa.map,Arsa.map$names[grep("StrA",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col="lightblue1")
+      maps::map(Arsa.map,Arsa.map$names[grep("StrB",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col="lightblue2")
+      maps::map(Arsa.map,Arsa.map$names[grep("StrC",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col="lightblue3")
+      maps::map(Arsa.map,Arsa.map$names[grep("StrD",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col="blue")
+      maps::map(Arsa.map,Arsa.map$names[grep("StrE",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col="darkblue")
+      legend("topright",c("A: 15-30 m","B: 30-70 m","C: 71-200 m","D: 201-500 m","E: 501-800 m"),fill=c("lightblue1","lightblue2","lightblue3","blue","darkblue"),title=ifelse(es,"Estr. prof","Depth strata"),cex=.8,inset=.05,bg="white")
+    }
+    else {
+      maps::map(Arsa.map,Arsa.map$names[grep("StrA",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col=gray(.9))
+      maps::map(Arsa.map,Arsa.map$names[grep("StrB",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col=gray(.8))
+      maps::map(Arsa.map,Arsa.map$names[grep("StrC",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col=gray(.6))
+      maps::map(Arsa.map,Arsa.map$names[grep("StrD",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col=gray(.5))
+      maps::map(Arsa.map,Arsa.map$names[grep("StrE",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col=gray(.4))
+      legend("topright",c("A: 15-30 m","B: 30-70 m","C: 71-200 m","D: 201-500 m","E: 501-800 m"),fill=c(gray(.9),gray(.8),gray(.6),gray(.5),gray(.4)),title=ifelse(es,"Estr. prof","Depth strata"),cex=.8,inset=.05,bg="white")
+    }
+  }
+    if (places) {
     points(c(-6.299667,-6.950833),c(36.53433,37.25833),pch=20)
     text(-6.950833,37.25833,"Huelva",cex=.85,font=2,pos=2)
     text(-6.299667,36.53433,"Cádiz",cex=.85,font=2,pos=3)
@@ -58,4 +77,4 @@ MapArsa<-function(xlims=c(-8,-5.55),ylims=c(35.95,37.33),lwdl=1,cuadr=FALSE,cuad
   box(lwd=lwdl)
   if (wmf) dev.off()
   if (wmf) par(mar=c(5, 4, 4, 2) + 0.1)
-}
+ }

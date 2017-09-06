@@ -7,13 +7,14 @@
 #' @param dns Elige el origen de las bases de datos Porcupine "Pnew????" Cantábrico "Cant????" Golfo de Cadiz "Arsa" proporciona los datos para Medits pero no saca mapas
 #' @param plus Edad plus: incluir la edad considerada como plus, solo afecta si se pide la edad solicitada que une todas las edades mayores
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
+#' @param n.ots Valor interno para decir que no se saque el número de otolitos en la clave sino las proporciones
 #' @param AltAlk Clave talla edad alternativa sin ruta ni extensión, NA por defecto usa la clave de la campaña edadXYY.dbf
 #' @param incl2 si T coge los datos de lances especiales, si F los excluye
 #' @param mediahora Valor para obtener abundancias por hora si media hora es mayor
 #' @return Devuelve un data.frame con campos lance, lat, long y abundancia por edad 0,1,2...Plus de edad, lance, peso número subestrato...
 #' @family edades
 #' @export
-datagegr.camp<- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,AltAlk=AltAlk,incl2=TRUE,mediahora=1) {
+datagegr.camp<- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,n.ots=FALSE,AltAlk=AltAlk,incl2=TRUE,mediahora=1) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de m?s de una")}
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
@@ -34,7 +35,7 @@ datagegr.camp<- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,AltAlk=AltA
     ntalls$numer<-ntalls$numer/ntalls$weight.time
     ntalls<-ntalls[,1:6]
   }
-  edad<-GetAlk.camp(gr,esp,camp,dns,plus,AltAlk)
+  edad<-GetAlk.camp(gr,esp,camp,dns,plus,n.ots,AltAlk)
   # identifica si la ALK est? hecha por sexos o conjunta
   agebysex<-ifelse(any(edad$sexo!=3),T,F)
   if (agebysex) {

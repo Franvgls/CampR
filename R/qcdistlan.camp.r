@@ -8,14 +8,14 @@
 #' @return Devuelve un data.frame con campaña, lance, recorrido según: camp, según la fórmula haversine entre largada y virada, velocidad, velocidad para recorrer el recorrido, tiempo y %s de error en las comparaciones
 #' @examples qcdistlan.camp("C14","Cant",pc.error=.01)
 #' @seealso {\link{MapLansGPS}}
-#' @references distHaversine function gives the haversine calculation of distance between two geographic points (see: library gegosphere)
+#' @references distHaversine function gives the haversine calculation of distance between two geographic points \code{\link[geosphere]{distHaversine}}
 #' @family Control de calidad
 #' @export
 qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2) {
   dumblan<-datlan.camp(camp,dns,redux=FALSE)
   dumblan$mins<-round(dumblan$haul.mins*dumblan$weight.time,1)
   dumblan$dist.vel<-round(c(dumblan$weight.time*dumblan$haul.mins)/60*dumblan$velocidad*1852,0)
-  dumblan$dist.hf<-round(geosphere:distHaversine(dumblan[,c("longitud_l","latitud_l")],dumblan[,c("longitud_v","latitud_v")]))
+  dumblan$dist.hf<-round(geosphere::distHaversine(dumblan[,c("longitud_l","latitud_l")],dumblan[,c("longitud_v","latitud_v")]))
   dumblan$vel.dist<-round((dumblan$dist.hf/1852)/(dumblan$weight.time*dumblan$haul.mins/60),1)
   dumblan$error.vel<-round((dumblan$dist.vel-dumblan$recorrido)*100/dumblan$recorrido,2)
   dumblan$error.dist<-round((dumblan$dist.hf-dumblan$recorrido)*100/dumblan$recorrido,2)

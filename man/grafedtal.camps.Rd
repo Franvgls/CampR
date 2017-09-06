@@ -8,7 +8,8 @@
 \usage{
 grafedtal.camps(gr, esp, camp, dns = "Pnew", plus = 8, cor.time = TRUE,
   excl.sect = NA, ti = FALSE, leg = TRUE, es = TRUE, layout = NA,
-  clms = 2, plot = TRUE, ymax = NA, out.dat = FALSE, years = TRUE)
+  idi = "l", cexleg = 1, clms = 2, plot = TRUE, ymax = NA,
+  out.dat = FALSE, years = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?}
@@ -32,6 +33,8 @@ grafedtal.camps(gr, esp, camp, dns = "Pnew", plus = 8, cor.time = TRUE,
 \item{es}{Si T gráfico en castellano, si F gráfico en inglés}
 
 \item{layout}{Organización de gráficos en filas ó columnas c(r,c)}
+
+\item{idi}{Nombre científico de la especie ("l") o nombre común ("e")}
 
 \item{clms}{Número de columnas para ordenar la serie histórica}
 
@@ -57,10 +60,10 @@ grafedtal.camps(1,43,Nsh[22:31],"Cant",plus=7,years=T,es=FALSE)
 \seealso{
 {\link{grafedtal.camp}}
 
-Other edades: \code{\link{GetAlk.camp}},
-  \code{\link{bubbage.camp}}, \code{\link{datagegr.camp}},
-  \code{\link{edadsect.camp}}, \code{\link{edadstr.camp}},
-  \code{\link{grafedtal.camp}},
+Other edades: \code{\link{ALKs.dns.camp}},
+  \code{\link{GetAlk.camp}}, \code{\link{bubbage.camp}},
+  \code{\link{datagegr.camp}}, \code{\link{edadsect.camp}},
+  \code{\link{edadstr.camp}}, \code{\link{grafedtal.camp}},
   \code{\link{logabage.camp}},
   \code{\link{logabage2.camp}}, \code{\link{maphistage}}
 }

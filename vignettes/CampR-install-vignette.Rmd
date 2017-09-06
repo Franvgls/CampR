@@ -2,14 +2,15 @@
 title: "Instalación de datos para CampR"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Sending Messages With Gmailr}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}                             %\usepackage[utf8]{inputenc}
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: yeti
 ---
 
-## Instalación de los datos 
+ Instalación de los datos 
+------------
 
 De acuerdo con la estructura del CAMP (<i>Sánchez & Fernández, 1998, Manual del programa CAMP. Versión 2.10</i>), los datos en formato Dbase III deben estar en:
 
@@ -24,7 +25,8 @@ En esta versión de CampR estan implementadas funciones para las siguientes zona
 - Golfo de Cádiz <i>p.ej</i>: <b>c:/camp/arsa/</b>
 - Mediterraneo <i>p.ej</i>: <b>c:/camp/medi/</b>
 
-## Orígenes de datos: DSNs de Usuario
+ Orígenes de datos: DSNs de Usuario
+------------
 
 Las DSNs de usuario para los ficheros de Dbase III utilizados en el CAMP funcionan bien en 32 bits más que en 64 bits, por ello es mejor instalarlos desde el odbcad32.exe del directorio system32, o bien hacerlo desde el system64 pero siempre buscar el odbcad32.exe. Esto supone que no se puede utilizar CampR con R a 64 bits. Es muy importante utilizar "Microsoft Access Dbase driver .dbf, .ndx" y no "driver do Microsoft dBase .dbf" que no funciona bien
 

@@ -11,7 +11,7 @@
 #' @examples edadstr.camp("1"," 45","P01","Pnew",8)
 #' @family edades
 #' @export
-edadstr.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,AltAlk=NA) {
+edadstr.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,AltAlk=NA,n.ots=F) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {stop("Sólo se puede incluir una especie en esta función")}
   esp<-format(esp,width=3,justify="r")
@@ -32,7 +32,7 @@ edadstr.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,AltAlk=NA) {
     ntalls$numer<-ntalls$numer/ntalls$weight.time
     ntalls<-ntalls[,1:6]
   }
-  edad<-GetAlk.camp(gr,esp,camp,dns,plus,AltAlk)
+  edad<-GetAlk.camp(gr,esp,camp,dns,plus,n.ots = FALSE,AltAlk)
   # identifica si la ALK est? hecha por sexos o conjunta
   agebysex<-ifelse(any(edad$sexo!=3),T,F)
   if (agebysex) {

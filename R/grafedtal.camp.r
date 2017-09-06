@@ -20,16 +20,22 @@
 #' @examples grafedtal.camp(1,43,"P09","Pnew",es=FALSE,out.dat=TRUE)
 #' @family edades
 #' @export
-grafedtal.camp <- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,excl.sect=NA,AltAlk=NA,ti=FALSE,leg=TRUE,es=TRUE,plot=TRUE,ymax=NA,out.dat=FALSE) {
+grafedtal.camp <- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,excl.sect=NA,AltAlk=NA,ti=FALSE,leg=TRUE,cexleg=1,es=TRUE,plot=TRUE,ymax=NA,out.dat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
   }
   esp<-format(esp,width=3,justify="r")
-  edad<-GetAlk.camp(gr,esp,camp,dns,plus,AltAlk=AltAlk)          
+  edad<-GetAlk.camp(gr,esp,camp,dns,plus,n.ots=FALSE,AltAlk=AltAlk)          
   if (nrow(edad)==0) stop(paste("no existe clave talla edad para la especie",buscaesp(gr,esp),"en la campaña",camp))
-  if (ti) tit<-list(label=paste(buscaesp(gr,esp),camp),font=4,cex=1)
-  else tit<-NULL
+  if (is.logical(ti)) {
+    if (ti) {tit<-list(label=buscaesp(gr,esp,id=idi),font=ifelse(idi=="l",4,2),cex=1*cexleg)}
+    else {tit<-NULL}
+  }
+  else {
+    if(is.list(ti)) tit<-ti
+    else tit<-list(label=ti)
+  }
   dtall<-dattal.camp(gr,esp,camp,dns,excl.sect=excl.sect,cor.time=cor.time)
   if (ncol(dtall)>2) dtall<-data.frame(talla=dtall[,1],n=rowSums(dtall[,-1])) else names(dtall)<-c("talla","n")
 #  edad<-edad[which(rowSums(edad[5:20],na.rm=TRUE)>0),]
@@ -55,7 +61,7 @@ grafedtal.camp <- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,excl.sect
       print(tedad$talla[b])
       print("aparecen en la clave y no en la distribución de tallas",quote=FALSE)
     }
-    if (length(b)>0) tedad<-tedad[-which(tedad$talla==b),]
+    if (length(b)>0) tedad<-tedad[! tedad$talla %in% b,]
     tedad[,2:ncol(tedad)]<-tedad[,2:ncol(tedad)]*dtall[,2]
     edadtal<-data.frame(n=tedad[,2])
     for (i in 3:ncol(tedad)) {edadtal<-rbind(edadtal,data.frame(n=tedad[,i]))}	
@@ -73,7 +79,7 @@ grafedtal.camp <- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,excl.sect
     xlimi<-c(min(dtall$talla)*(.95-1),max(dtall$talla)*1.05)
     foo<-lattice::barchart(n~talla,edadtal,groups=factor(edadtal$edad),col=colo,main=tit,xlim=xlimi,ylim=ylim,
                   scales=list(alternating=FALSE,tck=c(1,0),x=list(tick.number=10)),box.ratio=1000,h=FALSE,stack=TRUE,
-                  key=leg,xlab=paste(ifelse(es,"talla","length"),"(cm)"),
+                  strip=T,par.strip.text=list(cex=.7,font=2),key=leg,xlab=paste(ifelse(es,"talla","length"),"(cm)"),
                   panel=function(x,y,...){
                     lattice::panel.grid(-1,0,lty=3,col="black")
                     lattice::panel.barchart(x,y,...)

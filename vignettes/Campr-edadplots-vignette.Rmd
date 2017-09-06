@@ -1,0 +1,48 @@
+---
+title: "gráficos y datos de edades"
+author: "Fran Velasco"
+date: "26 de junio de 2017"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: yeti
+    encoding: {UTF-8}
+---
+
+```{r, echo=FALSE, results='hide'}
+library(CampR)
+```
+
+Claves talla edad presentes:
+----------
+
+```{r, echo=FALSE, results='markup'}
+ALKs.dns.camp(dns="Porc",camp = "P")
+```
+
+```{r, echo=FALSE, results='markup'}
+GetAlk.camp(1,43,"P14",dns="Porc",plus=8,n.ots=T)
+```
+
+Graficas:
+----------
+
+### Claves por tallas
+
+```{r, echo=FALSE, results='hide'}
+grafedtal.camps(1,43,c("P14","P15"),dns="Porc")
+```
+
+
+### Cohortes
+
+```{r, echo=FALSE, results='hide'}
+bubbage.camp(1,43,Psh,dns="Porc",plus=8,recr = 1)
+```
+
+
+```{r, echo=FALSE, results='markup'}
+logabage.camp(1,43,Psh,dns="Porc",layout=c(6,4))
+```
+

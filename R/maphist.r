@@ -77,7 +77,7 @@ maphist<-function(gr,esp,camps,dns="Pnew",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
 		if (ndat==4) layout=c(2,2)
 		}
   #browser()
-	if (!out.dat) print(dumb[dumb[,5]>0,])
+	if (out.dat) print(dumb[dumb[,5]>0,])
 	if (pts) dumb[dumb[,5]>0,8]<-0
 	if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
 		asp<-diff(c(50.5,54.5))/(diff(c(-15.5,-10.5))*cos(mean(c(50.5,54.5))*pi/180))

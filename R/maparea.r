@@ -9,7 +9,8 @@
 #' @family Porcupine
 #' @export
 maparea<-function(es=TRUE,leg=TRUE,bw=FALSE,dens=0) {
-	maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
+  library(mapdata)
+  maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
 		fill=TRUE,col="saddlebrown",type="n")
 	box()
 	rect(-16,50.,-8.,55)

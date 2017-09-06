@@ -28,6 +28,7 @@
 #' @export
 dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cexleg=1,bw=TRUE,es=TRUE,sex=TRUE,plot=T,idi="l",clms=2,
   layout=NA,excl.sect=NA,ymax=NA,out.dat=FALSE,years=TRUE,verbose=TRUE) {
+  library(lattice)
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1 | any(esp=="999")) {
@@ -153,7 +154,7 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
 				lattice::panel.barchart(x,y,...)
 #    		lattice::ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
 				},
-			strip = function(...) strip.default(style=1,...))
+			strip = function(...) lattice::strip.default(style=1,...))
 		}
   #browser()
 	if (plot) {
