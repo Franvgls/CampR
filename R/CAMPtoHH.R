@@ -21,7 +21,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        DB$Gear="BAK"
        DB$barco=ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="CDS","CDS"))
        DB$Warpdia=ifelse(DB$barco=="CDS",22,24)
-       DB$DoorType=ifelse(DB$barco=="CDS","W","P")
+       DB$DoorType=ifelse(DB$barco=="CDS","WR","T")
        DB$DoorSurface=ifelse(substr(DB$barco,1,3)=="CDS",3.6,1.8)
        DB$DoorWght=ifelse(substr(DB$barco,1,3)=="CDS",650,350)
        if(quart) DB$quarter<-"4"
@@ -51,9 +51,9 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
       DB$Gear="BAK"
       DB$barco=ifelse(substr(DB$barco,1,3)=="COR","CDS",ifelse(DB$barco=="MOL","29MO"))
       DB$Warpdia=ifelse(DB$barco=="CDS",22,24)
-      DB$DoorType=ifelse(substr(DB$barco,1,3)=="COR","W","P")
-      DB$DoorSurface=ifelse(substr(DB$barco,1,3)=="COR",3.6,1.8)
-      DB$DoorWght=ifelse(substr(DB$barco,1,3)=="COR",630,350)
+      DB$DoorType=ifelse(DB$year<2008,"WR","T")
+      DB$DoorSurface=ifelse(DB$year<2008,3.6,1.8)
+      DB$DoorWght=ifelse(DB$year<2008,630,350)
       if(quart) DB$quarter<-ifelse(substr(camp,1,1)=="1","1","4")
       if(any(nchar(DB$lance)>2)) stop("Lances con más de 2 carácteres, Arsa no suele tener más de 99 lances, revise datos")
       DB$lance<-formatC(DB$lance,flag=0,width=2)
