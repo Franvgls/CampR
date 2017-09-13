@@ -4,7 +4,7 @@
 \name{As2}
 \alias{As2}
 \title{Serie histórica de la campaña Arsa de Otoño}
-\format{A vector with codes for the surveys from 1997 to 2016}
+\format{A vector with codes for the surveys from 1997 to 2017}
 \usage{
 As2
 }
