@@ -29,6 +29,10 @@ edadstr.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,AltAlk=NA,n.o
   ntalls<-ntalls[ntalls$lance %in% as.character(lan$lance),]
   if (any(cor.time,camp=="N83",camp=="N84")) {
     ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
+    if (any(ntalls$weight.time==0)) {
+      ntalls$weight.time[ntalls$weight.time==0]=.1
+      warning("Hay lances con duración 0 minutos, revisa validez")
+    }
     ntalls$numer<-ntalls$numer/ntalls$weight.time
     ntalls<-ntalls[,1:6]
   }

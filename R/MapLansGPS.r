@@ -21,7 +21,7 @@ MapLansGPS<-function(camp,dns="Pnew",incl0=FALSE,xlims=NA,ylims=NA,places=TRUE,e
   lannul<-lan[lan$validez==0,c("longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
   lan<-lan[lan$validez!=0,c("longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
   if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
-    if (any(!is.na(xlims))) {mapporco(xlims=xlims,ylims=ylims,es=es,ax=ax)} else mapporco()
+    if (any(!is.na(xlims))) {mapporco(xlims=xlims,ylims=ylims,ax=ax)} else mapporco()
     }
   if (substr(dns,1,4)=="Cant" | dns=="Cnew" ) {
     if (any(!is.na(xlims))) {MapNort(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapNort()

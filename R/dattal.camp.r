@@ -52,6 +52,10 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbo
 #  if (max(lan$weight.time>=1.5)) {
   if (any(cor.time,camp=="N83",camp=="N84")) {
     ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
+    if (any(ntalls$weight.time==0)) {
+      ntalls$weight.time[ntalls$weight.time==0]=.1
+      warning("Hay lances con duración 0 minutos, revisa validez")
+    }
     ntalls$numer<-ntalls$numer/ntalls$weight.time
     ntalls<-ntalls[,1:6]
   }                                 

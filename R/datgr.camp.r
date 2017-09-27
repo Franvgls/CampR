@@ -48,6 +48,10 @@ datgr.camp<- function(gr,esp,camp,dns,cor.time=TRUE,incl2=TRUE) {
       mm[which(is.na(mm[,6])),6:7]<-0
     }
   if (any(cor.time,camp=="N83",camp=="N84")) {
+    if (any(mm$weight.time==0)) {
+      mm$weight.time[mm$weight.time==0]=.1
+      warning("Hay lances con duración 0 minutos, revisa validez")
+    }
     mm$peso.gr<-mm$peso.gr/mm$weight.time
     mm$numero<-round(mm$numero/mm$weight.time,0)
     }

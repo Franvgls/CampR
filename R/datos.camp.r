@@ -66,6 +66,10 @@ datos.camp<-function(gr,esp,camp,dns,cor.time=TRUE,kg=TRUE,verbose=TRUE) {
   mm$numero[which(is.na(mm$numero))]<-0
   mm$peso[which(is.na(mm$peso))]<-0
   if (any(cor.time,camp=="N83",camp=="N84")) {
+    if (any(mm$weight.time==0)) {
+      mm$weight.time[mm$weight.time==0]=.1
+      warning("Hay lances con duración 0 minutos, revisa validez")
+    }
     mm$peso<-mm$peso/mm$weight.time
     mm$numero<-mm$numero/mm$weight.time
   }
