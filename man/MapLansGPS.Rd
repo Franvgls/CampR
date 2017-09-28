@@ -38,11 +38,11 @@ MapLansGPS("12C","Cant")
 
 Other mapas: \code{\link{GrafMarksGPS_2}},
   \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
-  \code{\link{MapGaltal}}, \code{\link{NepClos}},
-  \code{\link{armap.camp}}, \code{\link{armap.tot}},
-  \code{\link{map.check}}, \code{\link{maparea}},
-  \code{\link{maphistage}}, \code{\link{maphistal}},
-  \code{\link{maphist}}
+  \code{\link{MapGaltal}}, \code{\link{VedaCigala.out}},
+  \code{\link{VedaCigala}}, \code{\link{armap.camp}},
+  \code{\link{armap.tot}}, \code{\link{map.check}},
+  \code{\link{maparea}}, \code{\link{maphistage}},
+  \code{\link{maphistal}}, \code{\link{maphist}}
 
 Other PescaWin: \code{\link{GrafMarksGPS_2}},
   \code{\link{GrafMarksGPS}}, \code{\link{pasa.lan}}

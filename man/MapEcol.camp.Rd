@@ -52,11 +52,11 @@ lattice::bwplot(div~estrato|camp,dumbecol,horizontal=FALSE,main="Shannon Wiener"
 \seealso{
 Other mapas: \code{\link{GrafMarksGPS_2}},
   \code{\link{GrafMarksGPS}}, \code{\link{MapGaltal}},
-  \code{\link{MapLansGPS}}, \code{\link{NepClos}},
-  \code{\link{armap.camp}}, \code{\link{armap.tot}},
-  \code{\link{map.check}}, \code{\link{maparea}},
-  \code{\link{maphistage}}, \code{\link{maphistal}},
-  \code{\link{maphist}}
+  \code{\link{MapLansGPS}}, \code{\link{VedaCigala.out}},
+  \code{\link{VedaCigala}}, \code{\link{armap.camp}},
+  \code{\link{armap.tot}}, \code{\link{map.check}},
+  \code{\link{maparea}}, \code{\link{maphistage}},
+  \code{\link{maphistal}}, \code{\link{maphist}}
 
 Other ecologia: \code{\link{ecolgr.camp}}
 }

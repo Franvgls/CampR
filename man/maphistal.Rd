@@ -68,10 +68,10 @@ maphistal(1,50,Psh[1:12],"Pnew",1,23,layout=c(4,3),out.dat=TRUE)
 Other mapas: \code{\link{GrafMarksGPS_2}},
   \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
   \code{\link{MapGaltal}}, \code{\link{MapLansGPS}},
-  \code{\link{NepClos}}, \code{\link{armap.camp}},
-  \code{\link{armap.tot}}, \code{\link{map.check}},
-  \code{\link{maparea}}, \code{\link{maphistage}},
-  \code{\link{maphist}}
+  \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
+  \code{\link{armap.camp}}, \code{\link{armap.tot}},
+  \code{\link{map.check}}, \code{\link{maparea}},
+  \code{\link{maphistage}}, \code{\link{maphist}}
 
 Other tallas: \code{\link{MapGaltal}}
 }

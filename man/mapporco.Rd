@@ -42,6 +42,7 @@ Other mapas base: \code{\link{MapArsa}},
   \code{\link{MapCant}}, \code{\link{MapMedit}},
   \code{\link{MapNort}}
 
-Other Porcupine: \code{\link{NepClos}}, \code{\link{Psh}},
+Other Porcupine: \code{\link{Psh}},
+  \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
   \code{\link{maparea}}
 }

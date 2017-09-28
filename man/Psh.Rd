@@ -18,7 +18,8 @@ Serie completa con las campañas realizadas en Porcupine Bank
 Other Series datos: \code{\link{As1}}, \code{\link{As2}},
   \code{\link{Msh}}, \code{\link{Nsh}}
 
-Other Porcupine: \code{\link{NepClos}},
-  \code{\link{maparea}}, \code{\link{mapporco}}
+Other Porcupine: \code{\link{VedaCigala.out}},
+  \code{\link{VedaCigala}}, \code{\link{maparea}},
+  \code{\link{mapporco}}
 }
 \keyword{datasets}
