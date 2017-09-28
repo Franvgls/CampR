@@ -63,11 +63,11 @@ MapGaltal(1,50,Nsh[21:29],"Cant",1,23,layout=c(3,3),out.dat=TRUE,ceros=FALSE,inc
 \seealso{
 Other mapas: \code{\link{GrafMarksGPS_2}},
   \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
-  \code{\link{MapLansGPS}}, \code{\link{NepClos}},
-  \code{\link{armap.camp}}, \code{\link{armap.tot}},
-  \code{\link{map.check}}, \code{\link{maparea}},
-  \code{\link{maphistage}}, \code{\link{maphistal}},
-  \code{\link{maphist}}
+  \code{\link{MapLansGPS}}, \code{\link{VedaCigala.out}},
+  \code{\link{VedaCigala}}, \code{\link{armap.camp}},
+  \code{\link{armap.tot}}, \code{\link{map.check}},
+  \code{\link{maparea}}, \code{\link{maphistage}},
+  \code{\link{maphistal}}, \code{\link{maphist}}
 
 Other tallas: \code{\link{maphistal}}
 }

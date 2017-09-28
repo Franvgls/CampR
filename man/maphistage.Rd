@@ -65,10 +65,10 @@ maphistage("1"," 42","N05","Cant",2,ceros=TRUE,out.dat=TRUE)
 Other mapas: \code{\link{GrafMarksGPS_2}},
   \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
   \code{\link{MapGaltal}}, \code{\link{MapLansGPS}},
-  \code{\link{NepClos}}, \code{\link{armap.camp}},
-  \code{\link{armap.tot}}, \code{\link{map.check}},
-  \code{\link{maparea}}, \code{\link{maphistal}},
-  \code{\link{maphist}}
+  \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
+  \code{\link{armap.camp}}, \code{\link{armap.tot}},
+  \code{\link{map.check}}, \code{\link{maparea}},
+  \code{\link{maphistal}}, \code{\link{maphist}}
 
 Other edades: \code{\link{ALKs.dns.camp}},
   \code{\link{GetAlk.camp}}, \code{\link{bubbage.camp}},
