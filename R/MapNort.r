@@ -22,7 +22,6 @@
 #' @family Galicia Cantabrico
 #' @export
 MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
-  data(CampR)
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (ax) {
      degs = seq(-10,-2,ifelse(abs(diff(xlims))>1,1,.5))
