@@ -39,8 +39,8 @@ Función auxiliar para sacar el mapa de la campaña Porcupine
 {\link{MapNort}}, {\link{MapCant}}
 
 Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant}}, \code{\link{MapMedit}},
-  \code{\link{MapNort}}
+  \code{\link{MapCant}}, \code{\link{MapIberia}},
+  \code{\link{MapMedit}}, \code{\link{MapNort}}
 
 Other Porcupine: \code{\link{NepClos}}, \code{\link{Psh}},
   \code{\link{maparea}}

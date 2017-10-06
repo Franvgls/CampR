@@ -30,7 +30,6 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
       dathidro<-dathidro[,c(11:13,17:23)]
     }
     lan$latitud_l<-round(sapply(lan$latitud_l,gradec),4)
-    #browser()
     lan$longitud_l<-round(sapply(lan$longitud_l,gradec)*ifelse(lan$ewl=="E",1,-1),4)
     lan$latitud_v<-round(sapply(lan$latitud_v,gradec),4)
     lan$longitud_v<-round(sapply(lan$longitud_v,gradec)*ifelse(lan$ewv=="E",1,-1),4)
@@ -38,6 +37,17 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
       lan$lat<-round((lan$latitud_l+lan$latitud_v)/2,4)
       lan$long<-round((lan$longitud_l+lan$longitud_v)/2,4)
       lan$prof<-(lan$prof_l+lan$prof_v)/2
+      lan$zona<-NA
+      for (i in c(1:nrow(lan))) {
+        if (lan$lat[i]>48 & lan$lat[i]<52.5 & lan$long[i]>c(-18) & lan$long[i]<c(-12)) {lan$zona[i]<- "7k"}
+        if (lan$lat[i]>52.5 & lan$lat[i]<54.5 & lan$long[i] > c(-18) & lan$long[i] < c(-12)) {lan$zona[i]<- "7c"}
+        if (lan$lat[i]>52.5 & lan$lat[i]<54.5 & lan$long[i] > c(-12)) {lan$zona[i]<- "7b"}
+        if (lan$lat[i]>43 & lan$lat[i]<44.5 & lan$long[i] > c(-2)) {lan$zona[i]<- "8b"}
+        if (lan$lat[i]>44.5 & lan$lat[i]<46 & lan$long[i] > c(-4)) {lan$zona[i]<- "8b"}
+        if (lan$lat[i]>43 & lan$lat[i]<44.5 & lan$long[i] > c(-11) & lan$long[i] < c(-2)) {lan$zona[i]<- "8c"}
+        if (lan$lat[i]>36 & lan$lat[i]<43 & lan$long[i] > c(-11) & lan$long[i] < c(-8.75)) {lan$zona[i]<- "9a"}
+        if (any(is.na(lan$zona))) {warning("Al menos un lance sin Zona ICES asignada, revise resultados")}
+        }
     }
     lan$dista_p[lan$dista_p==0]<-NA
     lan$abert_v[lan$abert_v==0]<-NA
@@ -90,5 +100,5 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
   }
   datos$sector<-factor(as.character(datos$sector))
 #  datos
-  if (bio) datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","camp")] else datos
+  if (bio) datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")] else datos
   }
