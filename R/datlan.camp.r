@@ -46,8 +46,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
         if (lan$lat[i]>44.5 & lan$lat[i]<46 & lan$long[i] > c(-4)) {lan$zona[i]<- "8b"}
         if (lan$lat[i]>43 & lan$lat[i]<44.5 & lan$long[i] > c(-11) & lan$long[i] < c(-2)) {lan$zona[i]<- "8c"}
         if (lan$lat[i]>36 & lan$lat[i]<43 & lan$long[i] > c(-11) & lan$long[i] < c(-8.75)) {lan$zona[i]<- "9a"}
-        if (any(is.na(lan$zona))) {warning("Al menos un lance sin Zona ICES asignada, revise resultados")}
         }
+      if (any(is.na(lan$zona))) {warning("Al menos un lance sin Zona ICES asignada, revise resultados")}
     }
     lan$dista_p[lan$dista_p==0]<-NA
     lan$abert_v[lan$abert_v==0]<-NA
