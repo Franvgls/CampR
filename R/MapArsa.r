@@ -20,7 +20,6 @@
 #' @family ARSA
 #' @export
 MapArsa<-function(xlims=c(-8,-5.55),ylims=c(35.95,37.33),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
-  data(CampR)
   asp<-diff(c(35.95,37.33))/(diff(c(-8,-5.55))*cos(mean(c(35.95,37.29))*pi/180))
   if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3)
