@@ -21,7 +21,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        DB$Gear="BAK"
        DB$barco=ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="CDS","CDS"))
        DB$Warpdia=ifelse(DB$barco=="CDS",22,24)
-       DB$DoorType=ifelse(DB$barco=="CDS","WR","T")
+       DB$DoorType=ifelse(DB$barco=="CDS","WR","T4")
        DB$DoorSurface=ifelse(substr(DB$barco,1,3)=="CDS",3.6,1.8)
        DB$DoorWght=ifelse(substr(DB$barco,1,3)=="CDS",650,350)
        if(quart) DB$quarter<-"4"
