@@ -42,3 +42,17 @@ grafhistbox(1,79,Psh,"Porc",ci.lev = .8,DLS = F,tline = F,SE=T,cex.leg = .8)
 grafhistbox(1,79,Psh,"Porc",ci.lev = 0,DLS = T,tline = F,SE=F,cex.leg = .8)
 ```
 
+Funciones de control de calidad
+----------------
+
+### Control de calidad datos de lances:
+```{r QC1, echo=TRUE, results='hide'}
+qcdistlan.camp("P17","Porc",todos=T,pc.error=2)
+```
+
+Se muestran y comparan los valores de posición del lance con el recorrido y la velocidad. Se puede complementar con MapLansGPS de los lances que den resultados aparentemente erróneos:
+
+### Revisión Control de calidad datos de lances:
+```{r QC2,results='hide'}
+MapLansGPS("P17","Porc")
+```
