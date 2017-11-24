@@ -49,6 +49,6 @@ Función auxiliar para sacar el mapa de la campaña Demersales
 {\link{MapCant}}, {\link{mapporco}}
 
 Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant}}, \code{\link{MapIberia}},
-  \code{\link{MapMedit}}, \code{\link{mapporco}}
+  \code{\link{MapCant}}, \code{\link{MapMedit}},
+  \code{\link{mapporco}}
 }

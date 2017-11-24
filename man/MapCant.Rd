@@ -35,6 +35,6 @@ Crea un mapa para el Cantábrico y Galicia con información para la especie soli
 {\link{maphist}}
 
 Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapIberia}}, \code{\link{MapMedit}},
-  \code{\link{MapNort}}, \code{\link{mapporco}}
+  \code{\link{MapMedit}}, \code{\link{MapNort}},
+  \code{\link{mapporco}}
 }

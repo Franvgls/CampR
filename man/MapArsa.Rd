@@ -46,8 +46,8 @@ MapArsa()
 {\link{MapCant}}, {\link{mapporco}}
 
 Other mapas base: \code{\link{MapCant}},
-  \code{\link{MapIberia}}, \code{\link{MapMedit}},
-  \code{\link{MapNort}}, \code{\link{mapporco}}
+  \code{\link{MapMedit}}, \code{\link{MapNort}},
+  \code{\link{mapporco}}
 
 Other ARSA: \code{\link{As1}}, \code{\link{As2}}
 }
