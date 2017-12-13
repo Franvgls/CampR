@@ -10,7 +10,7 @@ captdia.camp(camp = "C14", dns = "Cant", dias, peces = c(50, 42, 43, 44,
 \arguments{
 \item{camp}{Es la campaña de la que queremos tomar los datos}
 
-\item{dns}{Origen de Base de Datos seleccionado. Se usa sobretodo para "Pnew" Porcupine pero ver "Cant", "Arsa", "Medi"}
+\item{dns}{Origen de Base de Datos seleccionado. Se usa sobretodo para "Porc" Porcupine pero ver "Cant", "Arsa", "Medi"}
 
 \item{dias}{Los días del mes en que queremos tomar los datos, pueden pedirse varios juntos. No acepta mezclar meses distintos}
 

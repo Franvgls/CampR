@@ -4,7 +4,7 @@
 \alias{grafhistbox}
 \title{Evolución en biomasa o abundancia de la especie en la serie histórica}
 \usage{
-grafhistbox(gr, esp, camps, dns = "Pnew", ind = "p", cor.time = TRUE,
+grafhistbox(gr, esp, camps, dns = "Porc", ind = "p", cor.time = TRUE,
   kg = TRUE, ci.lev = 0.8, DLS = F, DLSrat = c(2, 5), idi = "l",
   SE = TRUE, es = TRUE, excl.sect = NA, sector = NA, ti = TRUE,
   Nas = FALSE, ymax = NA, mar = NA, tline = FALSE, years = TRUE,

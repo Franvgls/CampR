@@ -4,7 +4,7 @@
 \alias{MapArsa}
 \title{Mapa del Golfo de Cádiz}
 \usage{
-MapArsa(xlims = c(-8, -5.55), ylims = c(35.95, 37.33), lwdl = 1,
+MapArsa(xlims = c(-8.172, -5.5), ylims = c(35.95, 37.35), lwdl = 1,
   leg = F, cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE,
   ax = TRUE, bw = F, wmf = FALSE, es = TRUE, places = TRUE)
 }

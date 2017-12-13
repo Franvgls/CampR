@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6
 #' @param esp Codigo de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
 #' @param camps campañas de la serie de datos a representar en el gráfico de abundancias Demersales Nsh, Porcupine Psh, Arsa primavera As1 y Arsa otoño As2
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param kg Si T el gráfico está en kgs, si F en gramos
 #' @param ci.lev El intervalo de confianza a representar
@@ -25,7 +25,7 @@
 #' @seealso {\link{grafhistbox}}, {\link{grafhistbox.comp}}
 #' @examples grafhistbox(1,45,Nsh[7:27],"Cant",DLS=T,es=FALSE,years=TRUE,tline=TRUE,ti=TRUE,sub=TRUE)
 #' @export
-grafhistbox.comp<-function(gr,esp,camps,dns="Pnew",cor.time=TRUE,kg=TRUE,ci.lev=.8,DLS=F,idi="l",SE=TRUE,es=TRUE,sector=NA,
+grafhistbox.comp<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,kg=TRUE,ci.lev=.8,DLS=F,idi="l",SE=TRUE,es=TRUE,sector=NA,
 	Nas=FALSE,excl.sect=NA,ymax=c(NA,NA),tline=FALSE,years=TRUE,ti=TRUE,mar=NA) {
   op<- par(no.readonly = TRUE) # the whole list of settable par's.
   par(mfrow=c(2,1))

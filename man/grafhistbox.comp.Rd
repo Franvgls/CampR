@@ -4,7 +4,7 @@
 \alias{grafhistbox.comp}
 \title{Gráficas grafhistbox combinadas biomasa y peso}
 \usage{
-grafhistbox.comp(gr, esp, camps, dns = "Pnew", cor.time = TRUE, kg = TRUE,
+grafhistbox.comp(gr, esp, camps, dns = "Porc", cor.time = TRUE, kg = TRUE,
   ci.lev = 0.8, DLS = F, idi = "l", SE = TRUE, es = TRUE,
   sector = NA, Nas = FALSE, excl.sect = NA, ymax = c(NA, NA),
   tline = FALSE, years = TRUE, ti = TRUE, mar = NA)
@@ -16,7 +16,7 @@ grafhistbox.comp(gr, esp, camps, dns = "Pnew", cor.time = TRUE, kg = TRUE,
 
 \item{camps}{campañas de la serie de datos a representar en el gráfico de abundancias Demersales Nsh, Porcupine Psh, Arsa primavera As1 y Arsa otoño As2}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 

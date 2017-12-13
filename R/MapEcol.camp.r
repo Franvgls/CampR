@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados. 6 Desechos y otros no se incluye en esta función
 #' @param esp ha de ser 999 cuando se quiere incluir todas las especies del grupo, o elegir todas las especies deseadas con los codigos de las especies
 #' @param camp Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param ind Elige el valor (n)úmero o (p)eso sobre el que se calculan los índices de diversidad, dominancia....
 #' @param indec Elige el índice ecológico a representar: opciones disponibles: Shannon-Wiener: 'div', Número de especies: 'nesp' y Diversidad Simpson: 'simp'.
 #' @param plot Si T saca un gráfico en pantalla
@@ -24,7 +24,7 @@
 #' @family mapas
 #' @family ecologia
 #' @export
-MapEcol.camp<-function(gr,esp="999",camp,dns="Pnew",ind="n",indec="div",plot=TRUE,bw=FALSE,
+MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRUE,bw=FALSE,
                        ti=TRUE,idi="l",es=TRUE,out.dat=FALSE,layout=NA,cexleg=1,years=TRUE) {
   if (!(indec %in% c("simp","div","nesp"))) {
     stop(paste("el índice",indec,"no está implementado, índices disponibles: 'div', 'nesp' y 'simp'"))

@@ -4,7 +4,7 @@
 \alias{maphistal}
 \title{Mapa distribución entre tallas tmin y tmax}
 \usage{
-maphistal(gr, esp, camps, dns = "Pnew", tmin = 0, tmax = 999,
+maphistal(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
   cor.time = TRUE, incl2 = TRUE, ind = "n", sex = NA, bw = TRUE,
   ti = TRUE, sub = NULL, plot = TRUE, out.dat = FALSE, idi = "l",
   layout = NA, leg = TRUE, ceros = TRUE, escmult = 0.25, cexleg = 1,
@@ -17,7 +17,7 @@ maphistal(gr, esp, camps, dns = "Pnew", tmin = 0, tmax = 999,
 
 \item{camps}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{tmin}{Talla mínima del intervalo de tallas a incluir}
 
@@ -62,7 +62,7 @@ Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (d
 Saca mapas de distribución de una especie entre tallas tmin y tmax para varias campañas
 }
 \examples{
-maphistal(1,50,Psh[1:12],"Pnew",1,23,layout=c(4,3),out.dat=TRUE)
+maphistal(1,50,Psh[1:12],"Porc",1,23,layout=c(4,3),out.dat=TRUE)
 }
 \seealso{
 Other mapas: \code{\link{GrafMarksGPS_2}},

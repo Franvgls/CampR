@@ -4,12 +4,12 @@
 \alias{qcLWbucl.camp}
 \title{Outliers en capturas segun la relación talla-peso de todos los peces de una campaña}
 \usage{
-qcLWbucl.camp(camp = "P12", dns = "Pnew", nlans = 2)
+qcLWbucl.camp(camp = "P12", dns = "Porc", nlans = 2)
 }
 \arguments{
 \item{camp}{Campaña de la que se procesan y comprueban los posibles outliers en el peso de las capturas de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa", Medits: "Medi"}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa", Medits: "Medi"}
 
 \item{nlans}{Limita la comprobación a las especies que hayan sido capturadas en más lances de nlans (por defecto nlans=4)}
 }
@@ -20,7 +20,7 @@ Produce un gráfico por cada especie de pez medida en más de nlans lances. Para
 Busca outliers en las capturas según los datos en el fauna y las tallas medidas segun la relación talla-peso de todos los peces que hayan aparecido en una campaña. Se puede salir de la función cerrando el gráfico y se puede obtener una función para la campaña y usarla en cada lance
 }
 \examples{
-qcLWbucl.camp("P11","Pnew",nlans=1)
+qcLWbucl.camp("P11","Porc",nlans=1)
 }
 \seealso{
 {\link{qcLW.camp}}

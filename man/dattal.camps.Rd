@@ -15,7 +15,7 @@ dattal.camps(gr, esp, camps, dns, tmin = 0, tmax = 999, cor.time = TRUE,
 
 \item{camps}{campañas (años) a representar en el mapa: Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
 
 \item{tmin}{Talla mínima}
 
@@ -42,6 +42,9 @@ Devuelve un vector con nombre con el número estratificado del rango de tallas d
 }
 \description{
 Extrae los datos de abundancia de una especie o conjunto de especies con un rango de tallas determinado a partir de las distribuciones de talla.También puede mostrar los datos de biomasa a partir de la relación talla-peso
+}
+\examples{
+dattal.camps(1,36,Psh,"Porc",1,15,ind="n",plot=TRUE)
 }
 \seealso{
 {\link{dattal.camp}}

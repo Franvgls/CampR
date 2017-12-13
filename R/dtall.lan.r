@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos (4 equinodermos y 5 invertebrados normalmente no medidos)
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
 #' @param camp Campaña con el lance a representar en el histograma (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param lances Lance o lances de los que se quiere sacar la distribución de tallas. Si NA coge todos los lances de la campaña.
 #' @param ti Si T añade título al gráfico, el nombre de la especie en latín.
 #' @param legend Si T (por defecto) añade la leyenda, si no se saca por sexos no añade información
@@ -15,7 +15,7 @@
 #' @param ymax permite establecer el valor máximo de las ordenadas en el gráfico.Por defecto (NA) se ajusta al valor máximo del número de individuos.
 #' @return Saca el gráfico en pantalla, para sacar datos utilizar {\link{dattal.camp}}
 #' @family Distribuciones de tallas
-#' @examples dtall.lan(1,36,"P08","Pnew",lances=c(10:15,17),ti=TRUE)
+#' @examples dtall.lan(1,36,"P08","Porc",lances=c(10:15,17),ti=TRUE)
 #' @export
 dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,ti=FALSE,legend=TRUE,bw=TRUE,es=TRUE,sex=TRUE,idi="l",ymax=NA) {
   if (length(camp)>1) stop("Esta función sólo se puede utilizar para una sola campaña")

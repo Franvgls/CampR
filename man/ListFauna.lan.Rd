@@ -4,12 +4,12 @@
 \alias{ListFauna.lan}
 \title{Capturas de un lance específico}
 \usage{
-ListFauna.lan(camp, dns = "Pnew", lan, gr = NA)
+ListFauna.lan(camp, dns = "Porc", lan, gr = NA)
 }
 \arguments{
 \item{camp}{Campaña de la que se extrae los datos del lance (lan) un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa"}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa"}
 
 \item{lan}{Lance del que se extrae la faunística}
 

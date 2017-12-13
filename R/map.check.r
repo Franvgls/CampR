@@ -5,7 +5,7 @@
 #'@param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #'@param camps Campaña (o grupo de campañas) a representar en el mapa de un año (o grupo de años) concreto (s) (XX) con los que se quiere comparar la última campaña (newcamp): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #'@param newcamp última campaña (que se compara con las anteriores) Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#'@param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#'@param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #'@param cor.time si T corrige la captura del lance a media hora
 #'@param bw Gráfico en blanco en negro si T o en color si F.
 #'@param ti Si T añade título al gráfico, el nombre de la especie en latín.
@@ -18,7 +18,7 @@
 #'@family mapas
 #'@family control calidad
 #'@export
-map.check<-function(gr,esp,camps,newcamp,dns="Pnew",cor.time=TRUE,ind="p",bw=TRUE,ti=TRUE,plot=TRUE,idi="l",pts=TRUE,cexleg=1) {
+map.check<-function(gr,esp,camps,newcamp,dns="Porc",cor.time=TRUE,ind="p",bw=TRUE,ti=TRUE,plot=TRUE,idi="l",pts=TRUE,cexleg=1) {
   lattice::trellis.par.set(lattice::col.whitebg())
   #lattice::trellis.par.set("strip.background",list(col=c("white")))
   lattice::trellis.par.set("strip.text"=list(cex=cexleg*.9,font=2))

@@ -4,7 +4,7 @@
 \alias{DpthPrflTals}
 \title{Perfil de distribución por profundidad y tallas}
 \usage{
-DpthPrflTals(gr, esp, camps, dns = "Pnew", tmin = 0, tmax = 999,
+DpthPrflTals(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
   cor.time = TRUE, incl2 = T, ind = "n", sex = NA, es = TRUE,
   ti = TRUE, idi = "l", xmax = NA, nlans = TRUE, spl = FALSE,
   brks = "Sturges", tabres = TRUE, tit2 = TRUE)
@@ -16,7 +16,7 @@ DpthPrflTals(gr, esp, camps, dns = "Pnew", tmin = 0, tmax = 999,
 
 \item{camps}{Campañas de las que se obtiene la distribución de profundidades (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{tmin}{Talla mínima}
 
@@ -48,6 +48,10 @@ DpthPrflTals(gr, esp, camps, dns = "Pnew", tmin = 0, tmax = 999,
 }
 \description{
 Crea un gráfico de perfil de distribución por profundidad de la abundancia de una especie o grupo de especies en un rango de tallas específico a partir de los datos de distribución de tallas tomados en una campaña. También puede sacar los datos en peso pero a partir de las relaciones talla-peso, en vez de a partir de las faunísticas como en DpthPrfl
+}
+\examples{
+DpthPrflTals(1, 50, "N08", "Cant",10,20,brks = "norte",tabres=TRUE,ind="p")
+DpthPrflTals(1,50,"P08","Porc",brks="porcupine")
 }
 \seealso{
 {\link{DpthPrfl}}

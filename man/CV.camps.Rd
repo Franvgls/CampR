@@ -14,7 +14,7 @@ CV.camps(gr, esp, camps, dns, cor.time = TRUE, kg = TRUE, dec = 2,
 
 \item{camps}{Campañas de las que se solicitan los resultados un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 

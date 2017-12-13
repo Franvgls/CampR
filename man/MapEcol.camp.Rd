@@ -4,7 +4,7 @@
 \alias{MapEcol.camp}
 \title{Mapa de índices ecológicos para un grupo en una campaña}
 \usage{
-MapEcol.camp(gr, esp = "999", camp, dns = "Pnew", ind = "n",
+MapEcol.camp(gr, esp = "999", camp, dns = "Porc", ind = "n",
   indec = "div", plot = TRUE, bw = FALSE, ti = TRUE, idi = "l",
   es = TRUE, out.dat = FALSE, layout = NA, cexleg = 1, years = TRUE)
 }
@@ -15,7 +15,7 @@ MapEcol.camp(gr, esp = "999", camp, dns = "Pnew", ind = "n",
 
 \item{camp}{Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{ind}{Elige el valor (n)úmero o (p)eso sobre el que se calculan los índices de diversidad, dominancia....}
 

@@ -2,7 +2,7 @@
 #'
 #' Función de acceso a datos:
 #' A partir de ficheros de fauna.dbf presentes en directorio comprueba presencia de especie
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", Mediterraneo "Medit" 
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa", Mediterraneo "Medit" 
 #' @param camp Permite elegir las campañas para filtrar sólo las que interesen, N para demersales, P para Porcupine, 1 o 2 para Arsa, M para Medits... Si es "" como es por defecto saca todos los datos de los ficheros edadXXX
 #' @return Devuelve un data.frame con las especies con datos de edad en las campañas presentes en el "directorio" dns
 #' @examples ALKs.dns.camp("Porc","P")

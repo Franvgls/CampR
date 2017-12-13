@@ -14,7 +14,7 @@ MapCant(gr, esp, camp, dns = "Cant", color = 1, add = FALSE,
 
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: solo para el Cantábrico "Cant"}
 
 \item{color}{Color de los puntos que representan las abundancias}
 

@@ -2,22 +2,22 @@
 % Please edit documentation in R/MapIberia.R
 \name{MapIberia}
 \alias{MapIberia}
-\title{Mapa de la península Ibérica completo}
+\title{Mapa de la Península Ibérica completo}
 \usage{
 MapIberia(xlims = c(-9.72, 5), ylims = c(35.9, 44.5), lwdl = 1,
   cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE, bw = F,
   ax = TRUE, wmf = FALSE, es = TRUE, places = TRUE, escmult = 1)
 }
 \arguments{
-\item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña}
+\item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del ?rea de la campaña}
 
-\item{ylims}{Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña}
+\item{ylims}{Define los limites latitudinales del mapa, los valores por defecto son los del total del ?rea de la campaña}
 
 \item{lwdl}{Ancho de las líneas del mapa}
 
 \item{cuadr}{Si T saca las cuadrículas de 5x5 millas naúticas}
 
-\item{cuadrMSFD}{Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)}
+\item{cuadrMSFD}{Si T dibuja caudr?cula de 10 millas naúticas utilizada para la evaluaci?n de la estrategia marina (MSFD)}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 
@@ -31,7 +31,7 @@ MapIberia(xlims = c(-9.72, 5), ylims = c(35.9, 44.5), lwdl = 1,
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
 
-\item{escmult}{=1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, más de uno lo aumenta}
+\item{escmult}{=1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, m?s de uno lo aumenta}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones

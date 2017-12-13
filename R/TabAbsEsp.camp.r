@@ -4,10 +4,11 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña de la que se extraen los datos: un año concreto (XX): Demersales "NXX"
-#' @param dns Elige el origen de las bases de datos: sólo sirve para el Cantábrico/Galicia "Cant
+#' @param dns Elige el origen de las bases de datos: sólo sirve para el Cantábrico/Galicia "Cant"
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param Nas Permite calcular los errores estándar aunque sólo haya un lance en algún estrato (haciendo varianza =0 en ese estrato, incorrecto pero da una idea cuando sólo un estrato entre varios tiene sólo un lance)
 #' @return Devuelve un objeto en formato list con las abundancias y errores estándar de la especie elegida en la campaña elegida.
+#' @examples TabAbsEsp.camp(1,36,"N08","Cant")
 #' @export
 TabAbsEsp.camp<-function(gr,esp,camp,dns="Cant",cor.time=TRUE,Nas=FALSE) {
   esp<-format(esp,width=3,justify="r")
@@ -33,5 +34,3 @@ TabAbsEsp.camp<-function(gr,esp,camp,dns="Cant",cor.time=TRUE,Nas=FALSE) {
   rownames(resn)<-c(names.estr,"Total")
   list(absw=resw,absn=resn)
 }
-#TabAbsEsp.camp("1"," 36","N08","Cant")
-#TabAbsEsp.Camp(1,36,"P10","Pnew")

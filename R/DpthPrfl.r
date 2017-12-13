@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo 
 #' @param camps Campañas de las que se obtiene la distribución de profundidades (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" or "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param ind Parámetro a representar, saca los datos en "p"eso o "n"úmero
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
@@ -15,9 +15,11 @@
 #' @param spl Si T incluye una curva spline en el gráfico
 #' @param brks Especifica los rangos de profundidad:"Sturges" cada 100 metros, "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, "FD" cada 50 metros
 #' @param tabres Muestra una tabla resumen del total de lances, media y total de biomasa o número y frecuencia de la especie por estrato según el brks especificado
+#' @examples DpthPrfl(1, 50, "N08", "Cant",brks = "norte",tabres=TRUE,ind="p")
+#' @examples DpthPrfl(1,50,"P08","Porc",brks="porcupine",ti=TRUE)
 #' @seealso {\link{DpthPrflTals}}
 #' @export
-DpthPrfl<-function(gr,esp,camps,dns="Pnew",cor.time=TRUE,ind="p",es=TRUE,ti=TRUE,idi="l",xmax=NA,nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE) {
+DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,ind="p",es=TRUE,ti=TRUE,idi="l",xmax=NA,nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE) {
     esp<-format(esp,width=3,justify="r")
     if (length(gr)>1) stop("No se pueden mezclar datos de grupos distintos, se pueden mezclar todos menos 6, utilizando 9 como grupo")
     #  if (chpar)  opar<-par(no.readonly=TRUE)
@@ -109,9 +111,6 @@ DpthPrfl<-function(gr,esp,camps,dns="Pnew",cor.time=TRUE,ind="p",es=TRUE,ti=TRUE
       resumen<-data.frame(lans=nlans,totstr=totstr,meanstr=avgstr,frecuencia=dlans)
       resumen
     }
-  # DpthPrfl(1, 50, "N08", "Cant",brks = "norte",tabres=TRUE,ind="p")
-  # DpthPrfl(1,50,"P08","Pnew",brks="porcupine")
-  # DpthPrfl(1,50,"P08","Pnew",brks="porcupine",ti=FALSE)
   # DpthPrfl(1,50,"N08","Cant",brks=c(0,70,100,130,160,190,220))
   # DpthPrfl(1,50,"N08","Cant",brks="FD")
-}
+  }

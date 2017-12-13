@@ -4,7 +4,7 @@
 \alias{ecolgr.camp}
 \title{Índices ecológicos para un grupo en una campaña}
 \usage{
-ecolgr.camp(gr, esp = 999, camp, dns = "Pnew", ind = "n")
+ecolgr.camp(gr, esp = 999, camp, dns = "Porc", ind = "n")
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6}
@@ -13,7 +13,7 @@ ecolgr.camp(gr, esp = 999, camp, dns = "Pnew", ind = "n")
 
 \item{camp}{Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Mediterráneo "Medi"}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Mediterráneo "Medi"}
 
 \item{ind}{Elige el valor sobre el que se calculan los índices de diversidad, dominancia....}
 }
@@ -24,7 +24,7 @@ Devuelve un data.frame con campos lan,lat,long,prof,div (Diversidad de Shanon),n
 Utiliza los datos del Camp para calcular la riqueza, diversidad y dominancia
 }
 \examples{
-ecolgr.camp(1,999,"P08","Pnew",ind="n")
+ecolgr.camp(1,999,"P08","Porc",ind="n")
 ecolgr.camp(1,999,"M08","Medi",ind="n")
 }
 \seealso{

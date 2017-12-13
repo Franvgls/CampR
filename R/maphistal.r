@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados. 6 Desechos y otros inorgánicos no tiene sentido sacar tallas, sólo recogidas en peces, crustáceos decápodos y algunos moluscos
 #' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo 
 #' @param camps Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param tmin Talla mínima del intervalo de tallas a incluir
 #' @param tmax Talla máxima del intervalo de tallas a incluir
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
@@ -24,11 +24,11 @@
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
-#' @examples maphistal(1,50,Psh[1:12],"Pnew",1,23,layout=c(4,3),out.dat=TRUE)
+#' @examples maphistal(1,50,Psh[1:12],"Porc",1,23,layout=c(4,3),out.dat=TRUE)
 #' @family mapas
 #' @family tallas
 #' @export
-maphistal<-function(gr,esp,camps,dns="Pnew",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",sex=NA,bw=TRUE,ti=TRUE,sub=NULL,
+maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",sex=NA,bw=TRUE,ti=TRUE,sub=NULL,
   plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,escmult=.25,cexleg=1,years=TRUE) {
   options(scipen=2)
 #	if (plot) 

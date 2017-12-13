@@ -4,12 +4,12 @@
 \alias{qcdtallrev.camp}
 \title{Revisión de los histogramas de tallas de todas las especies de una campaña}
 \usage{
-qcdtallrev.camp(camp = "P12", dns = "Pnew", nlans = 2)
+qcdtallrev.camp(camp = "P12", dns = "Porc", nlans = 2)
 }
 \arguments{
 \item{camp}{Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "POrc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{nlans}{Permite no mostrar la relación talla-peso de una especie si el número de lances en que ha aparecido es menor de nlans (por defecto nlans=2)}
 }

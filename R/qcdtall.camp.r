@@ -6,7 +6,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
 #' @param camp Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param lance Permite seleccionar el lance
 #' @param ti Si T añade título al gráfico, el nombre de la especie en latín
 #' @param legend Si T añade leyenda
@@ -15,10 +15,10 @@
 #' @return Saca en pantalla un gráfico con el histograma de individuos medidos divididos en sus categorías y ponderaciones, ademas del numero ideal de individuos medidos
 #' @references Gerritsen & McGrath. 2007. Precision estimates and suggested sample sizes for length-frequency data.Fish. Bull. 106: 116-120)
 #' @seealso {\link{dtall.camp}}
-#' @examples qcdtall.camp(1,43,"P08","Pnew",lance=35)
+#' @examples qcdtall.camp(1,43,"P08","Porc",lance=35)
 #' @family Control de calidad
 #' @export
-qcdtall.camp<- function(gr,esp,camp="P12",dns="Pnew",lance,ti=FALSE,legend=TRUE,idi="l",ymax=NA) {
+qcdtall.camp<- function(gr,esp,camp="P12",dns="Porc",lance,ti=FALSE,legend=TRUE,idi="l",ymax=NA) {
   esp<-format(esp,width=3,justify="r")
   lance<-format(lance,width=3,justify="r")
   ch1<-RODBC::odbcConnect(dsn=dns)

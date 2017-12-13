@@ -4,7 +4,7 @@
 \alias{logabage2.camp}
 \title{Crea gráficos de descenso de abundancias con la edad}
 \usage{
-logabage2.camp(gr, esp, camps, dns = "Pnew", plus = 8, cor.time = TRUE,
+logabage2.camp(gr, esp, camps, dns = "Porc", plus = 8, cor.time = TRUE,
   ti = FALSE, layout = NA)
 }
 \arguments{
@@ -14,7 +14,7 @@ logabage2.camp(gr, esp, camps, dns = "Pnew", plus = 8, cor.time = TRUE,
 
 \item{camps}{Serie historica de campañas de la que se extraen los datos. Todas las campañas han de tener ALKs para las especie en cuestión}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{plus}{Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +}
 

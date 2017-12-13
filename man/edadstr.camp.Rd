@@ -6,7 +6,7 @@
  
 Función de resultados: abundancias estratificadas por edad para cada estrato batimétrico a partir de los datos del camp.}
 \usage{
-edadstr.camp(gr, esp, camp, dns = "Pnew", plus = 8, cor.time = TRUE,
+edadstr.camp(gr, esp, camp, dns = "Porc", plus = 8, cor.time = TRUE,
   AltAlk = NA, n.ots = F)
 }
 \arguments{
@@ -16,7 +16,7 @@ edadstr.camp(gr, esp, camp, dns = "Pnew", plus = 8, cor.time = TRUE,
 
 \item{camp}{Campaña de la que se extraen los datos un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{plus}{Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +}
 
@@ -30,7 +30,7 @@ Calcula las abundancias estratificadas por edad
 Función de resultados: abundancias estratificadas por edad para cada estrato batimétrico a partir de los datos del camp.
 }
 \examples{
-edadstr.camp("1"," 45","P01","Pnew",8)
+edadstr.camp(1,45,"P01","Porc",8)
 }
 \seealso{
 Other edades: \code{\link{ALKs.dns.camp}},

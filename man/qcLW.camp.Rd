@@ -4,7 +4,7 @@
 \alias{qcLW.camp}
 \title{Outliers capturas según tallas medidas y relación talla-peso}
 \usage{
-qcLW.camp(gr, esp, camp = "P11", dns = "Pnew", margerr = 20,
+qcLW.camp(gr, esp, camp = "P11", dns = "Porc", margerr = 20,
   out.dat = FALSE, mm = FALSE, areg = NA, breg = NA)
 }
 \arguments{
@@ -14,7 +14,7 @@ qcLW.camp(gr, esp, camp = "P11", dns = "Pnew", margerr = 20,
 
 \item{camp}{Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{margerr}{Margen de error que delimita los datos que estan dentro o fuera del intervalo.}
 

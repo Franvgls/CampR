@@ -5,9 +5,8 @@
 \title{Gráficos de dragas o CTDs a partir de las marcas del PescaWin con leyenda móvil}
 \usage{
 GrafMarksGPS_2(camp, dns = "Cant", event = "Draga", label = "Dredges",
-  add = FALSE, ti = TRUE, years = TRUE, pch = NA, ptbg = NA,
-  xlims = NA, ylims = NA, cuadr = TRUE, es = T, places = TRUE,
-  bw = FALSE)
+  add = FALSE, ti = TRUE, pch = NA, ptbg = NA, xlims = NA,
+  ylims = NA, cuadr = TRUE, es = T, places = TRUE, bw = FALSE)
 }
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -16,16 +15,34 @@ GrafMarksGPS_2(camp, dns = "Cant", event = "Draga", label = "Dredges",
 
 \item{event}{Elige el evento que se representa, dragas o CTDs}
 
+\item{label}{"Dredges" da un letrero alternativo para el evento}
+
 \item{add}{Si T añade los puntos al gráfico previo, si F saca el gráfico nuevo}
 
 \item{ti}{Si T incluye un título con el nombre de la campaña}
+
+\item{pch}{Si NA sale el simbolo por defecto, sino el que se elija de 1 a 12}
+
+\item{ptbg}{si NA el símbolo sale sin color de fondo, si no sale el color elegido}
+
+\item{xlims}{límites de longitud del mapa}
+
+\item{ylims}{límites de latitud del mapa}
+
+\item{cuadr}{si T saca las cuadrículas de muestreo}
+
+\item{es}{si T en español, otherwise in English}
+
+\item{places}{si T saca los sitios en el mapa}
+
+\item{bw}{si T en blanco y negro, en caso contrario en color}
 }
 \description{
 Gráfica todas las dragas o CTDs de una campaña siempre que se hayan marcado con el PescaWin durante la misma
 Requiere que los ficheros de marcas del PescaWin estén en los directorios "C:/GPS/mrk/porcupine/" para Porcupine o "C:/GPS/mrk/Norte/" para Demersales. Muestra el gráfico y queda pendiente de colocar la leyenda
 }
 \examples{
-GrafMarksGPS_2("N14","Cant")
+GrafMarksGPS_2("N14","Cant",bw=FALSE,places=FALSE,label="Carlitos")
 }
 \seealso{
 Other mapas: \code{\link{GrafMarksGPS}},

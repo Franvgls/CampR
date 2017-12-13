@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?
 #' @param esp Código de la especie numérico o carácter con tres espacios. Sólo admite una especie por gráfica
 #' @param camp Campañas a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
@@ -23,7 +23,7 @@
 #' @examples grafedtal.camps(1,43,Nsh[22:31],"Cant",plus=7,years=T,es=FALSE)
 #' @family edades
 #' @export
-grafedtal.camps <- function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,excl.sect=NA,ti=FALSE,leg=TRUE,es=TRUE,layout=NA,idi="l",cexleg=1,clms=2,plot=TRUE,ymax=NA,out.dat=FALSE,years=TRUE)  {
+grafedtal.camps <- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,excl.sect=NA,ti=FALSE,leg=TRUE,es=TRUE,layout=NA,idi="l",cexleg=1,clms=2,plot=TRUE,ymax=NA,out.dat=FALSE,years=TRUE)  {
   if (length(camp)==1) {stop("Ha seleccionado sólo una campaña, utilice grafedtal.camp")}
   ndat=length(camp)
   if (length(esp)>1) {

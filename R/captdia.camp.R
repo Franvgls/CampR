@@ -2,7 +2,7 @@
 #' 
 #' Da un resumen de las especies capturadas en el día solicitado (o los días solicitados). Sirve para dar los resúmenes de capturas que piden en el "Vizconde de Eza" y otros barcos peces y crust permiten seleccionar las especies que a extraer
 #' @param camp Es la campaña de la que queremos tomar los datos 
-#' @param dns Origen de Base de Datos seleccionado. Se usa sobretodo para "Pnew" Porcupine pero ver "Cant", "Arsa", "Medi"
+#' @param dns Origen de Base de Datos seleccionado. Se usa sobretodo para "Porc" Porcupine pero ver "Cant", "Arsa", "Medi"
 #' @param dias Los días del mes en que queremos tomar los datos, pueden pedirse varios juntos. No acepta mezclar meses distintos
 #' @param peces Las especies de peces que se quieren incluir en los datos
 #' @param crust Las especies de crustáceos que se incluir en los datos

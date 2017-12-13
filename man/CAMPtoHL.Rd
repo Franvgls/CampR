@@ -9,7 +9,7 @@ CAMPtoHL(camp, dns, inclSpecie = F, quart = T, incl2 = F)
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa"}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa"}
 
 \item{inclSpecie}{si T incluye el nombre de la especie y el Código, si no sólo el Aphia}
 

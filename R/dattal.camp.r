@@ -5,14 +5,14 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
 #' @param sex Si T muestra los datos por sexo
 #' @param verbose Si T muestra avisos problemas de tallas entre distintas especies
 #' @return Devuelve un data.frame con variables: talla, machos, hembras e indet(erminados) si existen todos y si sex=TRUE
 #' @seealso {\link{datos.camp}}
-#' @examples dattal.camp("1"," 50",paste("P0",7,sep=""),"Pnew",excl.sect=c("B","C"))
+#' @examples dattal.camp("1"," 50",paste("P0",7,sep=""),"Porc",excl.sect=c("B","C"))
 #' @export
 dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbose=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}

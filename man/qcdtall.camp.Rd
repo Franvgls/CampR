@@ -4,7 +4,7 @@
 \alias{qcdtall.camp}
 \title{Revisión del histograma de distribución de tallas}
 \usage{
-qcdtall.camp(gr, esp, camp = "P12", dns = "Pnew", lance, ti = FALSE,
+qcdtall.camp(gr, esp, camp = "P12", dns = "Porc", lance, ti = FALSE,
   legend = TRUE, idi = "l", ymax = NA)
 }
 \arguments{
@@ -14,7 +14,7 @@ qcdtall.camp(gr, esp, camp = "P12", dns = "Pnew", lance, ti = FALSE,
 
 \item{camp}{Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{lance}{Permite seleccionar el lance}
 
@@ -35,7 +35,7 @@ Muestra la distribución de talla de cada categoría,los factores de ponderació
 y el número ideal de individuos a medir (10 por talla: Gerritsen & McGrath 2007)
 }
 \examples{
-qcdtall.camp(1,43,"P08","Pnew",lance=35)
+qcdtall.camp(1,43,"P08","Porc",lance=35)
 }
 \references{
 Gerritsen & McGrath. 2007. Precision estimates and suggested sample sizes for length-frequency data.Fish. Bull. 106: 116-120)
