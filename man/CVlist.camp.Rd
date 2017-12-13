@@ -33,5 +33,5 @@ Devuelve un data.fram con valores en orden decreciente de abundancia con columna
 Función de resultados
 }
 \examples{
-CVlist.camp(gr=1,camp="P06",dns="Pnew")
+CVlist.camp(gr=1,camp="P06",dns="Porc")
 }

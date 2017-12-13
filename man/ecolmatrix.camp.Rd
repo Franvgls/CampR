@@ -14,7 +14,7 @@ ecolmatrix.camp(gr, esp = 999, camp, dns, ind = "p", incl6 = FALSE,
 
 \item{camp}{Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{ind}{Elige el valor (n)úmero o (p)eso que se utiliza en el resultado}
 
@@ -29,7 +29,7 @@ Devuelve un data.frame con columnas lan, una con el peso o número de cada espec
 Crea un data frame con campos lance, peso, numero, subestrato (en doble cifra), área subestrato  y posición geográfica. Usando códigos "9" "999" extrae los datos para el conjunto de todas las especies y grupos
 }
 \examples{
-ecolmatrix.camp(1,999,"P01","Pnew",ind="p")
+ecolmatrix.camp(1,999,"P01","Porc",ind="p")
 }
 \seealso{
 {\link{MapEcol.camp}}, {\link{ecolgr.camp}}

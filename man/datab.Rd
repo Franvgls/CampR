@@ -13,7 +13,7 @@ datab(gr, esp, camp, dns = "Cant", cor.time = TRUE, Nas = FALSE)
 
 \item{camp}{Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 

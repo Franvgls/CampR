@@ -6,13 +6,13 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param kg Si T datos en kgs, si F en gramos 
 #' @param verbose si T avisa de que hay más de una especie y los datos mezclados pueden ser engañosos
 #' @return Devuelve un data.frame con los datos de la especie por lance: sector,lance,peso,numero,arsect (área del sector al que pertence el lance)
 #' @details Saca los datos de los lances estratificados, por ello se produce un error si encuentra un lance con validez 1 y estrato o sector sin información.
-#' @examples datos.camp(1,50,"P10","Pnew",kg=FALSE, cor.time=TRUE)
+#' @examples datos.camp(1,50,"P10","Porc",kg=FALSE, cor.time=TRUE)
 #' @export
 datos.camp<-function(gr,esp,camp,dns,cor.time=TRUE,kg=TRUE,verbose=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}

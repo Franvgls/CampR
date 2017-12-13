@@ -4,7 +4,7 @@
 \alias{maphistage}
 \title{Mapa distribución por edad en la campaña}
 \usage{
-maphistage(gr, esp, camp, dns = "Pnew", age, plus = 8, cor.time = TRUE,
+maphistage(gr, esp, camp, dns = "Porc", age, plus = 8, cor.time = TRUE,
   n.ots = FALSE, AltAlk = NA, incl2 = TRUE, bw = TRUE, ti = TRUE,
   plot = TRUE, out.dat = FALSE, ind = "n", idi = "l", es = TRUE,
   layout = NA, ceros = FALSE, years = TRUE, mediahora = 1)
@@ -16,7 +16,7 @@ maphistage(gr, esp, camp, dns = "Pnew", age, plus = 8, cor.time = TRUE,
 
 \item{camp}{Campaña o campañas a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa". Medits "Medi" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa". Medits "Medi" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{age}{Edad solicitada}
 

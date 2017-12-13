@@ -15,7 +15,7 @@ dtall.lan(gr, esp, camp, dns = "Cant", lances = NA, ti = FALSE,
 
 \item{camp}{Campaña con el lance a representar en el histograma (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{lances}{Lance o lances de los que se quiere sacar la distribución de tallas. Si NA coge todos los lances de la campaña.}
 
@@ -40,7 +40,7 @@ Saca el gráfico en pantalla, para sacar datos utilizar {\link{dattal.camp}}
 Dibuja el histograma de la distribución de tallas de la especie por sexos (si existen). Si se selecciona más de un lance es la distribución de tallas media en los lances seleccionados, si sólo hay un lance es la total del lance.
 }
 \examples{
-dtall.lan(1,36,"P08","Pnew",lances=c(10:15,17),ti=TRUE)
+dtall.lan(1,36,"P08","Porc",lances=c(10:15,17),ti=TRUE)
 }
 \seealso{
 Other Distribuciones de tallas: \code{\link{denstall.camp}},

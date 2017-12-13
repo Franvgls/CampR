@@ -4,7 +4,7 @@
 \alias{bubbage.camp}
 \title{Crea gráficos de burbujas de la abundancia sqrt(num)}
 \usage{
-bubbage.camp(gr, esp, camps, dns = "Pnew", plus = 8, recr = 0,
+bubbage.camp(gr, esp, camps, dns = "Porc", plus = 8, recr = 0,
   cor.time = TRUE)
 }
 \arguments{
@@ -14,7 +14,7 @@ bubbage.camp(gr, esp, camps, dns = "Pnew", plus = 8, recr = 0,
 
 \item{camps}{Serie historica de campañas de la que se extraen los datos. Todas las campañas han de tener ALKs para las especie en cuestión}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{plus}{Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +}
 

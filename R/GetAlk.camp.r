@@ -4,12 +4,12 @@
 #' @param gr Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?
 #' @param esp Código de la especie numérico o carácter con tres espacios. Sólo admite una especie por gráfica
 #' @param camp Campaña de la que se extraen los datos un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
 #' @param n.ots Número de otolitos o proporción? Si T da el número de otolitos  
 #' @param AltAlk ALK alternativa tomada de un fichero edadXYY.dbf sin ruta ni extensión
 #' @examples GetAlk.camp(1,43,"N93","Cant",8) 
-#' @examples GetAlk.camp(1,45,"P03","Pnew",AltAlk="edadXYY") 
+#' @examples GetAlk.camp(1,45,"P03","Porc",AltAlk="edadXYY") 
 #' @family edades
 #' @export
 GetAlk.camp<-function(gr,esp,camp,dns="Porc",plus=8,n.ots=FALSE,AltAlk=FALSE) {

@@ -13,7 +13,7 @@ TabAbsEsp.camp(gr, esp, camp, dns = "Cant", cor.time = TRUE, Nas = FALSE)
 
 \item{camp}{Campaña de la que se extraen los datos: un año concreto (XX): Demersales "NXX"}
 
-\item{dns}{Elige el origen de las bases de datos: sólo sirve para el Cantábrico/Galicia "Cant}
+\item{dns}{Elige el origen de las bases de datos: sólo sirve para el Cantábrico/Galicia "Cant"}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 
@@ -24,4 +24,7 @@ Devuelve un objeto en formato list con las abundancias y errores estándar de la
 }
 \description{
 Salida de datos para informe de campaña del Cantábrico y Galicia (con 5 estratos y 3 sectores).
+}
+\examples{
+TabAbsEsp.camp(1,36,"N08","Cant")
 }

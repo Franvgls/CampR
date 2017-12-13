@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
 #' @param camp Campaña de la que sacar datos año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX", Mediterráneo "MXX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew" o "Porc", Cantábrico "Cant" o "Cnew", Golfo de Cádiz "Arsa" y Mediterráneo "Medi" 
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant" o "Cnew", Golfo de Cádiz "Arsa" y Mediterráneo "Medi" 
 #' @param ind El dato a procesar, si (p)eso o (n)umero
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param kg Si T saca los resultados en Kg, si F en gramos

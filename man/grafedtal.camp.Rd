@@ -6,7 +6,7 @@
  
  Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad}
 \usage{
-grafedtal.camp(gr, esp, camp, dns = "Pnew", plus = 8, cor.time = TRUE,
+grafedtal.camp(gr, esp, camp, dns = "Porc", plus = 8, cor.time = TRUE,
   excl.sect = NA, AltAlk = NA, ti = FALSE, leg = TRUE, cexleg = 1,
   es = TRUE, plot = TRUE, ymax = NA, out.dat = FALSE)
 }
@@ -17,7 +17,7 @@ grafedtal.camp(gr, esp, camp, dns = "Pnew", plus = 8, cor.time = TRUE,
 
 \item{camp}{Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{plus}{Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +}
 
@@ -48,7 +48,7 @@ Histograma de distribución de tallas con edades
  Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad
 }
 \examples{
-grafedtal.camp(1,43,"P09","Pnew",es=FALSE,out.dat=TRUE)
+grafedtal.camp(1,43,"P09","Porc",es=FALSE,out.dat=TRUE)
 }
 \seealso{
 {\link{grafedtal.camps}}

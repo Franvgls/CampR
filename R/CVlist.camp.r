@@ -11,7 +11,7 @@
 #' @param excl.sect Excluye los sectores o subsectores dados como caracteres
 #' @param minim Excluye por defecto los valores con peso menor de el valor que se elija (atención si kg=T), también se puede hacer a posteriori para cualquiera de los campos con tabla[tabla$NombColumn>XX,]
 #' @return Devuelve un data.fram con valores en orden decreciente de abundancia con columnas gr,esp,especie,familia,camp,weight,number,nlan (número de lances en que aparece cada especie)
-#' @examples CVlist.camp(gr=1,camp="P06",dns="Pnew")
+#' @examples CVlist.camp(gr=1,camp="P06",dns="Porc")
 #' @export
 #'
 CVlist.camp<- function(gr="1",camp,dns,kg=TRUE,dec=3,percents=FALSE,cor.time=TRUE,excl.sect=NA,minim=F) {

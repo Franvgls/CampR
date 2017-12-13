@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param tmin Talla mínima
 #' @param tmax Talla máxima
 #' @param cor.time Si T corrige abundancias con la duración del lance para llevarlo a 30 minutos
@@ -14,7 +14,7 @@
 #' @seealso {\link{datgr.camp}}
 #' @examples dattalgr.camp("1",c(44:45),"N94","Cant",0,45,ind="p")
 #' @export
-dattalgr.camp<- function(gr,esp,camp,dns="Pnew",tmin=1,tmax=999,cor.time=TRUE,incl2=TRUE,sex=NA,ind="n") {
+dattalgr.camp<- function(gr,esp,camp,dns="Porc",tmin=1,tmax=999,cor.time=TRUE,incl2=TRUE,sex=NA,ind="n") {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
   ch1<-RODBC::odbcConnect(dsn=dns)

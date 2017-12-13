@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
 #' @param camp Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param margerr Margen de error que delimita los datos que estan dentro o fuera del intervalo.
 #' @param out.dat si T saca los datos estimados, observados y el error correspondiente. Por defecto (si F) saca estos datos, únicamente, de aquellos lances con errores mayores que margerr
 #' @param mm Usar T para especies medidas en milímetros 
@@ -14,7 +14,7 @@
 #' @examples qcLW.camp(1,50,"N08","Cant")
 #' @family Control de calidad
 #' @export
-qcLW.camp<- function(gr,esp,camp="P11",dns="Pnew",margerr=20,out.dat=FALSE,mm=FALSE,areg=NA,breg=NA) {
+qcLW.camp<- function(gr,esp,camp="P11",dns="Porc",margerr=20,out.dat=FALSE,mm=FALSE,areg=NA,breg=NA) {
   esp<-format(esp,width=3,justify="r")
   ch1<-RODBC::odbcConnect(dsn=dns)
   RODBC::odbcSetAutoCommit(ch1, FALSE)

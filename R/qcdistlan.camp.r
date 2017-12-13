@@ -2,11 +2,12 @@
 #' 
 #' Sirve para control de calidad y asegurarse que los datos de distancias y posiciones son correctos
 #' @param camp campaña a revisar los datos en formato Camp Xyy
-#' @param dns Origen de bases de datos: Cant cantábrico, Pnew Porcupine
+#' @param dns Origen de bases de datos: "Cant" cantábrico, "Porc" o "Pnew" Porcupine, "Arsa" para el Golfo de Cádiz y "Medi" para MEDITS
 #' @param todos Por defecto F. Si T lista todos los lances con valores, si no sólo los que pc.error>error
 #' @param pc.error porcentaje de error aceptable para no mostrar los lances como erróneos
 #' @return Devuelve un data.frame con campaña, lance, recorrido según: camp, según la fórmula haversine entre largada y virada, velocidad, velocidad para recorrer el recorrido, tiempo y %s de error en las comparaciones
 #' @examples qcdistlan.camp("C14","Cant",pc.error=.01)
+#' @examples qcdistlan.camp("216","Arsa",pc.error=.01)
 #' @seealso {\link{MapLansGPS}}
 #' @references distHaversine function gives the haversine calculation of distance between two geographic points \code{\link[geosphere]{distHaversine}}
 #' @family Control de calidad

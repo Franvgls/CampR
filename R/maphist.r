@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
 #' @param camps Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o  "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param incl2 Si F no tiene en cuenta los lances especiales, si T si los tiene en cuenta, pero da problemas por que no puede calcular las abundancias estratificadas
 #' @param bw Gráfico en blanco en negro si T o en color si F
@@ -27,7 +27,7 @@
 #' maphist(1,50,As2[15:18],"Arsa",layout=c(2,2),years=TRUE,sub="ARSA 2nd quarter")
 #' @family mapas
 #' @export
-maphist<-function(gr,esp,camps,dns="Pnew",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TRUE,sub=NULL,plot=TRUE,out.dat=FALSE,ind="p",idi="l",
+maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TRUE,sub=NULL,plot=TRUE,out.dat=FALSE,ind="p",idi="l",
   layout=NA,leg=TRUE,pts=FALSE,ceros=TRUE,escmult=.25,cexleg=1,years=TRUE) {
   if (all(!pts & !leg & length(camps)>1)) {stop("Solo estaciones se usa para sólo una campaña, ha incluido más de una")}
   options(scipen=2)

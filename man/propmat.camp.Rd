@@ -14,7 +14,7 @@ propmat.camp(gr = 1, esp, camp, dns = "Cant", l50 = 37, b = TRUE,
 
 \item{camp}{Campaña de la que se extraen los datos: Demersales NYY, Porcupine PYY, Arsa primavera 1YY y Arsa otoño 2YY, Medits MYY}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Medits: "Medi"}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Medits: "Medi"}
 
 \item{l50}{Talla de primera madurez L50 para la especie en cuestion}
 

@@ -4,7 +4,7 @@
 \alias{DpthPrfl}
 \title{Perfil de distribución por profundidad}
 \usage{
-DpthPrfl(gr, esp, camps, dns = "Pnew", cor.time = TRUE, ind = "p",
+DpthPrfl(gr, esp, camps, dns = "Porc", cor.time = TRUE, ind = "p",
   es = TRUE, ti = TRUE, idi = "l", xmax = NA, nlans = TRUE,
   spl = FALSE, brks = "Sturges", tabres = TRUE)
 }
@@ -15,7 +15,7 @@ DpthPrfl(gr, esp, camps, dns = "Pnew", cor.time = TRUE, ind = "p",
 
 \item{camps}{Campañas de las que se obtiene la distribución de profundidades (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" or "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 
@@ -39,6 +39,10 @@ DpthPrfl(gr, esp, camps, dns = "Pnew", cor.time = TRUE, ind = "p",
 }
 \description{
 Crea un gráfico de perfil de distribución por profundidad de la biomasa o número de una especie o grupo de especies a partir de los datos de peso y número de la faunística tomados en una campaña
+}
+\examples{
+DpthPrfl(1, 50, "N08", "Cant",brks = "norte",tabres=TRUE,ind="p")
+DpthPrfl(1,50,"P08","Porc",brks="porcupine",ti=TRUE)
 }
 \seealso{
 {\link{DpthPrflTals}}

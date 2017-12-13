@@ -9,7 +9,7 @@ qcdistlan.camp(camp, dns = "Cant", todos = FALSE, pc.error = 2)
 \arguments{
 \item{camp}{campaña a revisar los datos en formato Camp Xyy}
 
-\item{dns}{Origen de bases de datos: Cant cantábrico, Pnew Porcupine}
+\item{dns}{Origen de bases de datos: "Cant" cantábrico, "Porc" o "Pnew" Porcupine, "Arsa" para el Golfo de Cádiz y "Medi" para MEDITS}
 
 \item{todos}{Por defecto F. Si T lista todos los lances con valores, si no sólo los que pc.error>error}
 
@@ -23,6 +23,7 @@ Sirve para control de calidad y asegurarse que los datos de distancias y posicio
 }
 \examples{
 qcdistlan.camp("C14","Cant",pc.error=.01)
+qcdistlan.camp("216","Arsa",pc.error=.01)
 }
 \references{
 distHaversine function gives the haversine calculation of distance between two geographic points \code{\link[geosphere]{distHaversine}}

@@ -4,7 +4,7 @@
 \alias{armap.camp}
 \title{Mapa con las estaciones realizadas}
 \usage{
-armap.camp(camp, dns = "Pnew", ti = FALSE, lwdl = 1, col = 2,
+armap.camp(camp, dns = "Porc", ti = FALSE, lwdl = 1, col = 2,
   argr = 2, cuadr = FALSE, cuadrMSFD = FALSE, arrow = FALSE,
   leg = TRUE, es = FALSE, cols = TRUE, noval = TRUE, CTDs = FALSE,
   strat = FALSE, Nlans = FALSE, NCTDs = FALSE, Dates = F,
@@ -14,7 +14,7 @@ armap.camp(camp, dns = "Pnew", ti = FALSE, lwdl = 1, col = 2,
 \arguments{
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX", Arsa otoño "2XX" y Medits "MXX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew"/"Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa", Mediterráneo "Medi"}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa", Mediterráneo "Medi"}
 
 \item{lwdl}{Anchura de las líneas}
 
@@ -68,9 +68,9 @@ par(mfrow=c(1,1))
 armap.camp("N14",dns="Cant",noval=TRUE,CTDs=FALSE,bw=FALSE)
 armap.camp("C14","Cant",xlims=c(-10.2,-7.6),es=TRUE)
 par(mfrow=c(1,2),oma=c(0,0,2.5,0),mar=c(3,3,3,3))
-armap.camp("P14","Pnew",xlims=c(-10.2,-7.6),es=FALSE)
+armap.camp("P14","Porc",xlims=c(-10.2,-7.6),es=FALSE)
 title("Trawl hauls",cex=1,line=2.5)
-armap.camp("P14","Pnew",xlims=c(-10.2,-7.6),lans=TRUE,es=FALSE,CTDs=TRUE)
+armap.camp("P14","Porc",xlims=c(-10.2,-7.6),lans=TRUE,es=FALSE,CTDs=TRUE)
 title("CTD casts",cex=1,line=2.5)
 mtext("Porcupine 2014 survey",line=1,outer=TRUE,cex=1.4,font=2)
 par(op)

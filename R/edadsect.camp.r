@@ -4,14 +4,14 @@
 #' @param gr Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?
 #' @param esp Código de la especie numérico o carácter con tres espacios. Sólo admite una especie por gráfica
 #' @param camp Campaña de la que se extraen los datos un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param AltAlk ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf sin ruta ni extensión
-#' @examples edadsect.camp("1"," 45","P01","Pnew",8)
+#' @examples edadsect.camp("1"," 45","P01","Porc",8)
 #' @family edades
 #' @export
-edadsect.camp<-function(gr,esp,camp,dns="Pnew",plus=8,cor.time=TRUE,AltAlk=NA) {
+edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA) {
   #calcula las abundancias estratificadas por edad para cada sector a partir de los datos del camp.
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {

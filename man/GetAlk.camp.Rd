@@ -16,7 +16,7 @@ GetAlk.camp(gr, esp, camp, dns = "Porc", plus = 8, n.ots = FALSE,
 
 \item{camp}{Campaña de la que se extraen los datos un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{plus}{Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +}
 
@@ -31,7 +31,7 @@ Función de acceso a datos: recupera la clave talla edad de una especie y campa�
 }
 \examples{
 GetAlk.camp(1,43,"N93","Cant",8) 
-GetAlk.camp(1,45,"P03","Pnew",AltAlk="edadXYY") 
+GetAlk.camp(1,45,"P03","Porc",AltAlk="edadXYY") 
 }
 \seealso{
 Other edades: \code{\link{ALKs.dns.camp}},

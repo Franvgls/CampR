@@ -4,7 +4,7 @@
 \alias{dattalgr.camp}
 \title{Biomasa y abundancia para un rango de talla}
 \usage{
-dattalgr.camp(gr, esp, camp, dns = "Pnew", tmin = 1, tmax = 999,
+dattalgr.camp(gr, esp, camp, dns = "Porc", tmin = 1, tmax = 999,
   cor.time = TRUE, incl2 = TRUE, sex = NA, ind = "n")
 }
 \arguments{
@@ -14,7 +14,7 @@ dattalgr.camp(gr, esp, camp, dns = "Pnew", tmin = 1, tmax = 999,
 
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
 
 \item{tmin}{Talla mínima}
 

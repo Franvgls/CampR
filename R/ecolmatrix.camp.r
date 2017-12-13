@@ -4,13 +4,13 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6 ver parámetro incl6 mas abajo
 #' @param esp ha de ser 999 cuando se quiere incluir todas las especies del grupo, o elegir todas las especies deseadas con los codigos de las especies
 #' @param camp Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param ind Elige el valor (n)úmero o (p)eso que se utiliza en el resultado
 #' @param incl6 Si F se excluye el grupo 6 de otros (en general material no orgánico o antropogénico). Si T lo incluye dentro del grupo de "especies"
 #' @param codes Si T da los códigos de las especies, si F el nombre científico
 #' @return Devuelve un data.frame con columnas lan, una con el peso o número de cada especie del grupo solicitado, lat, long, prof
 #' @seealso {\link{MapEcol.camp}}, {\link{ecolgr.camp}}
-#' @examples ecolmatrix.camp(1,999,"P01","Pnew",ind="p")
+#' @examples ecolmatrix.camp(1,999,"P01","Porc",ind="p")
 #' @export
 ecolmatrix.camp<- function(gr,esp=999,camp,dns,ind="p",incl6=FALSE,codes=TRUE) {
   grupo<-as.character(gr)

@@ -4,9 +4,9 @@
 #' A partir de ficheros de fauna.dbf presentes en directorio comprueba presencia de especie
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros
 #' @param esp Código de la especie numérico o carácter con tres espacios. Función para una sola especie
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @return Devuelve un vector con las campañas con presencia de la especie
-#' @examples PresenciaEsp.camp(1,220,"Pnew")
+#' @examples PresenciaEsp.camp(1,220,"Porc")
 #' @export
 PresenciaEsp.camp<- function(gr,esp,dns) {
    if (any(length(esp)>1 | esp=="999" | gr=="9")) stop("Seleccionadas mas de una especie, función para sólo una especie")

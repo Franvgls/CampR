@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camps campañas (años) a representar en el mapa: Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param tmin Talla mínima
 #' @param tmax Talla máxima
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
@@ -16,6 +16,7 @@
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
 #' @return Devuelve un vector con nombre con el número estratificado del rango de tallas deseados por campaña/año. Si se solicita plot=TRUE saca un gráfico de barras que muestra la abundancia por año. En peso sólo saca los resultados para una especie.
+#' @examples dattal.camps(1,36,Psh,"Porc",1,15,ind="n",plot=TRUE)
 #' @seealso {\link{dattal.camp}}
 #' @export
 dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect=NA,years=TRUE,ind="n",ti=TRUE,las=2,plot=FALSE,es=FALSE) {
@@ -64,7 +65,7 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
   }
   colSums(dumbtal[,2:ncol(dumbtal)],na.rm=TRUE)
 }
-#dattal.camps(1,36,Psh,"Pnew",1,15,ind="n",plot=TRUE)
+
 #hkeCantPequeños<-dattal.camps(1,50,Nsh[7:27],"Cnew",1,20,years=TRUE)
 #hkeAlboranPequeños<-dattal.camps(1,50,Msh[1:17],"Medi",1,20,excl.sect=c(2:3),years=TRUE)
 #hkeAlboranGrandes<-dattal.camps(1,50,Msh[1:17],"Medi",21,99,excl.sect=c(2:3),years=TRUE)

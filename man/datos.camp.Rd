@@ -13,7 +13,7 @@ datos.camp(gr, esp, camp, dns, cor.time = TRUE, kg = TRUE, verbose = TRUE)
 
 \item{camp}{Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 
@@ -33,5 +33,5 @@ Funciones para obtener data.frame de especies concretas a partir de los ficheros
 Saca los datos de los lances estratificados, por ello se produce un error si encuentra un lance con validez 1 y estrato o sector sin información.
 }
 \examples{
-datos.camp(1,50,"P10","Pnew",kg=FALSE, cor.time=TRUE)
+datos.camp(1,50,"P10","Porc",kg=FALSE, cor.time=TRUE)
 }

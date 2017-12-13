@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos
 #' @param esp Código de la especie númerico o caracter con tres espacios. 999 para todas las especies del grupo 
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: solo para el Cantábrico "Cant"
 #' @param color Color de los puntos que representan las abundancias
 #' @param add Si T añade los puntos al gráfico actual, si F dibuja uno nuevo
 #' @param escala Varia el tamaño de los puntos

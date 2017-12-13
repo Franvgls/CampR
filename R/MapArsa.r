@@ -19,12 +19,12 @@
 #' @family mapas base
 #' @family ARSA
 #' @export
-MapArsa<-function(xlims=c(-8,-5.55),ylims=c(35.95,37.33),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
-  asp<-diff(c(35.95,37.33))/(diff(c(-8,-5.55))*cos(mean(c(35.95,37.29))*pi/180))
+MapArsa<-function(xlims=c(-8.172,-5.50),ylims=c(35.95,37.35),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
+  asp<-diff(c(35.95,37.33))/(diff(c(-8,-5.55))*cos(mean(c(35.95,37.33))*pi/180))
   if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
-  if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3)
+  if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
-  maps::map(Arsa.str,xlim=xlims,ylim=ylims,type="n",yaxs="i",xaxs="i")
+  maps::map(Arsa.str,xlim=xlims,ylim=ylims,type="n",xaxs="i",yaxs="i")
   if (cuadr) {
     abline(h=seq(31,45,by=1/12),col=gray(.6),lwd=.6)
     abline(v=seq(-12,0,by=0.089),col=gray(.6),lwd=.6)
@@ -37,8 +37,8 @@ MapArsa<-function(xlims=c(-8,-5.55),ylims=c(35.95,37.33),lwdl=1,leg=F,cuadr=FALS
     abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
     abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
   }
-  maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,5),ifelse(bw,"light gray","wheat")),lwd=lwdl)
-  maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,6),ifelse(bw,"light gray","wheat")),lwd=lwdl)
+  maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,5),ifelse(bw,"light gray","wheat")),lwd=lwdl,xaxs="i",yaxs="i")
+  maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,6),ifelse(bw,"light gray","wheat")),lwd=lwdl,xaxs="i",yaxs="i")
   if (leg) {
     if (!bw) {
       maps::map(Arsa.map,Arsa.map$names[grep("StrA",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col="lightblue1")

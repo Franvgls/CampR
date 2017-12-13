@@ -9,7 +9,7 @@ qcTalPez.lan(camp, dns = "Cant", lan, gr = 1)
 \arguments{
 \item{camp}{campaña a revisar los datos en formato Camp Xyy}
 
-\item{dns}{Origen de bases de datos: Cant cantábrico, Pnew Porcupine}
+\item{dns}{Origen de bases de datos: "Cant" cantábrico, "Porc" o "Pnew" Porcupine}
 
 \item{lan}{lance para el que se quiere comprobar que estan todas las especies medidas y talladas (sólo comprueba peces, por defecto gr=1, si se quiere otros cambiar gr)}
 

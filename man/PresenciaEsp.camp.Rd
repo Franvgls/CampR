@@ -11,7 +11,7 @@ PresenciaEsp.camp(gr, esp, dns)
 
 \item{esp}{Código de la especie numérico o carácter con tres espacios. Función para una sola especie}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 }
 \value{
 Devuelve un vector con las campañas con presencia de la especie
@@ -21,5 +21,5 @@ Función de acceso a datos:
 A partir de ficheros de fauna.dbf presentes en directorio comprueba presencia de especie
 }
 \examples{
-PresenciaEsp.camp(1,220,"Pnew")
+PresenciaEsp.camp(1,220,"Porc")
 }

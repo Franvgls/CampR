@@ -5,13 +5,22 @@
 #' @param camp Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" 
 #' @param event Elige el evento que se representa, dragas o CTDs
+#' @param label "Dredges" da un letrero alternativo para el evento
 #' @param add Si T añade los puntos al gráfico previo, si F saca el gráfico nuevo
 #' @param ti Si T incluye un título con el nombre de la campaña
-#' @examples GrafMarksGPS_2("N14","Cant")
+#' @param pch Si NA sale el simbolo por defecto, sino el que se elija de 1 a 12
+#' @param ptbg si NA el símbolo sale sin color de fondo, si no sale el color elegido
+#' @param xlims límites de longitud del mapa
+#' @param ylims límites de latitud del mapa
+#' @param cuadr si T saca las cuadrículas de muestreo
+#' @param es si T en español, otherwise in English
+#' @param places si T saca los sitios en el mapa
+#' @param bw si T en blanco y negro, en caso contrario en color
+#' @examples GrafMarksGPS_2("N14","Cant",bw=FALSE,places=FALSE,label="Carlitos")
 #' @family mapas
 #' @family PescaWin
 #' @export
-GrafMarksGPS_2<-function(camp,dns="Cant",event="Draga",label="Dredges",add=FALSE,ti=TRUE,years=TRUE,pch=NA,ptbg=NA,xlims=NA,ylims=NA,cuadr=TRUE,es=T,places=TRUE,bw=FALSE) {
+GrafMarksGPS_2<-function(camp,dns="Cant",event="Draga",label="Dredges",add=FALSE,ti=TRUE,pch=NA,ptbg=NA,xlims=NA,ylims=NA,cuadr=TRUE,es=T,places=TRUE,bw=FALSE) {
   if (substr(event,1,5)!="Draga" & event!="CTD") stop("Sólo se aceptan Dragas o CTD")
   if(dev.cur() == 1) dev.new()
   if (is.na(ptbg)) {ptbg<-ifelse(add,"red","blue")} else ptbg==ptbg

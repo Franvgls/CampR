@@ -4,7 +4,7 @@
 \alias{map.check}
 \title{Compara la distribución geográfica de una especie entre campañas}
 \usage{
-map.check(gr, esp, camps, newcamp, dns = "Pnew", cor.time = TRUE,
+map.check(gr, esp, camps, newcamp, dns = "Porc", cor.time = TRUE,
   ind = "p", bw = TRUE, ti = TRUE, plot = TRUE, idi = "l",
   pts = TRUE, cexleg = 1)
 }
@@ -17,7 +17,7 @@ map.check(gr, esp, camps, newcamp, dns = "Pnew", cor.time = TRUE,
 
 \item{newcamp}{última campaña (que se compara con las anteriores) Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{cor.time}{si T corrige la captura del lance a media hora}
 

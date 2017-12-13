@@ -14,7 +14,7 @@ CV.bt.camp(gr, esp, camp, dns, ind = "p", cor.time = TRUE, kg = TRUE,
 
 \item{camp}{Campaña de la que sacar datos año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX", Mediterráneo "MXX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew" o "Porc", Cantábrico "Cant" o "Cnew", Golfo de Cádiz "Arsa" y Mediterráneo "Medi"}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant" o "Cnew", Golfo de Cádiz "Arsa" y Mediterráneo "Medi"}
 
 \item{ind}{El dato a procesar, si (p)eso o (n)umero}
 

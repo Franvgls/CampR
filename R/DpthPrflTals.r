@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo 
 #' @param camps Campañas de las que se obtiene la distribución de profundidades (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param tmin Talla mínima
 #' @param tmax Talla máxima
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
@@ -20,8 +20,10 @@
 #' @param tabres Muestra una tabla resumen de la media, total de biomasa o número y frecuencia de la especie por estación según el brks especificado
 #' @param tit2 Añade un segundo título al gráfico especificando el rango de tallas
 #' @seealso {\link{DpthPrfl}}
+#' @examples DpthPrflTals(1, 50, "N08", "Cant",10,20,brks = "norte",tabres=TRUE,ind="p")
+#' @examples DpthPrflTals(1,50,"P08","Porc",brks="porcupine")
 #' @export
-DpthPrflTals<-function(gr,esp,camps,dns="Pnew",tmin=0,tmax=999,cor.time=TRUE,incl2=T,ind="n",sex=NA,es=TRUE,ti=TRUE,idi="l",xmax=NA,
+DpthPrflTals<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=T,ind="n",sex=NA,es=TRUE,ti=TRUE,idi="l",xmax=NA,
                        nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE,tit2=TRUE) {
   esp<-format(esp,width=3,justify="r")
   if (length(gr)>1 | any(gr==9)) stop("No se pueden mezclar datos de grupos distintos, solo distintas especies del mismo grupo")
@@ -133,6 +135,6 @@ DpthPrflTals<-function(gr,esp,camps,dns="Pnew",tmin=0,tmax=999,cor.time=TRUE,inc
   }
 }
 # DpthPrflTals(1, 50, "N08", "Cant",10,20,brks = "norte",tabres=TRUE,ind="p")
-# DpthPrflTals(1,50,"P08","Pnew",brks="porcupine")
+# DpthPrflTals(1,50,"P08","Porc",brks="porcupine")
 # DpthPrflTals(1,50,"N08","Cant",brks=c(0,70,100,130,160,190,220))
 # DpthPrflTals(1,50,"N08","Cant",brks="FD")

@@ -4,7 +4,7 @@
 \alias{maphist}
 \title{Mapas de distribucion en varias campañas}
 \usage{
-maphist(gr, esp, camps, dns = "Pnew", cor.time = TRUE, incl2 = TRUE,
+maphist(gr, esp, camps, dns = "Porc", cor.time = TRUE, incl2 = TRUE,
   bw = TRUE, ti = TRUE, sub = NULL, plot = TRUE, out.dat = FALSE,
   ind = "p", idi = "l", layout = NA, leg = TRUE, pts = FALSE,
   ceros = TRUE, escmult = 0.25, cexleg = 1, years = TRUE)
@@ -16,7 +16,7 @@ maphist(gr, esp, camps, dns = "Pnew", cor.time = TRUE, incl2 = TRUE,
 
 \item{camps}{Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o  "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 

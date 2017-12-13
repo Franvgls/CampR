@@ -13,7 +13,7 @@ datgr.camp(gr, esp, camp, dns, cor.time = TRUE, incl2 = TRUE)
 
 \item{camp}{Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{cor.time}{Si T corrige abundancias con la duración del lance para llevarlo a 30 minutos}
 
@@ -27,5 +27,5 @@ Función de acceso a datos:
 Extrae los datos de peso y número de una especie o conjunto de especies a partir de las faunísticas de una campaña
 }
 \examples{
-datgr.camp(1,50,"P10","Pnew",cor.time=TRUE,incl2=FALSE)
+datgr.camp(1,50,"P10","Porc",cor.time=TRUE,incl2=FALSE)
 }

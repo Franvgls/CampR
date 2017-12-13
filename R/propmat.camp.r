@@ -6,7 +6,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos (4 equinodermos 5 invertebrados habitualmente no medidos)
 #' @param esp Código de la especie seleccionada
 #' @param camp Campaña de la que se extraen los datos: Demersales NYY, Porcupine PYY, Arsa primavera 1YY y Arsa otoño 2YY, Medits MYY
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Medits: "Medi"
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Medits: "Medi"
 #' @param l50 Talla de primera madurez L50 para la especie en cuestion
 #' @param b Indica si existe regresión talla peso y por tanto calcula el peso a partir de la regresión talla-peso de la especie en lugar del peso calculado.
 #' @param excl.sect Excluye los sectores y estratos en cuestion, si NA usa toda el area.

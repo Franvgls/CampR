@@ -2,7 +2,7 @@
 #' 
 #' Crea un mapa de Porcupine con las estaciones realizadas(al igua que "armap.camp") pero con la referencia de Irlanda para su mejor ubicación.
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant" (ARSA para sacar datos al IBTS, no gráficos)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant" (ARSA para sacar datos al IBTS, no gráficos)
 #' @param lwdl Anchura de las líneas
 #' @param col Color de los puntos que representan estaciones
 #' @param argr Grosor de las flechas de recorrido
@@ -20,7 +20,7 @@
 #' @family mapas
 #' @family resumen general
 #' @export
-armap.tot<-function(camp,dns="Pnew",lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,es=FALSE,bw=TRUE,noval=FALSE,
+armap.tot<-function(camp,dns="Porc",lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,es=FALSE,bw=TRUE,noval=FALSE,
 	CTDs=FALSE,strat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
 	ch1<-RODBC::odbcConnect(dsn=dns)
@@ -74,6 +74,6 @@ armap.tot<-function(camp,dns="Pnew",lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,es
 		legend("bottomright",l1,pch=pts,pt.bg=bgs,pt.cex=cexs,inset=.05,bg="white",cex=.9)
 		}
 	}
-#armap.tot("P08","Pnew",noval=FALSE,CTDs=TRUE,arrow=FALSE,leg=TRUE)
+#armap.tot("P08","Porc",noval=FALSE,CTDs=TRUE,arrow=FALSE,leg=TRUE)
 #armap.tot("P06",cols=FALSE,arrow=FALSE,leg=FALSE,es=TRUE,CTDs=FALSE)
 #title("Porcupine 2006",line=2.5)

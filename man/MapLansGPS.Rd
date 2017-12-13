@@ -4,7 +4,7 @@
 \alias{MapLansGPS}
 \title{Gráfico con los lances en segmentos}
 \usage{
-MapLansGPS(camp, dns = "Pnew", incl0 = FALSE, xlims = NA, ylims = NA,
+MapLansGPS(camp, dns = "Porc", incl0 = FALSE, xlims = NA, ylims = NA,
   places = TRUE, es = T, bw = FALSE, ax = T)
 }
 \arguments{

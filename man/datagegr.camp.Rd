@@ -4,7 +4,7 @@
 \alias{datagegr.camp}
 \title{Extrae los datos del FAUNA de una especie en concreto en una edad.}
 \usage{
-datagegr.camp(gr, esp, camp, dns = "Pnew", plus = 8, cor.time = TRUE,
+datagegr.camp(gr, esp, camp, dns = "Porc", plus = 8, cor.time = TRUE,
   n.ots = FALSE, AltAlk = AltAlk, incl2 = TRUE, mediahora = 1)
 }
 \arguments{

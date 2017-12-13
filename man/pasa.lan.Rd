@@ -4,12 +4,12 @@
 \alias{pasa.lan}
 \title{Funcion auxiliar para el PescaWin}
 \usage{
-pasa.lan(camp, dns = "Pnew", gps = FALSE, valid = TRUE)
+pasa.lan(camp, dns = "Porc", gps = FALSE, valid = TRUE)
 }
 \arguments{
 \item{camp}{Campaña de las que se cogen los resultados un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{gps}{Si T exporta el fichero directamente como camp.lan al directorio de lances del PescaWin}
 

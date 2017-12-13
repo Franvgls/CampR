@@ -4,7 +4,7 @@
 #' @param gr Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?
 #' @param esp Código de la especie numérico o carácter con tres espacios. Sólo admite una especie por gráfica
 #' @param camps Serie historica de campañas de la que se extraen los datos. Todas las campañas han de tener ALKs para las especie en cuestión
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
 #' @param recr edad de reclutamiento para especies con reclutamiento en edad 1 o mayor
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
@@ -12,7 +12,7 @@
 #' @return Saca un lattice de descenso de abundancia logarítmica con la edad con dato de la pendiente para cada año. También saca una matriz de abundancias por años x edad columnas x filas
 #' @family edades
 #' @export
-bubbage.camp <-function(gr,esp,camps,dns="Pnew",plus=8,recr=0,cor.time=TRUE) {
+bubbage.camp <-function(gr,esp,camps,dns="Porc",plus=8,recr=0,cor.time=TRUE) {
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
   }
