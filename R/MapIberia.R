@@ -23,7 +23,7 @@ MapIberia<-function(xlims=c(-9.72,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
   if (wmf) win.metafile(filename = "Iberia.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3)
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
-  maps::map(Iberia.map,xlim=xlims,ylim=ylims,type="n",yaxs="i",xaxs="i")
+  maps::map(Iberiamap,xlim=xlims,ylim=ylims,type="n",yaxs="i",xaxs="i")
   if (cuadr) {
     abline(h=seq(35,45,by=1/12),col=gray(.6),lwd=.6)
     abline(v=seq(-10,5,by=0.089),col=gray(.6),lwd=.6)
@@ -38,7 +38,7 @@ MapIberia<-function(xlims=c(-9.72,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
   }
   if (bw) {colo="lightgray"}
   else colo="wheat"
-  maps::map(Iberia.map,add=TRUE,fill=TRUE,col=colo,lwd=lwdl)
+  maps::map(Iberiamap,add=TRUE,fill=TRUE,col=colo,lwd=lwdl)
   if (places) {
     points(c(-6.299667,-6.950833),c(36.53433,37.25833),pch=1,lwd=2,cex=.9)
     text(-6.950833,37.25833,"Huelva",cex=escmult*0.7,font=2,pos=4)
