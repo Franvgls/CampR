@@ -15,5 +15,9 @@ lan2.camp(camp, dns)
 Busca y devuelve los lances especiales de una campaña
 }
 \examples{
+<<<<<<< HEAD
 lan2.camp("P01","Porc")
+=======
+lan2.camp("P01","Pnew")
+>>>>>>> hotfix
 }
