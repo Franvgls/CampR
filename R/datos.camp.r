@@ -60,7 +60,7 @@ datos.camp<-function(gr,esp,camp,dns,cor.time=TRUE,kg=TRUE,verbose=TRUE) {
   RODBC::odbcClose(ch1)
   names(lan)<-c("lance","sector","weight.time")
   names(absp)<-c("lance","peso","numero")
-  especial<-sum(absp$peso)
+  especial<-sum(absp$peso,na.rm=T)
   if (kg) { absp$peso<-absp$peso/1000 }
   mm<-merge(lan,absp,by.x="lance",by.y="lance",all.x=TRUE)
   mm$numero[which(is.na(mm$numero))]<-0
