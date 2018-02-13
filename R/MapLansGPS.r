@@ -37,7 +37,7 @@ MapLansGPS<-function(camp,dns="Pnew",incl0=FALSE,xlims=NA,ylims=NA,pcols=T,place
   if (pcols) {
     points(latitud_l~longitud_l,lan,pch=20,col="green",cex=.8)
     points(latitud_v~longitud_v,lan,pch=20,col="red",cex=.8)
-    legend("bottomright",c("Start","End"),pch=20,col=c("green","red"),bty="n")
+    legend("bottomright",c("Start","End"),pch=20,cex=.8,pt.cex=1,col=c("green","red"),bty="n")
   }
     if (incl0) segments(lannul$longitud_l,lannul$latitud_l,lannul$longitud_v,lannul$latitud_l,col=2,lwd=2)
 }
