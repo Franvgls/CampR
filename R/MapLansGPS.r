@@ -7,6 +7,7 @@
 #' @param xlims Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña 
 #' @param ylims Define los limites latitudinales del mapa, si se deja en NA toma los límites de lat del área definida en la campaña  
 #' @param places si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine
+#' @param pcols si T añade puntos de colores al principio (verde) y final (rojo) del lance
 #' @param ax Si T saca los ejes x e y
 #' @param bw Si T gráfico en blanco y negro por default, si F gráfico en color
 #' @return Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux
@@ -15,7 +16,7 @@
 #' @family mapas
 #' @family PescaWin
 #' @export
-MapLansGPS<-function(camp,dns="Pnew",incl0=FALSE,xlims=NA,ylims=NA,places=TRUE,es=T,bw=FALSE,ax=T) {
+MapLansGPS<-function(camp,dns="Pnew",incl0=FALSE,xlims=NA,ylims=NA,pcols=T,places=TRUE,es=T,bw=FALSE,ax=T) {
   #if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si se especifica limite de coordenadas debe hacerlo en latitud y longitud")
   lan<-datlan.camp(camp,dns,redux=FALSE,incl2=TRUE,incl0=TRUE)
   lannul<-lan[lan$validez==0,c("longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
@@ -33,5 +34,10 @@ MapLansGPS<-function(camp,dns="Pnew",incl0=FALSE,xlims=NA,ylims=NA,places=TRUE,e
     if (any(!is.na(xlims))) {MapMedit(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapMedit()
   }
   segments(lan$longitud_l,lan$latitud_l,lan$longitud_v,lan$latitud_v,col=1,lwd=2)
-  if (incl0) segments(lannul$longitud_l,lannul$latitud_l,lannul$longitud_v,lannul$latitud_l,col=2,lwd=2)
+  if (pcols) {
+    points(latitud_l~longitud_l,lan,pch=20,col="green",cex=.8)
+    points(latitud_v~longitud_v,lan,pch=20,col="red",cex=.8)
+    legend("bottomright",c("Start","End"),pch=20,col=c("green","red"),bty="n")
+  }
+    if (incl0) segments(lannul$longitud_l,lannul$latitud_l,lannul$longitud_v,lannul$latitud_l,col=2,lwd=2)
 }
