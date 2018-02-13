@@ -11,8 +11,8 @@
 pasa.lan<-function(camp,dns="Pnew",gps=FALSE,valid=TRUE) {
   # Pasa los datos del fichero LancesXXX.dbf a formato PescaWin coloc?ndolos directamente en
   #   el directorio del GPS como XXX.lan
-  ch1<-RODBC:odbcConnect(dsn=dns)
-  RODBC:odbcSetAutoCommit(ch1, FALSE)
+  ch1<-RODBC::odbcConnect(dsn=dns)
+  RODBC::odbcSetAutoCommit(ch1, FALSE)
   lan<-RODBC::sqlQuery(ch1,paste("select latitud_l,longitud_l,prof_l,latitud_v,longitud_v,prof_v,validez from LANCE",camp,sep=""))
   if (valid) {lan<-lan[as.numeric(lan$validez)>0,1:7] }
   lan[,c(1,4)]<-trunc(lan[,c(1,4)])+(lan[,c(1,4)]-trunc(lan[,c(1,4)]))/.6
