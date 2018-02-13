@@ -9,15 +9,11 @@ lan2.camp(camp, dns)
 \arguments{
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 }
 \description{
 Busca y devuelve los lances especiales de una campaña
 }
 \examples{
-<<<<<<< HEAD
 lan2.camp("P01","Porc")
-=======
-lan2.camp("P01","Pnew")
->>>>>>> hotfix
 }

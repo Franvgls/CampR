@@ -16,7 +16,7 @@ qcdistlan.camp(camp, dns = "Cant", todos = FALSE, pc.error = 2)
 \item{pc.error}{porcentaje de error aceptable para no mostrar los lances como erróneos}
 }
 \value{
-Devuelve un data.frame con campaña, lance, recorrido según: camp, según la fórmula haversine entre largada y virada, velocidad, velocidad para recorrer el recorrido, tiempo y %s de error en las comparaciones
+Devuelve un data.frame con campaña, lance, recorrido y rumbo según: camp, según la fórmula haversine entre largada y virada, velocidad, velocidad para recorrer el recorrido, tiempo y %s de error en las comparaciones
 }
 \description{
 Sirve para control de calidad y asegurarse que los datos de distancias y posiciones son correctos
