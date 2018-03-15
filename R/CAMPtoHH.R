@@ -39,7 +39,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        DB$DoorWght=850
        if(quart) DB$quarter<-"3"
        DB$Warpdia=20
-       if(any(nchar(DB$lance)>2)) stop("Lances con más de 2 carácteres, Porcupine no suele tener más de 99 lances, revise datos")
+       if(any(nchar(DB$lance)>2)) warning("Lances con más de 2 carácteres, Porcupine no suele tener más de 99 lances, revise datos")
        DB$lance<-formatC(DB$lance,flag=0,width=2)
        DB$StNo<-DB$cuadricula
        DB$estrato<-cut(DB$prof_l,breaks=c(120,300,450,800),labels=c("E","F","G"))
@@ -55,7 +55,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
       DB$DoorSurface=ifelse(DB$year<2008,3.6,1.8)
       DB$DoorWght=ifelse(DB$year<2008,630,350)
       if(quart) DB$quarter<-ifelse(substr(camp,1,1)=="1","1","4")
-      if(any(nchar(DB$lance)>2)) stop("Lances con más de 2 carácteres, Arsa no suele tener más de 99 lances, revise datos")
+      if(any(nchar(DB$lance)>2)) warning("Lances con más de 2 carácteres, Arsa no suele tener más de 99 lances, revise datos")
       DB$lance<-formatC(DB$lance,flag=0,width=2)
       DB$StNo=DB$lance
       DB$estrato<-cut(DB$prof_l,breaks=c(1,30,100,200,500,770),labels=c("H1","H2","H3","H4","H5"))

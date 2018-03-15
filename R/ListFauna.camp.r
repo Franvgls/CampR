@@ -33,7 +33,7 @@ ListFauna.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE
   dumbres<-data.frame(gr=NULL,esp=NULL,especie=NULL,peso=NULL,numero=NULL,nlan=NULL)
   #browser()
   for (i in 1:ndat) {
-    dumbmedio<-CV.camps(gr=gr,esp=listaesp[i],camp=camp,dns=dns,cor.time=cor.time)
+    dumbmedio<-CV.camps(gr=gr,esp=listaesp[i],camp=camp,dns=dns,excl.sect = excl.sect,cor.time=cor.time)
     dumbres<-rbind(dumbres,cbind(gr=gr,esp=listaesp[i],especie=buscaesp(gr,listaesp[i]),
                                  peso=dumbmedio$weight,
                                  numero=dumbmedio$number,

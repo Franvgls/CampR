@@ -4,8 +4,13 @@
 \alias{MapLansGPS}
 \title{Gráfico con los lances en segmentos}
 \usage{
+<<<<<<< HEAD
 MapLansGPS(camp, dns = "Porc", incl0 = FALSE, xlims = NA, ylims = NA,
   places = TRUE, es = T, bw = FALSE, ax = T)
+=======
+MapLansGPS(camp, dns = "Pnew", incl0 = FALSE, xlims = NA, ylims = NA,
+  pcols = T, places = TRUE, es = T, bw = FALSE, ax = T)
+>>>>>>> hotfix
 }
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -17,6 +22,8 @@ MapLansGPS(camp, dns = "Porc", incl0 = FALSE, xlims = NA, ylims = NA,
 \item{xlims}{Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña}
 
 \item{ylims}{Define los limites latitudinales del mapa, si se deja en NA toma los límites de lat del área definida en la campaña}
+
+\item{pcols}{si T añade puntos de colores al principio (verde) y final (rojo) del lance}
 
 \item{places}{si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine}
 
