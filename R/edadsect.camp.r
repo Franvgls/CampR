@@ -46,7 +46,7 @@ edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA) {
       print("ALK por sexos datos tallas no, simplifique la ALK",quote=FALSE)
       agebysex<-F
       b<-1
-      break
+      stop("ALK por sexos datos tallas no, simplifique la ALK")
     }
     edadsx<-split(edad,factor(edad$sexo))
     ntallssx<-split(ntalls,factor(ntalls$sexo))

@@ -51,9 +51,9 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
       DB$Gear="BAK"
       DB$barco=ifelse(substr(DB$barco,1,3)=="COR","CDS",ifelse(DB$barco=="MOL","29MO"))
       DB$Warpdia=ifelse(DB$barco=="CDS",22,24)
-      DB$DoorType=ifelse(DB$year<2008,"WR","T")
+      DB$DoorType=ifelse(DB$year<2008,"WR","T4")
       DB$DoorSurface=ifelse(DB$year<2008,3.6,1.8)
-      DB$DoorWght=ifelse(DB$year<2008,630,350)
+      DB$DoorWght=ifelse(DB$year<2008,650,350)
       if(quart) DB$quarter<-ifelse(substr(camp,1,1)=="1","1","4")
       if(any(nchar(DB$lance)>2)) warning("Lances con más de 2 carácteres, Arsa no suele tener más de 99 lances, revise datos")
       DB$lance<-formatC(DB$lance,flag=0,width=2)
