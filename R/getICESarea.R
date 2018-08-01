@@ -9,6 +9,7 @@
 #' @examples # getICESrect(icesDatras::getHHdata("SP-NORTH",2015,4),latname="haullat",longname="haullong")
 #' @export
 getICESarea<-function(camp,dns,incl2=T,incl0=F) {
+  lebels=c(paste0("C",0:9),paste0("D",0:9),paste0("E",0:9),paste0("F",0:9),paste0("F",0:9),paste0("G",0:9),paste0("H",0:9))
   DB<-data.table::as.data.table(CampR::datlan.camp(camp,dns,incl2=incl2,incl0 = incl0,redux=T))
   #names(DB)<-tolower(names(DB))
   DB$rectlong<-cut(DB$long,breaks=seq(from=-30,to=40,by=1),labels=lebels) # ,"D9","D8"
