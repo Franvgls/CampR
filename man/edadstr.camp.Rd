@@ -41,3 +41,4 @@ Other edades: \code{\link{ALKs.dns.camp}},
   \code{\link{logabage.camp}},
   \code{\link{logabage2.camp}}, \code{\link{maphistage}}
 }
+\concept{edades}

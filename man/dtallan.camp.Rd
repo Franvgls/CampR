@@ -4,7 +4,8 @@
 \alias{dtallan.camp}
 \title{Valores absolutos en número por talla}
 \usage{
-dtallan.camp(gr, esp, camp, dns, lances = NA, sex = FALSE, muestr = TRUE)
+dtallan.camp(gr, esp, camp, dns, lances = NA, sex = FALSE,
+  muestr = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
@@ -34,3 +35,4 @@ Other Distribuciones de tallas: \code{\link{denstall.camp}},
   \code{\link{dtall.lan}}, \code{\link{dtallan.peso}},
   \code{\link{dtallbarplot}}
 }
+\concept{Distribuciones de tallas}

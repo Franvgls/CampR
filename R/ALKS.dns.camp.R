@@ -24,8 +24,10 @@ ALKs.dns.camp<- function(dns,camp="") {
      ages<-data.table::data.table(matrix(nrow=0,ncol=22))
      names(ages)<-c("camp",names(RODBC::sqlFetch(ch1,camps.ed[1])))
    }
+   if (length(camps.ed)>1) {
    for (i in 2:length(camps.ed)) {
      if (nrow(RODBC::sqlFetch(ch1,camps.ed[i]))>0) ages<-rbind(ages,cbind(camp=camps.ed[i],RODBC::sqlFetch(ch1,camps.ed[i])))
+   }
    }
    RODBC::odbcClose(ch1)
    results<-tapply(ages$NL,ages[,c("camp","ESP")],"length")

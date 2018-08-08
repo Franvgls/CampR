@@ -20,4 +20,6 @@ Other Series datos: \code{\link{As2}}, \code{\link{Msh}},
 
 Other ARSA: \code{\link{As2}}, \code{\link{MapArsa}}
 }
+\concept{ARSA}
+\concept{Series datos}
 \keyword{datasets}

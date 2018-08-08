@@ -6,9 +6,10 @@
  
  Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad}
 \usage{
-grafedtal.camp(gr, esp, camp, dns = "Porc", plus = 8, cor.time = TRUE,
-  excl.sect = NA, AltAlk = NA, ti = FALSE, leg = TRUE, cexleg = 1,
-  es = TRUE, plot = TRUE, ymax = NA, out.dat = FALSE)
+grafedtal.camp(gr, esp, camp, dns = "Porc", plus = 8,
+  cor.time = TRUE, excl.sect = NA, AltAlk = NA, ti = FALSE,
+  leg = TRUE, cexleg = 1, es = TRUE, plot = TRUE, ymax = NA,
+  out.dat = FALSE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?}
@@ -61,3 +62,4 @@ Other edades: \code{\link{ALKs.dns.camp}},
   \code{\link{logabage.camp}},
   \code{\link{logabage2.camp}}, \code{\link{maphistage}}
 }
+\concept{edades}

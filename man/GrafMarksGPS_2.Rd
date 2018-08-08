@@ -4,9 +4,10 @@
 \alias{GrafMarksGPS_2}
 \title{Gráficos de dragas o CTDs a partir de las marcas del PescaWin con leyenda móvil}
 \usage{
-GrafMarksGPS_2(camp, dns = "Cant", event = "Draga", label = "Dredges",
-  add = FALSE, ti = TRUE, pch = NA, ptbg = NA, xlims = NA,
-  ylims = NA, cuadr = TRUE, es = T, places = TRUE, bw = FALSE)
+GrafMarksGPS_2(camp, dns = "Cant", event = "Draga",
+  label = "Dredges", add = FALSE, ti = TRUE, pch = NA, ptbg = NA,
+  xlims = NA, ylims = NA, cuadr = TRUE, es = T, places = TRUE,
+  bw = FALSE)
 }
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -56,3 +57,5 @@ Other mapas: \code{\link{GrafMarksGPS}},
 Other PescaWin: \code{\link{GrafMarksGPS}},
   \code{\link{MapLansGPS}}, \code{\link{pasa.lan}}
 }
+\concept{PescaWin}
+\concept{mapas}

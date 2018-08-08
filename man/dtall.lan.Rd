@@ -47,3 +47,4 @@ Other Distribuciones de tallas: \code{\link{denstall.camp}},
   \code{\link{dtallan.camp}}, \code{\link{dtallan.peso}},
   \code{\link{dtallbarplot}}
 }
+\concept{Distribuciones de tallas}

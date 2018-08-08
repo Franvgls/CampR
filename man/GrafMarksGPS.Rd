@@ -54,3 +54,5 @@ Other mapas: \code{\link{GrafMarksGPS_2}},
 Other PescaWin: \code{\link{GrafMarksGPS_2}},
   \code{\link{MapLansGPS}}, \code{\link{pasa.lan}}
 }
+\concept{PescaWin}
+\concept{mapas}

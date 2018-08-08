@@ -31,3 +31,4 @@ Other edades: \code{\link{GetAlk.camp}},
   \code{\link{logabage.camp}},
   \code{\link{logabage2.camp}}, \code{\link{maphistage}}
 }
+\concept{edades}

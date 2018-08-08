@@ -5,8 +5,8 @@
 \title{Mapa ampliado de Porcupine con las estaciones realizadas}
 \usage{
 armap.tot(camp, dns = "Porc", lwdl = 1, col = 2, argr = 2,
-  arrow = FALSE, leg = FALSE, es = FALSE, bw = TRUE, noval = FALSE,
-  CTDs = FALSE, strat = FALSE)
+  arrow = FALSE, leg = FALSE, es = FALSE, bw = TRUE,
+  noval = FALSE, CTDs = FALSE, strat = FALSE)
 }
 \arguments{
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -54,3 +54,5 @@ Other mapas: \code{\link{GrafMarksGPS_2}},
 
 Other resumen general: \code{\link{armap.camp}}
 }
+\concept{mapas}
+\concept{resumen general}

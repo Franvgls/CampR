@@ -71,3 +71,5 @@ Other mapas: \code{\link{GrafMarksGPS_2}},
 
 Other tallas: \code{\link{maphistal}}
 }
+\concept{mapas}
+\concept{tallas}

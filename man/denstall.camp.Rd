@@ -4,9 +4,9 @@
 \alias{denstall.camp}
 \title{Función de densidad distribución de tallas}
 \usage{
-denstall.camp(gr, esp, camp, dns, cor.time = TRUE, ti = FALSE, bw = TRUE,
-  es = TRUE, plot = TRUE, idi = "l", layout = NA, years = TRUE,
-  cexleg = 1)
+denstall.camp(gr, esp, camp, dns, cor.time = TRUE, ti = FALSE,
+  bw = TRUE, es = TRUE, plot = TRUE, idi = "l", layout = NA,
+  years = TRUE, cexleg = 1)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos. 4 equinodermos y 5 invertebrados no se miden}
@@ -46,3 +46,4 @@ Other Distribuciones de tallas: \code{\link{dtall.lan}},
   \code{\link{dtallan.camp}}, \code{\link{dtallan.peso}},
   \code{\link{dtallbarplot}}
 }
+\concept{Distribuciones de tallas}

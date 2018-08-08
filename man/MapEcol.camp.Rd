@@ -6,7 +6,8 @@
 \usage{
 MapEcol.camp(gr, esp = "999", camp, dns = "Porc", ind = "n",
   indec = "div", plot = TRUE, bw = FALSE, ti = TRUE, idi = "l",
-  es = TRUE, out.dat = FALSE, layout = NA, cexleg = 1, years = TRUE)
+  es = TRUE, out.dat = FALSE, layout = NA, cexleg = 1,
+  years = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados. 6 Desechos y otros no se incluye en esta función}
@@ -60,3 +61,5 @@ Other mapas: \code{\link{GrafMarksGPS_2}},
 
 Other ecologia: \code{\link{ecolgr.camp}}
 }
+\concept{ecologia}
+\concept{mapas}

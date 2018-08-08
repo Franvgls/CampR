@@ -8,7 +8,7 @@
 #' @param excl.sect Excluye el los sectores y estratos en cuestion, si NA usa toda el area.
 #' @param perc El percentil de la distribucion de tallas a calcular, .95 es el valor utilizado habitualmente como indicador del maximo de la distribucione de tallas
 #' @param graf Si T saca el gráfico de evolucion del p95 en la serie historica buscada para cada especie en lattice, si F ignora el gráfico
-#' @param pch El simbolo a utilizar {\link{pchShow.r}}
+#' @param pch El simbolo a utilizar 
 #' @param lty Ancho de la linea que une los puntos
 #' @param layout Configuracion del lattice en filas y columnas c(r,c)
 #' @param bw Si T saca un gráfico en blanco y negro, si F los rotulos de los lattice van en color

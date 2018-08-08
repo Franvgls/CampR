@@ -4,8 +4,8 @@
 \alias{logabage2.camp}
 \title{Crea gráficos de descenso de abundancias con la edad}
 \usage{
-logabage2.camp(gr, esp, camps, dns = "Porc", plus = 8, cor.time = TRUE,
-  ti = FALSE, layout = NA)
+logabage2.camp(gr, esp, camps, dns = "Porc", plus = 8,
+  cor.time = TRUE, ti = FALSE, layout = NA)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?}
@@ -44,3 +44,4 @@ Other edades: \code{\link{ALKs.dns.camp}},
   \code{\link{grafedtal.camp}},
   \code{\link{logabage.camp}}, \code{\link{maphistage}}
 }
+\concept{edades}

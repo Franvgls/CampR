@@ -4,7 +4,8 @@
 \alias{TabAbsEsp.camp}
 \title{Tabla resumen abundancias estratificadas por estrato y sector}
 \usage{
-TabAbsEsp.camp(gr, esp, camp, dns = "Cant", cor.time = TRUE, Nas = FALSE)
+TabAbsEsp.camp(gr, esp, camp, dns = "Cant", cor.time = TRUE,
+  Nas = FALSE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}

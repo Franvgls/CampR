@@ -49,3 +49,5 @@ Other mapas base: \code{\link{MapArsa}},
 
 Other Medits: \code{\link{MapMedit}}
 }
+\concept{Medits}
+\concept{mapas base}

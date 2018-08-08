@@ -48,3 +48,4 @@ Other Control de calidad: \code{\link{qcLW.camp}},
   \code{\link{qcdistlan.camp}},
   \code{\link{qcdtallrev.camp}}
 }
+\concept{Control de calidad}

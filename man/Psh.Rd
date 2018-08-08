@@ -22,4 +22,6 @@ Other Porcupine: \code{\link{VedaCigala.out}},
   \code{\link{VedaCigala}}, \code{\link{maparea}},
   \code{\link{mapporco}}
 }
+\concept{Porcupine}
+\concept{Series datos}
 \keyword{datasets}

@@ -4,7 +4,8 @@
 \alias{ListFaunaTals.camps}
 \title{Capturas y tallas mínima y máxima de grupos de especies para todos los lances de varias campaña}
 \usage{
-ListFaunaTals.camps(gr = "1", camps, dns, excl.sect = NA, incl2 = TRUE)
+ListFaunaTals.camps(gr = "1", camps, dns, excl.sect = NA,
+  incl2 = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados. 6 desechos no se puede elegir en esta función}

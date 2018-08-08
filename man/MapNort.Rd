@@ -4,9 +4,10 @@
 \alias{MapNort}
 \title{Mapa del Cantábrico y Galicia}
 \usage{
-MapNort(lwdl = 0.5, cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE,
-  leg = F, bw = TRUE, es = FALSE, ax = TRUE, strat = FALSE,
-  places = FALSE, xlims = c(-10.25, -1.4), ylims = c(41.82, 44.48))
+MapNort(lwdl = 0.5, cuadr = FALSE, cuadrMSFD = FALSE,
+  ICESrect = FALSE, leg = F, bw = TRUE, es = FALSE, ax = TRUE,
+  strat = FALSE, places = FALSE, xlims = c(-10.25, -1.4),
+  ylims = c(41.82, 44.48))
 }
 \arguments{
 \item{lwdl}{Ancho de las líneas del mapa}
@@ -52,3 +53,5 @@ Other mapas base: \code{\link{MapArsa}},
   \code{\link{MapCant}}, \code{\link{MapIberia}},
   \code{\link{MapMedit}}, \code{\link{mapporco}}
 }
+\concept{Galicia Cantabrico}
+\concept{mapas base}

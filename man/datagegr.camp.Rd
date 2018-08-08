@@ -5,7 +5,7 @@
 \title{Extrae los datos del FAUNA de una especie en concreto en una edad.}
 \usage{
 datagegr.camp(gr, esp, camp, dns = "Porc", plus = 8, cor.time = TRUE,
-  n.ots = FALSE, AltAlk = AltAlk, incl2 = TRUE, mediahora = 1)
+  n.ots = FALSE, AltAlk = NA, incl2 = TRUE, mediahora = 1)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustaceos: Sólo existen datos de edad para algunos peces y la cigala.}
@@ -43,3 +43,4 @@ Other edades: \code{\link{ALKs.dns.camp}},
   \code{\link{logabage.camp}},
   \code{\link{logabage2.camp}}, \code{\link{maphistage}}
 }
+\concept{edades}

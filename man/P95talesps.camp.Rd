@@ -23,7 +23,7 @@ P95talesps.camp(gr = 1, esps, camps, dns = "Cant", excl.sect = NA,
 
 \item{graf}{Si T saca el gráfico de evolucion del p95 en la serie historica buscada para cada especie en lattice, si F ignora el gráfico}
 
-\item{pch}{El simbolo a utilizar {\link{pchShow.r}}}
+\item{pch}{El simbolo a utilizar}
 
 \item{lty}{Ancho de la linea que une los puntos}
 

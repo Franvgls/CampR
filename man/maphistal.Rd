@@ -7,8 +7,8 @@
 maphistal(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
   cor.time = TRUE, incl2 = TRUE, ind = "n", sex = NA, bw = TRUE,
   ti = TRUE, sub = NULL, plot = TRUE, out.dat = FALSE, idi = "l",
-  layout = NA, leg = TRUE, ceros = TRUE, escmult = 0.25, cexleg = 1,
-  years = TRUE)
+  layout = NA, leg = TRUE, ceros = TRUE, escmult = 0.25,
+  cexleg = 1, years = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados. 6 Desechos y otros inorgánicos no tiene sentido sacar tallas, sólo recogidas en peces, crustáceos decápodos y algunos moluscos}
@@ -75,3 +75,5 @@ Other mapas: \code{\link{GrafMarksGPS_2}},
 
 Other tallas: \code{\link{MapGaltal}}
 }
+\concept{mapas}
+\concept{tallas}

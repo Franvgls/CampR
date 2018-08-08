@@ -38,3 +38,5 @@ Other mapas base: \code{\link{MapArsa}},
   \code{\link{MapIberia}}, \code{\link{MapMedit}},
   \code{\link{MapNort}}, \code{\link{mapporco}}
 }
+\concept{Norte Demersales}
+\concept{mapas base}

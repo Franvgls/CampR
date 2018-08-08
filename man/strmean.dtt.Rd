@@ -25,3 +25,4 @@ Función interna para cálculos y aplicación de bootstrap
 Other Calculos internos no mostrado: \code{\link{strmean.camps}},
   \code{\link{strmean}}
 }
+\concept{Calculos internos no mostrado}

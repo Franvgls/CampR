@@ -29,3 +29,4 @@ Other Control de calidad: \code{\link{qcLW.camp}},
   \code{\link{qcTalPez.lan}}, \code{\link{qcdistlan.camp}},
   \code{\link{qcdtall.camp}}, \code{\link{qcdtallrev.camp}}
 }
+\concept{Control de calidad}

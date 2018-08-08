@@ -4,9 +4,9 @@
 \alias{dattal.camps}
 \title{Abundancia estratificada para un rango de talla}
 \usage{
-dattal.camps(gr, esp, camps, dns, tmin = 0, tmax = 999, cor.time = TRUE,
-  excl.sect = NA, years = TRUE, ind = "n", ti = TRUE, las = 2,
-  plot = FALSE, es = FALSE)
+dattal.camps(gr, esp, camps, dns, tmin = 0, tmax = 999,
+  cor.time = TRUE, excl.sect = NA, years = TRUE, ind = "n",
+  ti = TRUE, las = 2, plot = FALSE, es = FALSE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}

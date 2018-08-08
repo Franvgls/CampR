@@ -39,3 +39,4 @@ Other Distribuciones de tallas: \code{\link{denstall.camp}},
   \code{\link{dtall.lan}}, \code{\link{dtallan.camp}},
   \code{\link{dtallan.peso}}
 }
+\concept{Distribuciones de tallas}

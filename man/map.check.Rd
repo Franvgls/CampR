@@ -50,3 +50,5 @@ Other mapas: \code{\link{GrafMarksGPS_2}},
   \code{\link{maparea}}, \code{\link{maphistage}},
   \code{\link{maphistal}}, \code{\link{maphist}}
 }
+\concept{control calidad}
+\concept{mapas}

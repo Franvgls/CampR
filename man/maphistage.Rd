@@ -4,10 +4,11 @@
 \alias{maphistage}
 \title{Mapa distribución por edad en la campaña}
 \usage{
-maphistage(gr, esp, camp, dns = "Porc", age, plus = 8, cor.time = TRUE,
-  n.ots = FALSE, AltAlk = NA, incl2 = TRUE, bw = TRUE, ti = TRUE,
-  plot = TRUE, out.dat = FALSE, ind = "n", idi = "l", es = TRUE,
-  layout = NA, ceros = FALSE, years = TRUE, mediahora = 1)
+maphistage(gr, esp, camp, dns = "Porc", age, plus = 8,
+  cor.time = TRUE, n.ots = FALSE, AltAlk = NA, incl2 = TRUE,
+  bw = TRUE, ti = TRUE, plot = TRUE, out.dat = FALSE, ind = "n",
+  idi = "l", es = TRUE, layout = NA, ceros = FALSE, years = TRUE,
+  mediahora = 1)
 }
 \arguments{
 \item{gr}{Grupo de la especie: Solo hay dados de edad para algunos peces y cigala ?}
@@ -78,3 +79,5 @@ Other edades: \code{\link{ALKs.dns.camp}},
   \code{\link{grafedtal.camp}},
   \code{\link{logabage.camp}}, \code{\link{logabage2.camp}}
 }
+\concept{edades}
+\concept{mapas}

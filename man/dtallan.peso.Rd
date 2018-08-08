@@ -35,3 +35,4 @@ Other Distribuciones de tallas: \code{\link{denstall.camp}},
   \code{\link{dtall.lan}}, \code{\link{dtallan.camp}},
   \code{\link{dtallbarplot}}
 }
+\concept{Distribuciones de tallas}

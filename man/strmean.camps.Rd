@@ -27,3 +27,4 @@ Similar a strmean.dtt media ponderada al tamaño del estrato pero para varias ca
 Other Calculos internos no mostrado: \code{\link{strmean.dtt}},
   \code{\link{strmean}}
 }
+\concept{Calculos internos no mostrado}

@@ -18,4 +18,6 @@ Serie completa con las campañas realizadas en el Mediterraneo en la campaña ME
 Other Series datos: \code{\link{As1}}, \code{\link{As2}},
   \code{\link{Nsh}}, \code{\link{Psh}}
 }
+\concept{MEDITS}
+\concept{Series datos}
 \keyword{datasets}

@@ -5,8 +5,8 @@
 \title{Mapa del Banco de Porcupine sin referencias en tierra}
 \usage{
 mapporco(xlims = c(-15.5, -10.5), ylims = c(50.5, 54.5), lwdl = 1,
-  cuadr = FALSE, ICESrect = FALSE, label = FALSE, colo = 2, ax = TRUE,
-  wmf = FALSE, corners = FALSE)
+  cuadr = FALSE, ICESrect = FALSE, label = FALSE, colo = 2,
+  ax = TRUE, wmf = FALSE, corners = FALSE)
 }
 \arguments{
 \item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña}
@@ -46,3 +46,5 @@ Other Porcupine: \code{\link{Psh}},
   \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
   \code{\link{maparea}}
 }
+\concept{Porcupine}
+\concept{mapas base}

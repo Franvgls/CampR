@@ -4,8 +4,8 @@
 \alias{captdia.camp}
 \title{Capturas del día para las especies peces}
 \usage{
-captdia.camp(camp = "C14", dns = "Cant", dias, peces = c(50, 42, 43, 44,
-  45, 50, 51, 80, 90, 60, 99), crust = c(19, 29))
+captdia.camp(camp = "C14", dns = "Cant", dias, peces = c(50, 42, 43,
+  44, 45, 50, 51, 80, 90, 60, 99), crust = c(19, 29))
 }
 \arguments{
 \item{camp}{Es la campaña de la que queremos tomar los datos}

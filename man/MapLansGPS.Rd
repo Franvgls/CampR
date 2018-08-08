@@ -4,8 +4,8 @@
 \alias{MapLansGPS}
 \title{Gráfico con los lances en segmentos}
 \usage{
-MapLansGPS(camp, dns = "Porc", incl0 = FALSE, xlims = NA, ylims = NA,
-  places = TRUE, es = T, bw = FALSE, ax = T)
+MapLansGPS(camp, dns = "Porc", incl0 = FALSE, xlims = NA,
+  ylims = NA, places = TRUE, es = T, bw = FALSE, ax = T)
 }
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -47,3 +47,5 @@ Other mapas: \code{\link{GrafMarksGPS_2}},
 Other PescaWin: \code{\link{GrafMarksGPS_2}},
   \code{\link{GrafMarksGPS}}, \code{\link{pasa.lan}}
 }
+\concept{PescaWin}
+\concept{mapas}

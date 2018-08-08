@@ -6,8 +6,9 @@
  
 Mapa del resultado de un sorteo de cuadriculas de Porcupine, con simbolos diferentes para cada sector/estrato}
 \usage{
-mapsorteo(x, wmf = FALSE, ax = TRUE, nomfic = "porco.emf", lwdl = 0.5,
-  colo = NA, add = FALSE, labs = FALSE, col = 2, cex = 0.9)
+mapsorteo(x, wmf = FALSE, ax = TRUE, nomfic = "porco.emf",
+  lwdl = 0.5, colo = NA, add = FALSE, labs = FALSE, col = 2,
+  cex = 0.9)
 }
 \arguments{
 \item{x}{El resultado de un sorteo mediante la función sorteo(). Puede ser un objeto con la misma estructura que el resultado de utilizar sorteo {\link{sorteo.r}}}

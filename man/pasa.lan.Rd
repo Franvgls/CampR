@@ -25,3 +25,4 @@ Saca un fichero de lances de la campaña con el formato de datos del PescaWin
 Other PescaWin: \code{\link{GrafMarksGPS_2}},
   \code{\link{GrafMarksGPS}}, \code{\link{MapLansGPS}}
 }
+\concept{PescaWin}

@@ -4,7 +4,8 @@
 \alias{databICESDiv}
 \title{Datos de abundancia por división ICES para una especie resúmen para grupos de trabajo}
 \usage{
-databICESDiv(gr, esp, camp, dns = "Cant", cor.time = TRUE, Nas = FALSE)
+databICESDiv(gr, esp, camp, dns = "Cant", cor.time = TRUE,
+  Nas = FALSE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}

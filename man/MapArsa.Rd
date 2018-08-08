@@ -51,3 +51,5 @@ Other mapas base: \code{\link{MapCant}},
 
 Other ARSA: \code{\link{As1}}, \code{\link{As2}}
 }
+\concept{ARSA}
+\concept{mapas base}

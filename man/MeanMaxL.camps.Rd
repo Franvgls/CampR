@@ -5,7 +5,8 @@
 \title{Talla máxima media del grupo de especies elegidas}
 \usage{
 MeanMaxL.camps(gr = 1, esps, camps, dns = "Cant", lmax = NA,
-  incl2 = FALSE, excl.sect = NA, plot = TRUE, es = TRUE, ti = FALSE)
+  incl2 = FALSE, excl.sect = NA, plot = TRUE, es = TRUE,
+  ti = FALSE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos (4 equinodermos 5 invertebrados habitualmente no medidos)}

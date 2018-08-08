@@ -36,4 +36,6 @@ Other Porcupine: \code{\link{Psh}},
   \code{\link{VedaCigala.out}}, \code{\link{maparea}},
   \code{\link{mapporco}}
 }
+\concept{Porcupine}
+\concept{mapas}
 \keyword{datasets}

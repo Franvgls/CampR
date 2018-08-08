@@ -4,10 +4,11 @@
 \alias{grafhistbox.comp}
 \title{Gráficas grafhistbox combinadas biomasa y peso}
 \usage{
-grafhistbox.comp(gr, esp, camps, dns = "Porc", cor.time = TRUE, kg = TRUE,
-  ci.lev = 0.8, DLS = F, idi = "l", SE = TRUE, es = TRUE,
-  sector = NA, Nas = FALSE, excl.sect = NA, ymax = c(NA, NA),
-  tline = FALSE, years = TRUE, ti = TRUE, mar = NA)
+grafhistbox.comp(gr, esp, camps, dns = "Porc", cor.time = TRUE,
+  kg = TRUE, ci.lev = 0.8, DLS = F, idi = "l", SE = TRUE,
+  es = TRUE, sector = NA, Nas = FALSE, excl.sect = NA,
+  ymax = c(NA, NA), tline = FALSE, years = TRUE, ti = TRUE,
+  mar = NA)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6}

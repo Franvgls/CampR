@@ -69,3 +69,4 @@ Other mapas: \code{\link{GrafMarksGPS_2}},
   \code{\link{map.check}}, \code{\link{maparea}},
   \code{\link{maphistage}}, \code{\link{maphistal}}
 }
+\concept{mapas}

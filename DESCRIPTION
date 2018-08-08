@@ -1,12 +1,15 @@
 Package: CampR
 Title: Libreria de funciones en R para el programa Camp
-Description: Funciones para sacar resultados de los datos de campañas de arrastre demersal guardados en el CAMP version 12 Windows7
-License: GPL (>=2)
-Version: 0.5.11
+Description: Funciones para sacar resultados de los datos de campañas de arrastre 
+    demersal guardados en el CAMP version 12 Windows7 (Harbour)
+License: GPL-2
+Version: 0.5.13
 Author: FVG <franvgls@gmail.com>
 Maintainer: FVG <franvgls@gmail.com>
 Depends:
     R (>= 2.15.2),
+    data.table (>= 1.11),
+    dplyr,
 LazyLoad: true
 Encoding: UTF-8
 Imports:
@@ -25,4 +28,4 @@ Imports:
     vegan,
     worrms,
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

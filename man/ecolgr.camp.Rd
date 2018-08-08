@@ -32,3 +32,4 @@ ecolgr.camp(1,999,"M08","Medi",ind="n")
 
 Other ecologia: \code{\link{MapEcol.camp}}
 }
+\concept{ecologia}
