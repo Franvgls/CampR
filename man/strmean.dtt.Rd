@@ -9,7 +9,7 @@ strmean.dtt(x, sector, area, w = rep(1, length(x)))
 \arguments{
 \item{x}{Es el vector de abundancias en peso o número}
 
-\item{sector}{Es la asignación al sector de cada muestra igual que en strmean {\link{strmean.r}} pero ha de tener dos caracteres, primero el sector geográfico y segundo el estrato batimétrico}
+\item{sector}{Es la asignación al sector de cada muestra igual que en strmean {\link{strmean}} pero ha de tener dos caracteres, primero el sector geográfico y segundo el estrato batimétrico}
 
 \item{area}{El área del sector}
 

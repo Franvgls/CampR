@@ -11,7 +11,7 @@ mapsorteo(x, wmf = FALSE, ax = TRUE, nomfic = "porco.emf",
   cex = 0.9)
 }
 \arguments{
-\item{x}{El resultado de un sorteo mediante la función sorteo(). Puede ser un objeto con la misma estructura que el resultado de utilizar sorteo {\link{sorteo.r}}}
+\item{x}{El resultado de un sorteo mediante la función sorteo(). Puede ser un objeto con la misma estructura que el resultado de utilizar sorteo {\link{sorteo}}}
 
 \item{wmf}{si T guarda el resultado en un metafile, si F saca el gráfico en pantalla}
 

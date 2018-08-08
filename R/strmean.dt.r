@@ -2,7 +2,7 @@
 #' 
 #' Función interna para cálculos y aplicación de bootstrap
 #' @param x Es el vector de abundancias en peso o número
-#' @param sector Es la asignación al sector de cada muestra igual que en strmean {\link{strmean.r}} pero ha de tener dos caracteres, primero el sector geográfico y segundo el estrato batimétrico
+#' @param sector Es la asignación al sector de cada muestra igual que en strmean {\link{strmean}} pero ha de tener dos caracteres, primero el sector geográfico y segundo el estrato batimétrico
 #' @param area El área del sector correspondiente
 #' @param Nas Permite obtener desviación estandar cuando sólo existe un dato, dando una desviación standard de 0. Es util para obtener una estimacion de la variabilidad aunque sólo haya un lance en un estrato
 #' @return Devuelve la media estratificadda ponderada al área dentro de cada estrato y subestrato y la total del área

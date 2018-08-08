@@ -1,7 +1,7 @@
 #' Mapa de las cuadrículas sorteadas para la campaña Porcupine
 #'  
 #' Mapa del resultado de un sorteo de cuadriculas de Porcupine, con simbolos diferentes para cada sector/estrato
-#' @param x El resultado de un sorteo mediante la función sorteo(). Puede ser un objeto con la misma estructura que el resultado de utilizar sorteo {\link{sorteo.r}}
+#' @param x El resultado de un sorteo mediante la función sorteo(). Puede ser un objeto con la misma estructura que el resultado de utilizar sorteo {\link{sorteo}}
 #' @param wmf si T guarda el resultado en un metafile, si F saca el gráfico en pantalla
 #' @param ax si T saca los ejes en el gráfico, si F queda solo el grid, útil para sacar metafiles a utilizar en el PescaWin
 #' @param nomfic Especifica el nombre del fichero metafile de salida por defecto Porco.emf si wmf es T
