@@ -4,7 +4,8 @@
 \alias{ListFauna.camps}
 \title{Capturas medias por lance de cada especie de gr (grupo) de varias campañas}
 \usage{
-ListFauna.camps(gr = "1", camps, dns, excl.sect = NA, incl2 = FALSE)
+ListFauna.camps(gr = "1", camps, dns, cor.time = TRUE,
+  excl.sect = NA, incl2 = FALSE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros.}
@@ -12,6 +13,8 @@ ListFauna.camps(gr = "1", camps, dns, excl.sect = NA, incl2 = FALSE)
 \item{camps}{campañas de las que se extrae el listado de especies capturadas: un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Medits "Medi"}
+
+\item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 

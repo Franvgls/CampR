@@ -14,6 +14,8 @@ ListFauna.camp(gr = "1", camp, dns, cor.time = TRUE, excl.sect = NA,
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", Medits "Medi"}
 
+\item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
+
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos, NA no excluye ninguno}
 
 \item{incl2}{Si T incluye los lances especiales "2"}
