@@ -21,10 +21,13 @@ ListFauna.camps(gr = "1", camps, dns, cor.time = TRUE,
 \item{incl2}{Si T incluye los lances especiales "2"}
 }
 \value{
-Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr en cada campaña. Columnas: camp,gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp)
+Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr en cada campaña. Columnas: camp,gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp) ordenadas por campaña y abundancia en peso decreciente dentro de la campaña
 }
 \description{
 Ver documentación ListFauna.camp
+}
+\examples{
+ListFauna.camps(gr="1",Nsh[25:27],"Cant",excl.sect=NA,incl2=TRUE)
 }
 \seealso{
 {\link{ListFauna.camp}}

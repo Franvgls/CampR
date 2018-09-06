@@ -7,7 +7,8 @@
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
 #' @param incl2 Si T incluye los lances especiales "2"
-#' @return Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr en cada campaña. Columnas: camp,gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp)
+#' @return Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr en cada campaña. Columnas: camp,gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp) ordenadas por campaña y abundancia en peso decreciente dentro de la campaña
+#' @examples ListFauna.camps(gr="1",Nsh[25:27],"Cant",excl.sect=NA,incl2=TRUE)
 #' @seealso {\link{ListFauna.camp}}
 #' @export
 ListFauna.camps<- function(gr="1",camps,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE) {
@@ -17,6 +18,5 @@ ListFauna.camps<- function(gr="1",camps,dns,cor.time=TRUE,excl.sect=NA,incl2=FAL
       dumb<-rbind(dumb,cbind(camp=i,ListFauna.camp(gr,i,dns,cor.time=cor.time,excl.sect,incl2)))
     }
   }
-  dumb[order(as.character(dumb$especie)),]
+  dumb[order(as.character(dumb$camp),-dumb$peso),]
 }
-#ListFauna.camps(gr="1",Nsh[25:27],"Cant",excl.sect=NA,incl2=TRUE)
