@@ -29,7 +29,7 @@ GetAlk.camp<-function(gr,esp,camp,dns="Porc",plus=8,n.ots=FALSE,AltAlk=FALSE) {
     edad<-edad[edad$GRUPO==gr & edad$ESP==esp,]
     }   
   edad[is.na(edad)]<-0
-  edad<-edad[which(rowSums(edad[5:20],na.rm=TRUE)>0),-c(1,2,21)]
+  edad<-edad[which(rowSums(edad[3:20],na.rm=TRUE)>0),-c(21)]
   edad<-edad[order(edad$TALLA,edad$SEXO),]
   if (plus<15) edad<-data.frame(edad[,1:(plus+2)],plus=rowSums(edad[,(plus+3):ncol(edad)]))
   if (!n.ots) edad<-data.frame(edad[,2:1],edad[,3:ncol(edad)]/rowSums(edad[,-c(1:2)])) else edad<-data.frame(edad[,2:1],edad[,3:ncol(edad)])
