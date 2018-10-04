@@ -20,17 +20,17 @@ buscaesp<- function(gr,esp,id="l") {
   else {
     if (gr!="9" & esp!="999") {
       if (id=="l") {
-        especie<-RODBC::sqlQuery(ch1,paste("select especie from Especies where grupo='",gr,
-                                    "' and esp='",esp,"'",sep=""))[[1]]}
+        especie<-as.character(RODBC::sqlQuery(ch1,paste("select especie from Especies where grupo='",gr,
+                                    "' and esp='",esp,"'",sep=""),as.is=TRUE)[[1]])}
       if (id=="i") {
-        especie<-RODBC::sqlQuery(ch1,paste("select nombrei from Especies where grupo='",gr,
-                                    "' and esp='",esp,"'",sep=""))[[1]]}
+        especie<-as.character(RODBC::sqlQuery(ch1,paste("select nombrei from Especies where grupo='",gr,
+                                    "' and esp='",esp,"'",sep=""),as.is=TRUE)[[1]])}
       if (id=="e") {
-        especie<- RODBC::sqlQuery(ch1,paste("select nombree from Especies where grupo='",gr,
-                                     "' and esp='",esp,"'",sep=""))[[1]]}
+        especie<-as.character(RODBC::sqlQuery(ch1,paste("select nombree from Especies where grupo='",gr,
+                                     "' and esp='",esp,"'",sep=""),as.is=TRUE)[[1]])}
       if (id=="a") {
-        especie<- RODBC::sqlQuery(ch1,paste("select APHIA from Especies where grupo='",gr,
-                                     "' and esp='",esp,"'",sep=""))[[1]]}    }
+        especie<- as.character(RODBC::sqlQuery(ch1,paste("select APHIA from Especies where grupo='",gr,
+                                     "' and esp='",esp,"'",sep=""),as.is=TRUE)[[1]])}    }
     if (gr!="9" & esp=="999") {
       if (id=="i") {especie<-paste("All",c("Fish","Crustaceans","Molluscs","Echinoderms","Other Invertebrates")[as.numeric(gr)])}
       else {especie<-paste("Total",c("peces","crustáceos","moluscos","equinodermos","otros invertebrados","otros")[as.numeric(gr)])}
