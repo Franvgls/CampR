@@ -4,7 +4,7 @@
 \name{As1}
 \alias{As1}
 \title{Serie histórica de la campaña ARSA de primavera}
-\format{A vector with codes for the surveys from 1992 to 2017}
+\format{A vector with codes for the surveys from 1992 to 2018}
 \usage{
 As1
 }
