@@ -14,7 +14,7 @@ PresenciaEsp.camp(gr, esp, dns)
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 }
 \value{
-Devuelve un vector con las campañas con presencia de la especie
+Devuelve dos vectores con las campañas con presencia de la especie, y con las campañas con datos de talla de la especie. Tb incluye información sobre campañas que no tienen datos en el fichero FAUNAXXX.dbf y/o NTALLXXX.dbf
 }
 \description{
 Función de acceso a datos:

@@ -5,13 +5,14 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros
 #' @param esp Código de la especie numérico o carácter con tres espacios. Función para una sola especie
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
-#' @return Devuelve un vector con las campañas con presencia de la especie
+#' @return Devuelve dos vectores con las campañas con presencia de la especie, y con las campañas con datos de talla de la especie. Tb incluye información sobre campañas que no tienen datos en el fichero FAUNAXXX.dbf y/o NTALLXXX.dbf
 #' @examples PresenciaEsp.camp(1,220,"Porc")
 #' @export
 PresenciaEsp.camp<- function(gr,esp,dns) {
    if (any(length(esp)>1 | esp=="999" | gr=="9")) stop("Seleccionadas mas de una especie, función para sólo una especie")
    ch1<-RODBC::odbcConnect(dsn=dns)
    RODBC::odbcSetAutoCommit(ch1, FALSE)
+#   on.exit(RODBC::odbcClose(ch1))
    RODBC::odbcTables(ch1)
    dumb<-RODBC::sqlFetchMore(ch1)
    dumb$TABLE_NAME<-as.character(dumb$TABLE_NAME)
@@ -22,13 +23,17 @@ PresenciaEsp.camp<- function(gr,esp,dns) {
    tallas<-cbind(camp=camps.t[1],RODBC::sqlFetch(ch1,paste("NTALL",camps.t[1],sep="")))
    t_names<-c("LANCE","GRUPO","ESP","CATE","SEXO","PESO_M","PESO_GR","TALLA","NUMER")
    for (i in 2:length(camps.f)) {
-       fauna<-rbind(fauna,cbind(camp=camps.f[i],RODBC::sqlFetch(ch1,paste("FAUNA",camps.f[i],sep=""))[,f_names]))
+      if(nrow(RODBC::sqlFetch(ch1,paste("FAUNA",camps.f[i],sep="")))>0) {
+        fauna<-rbind(fauna,cbind(camp=camps.f[i],RODBC::sqlFetch(ch1,paste("FAUNA",camps.f[i],sep=""))[,f_names]))
+      }
+     else warning(paste("Revisa campaña:",paste0("FAUNA",camps.f[i]),"no contiene datos"))
    }
    for (i in 2:length(camps.t)) {
-       if (nrow(RODBC::sqlFetch(ch1,paste("NTALL",camps.t[i],sep="")))>0) {
+      if (nrow(RODBC::sqlFetch(ch1,paste("NTALL",camps.t[i],sep="")))>0) {
           tallas<-rbind(tallas,cbind(camp=camps.t[i],RODBC::sqlFetch(ch1,paste("NTALL",camps.t[i],sep=""))[,t_names])) 
           }
-       }
+     else warning(paste("Revisa campaña:",paste0("NTALL",camps.f[i]),"no contiene datos de tallas"))
+   }
    RODBC::odbcClose(ch1)
    fauna$ESP<-as.numeric(as.character(fauna$ESP))
    tallas$ESP<-as.numeric(as.character(tallas$ESP))
