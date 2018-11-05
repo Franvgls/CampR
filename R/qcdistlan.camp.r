@@ -5,7 +5,7 @@
 #' @param dns Origen de bases de datos: "Cant" cantábrico, "Porc" o "Pnew" Porcupine, "Arsa" para el Golfo de Cádiz y "Medi" para MEDITS
 #' @param todos Por defecto F. Si T lista todos los lances con valores, si no sólo los que pc.error>error
 #' @param pc.error porcentaje de error aceptable para no mostrar los lances como erróneos
-#' @return Devuelve un data.frame con campaña, lance, recorrido y rumbo según: camp, según la fórmula haversine entre largada y virada, velocidad, velocidad para recorrer el recorrido, tiempo y %s de error en las comparaciones
+#' @return Devuelve un data.frame con campaña, lance, recorrido, recorrido según la fórmula de Haversine, recorrido según la velocidad x el tiempo, velocidad, tiempo, rumbo, rumbo estimado según posiciones,velocidad calculada a partir de la distancia y el tiempo, y los porcentajes de errores de distancia, velocidad y rumbo.
 #' @examples qcdistlan.camp("C14","Cant",pc.error=.01)
 #' @examples qcdistlan.camp("216","Arsa",pc.error=.01)
 #' @seealso {\link{MapLansGPS}}

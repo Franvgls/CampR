@@ -7,11 +7,11 @@
 gradec(x)
 }
 \arguments{
-\item{x}{grados en formato decimal}
+\item{x}{vector con grados y minutos en formato decimal}
 }
 \description{
 Transforma grados y minutos decimales a grados decimales, avisa si el dato es incorrecto, es decir minutos más de 60
 }
 \examples{
-camptoyear(Nsh)
+gradec(43.3080)
 }
