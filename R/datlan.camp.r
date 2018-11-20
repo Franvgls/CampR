@@ -48,7 +48,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
         if (lan$lat[i]>35.95 & lan$lat[i]<43 & lan$long[i] > c(-11) & lan$long[i] < c(-8.75)) {lan$zona[i]<- "9a"}
         if (lan$lat[i]>35.95 & lan$lat[i]<37.75 & lan$long[i] > c(-7.5) & lan$long[i] < c(-5.50)) {lan$zona[i]<- "9a"}
       }
-      if (any(is.na(lan$zona))) {warning("Al menos un lance sin Zona ICES asignada, revise resultados")}
+      if (any(is.na(lan$zona))) {warning(paste0("Al menos un lance: ",lan$lance[is.na(lan$zona)],
+                                                " sin Zona ICES asignada, revise resultados",lan$camp[is.na(lan$zona)]))}
     }
     lan$dista_p[lan$dista_p==0]<-NA
     lan$abert_v[lan$abert_v==0]<-NA
@@ -94,6 +95,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
   if (length(camp)>1) {
     for (i in camp[2:length(camp)]) datos<-rbind(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0,hidro=hidro),camp=i))
   }
+  if (any(is.na(datos$zona))) {warning(paste0("Al menos un lance: ",datos$lance[is.na(datos$zona)],
+                                            " sin Zona ICES asignada, revise resultados"))}
   if (any(!is.na(excl.sect))) {
     datos$sector<-gsub("NA","N",datos$sector) # print(datos)
     for (i in 1:length(excl.sect)) {if (length(grep(excl.sect[i],as.character(datos$sector))>0)) datos<-datos[-grep(excl.sect[i],as.character(datos$sector)),]}

@@ -35,10 +35,12 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
   if (length(esp)>1 | any(esp=="999")) {
     if (verbose) print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
     medida<-c("cm")
-    }
-  else { medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm") }
+    increm<-unid.camp(gr,esp)[2] }
+  else { 
+    medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm")
+    increm<-unid.camp(gr,esp)[2] }
 	if (bw) {
-    colbars<-c("black",gray(.5),"white")
+    colbars<-c(gray(.2),gray(.6),"white")
     }
 	else {
     colbars<-c("lightyellow","steelblue","yellow1")
@@ -111,7 +113,7 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
 #			}
 		}
 	else {
-		if (bw) colbars<-"grey"
+		if (bw) colbars<-gray(.3)
 		else colbars<-"olivedrab1"
 		leg=F
 		}
@@ -124,15 +126,23 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
 	xlimi<-c(min(a$talla)*(.95-1),max(a$talla)*1.05)
 	if (is.character(sub)) sub=list(label=sub,font=2,cex=cexleg*.9)
   if (length(camp)==1) {
-		foo<-lattice::barchart(n~talla,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,ylim=ylim,xlim=xlimi,
-			scales=list(alternating=F,tck=c(1,0),x=list(tick.number=10)),stack=T,h=F,main=tit,par.strip.text=list(cex=cexleg*.8,font=2),
+		foo<-lattice::barchart(n~talla,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,box.width=increm,ylim=ylim,xlim=xlimi,
+			scales=list(alternating=F,tck=c(1,1),
+			            x=list(at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
+			            rot=45)),
+			stack=T,h=F,main=tit,par.strip.text=list(cex=cexleg*.8,font=2),
 			xlab=list(label=ax[1],cex=cexleg*1.2),ylab=list(label=ax[2],cex=cexleg*1.2),sub=sub,strip=TRUE,
 			panel=function(x,y,...) {lattice::panel.fill(col="white")
 #  			media=sum((x)*y*100)/sum(y*100)
-				lattice::panel.grid(-1,0,lty=3,col="black")
+				lattice::panel.grid(-1,0,lty=3,col=gray(.2))
 #  			lattice::panel.abline(v=media,lty=1)
 				lattice::panel.barchart(x,y,col=colbars,...)
-#    		lattice::ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
+    		#lattice::panel.axis(side="bottom",
+    		                    # at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
+    		                    # labels=round(a$talla/10,1),
+    		                    # outside=T,
+    		                    # draw.labels = T)
+    	#	lattice::ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
         }
 			)
 			names(dtall)<-c("talla",dtalln[which(!is.na(match(sexn,names(dtall)[2:ncol(dtall)])))])
@@ -145,8 +155,9 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
 			else {layout<-c(1,ndat)}
 			}
     #*browser()
-		foo<-lattice::barchart(n~talla|camp,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,ylim=ylim,xlim=xlimi,col=colbars,drop.unused.levels=FALSE,
-			scales=list(alternating=F,tck=c(1,0),cex=cexleg*.7,x=list(tick.number=10)),stack=T,h=F,main=tit,xlab=list(label=ax[1],cex=cexleg*.9),
+		foo<-lattice::barchart(n~talla|camp,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,box.width=increm,ylim=ylim,xlim=xlimi,col=colbars,drop.unused.levels=FALSE,
+			scales=list(alternating=F,tck=c(1,0),cex=cexleg*.7,x=list(at=a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
+			            rot=45)),stack=T,h=F,main=tit,xlab=list(label=ax[1],cex=cexleg*.9),
 			ylab=list(label=ax[2],cex=cexleg*.9),layout=layout,par.strip.text=list(cex=cexleg*.8,font=2),as.table=ifelse(!is.null(orden),F,T),sub=sub,
 			panel=function(x,y,...) {
 				lattice::panel.fill(col="white")
@@ -160,7 +171,7 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
   #browser()
 	if (plot) {
      	if (bw) {
-    colbars<-c("black",gray(.5),"white")
+    colbars<-c(gray(.2),gray(.5),"white")
 		lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
     }
 	else {
