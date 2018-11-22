@@ -4,7 +4,8 @@
 \alias{CAMPtoHL}
 \title{Exporta datos de formato CAMP a formato DATRAs HL. Depende de que los códigos Aphia estén correctos en especies.dbf da error si son incompletos}
 \usage{
-CAMPtoHL(camp, dns, inclSpecie = F, quart = T, incl2 = F)
+CAMPtoHL(camp, dns, inclSpecie = FALSE, quart = TRUE, incl2 = FALSE,
+  export = FALSE)
 }
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -16,6 +17,8 @@ CAMPtoHL(camp, dns, inclSpecie = F, quart = T, incl2 = F)
 \item{quart}{si F deja en cada lance el valor del trimestre en que se realizó el lance, si T se deja el que tiene la campaña por defecto, 1 para Arsa 1Q, 3 para Porcupine y 4 para Arsa 4Q y Demersales Northern Shelf}
 
 \item{incl2}{Si F deja fuera los lances especiales que actualmente no se transmiten a DATRAS, si T los incluye}
+
+\item{export}{Si T crea un fichero csv con todos los datos corregidos (APHIAs) en el directorio CAMP donde está el especies.dbf este es importable al especies.dbf con un append from deli with , quitando todos los peces grupo="1"}
 }
 \value{
 Devuelve un data.table con datos de cada especie en el formato HL de DATRAS. DATRAS requiere que los datos no tengan cabecera y el trimestre sea el que corresponde a la campaña, además de no tener "". Por ello se debe pasar a fichero con la orden: write.table(CAMPtoHH(Xyy,dns),"nombrearchivo.csv",sep=",",quote=F,col.names=F,row.names=F))
