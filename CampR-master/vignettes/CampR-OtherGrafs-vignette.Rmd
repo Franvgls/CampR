@@ -1,0 +1,58 @@
+---
+title: "Otros tipos de gráficos"
+author: "Fran Velasco"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: yeti
+---
+
+```{r, echo=FALSE, results='hide'}
+library(CampR)
+```
+
+ Distribuciones de tallas
+---------------
+
+### Serie histórica:
+
+```{r tallas, fig.width=6.5,fig.height=4}
+dtall.camp(2,19,Psh[15:16],"Porc",es=F,layout=c(2,1))
+```
+
+### Edades en las tallas si hay ALK
+
+```{r talla edad, fig.width=6.5,fig.height=4,results='hide'}
+grafedtal.camp(1,43,"P09","Pnew",es=FALSE,out.dat=TRUE)
+```
+
+ Abundancias estratificadas serie histórica 
+----------------
+
+### Formato _tradicional_ con boxplots y bootstrap CI:
+ 
+```{r SE+bootstrap,results='hide'}
+grafhistbox(1,79,Psh,"Porc",ci.lev = .8,DLS = F,tline = F,SE=T,cex.leg = .8)
+```
+ 
+### Gráfico con el DLS 2/5 approach
+```{r DLS,results='hide'}
+grafhistbox(1,79,Psh,"Porc",ci.lev = 0,DLS = T,tline = F,SE=F,cex.leg = .8)
+```
+
+Funciones de control de calidad
+----------------
+
+### Control de calidad datos de lances:
+```{r QC1, echo=TRUE, results='hide'}
+qcdistlan.camp("P17","Porc",todos=T,pc.error=2)
+```
+
+Se muestran y comparan los valores de posición del lance con el recorrido y la velocidad. Se puede complementar con MapLansGPS de los lances que den resultados aparentemente erróneos:
+
+### Revisión Control de calidad datos de lances:
+```{r QC2,results='hide'}
+MapLansGPS("P17","Porc")
+```

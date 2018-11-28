@@ -86,4 +86,12 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,leg=F,bw=T
     #points(-2.7213888888889,43.413,pch=15,cex=.9) 
     #text(-2.7213888888889,43.420833333333,"Bermeo",font=2,pos=1,cex=.85) 
   }
+  if (cuadr) {
+    abline(h=seq(41,45,by=1/12),col=gray(.4),lwd=.5)
+    abline(v=seq(-12,0,by=3/26),col=gray(.4),lwd=.5)
+  }
+  if (cuadrMSFD) {
+    abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
+    abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
+  }
 }

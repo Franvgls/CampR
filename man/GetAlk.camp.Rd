@@ -2,9 +2,7 @@
 % Please edit documentation in R/GetAlk.camp.r
 \name{GetAlk.camp}
 \alias{GetAlk.camp}
-\title{Extrae ALK para una especie de los ficheros del camp 
- 
-Función de acceso a datos: recupera la clave talla edad de una especie y campaña determinadas}
+\title{Extrae ALK para una especie de los ficheros del camp}
 \usage{
 GetAlk.camp(gr, esp, camp, dns = "Porc", plus = 8, n.ots = FALSE,
   AltAlk = FALSE)
@@ -25,13 +23,11 @@ GetAlk.camp(gr, esp, camp, dns = "Porc", plus = 8, n.ots = FALSE,
 \item{AltAlk}{ALK alternativa tomada de un fichero edadXYY.dbf sin ruta ni extensión}
 }
 \description{
-Extrae ALK para una especie de los ficheros del camp 
- 
 Función de acceso a datos: recupera la clave talla edad de una especie y campaña determinadas
 }
 \examples{
-GetAlk.camp(1,43,"N93","Cant",8) 
-GetAlk.camp(1,45,"P03","Porc",AltAlk="edadXYY") 
+GetAlk.camp(1,43,"N93","Cant",8)
+GetAlk.camp(1,45,"P03","Porc",AltAlk="edadXYY")
 }
 \seealso{
 Other edades: \code{\link{ALKs.dns.camp}},

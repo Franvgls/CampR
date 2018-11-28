@@ -5,7 +5,7 @@
 \title{Outliers capturas según tallas medidas y relación talla-peso}
 \usage{
 qcLW.camp(gr, esp, camp = "P11", dns = "Porc", margerr = 20,
-  out.dat = FALSE, mm = FALSE, areg = NA, breg = NA)
+  out.dat = FALSE, mm = FALSE, areg = NA, breg = NA, plot = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
@@ -25,6 +25,8 @@ qcLW.camp(gr, esp, camp = "P11", dns = "Porc", margerr = 20,
 \item{areg}{Para cambiar el coeficiente "a" de la regresión si es distinto al archivado en el CAMP}
 
 \item{breg}{Para cambiar el coeficiente "b" de la regresión si es distinto al archivado en el CAMP}
+
+\item{plot}{si F hace que no salga el gráfico con los errores por lance, especialmente útil para evitar pasar por todas las especies al usar {link{qcLWbucl.camp}}}
 }
 \value{
 Saca una tabla con datos estimados, observados y el error asociado a la relación talla peso y la distribución de tallas. Si out.dat=T crea un data.frame con los datos para todos los lances de la campaña, en caso contrario sólo saca en la consola los que están fuera de los margenes de error
@@ -36,6 +38,8 @@ Busca outliers en las capturas en el fichero de tallas a partir de la relación 
 qcLW.camp(1,50,"N08","Cant")
 }
 \seealso{
+{link{qcLWbucl.camp}}
+
 Other Control de calidad: \code{\link{qcLWbucl.camp}},
   \code{\link{qcTalPez.lan}}, \code{\link{qcdistlan.camp}},
   \code{\link{qcdtall.camp}}, \code{\link{qcdtallrev.camp}}

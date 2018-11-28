@@ -66,7 +66,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
     if (ti) {title(camp.name,line=2)}
 	}
   if (dns=="Arsa") {
-    MapArsa(lwdl=lwdl,cuadr=cuadr)
+    MapArsa(xlims=c(-8.14,-5.54),ylims=c(35.95,37.33),lwdl=lwdl,cuadr=cuadr)
     if (ti) {title(camp.name,line=2)}
   }
   if (dns=="Medi") {

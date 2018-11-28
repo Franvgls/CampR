@@ -4,7 +4,8 @@
 \alias{qcLWbucl.camp}
 \title{Outliers en capturas segun la relación talla-peso de todos los peces de una campaña}
 \usage{
-qcLWbucl.camp(camp = "P12", dns = "Porc", nlans = 2)
+qcLWbucl.camp(camp = "P12", dns = "Porc", nlans = 2,
+  out.dat = FALSE)
 }
 \arguments{
 \item{camp}{Campaña de la que se procesan y comprueban los posibles outliers en el peso de las capturas de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -12,6 +13,8 @@ qcLWbucl.camp(camp = "P12", dns = "Porc", nlans = 2)
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa", Medits: "Medi"}
 
 \item{nlans}{Limita la comprobación a las especies que hayan sido capturadas en más lances de nlans (por defecto nlans=4)}
+
+\item{out.dat}{FALSE si TRUE da un output con todos los errores detectados y no produce los plots por especie en la campaña}
 }
 \value{
 Produce un gráfico por cada especie de pez medida en más de nlans lances. Para salir a mitad cerrar la ventana de gráfico o escape en Rstudio.
