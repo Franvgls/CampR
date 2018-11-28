@@ -18,9 +18,16 @@ library(CampR)
 
 ### Serie histórica:
 
-```{r tallas, fig.width=6.5,fig.height=4}
+```{r tallasmm, fig.width=6.5,fig.height=4}
 dtall.camp(2,19,Psh[15:16],"Porc",es=F,layout=c(2,1))
 ```
+
+### Tallas al medio cm:
+
+```{r tallas.5cm, fig.width=6.5,fig.height=4}
+dtall.camp(1,111,Psh[15:16],"Porc",es=F,layout=c(2,1))
+```
+
 
 ### Edades en las tallas si hay ALK
 
