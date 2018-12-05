@@ -1,6 +1,6 @@
 #' Comprueba que están medidas todas las especies en capturas y viceversa. Comprueba concordancia entre números y pesos en los ficheros de tallas NTALLXXX.dbf y fauna FAUNAXXX.dbf
 #'
-#' Sirve para control de calidad y asegurándose que no faltan datos o están incompletos (comprueba coherencia entre faunaXXX.dbf y NtallXXX.dbf y avisa cuando no son coherentes)
+#' Sirve para control de calidad y asegurándose que no faltan datos o están incompletos (comprueba coherencia entre faunaXXX.dbf y NtallXXX.dbf y avisa cuando no son coherentes) Existe una funciòn escondida para procesar de una vez toda la campaña `qcTalPez.camp(camp=XXX,dns,gr=1)`, pero una vez encontrado que el lance en que está el error es mejor utilizar la función lance por lance
 #' @param camp campaña a revisar los datos en formato Camp Xyy
 #' @param dns Origen de bases de datos: "Cant" cantábrico, "Porc" o "Pnew" Porcupine
 #' @param lan lance para el que se quiere comprobar que estan medidas todas las especies (sólo comprueba peces, por defecto gr=1, si se quiere otros cambiar gr) Si lan=NA comprueba todos los lances de la campaña
@@ -45,25 +45,24 @@ qcTalPez.lan<-function (camp, dns = "Cant", lan, gr = 1) {
   talsdat <- levels(as.factor(format(tals$esp, width = 3, justify = "r")))
   nomed <- fau[is.na(match(fau, talsdat))]
   sincapt <- talsdat[is.na(match(talsdat, fau))]
-  print(paste("Lance ", gsub(" ", "", lan), ":"), sep = )
+  #print(paste("Lance ", gsub(" ", "", lan), ":"), sep = )
   if (length(nomed) > 0) {
-    print(paste("Especies con captura y sin medir:", sep = ""))
+    print(paste("Lance ", gsub(" ", "", lan), ": ","Especies con captura y sin medir:", sep = ""))
     for (i in 1:length(nomed)) print(paste(nomed[i], "-",
                                            buscaesp(gr, nomed[i])))
   }
   if (length(sincapt) > 0) {
-    print("Especies medidas sin capturas en fauna:")
+    print(paste("Lance ", gsub(" ", "", lan),":"," Especies medidas sin capturas en fauna:"))
     for (i in 1:length(sincapt)) print(paste(sincapt[i],
                                              "-", buscaesp(gr, sincapt[i])))
   }
-  if (length(sincapt) == 0 & length(nomed) == 0)
-    print("No hay especies sin medir")
-  listspsmed <- listsps[!listsps$esp %in% as.numeric(nomed),
-                        ]
+  if (length(sincapt) == 0 & length(nomed) == 0) {}
+#    print("No hay especies sin medir")
+  listspsmed <- listsps[!listsps$esp %in% as.numeric(nomed),]
   errpesos <- listspsmed[, c("peso_gr")] - talspes[as.character(listspsmed$esp)]
   errnumer <- listspsmed[, c("numero")] - talsnum[as.character(listspsmed$esp)]
   if (any(abs(errpesos) > 1)) {
-    print(paste("Discordancias entre pesos en tallas y fauna para especie",
+    print(paste("Lance ", gsub(" ", "", lan), ":","Discordancias entre pesos en tallas y fauna para especie",
                 buscaesp(gr, names(which(errpesos != 0)))))
     print(errpesos[which(abs(errpesos) > 1)])
     print(paste("Tallas:", round(talspes[names(which(abs(errpesos) >
@@ -71,7 +70,7 @@ qcTalPez.lan<-function (camp, dns = "Cant", lan, gr = 1) {
                                                                                                                  0)), c("peso_gr")]))
   }
   if (any(abs(errnumer) > 1)) {
-    print(paste("Discordancias entre números en tallas y fauna para especie",
+    print(paste("Lance ", gsub(" ", "", lan), ":","Discordancias entre números en tallas y fauna para especie",
                 buscaesp(gr, names(which(abs(errnumer) > 1)))))
     print(errnumer[which(abs(errnumer) > 1)])
     print(paste("Tallas:", round(talsnum[names(which(abs(errnumer) >
@@ -83,9 +82,10 @@ qcTalPez.lan<-function (camp, dns = "Cant", lan, gr = 1) {
 qcTalPez.camp<-function(camp,dns,gr) {
   lancamp<-datlan.camp(camp,dns,incl0=FALSE)$lance
   for (i in lancamp) {
-    print(paste0("Errores lance ",i,": "))
+    print(paste0("Errores lance ",i," de ",length(lancamp),": "))
     print(qcTalPez.lan(camp,dns,i,gr))
-    print(" ")
-    Sys.sleep(20)
+#    print(" ")
+    Sys.sleep(.0001)
   }
+  invisible(i)
 }
