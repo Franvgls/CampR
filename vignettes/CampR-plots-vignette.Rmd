@@ -1,57 +1,70 @@
 ---
-title: "Campañas y áreas implementadas en CampR 0.4.14"
+title: "Campañas y zonas implementadas en CampR 0.6.2"
 author: "Fran Velasco"
+package: CampR
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 vignette: >
-  %\VignetteIndexEntry{Sending Messages With Gmailr}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}                   
-  %\usepackage[utf8]{inputenc}
+  %\VignetteINdexEntry{Campañas y zonas implementadas en CampR 0.6.2} 
+  %\VignetteEncoding{UTF-8}
 ---
 
-## Zonas implementadas en CampR 0.4.14
-```{r, echo=FALSE}
+```{r, echo=FALSE, results='hide',include=FALSE}
 library(CampR)
 ```
 
-En esta versión de CampR están implementadas funciones para las siguientes zonas: 
+ Mapa Demersales 
+---------------
 
-- Demersales Norte: Galicia y el Cántabrico
-- Banco de Porcupine
-- Golfo de Cádiz
-- Mediterráneo
 
-## Mapa Demersales Cantábrico y Galicia
+```{r SP-NORT, fig.width=7.2,fig.height=3.8}
+MapNort()
+```
 
-```{r, fig.width=7.2,fig.height=4.1}
+### Resumen campaña Demersales
+
+```{r SP-NORT results, fig.width=7.2,fig.height=3.8}
 armap.camp("N07","Cant",ti=T,es=T)
 ```
 
-## Mapa del Banco de Porcupine
+ Mapa del Banco de Porcupine
+---------------
 
-```{r, fig.width=7.2,fig.height=5.1}
+
+```{r SP-PORC, fig.width=7.2,fig.height=3.8}
+mapporco()
+```
+
+### Resumen campaña Porcupine
+
+```{r Porcupine, fig.width=6,fig.height=4.7}
 par(mfrow=c(1,2))
 armap.camp("P07","Porc",ti=T)
 armap.camp("P07","Porc",ti=F,CTD=T,lans=F)
 ```
 
+ Mapa Golfo de Cádiz 
+---------------
 
-## Mapa Golfo de Cádiz 
+```{r SP-ARSA, fig.width=7.2,fig.height=3.8}
+MapArsa()
+```
 
-```{r, fig.width=7.2,fig.height=6.1}
+### Resumen campaña Arsa
+```{r Arsa resultaos, fig.width=6.2,fig.height=5.1}
 armap.camp("207","Arsa",ti=T,es=T)
 ```
 
+ Mapa del Mediterráneo
+---------------
 
-## Mapa del Mediterráneo
+```{r Medits, fig.width=7.2,fig.height=6.4}
+MapMedit()
+```
 
-```{r, fig.width=6.2,fig.height=6.5}
+### Resumen campaña Medits
+```{r Medits-result, fig.width=6.4,fig.height=6.4}
 armap.camp("M07","Medi",ti=T,es=T)
 ```
 
-## Capturas de cigala Porcupine 2015
-
-```{r, fig.width=6.2,fig.height=6.5}
-maphist(2,19,"P15","Porc",ti=T)
-```

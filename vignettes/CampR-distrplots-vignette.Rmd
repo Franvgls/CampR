@@ -2,39 +2,35 @@
 title: "Graficos distribuciones de abundancias"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    theme: yeti
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteINdexEntry{Graficos distribuciones de abundancias} 
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, results= 'hide')
-```
-
-```{r, echo=FALSE, results='hide'}
+```{r, echo=FALSE, results='hide',include=FALSE}
 library(CampR)
 ```
 
 
-Distribuciones geográficas generales
--------------
+ Distribución geográfica para un rango de tallas concreto:
+---------------
 
-```{r maphist, fig.height=5, fig.width=6, include=TRUE, results='hide'}
-maphist(gr=2,esp=19,camps=CampR::Psh[15:16],dns="Porc",es=F,ceros=F,layout=c(2,1),bw=T)
+```{r maphistal, fig.height=9, fig.width=9, include=TRUE, results='hide'}
+maphistal(gr=1,esp=50,camps=Nsh[31:33],dns="Cant",tmin = 0,tmax=23,es=F,ceros=F,layout=c(1,3),bw=T)
 ```
 
-Para un rango de tallas concreto
--------------
 
-```{r maphistal, fig.height=9, fig.width=14, include=TRUE, results='hide'}
-maphistal(gr=1,esp=50,camps=CampR::Nsh[31:33],dns="Cant",tmin = 0,tmax=23,es=F,ceros=F,layout=c(1,3),bw=T)
-```
-
-Por edad
---------------
+ Distribución por edades:
+---------------
 
 ```{r maphistage, fig.height=5, fig.width=9, include=TRUE, results='hide'}
-maphistage(gr=1,esp=43,camp=CampR::Psh[14:16],dns="Porc",age = 1,es=F,ceros=F,layout=c(3,1),bw=T)
+maphistage(gr=1,esp=43,camp=Psh[14:16],dns="Porc",age = 1,es=F,ceros=F,layout=c(3,1),bw=T)
+```
+
+ Distribución de parámetros ecológicos:
+---------------
+
+```{r mapecol, fig.height=7.1, fig.width=9, include=TRUE, results='hide'}
+MapEcol.camp(1,999,Nsh[25:30],"Cant",ind="n",bw=TRUE,indec="simp",out.dat=TRUE,layout=c(2,3))
 ```

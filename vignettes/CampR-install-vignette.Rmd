@@ -2,11 +2,10 @@
 title: "Instalación de datos para CampR"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
-    theme: yeti
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteINdexEntry{Instalación de datos para CampR} 
+  %\VignetteEncoding{UTF-8}
 ---
 
  Instalación de los datos 
