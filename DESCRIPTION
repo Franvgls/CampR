@@ -3,7 +3,7 @@ Title: Librería de funciones en R para el programa CAMP
 Description: Funciones para sacar resultados de los datos de campañas de arrastre 
     demersal guardados en el CAMP version 12 Windows7 - Windows10 (Harbour)
 License: GPL-2
-Version: 0.6.3
+Version: 0.6.4
 Author: FVG <franvgls@gmail.com>
 Maintainer: FVG <franvgls@gmail.com>
 Depends:
@@ -28,4 +28,4 @@ Imports:
     vegan,
     worrms,
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

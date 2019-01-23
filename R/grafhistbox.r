@@ -1,8 +1,8 @@
 #' Evolución en biomasa o abundancia de la especie en la serie histórica
-#' 
+#'
 #' Gráfico de cajas con la evolución en biomasa o abundancia en la serie histórica
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6
-#' @param esp Codigo de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Codigo de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camps campañas de la serie de datos a representar en el gráfico de abundancias Demersales Nsh, Porcupine Psh, Arsa primavera As1 y Arsa otoño As2
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew" o "Porc", Cantábrico "Cant" o "Cnew", Golfo de Cádiz "Arsa" y Mediterráneo "Medi" P
 #' @param ind Parámetro a representar saca los datos en "p"eso o "n"úmero
@@ -35,7 +35,7 @@ grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.l
   options(scipen=2)
   if (length(sector)>1) {
     stop("Para calcular más de un sector utilice excl.sect quitando los no deseados")
-    } 
+    }
   if (tline & DLS) {stop("Elija línea de tendencia tline=T o cambios últimos 2 años frente a 3 previos DLS=T")}
   op<-par("mar")
 	if (any(is.na(mar))) par(mar=c(4, 4.5, 2.5, 2.5) + 0.1)
@@ -70,7 +70,7 @@ grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.l
 		}
 	if (any(!is.na(excl.sect))) {
 		# print(dumb)
-	  dumb$sector<-gsub("NA","N",dumb$sector) 
+	  dumb$sector<-gsub("NA","N",dumb$sector)
 		for (i in 1:length(excl.sect)) {if(length(grep(excl.sect[i],as.character(dumb$sector)))>0) dumb<-dumb[-grep(excl.sect[i],as.character(dumb$sector)),]}
 		dumb$sector<-factor(as.character(dumb$sector))
 		}
@@ -104,8 +104,8 @@ grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.l
 		}
 	xetiq<-ifelse(es,ifelse(years,"Año","Campaña"),ifelse(years,"Year","Survey"))
   especie<-buscaesp(gr,esp,idi)
-	if (is.na(ymax)) ymax<-max(.5,ifelse(ci.lev>0,max(dumb.env$point[1,]),max(dumbSETot$SE+dumbSETot$avg,na.rm=TRUE))*1.05)
-	plot(dumb.mean,xlab=xetiq,ylab=yetiq,ylim=c(0,ymax),axes=FALSE,cex.lab=cex.leg*.9) 
+	if (is.na(ymax)) ymax<-max(.05,ifelse(ci.lev>0,max(dumb.env$point[1,]),max(dumbSETot$SE+dumbSETot$avg,na.rm=TRUE))*1.05)
+	plot(dumb.mean,xlab=xetiq,ylab=yetiq,ylim=c(0,ymax),axes=FALSE,cex.lab=cex.leg*.9)
 	rect(-1000,-1000,10^5,10^5,col="white")
 	if (is.logical(ti)) {
 		if (ti) {title(main=especie,cex.main=1.1*cex.leg,

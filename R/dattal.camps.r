@@ -19,7 +19,7 @@
 #' @examples dattal.camps(1,36,Psh,"Porc",1,15,ind="n",plot=TRUE)
 #' @seealso {\link{dattal.camp}}
 #' @export
-dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect=NA,years=TRUE,ind="n",ti=TRUE,las=2,plot=FALSE,es=FALSE) {
+dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect=NA,years=TRUE,ind="n",ti=TRUE,las=2,plot=FALSE,es=FALSE,bw=TRUE) {
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1 & ind=="p") stop("No se pueden calcular las regresiones talla peso de más de una especie, considera usar calculos espec?ficos y sumarlos")
@@ -30,7 +30,7 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
       dumb<-rbind(dumb,data.frame(dattal.camp(gr,esp,i,dns,cor.time=cor.time,excl.sect=excl.sect,sex=FALSE),camp=i))
     }
   }
-  dumbtal<-tapply(dumb$numero,dumb[,c("talla","camp")],sum,na.rm=TRUE)  
+  dumbtal<-tapply(dumb$numero,dumb[,c("talla","camp")],sum,na.rm=TRUE)
   #dumbtal<-dtall.camp(gr,esp,camps,dns,excl.sect,years,out.dat=TRUE,plot=FALSE)
   talla<-as.numeric(rownames(dumbtal))
   if (ind=="p") {
@@ -55,7 +55,7 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
     par(mgp=c(2,.6,0))
     yetiq<-ifelse(es,expression("Ind"%*%"lan"^-1),expression("Ind"%*%"haul"^-1))
     datos<-colSums(dumbtal[,2:ncol(dumbtal)],na.rm=TRUE)
-    barplot(datos,ylim=c(0,max(datos)*1.1),names.arg=colnames(datos),space=0,ylab=yetiq,las=las)
+    barplot(datos,ylim=c(0,max(datos)*1.1),names.arg=colnames(datos),col=ifelse(bw,"grey","steelblue"),space=0,ylab=yetiq,las=las)
     box()
     if (ti) {
        title(main=buscaesp(gr,esp),font.main=4,line=2)
