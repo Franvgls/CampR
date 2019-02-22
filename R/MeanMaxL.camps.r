@@ -1,5 +1,5 @@
 #' Talla máxima media del grupo de especies elegidas
-#' 
+#'
 #' Debería de usar especies de un ecotipo similar (mismo gr) y sobre todo medidas en la misma unidad, en caso contrario da un error y avisa del problema.
 #' Para cada especie calcula la abundancia estratificada y la talla máxima, con ello hace una media ponderada, la salida
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos (4 equinodermos 5 invertebrados habitualmente no medidos)
@@ -13,7 +13,7 @@
 #' @param es Si T saca las etiquetas y titulos en español, Si F en inglés
 #' @param ti Si F no saca titulo en el gráfico, si T lo saca por defecto Talla media maxima, se puede utilizar para sacar el titulo que se quiera: p.ej: "Talla media maxima elasmobranquios"
 #' @return Devuelve una lista con un data.frame datos por especie: gr, esps, unid, n, lmax y el valor del indice la talla maxima media ponderada a la abundancia
-#' @seealso {\link{MeanMaxL.camp}}
+#' @family MSFD
 #' @examples MeanMaxL.camps(gr=1,c(50,42,43,44,45),Nsh[7:27],"Cant")
 #' @export
 MeanMaxL.camps<- function(gr=1,esps,camps,dns="Cant",lmax=NA,incl2=FALSE,excl.sect=NA,plot=TRUE,es=TRUE,ti=FALSE) {
@@ -30,7 +30,7 @@ MeanMaxL.camps<- function(gr=1,esps,camps,dns="Cant",lmax=NA,incl2=FALSE,excl.se
   }
   #  dumb$year<-camptoyear(dumb$camp)
   if (plot) {
-    plot(MeanLmax~year,dumbind,type="o",pch=21,bg="grey",ylim=c(0,ceiling(max(dumbind$MeanLmax,na.rm=TRUE)*1.1)),
+    plot(MeanLmax~year,dumbind,type="o",pch=21,bg="grey",ylim=c(0,ceiling(max(dumbind$MeanLmax,na.rm=TRUE)*1.1)),yaxs="i",
          ylab=paste(ifelse(es,"Talla máxima media","Mean maximum length")," (",dumbdatos$unid[1],")",sep=""),xlab=ifelse(es,"Año","Year"))
     if (is.logical(ti)) {
       if (ti) {title(main=ifelse(es,"Talla máxima media","Mean maximum length"),font=2)}

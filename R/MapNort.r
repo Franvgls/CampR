@@ -1,11 +1,11 @@
 #' Mapa del Cantábrico y Galicia
-#' 
+#'
 #' Función auxiliar para sacar el mapa de la campaña Demersales
-#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña 
-#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña 
+#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña
+#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param lwdl Ancho de las líneas del mapa
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
-#' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD) 
+#' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
 #' @param leg Si T saca una leyenda con los estratos batimétricos que salen de color o con grises en bw
 #' @param bw si T mapa con tierra en gris, si F tierra en color
@@ -53,6 +53,14 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,leg=F,bw=T
   maps::map(Nort.map,Nort.map$names[1:16],add=TRUE,col=c("gray"),lwd=lwdl)
   maps::map(Nort.map,Nort.map$names[17],add=TRUE,col=c("black"),lwd=lwdl)
   box(lwd=2)
+  # if (cuadr) {
+  #   abline(h=seq(41,45,by=1/12),col=gray(.4),lwd=.5)
+  #   abline(v=seq(-12,0,by=3/26),col=gray(.4),lwd=.5)
+  # }
+  # if (cuadrMSFD) {
+  #   abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
+  #   abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
+  # }
   if (leg) {
     if (!bw) {
       maps::map(Nort.map,Nort.map$names[grep(".a",Nort.map$names,fixed=T)],add=TRUE,fill=TRUE,col="lightblue")
@@ -83,15 +91,7 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,leg=F,bw=T
     points(-5.663,43.56,pch=15,cex=.9)
     #points(-1.7915,43.3625,pch=15,cex=.9)
     #text(-1.7915,43.3625,"Fuenterrabía",font=2,pos=1,cex=.85)
-    #points(-2.7213888888889,43.413,pch=15,cex=.9) 
-    #text(-2.7213888888889,43.420833333333,"Bermeo",font=2,pos=1,cex=.85) 
-  }
-  if (cuadr) {
-    abline(h=seq(41,45,by=1/12),col=gray(.4),lwd=.5)
-    abline(v=seq(-12,0,by=3/26),col=gray(.4),lwd=.5)
-  }
-  if (cuadrMSFD) {
-    abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
-    abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
+    #points(-2.7213888888889,43.413,pch=15,cex=.9)
+    #text(-2.7213888888889,43.420833333333,"Bermeo",font=2,pos=1,cex=.85)
   }
 }

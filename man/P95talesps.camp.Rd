@@ -6,7 +6,8 @@
 \usage{
 P95talesps.camp(gr = 1, esps, camps, dns = "Cant", excl.sect = NA,
   perc = 0.95, graf = TRUE, pch = 20, lty = 1, layout = NA,
-  bw = FALSE, cexleg = 0.8, years = TRUE, es = TRUE, ylim = NA)
+  bw = FALSE, cexleg = 0.8, years = TRUE, es = TRUE, ylim = NA,
+  out.dat = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos (4 equinodermos 5 invertebrados habitualmente no medidos)}
@@ -38,6 +39,8 @@ P95talesps.camp(gr = 1, esps, camps, dns = "Cant", excl.sect = NA,
 \item{es}{Si T los rotulos de los ejes se muestran en español, si F en ingles}
 
 \item{ylim}{Valor maximo del eje de ordenadas, las tallas}
+
+\item{out.dat}{si T saca los datos, en si F da el objeto lattice}
 }
 \value{
 Devuelve un data.frame con columnas especie, camp y p95tal y year. Ademas crea un gráfico de lattice con la evolucion del p95 para cada especie en un panel distinto
@@ -48,3 +51,8 @@ Funcion indicador MSFD Da el percentil perc (por defecto 95, en decimal) de la d
 \examples{
 P95talesps.camp(1,c(5,8,9,14,105),Nsh[7:27],"Cnew",layout=NA,graf=TRUE,years=TRUE,es=FALSE)
 }
+\seealso{
+Other MSFD: \code{\link{MeanMaxL.camps}},
+  \code{\link{MeanMaxL.camp}}
+}
+\concept{MSFD}

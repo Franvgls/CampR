@@ -40,5 +40,7 @@ Para cada especie calcula la abundancia estratificada y la talla máxima, con el
 MeanMaxL.camps(gr=1,c(50,42,43,44,45),Nsh[7:27],"Cant")
 }
 \seealso{
-{\link{MeanMaxL.camp}}
+Other MSFD: \code{\link{MeanMaxL.camp}},
+  \code{\link{P95talesps.camp}}
 }
+\concept{MSFD}

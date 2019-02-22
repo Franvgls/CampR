@@ -12,7 +12,7 @@ MeanMaxL.camp(gr = 1, esps, camp, dns = "Cant", lmax = NA,
 
 \item{esps}{Código de las especies seleccionadas. Si se mezclan grupos hay que introducir el mismo numero de elementos en gr que en esps}
 
-\item{camp}{Campaña de la que se extraen los datos: Demersales NYY, Porcupine PYY, Arsa primavera 1YY y Arsa otoño 2YY, Medits MYY}
+\item{camp}{Campaña de la que se extraen los datos: Demersales NYY, Porcupine PYY, Arsa primavera 1YY y Arsa otoño 2YY, Medits MYY. Para sacar resultados de varias campañas {\link{MeanMaxL.camps}}}
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Medits: "Medi"}
 
@@ -35,5 +35,7 @@ Para cada especie calcula la abundancia estratificada y la talla máxima, con el
 MeanMaxL.camp(gr=1,c(50,42,43,44,45),"N05","Cant")
 }
 \seealso{
-{\link{MeanMaxL.camps}}
+Other MSFD: \code{\link{MeanMaxL.camps}},
+  \code{\link{P95talesps.camp}}
 }
+\concept{MSFD}
