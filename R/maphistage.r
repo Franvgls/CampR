@@ -16,6 +16,7 @@
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
 #' @param ind Parámetro a representar saca los datos en "p"eso o "n"úmero
+#' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param es Si T saca los ejes y legendas en español, si F lo saca en inglés
 #' @param layout Organización de gráficos en filas columnas c(r,c)
@@ -28,7 +29,7 @@
 #' @family edades
 #' @export
 maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE,AltAlk=NA,incl2=TRUE,bw=TRUE,ti=TRUE,plot=TRUE,
-  out.dat=FALSE,ind="n",idi="l",es=TRUE,layout=NA,ceros=FALSE,years=TRUE,mediahora=1) {
+  out.dat=FALSE,ind="n",cexleg=1,idi="l",es=TRUE,layout=NA,ceros=FALSE,years=TRUE,mediahora=1) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)
   if (plot) {
@@ -63,7 +64,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
 	escala<-signif(max(dumb$numero),1)*35/100
 	if (is.logical(ti)) {
 		if (ti) {titulo<-list(label=paste(buscaesp(gr,esp,id=idi),"\n",paste(ifelse(es,"Edad","Age"),paste(age,ifelse(plus==age,"+",""),sep="")),sep=""),
-		font=ifelse(idi=="l",4,2),cex=1)}
+		font=ifelse(idi=="l",4,2),cex=cexleg)}
 		else {titulo<-NULL}
 		}
 	else {titulo<-list(label=ti)}
@@ -74,7 +75,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
 	if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
 		asp<-diff(c(50.5,54.5))/(diff(c(-15.5,-10.5))*cos(mean(c(50.5,54.5))*pi/180))
 		mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=c(-15.5,-10.5),main=titulo,sub=sub,xlab=NULL,ylab=NULL,
-			ylim=c(50.5,54.5),aspect=asp,par.strip.text=list(cex=.7,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,
+			ylim=c(50.5,54.5),aspect=asp,par.strip.text=list(cex=cexleg,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,
 			x=list(at=c(-15:-11),labels=as.character(abs(-15:11))),y=list(at=(51:54),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
 				lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
@@ -94,7 +95,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
 		asp<-diff(c(41.82,44.3))/(diff(c(-10.25,-1.4))*cos(mean(c(41.82,44.3))*pi/180))
 		leyenda<-signif(c(1,.5,.25)*leyenda,1)
 		mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=Nort.map$range[c(1,2)],main=titulo,xlab=NULL,ylab=NULL,subscripts=TRUE,
-			ylim=Nort.map$range[c(3,4)],aspect=asp,par.strip.text=list(cex=.8,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,
+			ylim=Nort.map$range[c(3,4)],aspect=asp,par.strip.text=list(cex=cexleg,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,
 			x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),y=list(at=seq(42,44,by=1),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
 				lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
@@ -102,7 +103,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
 					default.units = "native",gp=grid::gpar(fill=gray(.8)))
 					if (max(dumb$numero[subscripts],na.rm=TRUE)>0) {
 						lattice::panel.xyplot(rep(-7,3),c(43.,42.60,42.20),cex=sqrt((leyenda)/escala),pch=16,col=colo)
-						lattice::ltext(rep(-7,3),c(43.,42.60,42.20),labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=1.1,cex=.7)
+						lattice::ltext(rep(-7,3),c(43.,42.60,42.20),labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=1.1,cex=cexleg)
 						}
 				if (ind=="p") {lattice::panel.xyplot(x,y,cex=ifelse(dumb$peso[subscripts]>0,sqrt((dumb$peso[subscripts])/escala),.4),
 					pch=ifelse(dumb$peso[subscripts]>0,16,19),col=colo)}
