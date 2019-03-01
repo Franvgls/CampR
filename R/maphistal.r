@@ -1,8 +1,8 @@
 #' Mapa distribución entre tallas tmin y tmax
 #'
-#' Saca mapas de distribución de una especie entre tallas tmin y tmax para varias campañas  
+#' Saca mapas de distribución de una especie entre tallas tmin y tmax para varias campañas
 #' @param gr Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados. 6 Desechos y otros inorgánicos no tiene sentido sacar tallas, sólo recogidas en peces, crustáceos decápodos y algunos moluscos
-#' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param tmin Talla mínima del intervalo de tallas a incluir
@@ -31,7 +31,17 @@
 maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",sex=NA,bw=TRUE,ti=TRUE,sub=NULL,
   plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,escmult=.25,cexleg=1,years=TRUE) {
   options(scipen=2)
-#	if (plot) 
+  colo<-ifelse(bw,gray(.1),4)
+  if (plot) {
+    if (bw) {
+      colo=gray(.2)
+      lattice::trellis.device(color=FALSE) #par.set(strip.background = list(col = grey(7:1/8)))
+    }
+    else {
+      colo=4
+      lattice::trellis.par.set(lattice::col.whitebg())
+    }
+    }
   if (length(esp)>1 | any(esp=="999")) {
     print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
     if (!is.na(sex)) {
@@ -51,7 +61,7 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
     }
 	if (years) {
     dumbcamp<-dumb
-    dumb$camp<-camptoyear(dumb$camp) 
+    dumb$camp<-camptoyear(dumb$camp)
     }
 	dumb$camp<-factor(dumb$camp)
   if (ind=="n") {
@@ -73,15 +83,7 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
     if(is.list(ti)) titulo<-ti
     else titulo<-list(label=ti)
     }
-	if (bw) {
-    colo=gray(.2)
-    lattice::trellis.par.set(strip.background = list(col = grey(7:1/8)))
-    }
-	else {
-    colo=4
-    lattice::trellis.par.set(lattice::col.whitebg())
-    }
-  if (any(is.na(layout))) {
+	if (any(is.na(layout))) {
 		if (ndat!=4) layout=c(1,ndat)
 		if (ndat==4) layout=c(2,2)
 		}
@@ -115,8 +117,8 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
 		asp<-diff(c(41.82,44.3))/(diff(c(-10.25,-1.4))*cos(mean(c(41.82,44.3))*pi/180))
 		leyenda<-signif(c(1,.5,.25)*leyenda,1)
-		mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=c(-10.25,-1.4),main=titulo,sub=sub,xlab=NULL,ylab=NULL,subscripts=TRUE,
-			ylim=c(41.82,44.3),aspect=asp,par.strip.text=list(cex=cexleg,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,
+		mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=Nort.map$range[c(1,2)],main=titulo,sub=sub,xlab=NULL,ylab=NULL,subscripts=TRUE,
+			ylim=Nort.map$range[c(3,4)],aspect=asp,par.strip.text=list(cex=cexleg,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,
 			x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),y=list(at=seq(42,44,by=1),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
 				lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))

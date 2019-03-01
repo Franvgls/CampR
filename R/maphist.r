@@ -1,8 +1,8 @@
 #' Mapas de distribucion en varias campañas
 #'
-#' Crea mapas con la distribución en biomasa o numero para distintas zonas: Porcupine (dns="Pnew"), el Cantábrico (dns=Cant), Cádiz= (dns=Arsa), y el Mediterráneo (dns=Medi) 
+#' Crea mapas con la distribución en biomasa o numero para distintas zonas: Porcupine (dns="Pnew"), el Cantábrico (dns=Cant), Cádiz= (dns=Arsa), y el Mediterráneo (dns=Medi)
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos
-#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o  "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
@@ -22,7 +22,7 @@
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,peso.gr,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
-#' @examples 
+#' @examples
 #' maphist(1,50,Nsh[7:27],"Cant",layout=c(3,7),years=TRUE)
 #' maphist(1,50,As2[15:18],"Arsa",layout=c(2,2),years=TRUE,sub="ARSA 2nd quarter")
 #' @family mapas
@@ -34,8 +34,6 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
   esp<-format(esp,width=3,justify="r")
   colo<-ifelse(bw,gray(.1),4)
   if (plot) {
-    #lattice::trellis.par.set("strip.text"=list(cex=.9,font=2))
-    #if (bw)   # 
 	 if (bw) {
       lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
       colo=gray(.1)
@@ -53,7 +51,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
 	}
 	if (years) {
     dumbcamp<-dumb
-    dumb$camp<-camptoyear(dumb$camp) 
+    dumb$camp<-camptoyear(dumb$camp)
     }
 	dumb$camp<-factor(dumb$camp)
   if (ind=="p") {
@@ -165,7 +163,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
           })
         }
   if (plot) {print(mapdist)}
-	if (out.dat) {              
+	if (out.dat) {
     dumb$peso<-round(dumb$peso,3)
     if (years) dumb<-dumbcamp
     if (!ceros) dumb<-dumb[dumb$numero>0,]

@@ -1,11 +1,11 @@
 #' Mapa distribución por edad en la campaña
-#' 
+#'
 #' Mapa de la distribución geográfica por edad de la especie en las campañas solicitadas
-#' @param gr Grupo de la especie: Solo hay dados de edad para algunos peces y cigala ? 
-#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
+#' @param gr Grupo de la especie: Solo hay dados de edad para algunos peces y cigala ?
+#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña o campañas a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa". Medits "Medi" (únicamente para sacar datos al IBTS, no gráficos)
-#' @param age Edad solicitada 
+#' @param age Edad solicitada
 #' @param plus Edad plus: incluir la edad considerada como plus, solo afecta si se pide como plus la edad solicitada que suma todas las edades mayores
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param n.ots Interno para decir que en la clave no se saca el número de otolitos sino proporciones
@@ -24,13 +24,23 @@
 #' @param mediahora Valor para obtener abundancias por hora si media hora es mayor
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,0,1,2,...,Age+ (número de individuos edad 0,1,2...),camp. Si out.dat=F saca el Gráfico en pantalla o como objeto para combinar con otros Gráficos con print.trellis
 #' @examples maphistage("1"," 42","N05","Cant",2,ceros=TRUE,out.dat=TRUE)
-#' @family mapas 
-#' @family edades 
+#' @family mapas
+#' @family edades
 #' @export
 maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE,AltAlk=NA,incl2=TRUE,bw=TRUE,ti=TRUE,plot=TRUE,
   out.dat=FALSE,ind="n",idi="l",es=TRUE,layout=NA,ceros=FALSE,years=TRUE,mediahora=1) {
   options(scipen=2)
-	if (plot) lattice::trellis.par.set(lattice::col.whitebg())
+  colo<-ifelse(bw,gray(.1),4)
+  if (plot) {
+    if (bw) {
+      lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
+      colo=gray(.1)
+    }
+    else {
+      lattice::trellis.par.set(lattice::col.whitebg())
+      colo=4
+    }
+  }
   if (length(esp)>1) {
     stop("Esta función sólo admite una especie")
     }
@@ -45,7 +55,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
 	}
 	if (years) {
     dumbcamp<-dumb
-    dumb$camp<-camptoyear(dumb$camp) 
+    dumb$camp<-camptoyear(dumb$camp)
     }
 	dumb$camp<-factor(dumb$camp)
 	dumb$numero<-dumb[,age+c(5)] # el dato de n?mero se usa s?lo para sacar en la gr?fica la edad solicitada age
@@ -57,10 +67,6 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
 		else {titulo<-NULL}
 		}
 	else {titulo<-list(label=ti)}
-	if (bw & plot) {colo=gray(.1)
-		lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
-		}
-	else colo=4
 	if (any(is.na(layout))) {
 		if (ndat!=4) layout=c(1,ndat)
 		if (ndat==4) layout=c(2,2)
@@ -84,11 +90,11 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
 						pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
 					})
 			}
-	if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew" | dns=="Medi") {
+	if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
 		asp<-diff(c(41.82,44.3))/(diff(c(-10.25,-1.4))*cos(mean(c(41.82,44.3))*pi/180))
 		leyenda<-signif(c(1,.5,.25)*leyenda,1)
-		mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=c(-10.25,-1.4),main=titulo,xlab=NULL,ylab=NULL,subscripts=TRUE,
-			ylim=c(41.82,44.3),aspect=asp,par.strip.text=list(cex=.8,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,
+		mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=Nort.map$range[c(1,2)],main=titulo,xlab=NULL,ylab=NULL,subscripts=TRUE,
+			ylim=Nort.map$range[c(3,4)],aspect=asp,par.strip.text=list(cex=.8,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,
 			x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),y=list(at=seq(42,44,by=1),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
 				lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
@@ -124,6 +130,28 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
 					pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
 				})
 			}
+	if (dns=="Medi") {
+	  asp<-diff(c(35,43))/(diff(c(-5.7,5))*cos(mean(c(35,43))*pi/180))
+	  leyenda<-signif(c(1,.5,.25)*leyenda,1)
+	  mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=c(-5.7,5),ylim=c(35,43),main=titulo,sub=sub,xlab=NULL,ylab=NULL,
+	                           subscripts=TRUE,aspect=asp,par.strip.text=list(cex=cexleg,font=2),par.strip.background=list(col=c(gray(.8))),
+	                           scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-5:4),labels=c(paste(as.character(abs(-5:-1)),
+	                                                                                                                "W",sep=""),0,paste(1:4,"E",sep=""))),y=list(at=seq(36,42,by=1),rot=90)),as.table=TRUE,
+	                           panel=function(x,y,subscripts=subscripts) {
+	                             lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
+	                             grid::grid.polygon(maps::map(Medits.tot,Medits.tot$names[],plot=FALSE)[[1]],maps::map(Medits.tot,Medits.tot$names[],plot=FALSE)[[2]],
+	                                                default.units = "native",gp=grid::gpar(fill=gray(.8)))
+	                             if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
+	                               #lrect(-5.98,36.25, -5.54, 36.54,col="white")
+	                               lattice::panel.xyplot(rep(-4,3),c(39.1,39.6,40.),cex=sqrt((leyenda)/escala),pch=16,col=colo)
+	                               lattice::ltext(rep(-4,3),c(39.1,39.6,40.),labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=.8,cex=cexleg-.1)
+	                             }
+	                             if (ind=="p") {lattice::panel.xyplot(x,y,pch=ifelse(dumb$peso[subscripts]>0,16,ifelse(ceros,4,NA)),
+	                                                                  cex=ifelse(dumb$peso[subscripts]>0,sqrt((dumb$peso[subscripts])/escala),.35),col=colo)}
+	                             else {lattice::panel.xyplot(x,y,cex=ifelse(dumb$numero[subscripts]>0,sqrt((dumb$numero[subscripts])/escala),.35),
+	                                                         pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
+	                           })
+	}
 	if (plot) {print(mapdist)}
 	if (out.dat) {
     if (years) dumb<-dumbcamp
@@ -132,6 +160,6 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
     print(dumb[,1:c(ncol(dumb)-1)])
     }
 	else {
-    if (!plot) mapdist 
+    if (!plot) mapdist
     }
 	}
