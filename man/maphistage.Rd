@@ -7,8 +7,8 @@
 maphistage(gr, esp, camp, dns = "Porc", age, plus = 8,
   cor.time = TRUE, n.ots = FALSE, AltAlk = NA, incl2 = TRUE,
   bw = TRUE, ti = TRUE, plot = TRUE, out.dat = FALSE, ind = "n",
-  idi = "l", es = TRUE, layout = NA, ceros = FALSE, years = TRUE,
-  mediahora = 1)
+  cexleg = 1, idi = "l", es = TRUE, layout = NA, ceros = FALSE,
+  years = TRUE, mediahora = 1)
 }
 \arguments{
 \item{gr}{Grupo de la especie: Solo hay dados de edad para algunos peces y cigala ?}
@@ -40,6 +40,8 @@ maphistage(gr, esp, camp, dns = "Porc", age, plus = 8,
 \item{out.dat}{Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto}
 
 \item{ind}{Parámetro a representar saca los datos en "p"eso o "n"úmero}
+
+\item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
 
 \item{idi}{Nombre científico de la especie ("l") o nombre común ("e")}
 

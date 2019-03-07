@@ -2,7 +2,7 @@
 #'
 #' Crea gráfico con la función de densidad de la distribución de tallas estratificada para la especie y las campañas seleccionadas
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos. 4 equinodermos y 5 invertebrados no se miden
-#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew" o "Porc", Cantábrico "Cant" o "Cnew", Golfo de Cádiz "Arsa" y Mediterráneo "Medi" P
 #' @param cor.time Corrige la abundancia por la duración del lance frente al estándar de la campaña, al ser distribución de frecuencias no afecta a resultados pero se incluye por consistencia con otras fundiones de esta librería
@@ -44,7 +44,7 @@ denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,bw=TRUE,es=TRUE,
   }
   #	if (ti) tit<-list(label=buscaesp(gr,esp,id=id),font=4,cex=1.2)
   #	else tit<-NULL
-  # if (!plot) tit<-list(label=ifelse(es,"Distribución de tallas","Length distribution"),font=2,cex=.9) 
+  # if (!plot) tit<-list(label=ifelse(es,"Distribución de tallas","Length distribution"),font=2,cex=.9)
   ndat<-length(camp)
   for (i in 1:ndat) {
     dtall<-data.frame(talla=dattal.camp(gr,esp,camp[i],dns,cor.time=cor.time)[,1],n=rowSums(dattal.camp(gr,esp,camp[i],dns,cor.time=cor.time)[-1]))
@@ -71,7 +71,7 @@ denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,bw=TRUE,es=TRUE,
   if (ylim[2]<20) ylim[1]<-10
   if (ylim[2]<100 & ylim[2]>20) ylim[1]<-1
   if (length(camp)==1) {
-    foo<-densityplot(~rep(talla,a$n*ylim[1]),a,plot.points=FALSE,lwd=2,xlim=xlimi,nint=40,
+    foo<-lattice::densityplot(~rep(talla,a$n*ylim[1]),a,plot.points=FALSE,lwd=2,xlim=xlimi,nint=40,
                      scales=list(alternating=FALSE,tck=c(1,0),x=list(tick.number=10)),main=tit,
                      xlab=list(label=ax[1],cex=1.2),ylab=list(label="density",cex=1.2),
                      panel=function(x,subscripts,...) {lattice::panel.fill(col="white")
@@ -83,7 +83,7 @@ denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,bw=TRUE,es=TRUE,
   else {
     if (ndat>2 & (ndat/2-trunc(ndat/2))==0 & any(is.na(layout))) layouti<- c(2,ndat/2)
     else layouti<- c(1,ndat)
-    foo<-densityplot(~rep(talla,a$n*ylim[1])|rep(camp,a$n*ylim[1]),a,subscripts=TRUE,xlim=xlimi,plot.points=FALSE,nint=15,
+    foo<-lattice::densityplot(~rep(talla,a$n*ylim[1])|rep(camp,a$n*ylim[1]),a,subscripts=TRUE,xlim=xlimi,plot.points=FALSE,nint=15,
                      scales=list(alternating=FALSE,tck=c(1,0),cex=.7,x=list(tick.number=10)),main=tit,xlab=list(label=ax[1],cex=.9),
                      ylab=list(label="density",cex=cexleg*.9),layout=layouti,par.strip.text=list(cex=cexleg*.8,font=2),as.table=TRUE,
                      panel=function(x,...) {
@@ -92,7 +92,7 @@ denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,bw=TRUE,es=TRUE,
                        print(quantile(x,c(.5),na.rm=TRUE))
                        lattice::panel.abline(v=quantile(x,c(.5),na.rm=TRUE)+.5,lty=1,col="blue",lwd=1)
                        lattice::panel.densityplot(x,...)},
-                     strip = function(...) strip.default(style=1,...))
+                     strip = function(...) lattice::strip.default(style=1,...))
   }
   if (plot) {print(foo)}
   else foo
