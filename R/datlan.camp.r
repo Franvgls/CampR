@@ -5,7 +5,7 @@
 #'
 #' Un problema que ocurre al utilizar el CampR con ficheros dbf de las primeras campañas
 #' puede ser que al fichero lanceXXX.dbf le falte algún campo, habitualmente
-#' el campo **ESTN** utilizado en las últimas versiones del CAMP para ligar lances con las estaciones de CTD.
+#' el campo **ESTN** utilizado en las últimas versiones del **CAMP** para ligar lances con las estaciones de CTD.
 #' El error usual es **$ operator is invalid for atomic vectors**
 #' Si se detecta este error revisar la estructura de lanceXXX.dbf con la de
 #' otros ficheros de lances de los últimos años
@@ -111,6 +111,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
     #		  datos$sector<-factor(as.character(datos$sector))
   }
   datos$sector<-factor(as.character(datos$sector))
+
 #  datos
   if (bio) datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")] else datos
   }
+
