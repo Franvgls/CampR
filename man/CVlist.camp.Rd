@@ -24,7 +24,7 @@ CVlist.camp(gr = "1", camp, dns, kg = TRUE, dec = 3,
 
 \item{excl.sect}{Excluye los sectores o subsectores dados como caracteres}
 
-\item{minim}{Excluye por defecto los valores con peso menor de el valor que se elija (atención si kg=T), también se puede hacer a posteriori para cualquiera de los campos con tabla[tabla$NombColumn>XX,]}
+\item{minim}{Excluye por defecto los valores con peso menor de el valor que se elija (atención si kg=T), también se puede hacer a posteriori para cualquiera de los campos con tabla tabla$NombColumn>XX,}
 }
 \value{
 Devuelve un data.fram con valores en orden decreciente de abundancia con columnas gr,esp,especie,familia,camp,weight,number,nlan (número de lances en que aparece cada especie)

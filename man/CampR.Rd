@@ -11,7 +11,7 @@ Libreria en R para trabajar con datos de campañas cientificas de arrastre demer
 \details{
 CampR.
 
-Contiene funciones para: 
+Contiene funciones para:
 \itemize{
 \item {Control de calidad de los datos y deteccion de errores}
 \item {Analisis y procesado de los datos}

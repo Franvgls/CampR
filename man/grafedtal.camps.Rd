@@ -3,8 +3,8 @@
 \name{grafedtal.camps}
 \alias{grafedtal.camps}
 \title{Histograma de distribución de tallas con edades para varias campañas
- 
- Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad en varias campañas}
+
+Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad en varias campañas}
 \usage{
 grafedtal.camps(gr, esp, camp, dns = "Porc", plus = 8,
   cor.time = TRUE, excl.sect = NA, ti = FALSE, leg = TRUE,
@@ -51,8 +51,8 @@ Saca gráfica con distribución de tallas y la distribución de las edades en ca
 }
 \description{
 Histograma de distribución de tallas con edades para varias campañas
- 
- Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad en varias campañas
+
+Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad en varias campañas
 }
 \examples{
 grafedtal.camps(1,43,Nsh[22:31],"Cant",plus=7,years=T,es=FALSE)

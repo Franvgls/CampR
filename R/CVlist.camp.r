@@ -1,6 +1,6 @@
 #' Abundancias en número y peso totales para todas las especies de un grupo en una campaña
 #'
-#' Función de resultados 
+#' Función de resultados
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6
 #' @param camp Campaña de la que se solicitan los resultados un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew" o "Porc", Cantábrico "Cant" o "Cnew", Golfo de Cádiz "Arsa" y Mediterráneo "Medi" P
@@ -9,7 +9,7 @@
 #' @param dec Número de decimales de los resultados
 #' @param percents Si T devuelve los resultados en porcentaje del total
 #' @param excl.sect Excluye los sectores o subsectores dados como caracteres
-#' @param minim Excluye por defecto los valores con peso menor de el valor que se elija (atención si kg=T), también se puede hacer a posteriori para cualquiera de los campos con tabla[tabla$NombColumn>XX,]
+#' @param minim Excluye por defecto los valores con peso menor de el valor que se elija (atención si kg=T), también se puede hacer a posteriori para cualquiera de los campos con tabla tabla$NombColumn>XX,
 #' @return Devuelve un data.fram con valores en orden decreciente de abundancia con columnas gr,esp,especie,familia,camp,weight,number,nlan (número de lances en que aparece cada especie)
 #' @examples CVlist.camp(gr=1,camp="P06",dns="Porc")
 #' @export

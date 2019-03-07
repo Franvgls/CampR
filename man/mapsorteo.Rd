@@ -3,7 +3,7 @@
 \name{mapsorteo}
 \alias{mapsorteo}
 \title{Mapa de las cuadrículas sorteadas para la campaña Porcupine
- 
+
 Mapa del resultado de un sorteo de cuadriculas de Porcupine, con simbolos diferentes para cada sector/estrato}
 \usage{
 mapsorteo(x, wmf = FALSE, ax = TRUE, nomfic = "porco.emf",
@@ -33,7 +33,7 @@ mapsorteo(x, wmf = FALSE, ax = TRUE, nomfic = "porco.emf",
 }
 \description{
 Mapa de las cuadrículas sorteadas para la campaña Porcupine
- 
+
 Mapa del resultado de un sorteo de cuadriculas de Porcupine, con simbolos diferentes para cada sector/estrato
 }
 \seealso{

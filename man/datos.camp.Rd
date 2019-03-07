@@ -26,7 +26,7 @@ datos.camp(gr, esp, camp, dns, cor.time = TRUE, kg = TRUE,
 Devuelve un data.frame con los datos de la especie por lance: sector,lance,peso,numero,arsect (área del sector al que pertence el lance)
 }
 \description{
-Función de acceso a datos: 
+Función de acceso a datos:
 Extrae los datos de abundancia y biomasa estratificados (solo lances con validez 1) de una especie o conjunto de especies a partir de las faunísticas de una campaña. Crea una tabla con información del sector(número) y estrato (letra), lance, peso, número y arsect
 Funciones para obtener data.frame de especies concretas a partir de los ficheros del Camp
 }

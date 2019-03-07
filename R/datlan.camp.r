@@ -2,6 +2,14 @@
 #'
 #' Función de acceso a datos:
 #' Extrae las características de los lances para una campaña determinada
+#'
+#' Un problema que ocurre al utilizar el CampR con ficheros dbf de las primeras campañas
+#' puede ser que al fichero lanceXXX.dbf le falte algún campo, habitualmente
+#' el campo **ESTN** utilizado en las últimas versiones del CAMP para ligar lances con las estaciones de CTD.
+#' El error usual es **$ operator is invalid for atomic vectors**
+#' Si se detecta este error revisar la estructura de lanceXXX.dbf con la de
+#' otros ficheros de lances de los últimos años
+#'
 #' @param camp Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param incl2 Si T se incluyen los lances extra no incluidos para las abundancias o biomasas estratificadas
@@ -14,7 +22,7 @@
 #' @param bio reduce el data.frame a los datos para los proyectos de biología, con datos en formato decimal y hexadecimal y las zonas ICES
 #' @return Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux. En cualquier caso incluye variables weight.time con el factor de calibración para lances con menos tiempo del estándar y arsect: el área del sector al que corresponde el lance dentro del muestreo
 #' @seealso {\link{MapLansGPS}}
-#' @examples 
+#' @examples
 #'   print(datlan.camp(Nsh[24:28],"Cant",hidro=FALSE,excl.sect=c("A")))
 #'   print(datlan.camp("P16","Porc",bio=T))
 #' @export
@@ -78,8 +86,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
     area<-as.data.frame(cbind(substr(names(area),2,3),as.numeric(t(area))))
     names(area)<-c("sector","arsect")
     RODBC::odbcClose(ch1)
-    if (!incl0) {lan<-lan[c(lan$validez!=0),]}                                      
-    if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}                                      
+    if (!incl0) {lan<-lan[c(lan$validez!=0),]}
+    if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
     datos<-merge(lan,area,by.x="sector",by.y="sector",all.x=TRUE)
     if (hidro) datos<-merge(datos,dathidro,by.x="lance",by.y="LANCE",all.x=TRUE)
     datos$arsect<-as.numeric(as.character(datos$arsect))
