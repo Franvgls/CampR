@@ -46,7 +46,7 @@ dattalgr.camp<- function(gr,esp,camp,dns="Porc",tmin=1,tmax=999,cor.time=TRUE,in
   if (!is.na(sex)) ntalls<-ntalls[ntalls$sexo==sex,]
   if (!any(ntalls$talla<=tmax & ntalls$talla>=tmin)) {
     if (ind=="n") mm<-data.frame(lan=lan$lan,lat=lan$lat,long=lan$long,prof=lan$prof,weight.time=lan$weight.time,numero=0)
-    else mm<-data.frame(lan=lan$lan,lat=lan$lat,long=lan$long,prof=lan$prof,weight.time=lan$weight.time,peso=0)
+    else mm<-data.frame(lan=lan$lan,lat=lan$lat,long=lan$long,prof=lan$prof,weight.time=lan$weight.time,peso=0) ; ntalls.error=0
   }
   else {
     ntalls$lance<-as.numeric(as.character(ntalls$lance))
@@ -90,7 +90,7 @@ dattalgr.camp<- function(gr,esp,camp,dns="Porc",tmin=1,tmax=999,cor.time=TRUE,in
     print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
   }
   if (ind=="p") {
-    if (any(ntalls.error>.3,na.rm=TRUE)) {
+    if (exists("ntalls.error") & any(ntalls.error>.3,na.rm=TRUE)) {
       texto<-paste(paste("qcLW.camp(",gr,sep=""),esp,camp,paste(dns,")",sep=""),sep=",")
       print(paste("Estimaciones peso regresión mayores que datos en un 30% para algún lance, compruebe",texto))
     }
