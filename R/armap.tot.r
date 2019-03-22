@@ -1,18 +1,19 @@
 #' Mapa ampliado de Porcupine con las estaciones realizadas
-#' 
+#'
 #' Crea un mapa de Porcupine con las estaciones realizadas(al igua que "armap.camp") pero con la referencia de Irlanda para su mejor ubicación.
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant" (ARSA para sacar datos al IBTS, no gráficos)
 #' @param lwdl Anchura de las líneas
 #' @param col Color de los puntos que representan estaciones
+#' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
 #' @param argr Grosor de las flechas de recorrido
-#' @param arrow Si T añade flechas de reccorrido 
+#' @param arrow Si T añade flechas de reccorrido
 #' @param leg Si T añade leyenda
 #' @param es Si T nombres en castellano, si F nombres en inglés
 #' @param bw Si T mapa en blanco y negro, si F colorea los estratos y sectores
 #' @param noval Si T añade las estaciones nulas
 #' @param CTDs Si T añade las estaciones de CTD realizadas
-#' @param strat strat Si T represent los estratos 
+#' @param strat strat Si T represent los estratos
 #' @return Saca mapa con el desarrollo de la campaña con la zona y estratificación incluyendo tierra (Porcupine)
 #' @examples
 #' armap.tot("P14",dns="Porc",noval=TRUE,CTDs=FALSE,bw=TRUE,strat=FALSE,leg=TRUE)
@@ -20,7 +21,7 @@
 #' @family mapas
 #' @family resumen general
 #' @export
-armap.tot<-function(camp,dns="Porc",lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,es=FALSE,bw=TRUE,noval=FALSE,
+armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,es=FALSE,bw=TRUE,noval=FALSE,
 	CTDs=FALSE,strat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
 	ch1<-RODBC::odbcConnect(dsn=dns)
@@ -36,11 +37,11 @@ armap.tot<-function(camp,dns="Porc",lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,es
     }
 	lan<-lan[,c("lance","lat","long","validez")]
 	names(lan)<-c("lan","lat","long","val")
-	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=FALSE,bw=bw)
+	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=FALSE,bw=bw,ICESrect=ICESrect)
   else {
-	  if (dns=="Cant" | dns=="Cnew") MapNort(strat=strat,bw=bw,es=es)
+	  if (dns=="Cant" | dns=="Cnew") MapNort(strat=strat,bw=bw,es=es,ICESrect = ICESrect)
     else {
-      if (dns=="Arsa") MapArsa(es=es)
+      if (dns=="Arsa") MapArsa(es=es,ICESrect = ICESrect)
       }
     }
 	if (arrow) {

@@ -5,10 +5,10 @@
 \title{Mapa distribución entre tallas tmin y tmax}
 \usage{
 maphistal(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
-  cor.time = TRUE, incl2 = TRUE, ind = "n", sex = NA, bw = TRUE,
-  ti = TRUE, sub = NULL, plot = TRUE, out.dat = FALSE, idi = "l",
-  layout = NA, leg = TRUE, ceros = TRUE, escmult = 0.25,
-  cexleg = 1, years = TRUE)
+  cor.time = TRUE, incl2 = TRUE, ind = "n", ICESrect = FALSE,
+  sex = NA, bw = TRUE, ti = TRUE, sub = NULL, plot = TRUE,
+  out.dat = FALSE, idi = "l", layout = NA, leg = TRUE,
+  ceros = TRUE, escmult = 0.25, cexleg = 1, years = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados. 6 Desechos y otros inorgánicos no tiene sentido sacar tallas, sólo recogidas en peces, crustáceos decápodos y algunos moluscos}
@@ -28,6 +28,8 @@ maphistal(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
 \item{incl2}{Si F no presenta los lances especiales, si T si los tiene en cuenta, pero puede dar problemas por que no puede calcular las abundancias estratificadas}
 
 \item{ind}{Permite elegir entre número "n" o peso "p" peso sólo funciona cuando existen a y b en especies.dbf y se elige sólo una especie}
+
+\item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 
 \item{sex}{Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo}
 

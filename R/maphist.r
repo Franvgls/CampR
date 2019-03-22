@@ -18,6 +18,7 @@
 #' @param leg Si T añade la leyenda
 #' @param pts Saca los puntos de los datos
 #' @param ceros Añade puntos para los datos igual a 0 si T, si F no incluye x en los valores 0
+#' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
 #' @param escmult Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
@@ -28,7 +29,7 @@
 #' @family mapas
 #' @export
 maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TRUE,sub=NULL,plot=TRUE,out.dat=FALSE,ind="p",idi="l",
-  layout=NA,leg=TRUE,pts=FALSE,ceros=TRUE,escmult=.25,cexleg=1,years=TRUE) {
+  layout=NA,leg=TRUE,pts=FALSE,ceros=TRUE,ICESrect=FALSE,escmult=.25,cexleg=1,years=TRUE) {
   if (all(!pts & !leg & length(camps)>1)) {stop("Solo estaciones se usa para sólo una campaña, ha incluido más de una")}
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
@@ -84,7 +85,8 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
       scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-15:-11),labels=as.character(abs(-15:-11))),
 			y=list(at=(51:54),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
-				lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
+			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+			  lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
 				grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
 					default.units = "native",gp=grid::gpar(fill=gray(.8)))
 				if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
@@ -95,7 +97,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
 					pch=ifelse(dumb$peso[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
 				else {lattice::panel.xyplot(x,y,cex=ifelse(dumb$numero[subscripts]>0,sqrt((dumb$numero[subscripts])/escala),.35),
 					pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
-				})
+			})
 			}
 	if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
 		asp<-diff(c(41.82,44.3))/(diff(c(-10.25,-1.4))*cos(mean(c(41.82,44.3))*pi/180))
@@ -105,7 +107,8 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
       scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),
       y=list(at=seq(42,44,by=1),rot=90)),as.table=TRUE,
       panel=function(x,y,subscripts=subscripts) {
-				lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
+        if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+        lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
 				grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
 					default.units = "native",gp=grid::gpar(fill=gray(.8)))
 				if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
@@ -116,7 +119,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
 					cex=ifelse(dumb$peso[subscripts]>0,sqrt((dumb$peso[subscripts])/escala),.35),col=colo)}
 				else {lattice::panel.xyplot(x,y,cex=ifelse(dumb$numero[subscripts]>0,sqrt((dumb$numero[subscripts])/escala),.35),
 					pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
-				})
+      })
 			}
 	if (dns=="Arsa") {
 		asp<-diff(c(35.95,37.30))/(diff(c(-8.1,-5.5))*cos(mean(c(35.95,37.30))*pi/180))
@@ -126,7 +129,8 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
       par.strip.background=list(col=c(gray(.8))),scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-8:-5),
       labels=as.character(abs(-8:-5))),y=list(at=seq(35,37,by=1),rot=90)),as.table=TRUE,
       panel=function(x,y,subscripts=subscripts) {
-         lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
+        if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+        lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
 	       grid::grid.polygon(maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[1]],maps::map(Arsa.map,c("Portugal","Costa"),
             plot=FALSE)[[2]],default.units = "native",gp=grid::gpar(fill=gray(.8)))
 				 if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
@@ -138,7 +142,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
 					cex=ifelse(dumb$peso[subscripts]>0,sqrt((dumb$peso[subscripts])/escala),.35),col=colo)}
 				else {lattice::panel.xyplot(x,y,cex=ifelse(dumb$numero[subscripts]>0,sqrt((dumb$numero[subscripts])/escala),.35),
 					pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
-				})
+      })
 			}
   if (dns=="Medi") {
     asp<-diff(c(35,43))/(diff(c(-5.7,5))*cos(mean(c(35,43))*pi/180))

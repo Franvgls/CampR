@@ -2,13 +2,14 @@
 #'
 #' Crea un mapa de un único año con las estaciones realizadas
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX", Arsa otoño "2XX" y Medits "MXX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa", Mediterráneo "Medi" 
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa", Mediterráneo "Medi"
 #' @param lwdl Anchura de las líneas
 #' @param col Color de los puntos que representan estaciones
 #' @param argr Grosor de las flechas de recorrido
 #' @param cuadr Si T dibuja cuadrícula
-#' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD) 
-#' @param arrow Si T añade flechas de recorrido 
+#' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)
+#' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
+#' @param arrow Si T añade flechas de recorrido
 #' @param leg Si T añade leyenda
 #' @param es Si T nombres en castellano, si F nombres en inglés
 #' @param cols Si T colorea los estratos y sectores, si F mapa en blanco y negro
@@ -21,9 +22,9 @@
 #' @param places Si T añade los nombres de las principales ciudades
 #' @param bw Gráfico en blanco y negro si T o en color si F
 #' @return Saca mapa con el desarrollo de la campaña con la zona y estratificación
-#' @param lans Si T marca las estaciones de muestreo con un punto (si Nlans=FALSE) 
+#' @param lans Si T marca las estaciones de muestreo con un punto (si Nlans=FALSE)
 #' @param xlims Delimita la longitud del mapa mediante un vector (ejem.c(-10.25,-1.4))
-#' @param ylims Delimita la latitud del mapa mediante un vector (ejem.c(41.82,44.48)) 
+#' @param ylims Delimita la latitud del mapa mediante un vector (ejem.c(41.82,44.48))
 #' @examples
 #' op<-par(no.readonly = TRUE)
 #' par(mfrow=c(1,1))
@@ -39,7 +40,7 @@
 #' @family mapas
 #' @family resumen general
 #' @export
-armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cuadrMSFD=FALSE,arrow=FALSE,leg=TRUE,es=FALSE,cols=TRUE,noval=TRUE,
+armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,arrow=FALSE,leg=TRUE,es=FALSE,cols=TRUE,noval=TRUE,
 	CTDs=FALSE,strat=FALSE,Nlans=FALSE,NCTDs=FALSE,Dates=F,places=FALSE,bw=FALSE,lans=TRUE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
 	ch1<-RODBC::odbcConnect(dsn=dns)
@@ -47,7 +48,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
 	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE,bio=F)
 	if (any(RODBC::sqlTables(ch1)$TABLE_NAME==paste("HIDRO",camp,sep="")))
     {hidro<-RODBC::sqlQuery(ch1,paste("select estn,latitud,longitud,eswe from HIDRO",camp,sep=""))
-	  if(nrow(hidro)==0) warning("Fichero de CTDs sin datos")    
+	  if(nrow(hidro)==0) warning("Fichero de CTDs sin datos")
 	}
   else {
     if (CTDs | NCTDs) warning(paste("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS",sep=""))
@@ -62,11 +63,11 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
 	lan<-lan[,c("lance","lat","long","validez","fecha")]
 	names(lan)<-c("lan","lat","long","val","fecha")
 	if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
-    mapporco(lwdl=lwdl,cuadr=cuadr)
+    mapporco(lwdl=lwdl,cuadr=cuadr,ICESrect = ICESrect)
     if (ti) {title(camp.name,line=2)}
 	}
   if (dns=="Arsa") {
-    MapArsa(xlims=c(-8.14,-5.54),ylims=c(35.95,37.33),lwdl=lwdl,cuadr=cuadr)
+    MapArsa(xlims=c(-8.14,-5.54),ylims=c(35.95,37.33),lwdl=lwdl,cuadr=cuadr,ICESrect = ICESrect)
     if (ti) {title(camp.name,line=2)}
   }
   if (dns=="Medi") {
@@ -74,7 +75,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
     if (ti) {title(camp.name,line=2)}
   }
   if (substr(dns,1,4)=="Cant"| dns=="Cnew"){
-    MapNort(strat=strat,bw=bw,es=es,places=places,cuadr=cuadr,cuadrMSFD=cuadrMSFD,xlims=xlims,ylims=ylims) #,places=places
+    MapNort(strat=strat,bw=bw,es=es,places=places,cuadr=cuadr,cuadrMSFD=cuadrMSFD,ICESrect = ICESrect,xlims=xlims,ylims=ylims) #,places=places
     if (ti) {title(camp.name,line=2)}
   }
 	if (arrow & !Nlans) {
@@ -125,7 +126,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
 			}
     if (dns=="Medi" & dns!= "Arsa") legend("topleft",l1,pch=pts,pt.bg=bgs,pt.cex=cexs,inset=.08,bg="white",cex=.9)
 		if (dns=="Arsa" & dns!= "Medi") legend("topright",l1,pch=pts,pt.bg=bgs,pt.cex=cexs,inset=.05,bg="white",cex=.9)
-		if (dns!="Medi" & dns!= "Arsa") legend("bottomright",l1,pch=pts,pt.bg=bgs,pt.cex=cexs,inset=.1,bg="white",cex=.9)  
+		if (dns!="Medi" & dns!= "Arsa") legend("bottomright",l1,pch=pts,pt.bg=bgs,pt.cex=cexs,inset=.1,bg="white",cex=.9)
 		}
 	}
 

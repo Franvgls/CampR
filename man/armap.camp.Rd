@@ -5,11 +5,11 @@
 \title{Mapa con las estaciones realizadas}
 \usage{
 armap.camp(camp, dns = "Porc", ti = FALSE, lwdl = 1, col = 2,
-  argr = 2, cuadr = FALSE, cuadrMSFD = FALSE, arrow = FALSE,
-  leg = TRUE, es = FALSE, cols = TRUE, noval = TRUE,
-  CTDs = FALSE, strat = FALSE, Nlans = FALSE, NCTDs = FALSE,
-  Dates = F, places = FALSE, bw = FALSE, lans = TRUE,
-  xlims = c(-10.25, -1.4), ylims = c(41.82, 44.48))
+  argr = 2, cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE,
+  arrow = FALSE, leg = TRUE, es = FALSE, cols = TRUE,
+  noval = TRUE, CTDs = FALSE, strat = FALSE, Nlans = FALSE,
+  NCTDs = FALSE, Dates = F, places = FALSE, bw = FALSE,
+  lans = TRUE, xlims = c(-10.25, -1.4), ylims = c(41.82, 44.48))
 }
 \arguments{
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX", Arsa otoño "2XX" y Medits "MXX"}
@@ -25,6 +25,8 @@ armap.camp(camp, dns = "Porc", ti = FALSE, lwdl = 1, col = 2,
 \item{cuadr}{Si T dibuja cuadrícula}
 
 \item{cuadrMSFD}{Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)}
+
+\item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 
 \item{arrow}{Si T añade flechas de recorrido}
 

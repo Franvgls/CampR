@@ -5,10 +5,10 @@
 \title{Mapa distribución por edad en la campaña}
 \usage{
 maphistage(gr, esp, camp, dns = "Porc", age, plus = 8,
-  cor.time = TRUE, n.ots = FALSE, AltAlk = NA, incl2 = TRUE,
-  bw = TRUE, ti = TRUE, plot = TRUE, out.dat = FALSE, ind = "n",
-  cexleg = 1, idi = "l", es = TRUE, layout = NA, ceros = FALSE,
-  years = TRUE, mediahora = 1)
+  cor.time = TRUE, n.ots = FALSE, ICESrect = F, AltAlk = NA,
+  incl2 = TRUE, bw = TRUE, ti = TRUE, plot = TRUE,
+  out.dat = FALSE, ind = "n", cexleg = 1, idi = "l", es = TRUE,
+  layout = NA, ceros = FALSE, years = TRUE, mediahora = 1)
 }
 \arguments{
 \item{gr}{Grupo de la especie: Solo hay dados de edad para algunos peces y cigala ?}
@@ -26,6 +26,8 @@ maphistage(gr, esp, camp, dns = "Porc", age, plus = 8,
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 
 \item{n.ots}{Interno para decir que en la clave no se saca el número de otolitos sino proporciones}
+
+\item{ICESrect}{Si T representa las líneas de los rectángulos ICES}
 
 \item{AltAlk}{Clave talla edad alternativa sin ruta ni extensión, NA por defecto usa la clave de la campaña edadXYY.dbf}
 

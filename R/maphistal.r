@@ -12,6 +12,7 @@
 #' @param ind Permite elegir entre número "n" o peso "p" peso sólo funciona cuando existen a y b en especies.dbf y se elige sólo una especie
 #' @param sex Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo
 #' @param bw gráfico en blanco en negro si T o en color si F
+#' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
 #' @param ti Si T añade titulo al mapa, el nombre de la especie en latín
 #' @param sub Añade un subtítulo debajo del gráfico, sin texto por defecto.
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
@@ -28,7 +29,7 @@
 #' @family mapas
 #' @family tallas
 #' @export
-maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",sex=NA,bw=TRUE,ti=TRUE,sub=NULL,
+maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",ICESrect=FALSE,sex=NA,bw=TRUE,ti=TRUE,sub=NULL,
   plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,escmult=.25,cexleg=1,years=TRUE) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)
@@ -93,7 +94,8 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 			ylim=c(50.5,54.5),aspect=asp,par.strip.text=list(cex=cexleg,font=2),scales=list(alternating=FALSE,tck=c(1,0),
       cex=cexleg,x=list(at=c(-15:-11),labels=as.character(abs(-15:11))),y=list(at=(51:54),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
-				lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
+			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+			  lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
 				grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
 					default.units = "native",gp=grid::gpar(fill=gray(.7)))
           if (ind=="n") {
@@ -121,7 +123,8 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 			ylim=Nort.map$range[c(3,4)],aspect=asp,par.strip.text=list(cex=cexleg,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,
 			x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),y=list(at=seq(42,44,by=1),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
-				lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
+			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+			  lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
 				grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
 					default.units = "native",gp=grid::gpar(fill=gray(.8)))
         if (ind=="n") {
@@ -149,7 +152,8 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	    ylim=c(35.95,37.30),aspect=asp,par.strip.text=list(cex=cexleg,font=2),par.strip.background=list(col=c(gray(.8))),
       scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-10:-5),labels=as.character(abs(-10:-5))),
       y=list(at=seq(35,36,by=1),rot=90)),as.table=TRUE,panel=function(x,y,subscripts=subscripts) {
-      lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
+        if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+        lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
 	    grid::grid.polygon(maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[1]],maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[2]],
       default.units = "native",gp=grid::gpar(fill=gray(.8)))
 				if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {

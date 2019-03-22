@@ -7,7 +7,8 @@
 maphist(gr, esp, camps, dns = "Porc", cor.time = TRUE, incl2 = TRUE,
   bw = TRUE, ti = TRUE, sub = NULL, plot = TRUE, out.dat = FALSE,
   ind = "p", idi = "l", layout = NA, leg = TRUE, pts = FALSE,
-  ceros = TRUE, escmult = 0.25, cexleg = 1, years = TRUE)
+  ceros = TRUE, ICESrect = FALSE, escmult = 0.25, cexleg = 1,
+  years = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos}
@@ -43,6 +44,8 @@ maphist(gr, esp, camps, dns = "Porc", cor.time = TRUE, incl2 = TRUE,
 \item{pts}{Saca los puntos de los datos}
 
 \item{ceros}{Añade puntos para los datos igual a 0 si T, si F no incluye x en los valores 0}
+
+\item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 
 \item{escmult}{Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos}
 
