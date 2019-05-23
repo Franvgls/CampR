@@ -1,8 +1,8 @@
 #' Perfil de distribución por profundidad y tallas
-#' 
-#' Crea un gráfico de perfil de distribución por profundidad de la abundancia de una especie o grupo de especies en un rango de tallas específico a partir de los datos de distribución de tallas tomados en una campaña. También puede sacar los datos en peso pero a partir de las relaciones talla-peso, en vez de a partir de las faunísticas como en DpthPrfl 
+#'
+#' Crea un gráfico de perfil de distribución por profundidad de la abundancia de una especie o grupo de especies en un rango de tallas específico a partir de los datos de distribución de tallas tomados en una campaña. También puede sacar los datos en peso pero a partir de las relaciones talla-peso, en vez de a partir de las faunísticas como en DpthPrfl
 #' @param gr Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados
-#' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campañas de las que se obtiene la distribución de profundidades (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param tmin Talla mínima
@@ -16,7 +16,7 @@
 #' @param xmax Valor máximo del eje x
 #' @param nlans Si T añade el número de lances en cada rango de profundidad
 #' @param spl Si T incluye una curva spline en el gráfico
-#' @param brks Especifica los rangos de profundidad:"Sturges" cada 100 metros, "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, "FD" cada 50 metros
+#' @param brks Especifica los rangos de profundidad: "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, las opciones "FD", "Sturges" y "scott" también son válidas como están implenmentadas en {\link{hist}}
 #' @param tabres Muestra una tabla resumen de la media, total de biomasa o número y frecuencia de la especie por estación según el brks especificado
 #' @param tit2 Añade un segundo título al gráfico especificando el rango de tallas
 #' @seealso {\link{DpthPrfl}}

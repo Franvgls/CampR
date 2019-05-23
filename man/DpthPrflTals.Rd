@@ -40,7 +40,7 @@ DpthPrflTals(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
 
 \item{spl}{Si T incluye una curva spline en el gráfico}
 
-\item{brks}{Especifica los rangos de profundidad:"Sturges" cada 100 metros, "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, "FD" cada 50 metros}
+\item{brks}{Especifica los rangos de profundidad: "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, las opciones "FD", "Sturges" y "scott" también son válidas como están implenmentadas en {\link{hist}}}
 
 \item{tabres}{Muestra una tabla resumen de la media, total de biomasa o número y frecuencia de la especie por estación según el brks especificado}
 

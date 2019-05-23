@@ -1,8 +1,8 @@
 #' Perfil de distribución por profundidad
-#' 
+#'
 #' Crea un gráfico de perfil de distribución por profundidad de la biomasa o número de una especie o grupo de especies a partir de los datos de peso y número de la faunística tomados en una campaña
 #' @param gr Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados
-#' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campañas de las que se obtiene la distribución de profundidades (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" or "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
@@ -13,7 +13,7 @@
 #' @param xmax Valor máximo del eje x
 #' @param nlans Si T añade el número de lances en cada rango de profundidad
 #' @param spl Si T incluye una curva spline en el gráfico
-#' @param brks Especifica los rangos de profundidad:"Sturges" cada 100 metros, "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, "FD" cada 50 metros
+#' @param brks Especifica los rangos de profundidad: "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, las opciones "FD", "Sturges" y "scott" también son válidas como están implenmentadas en {\link{hist}}
 #' @param tabres Muestra una tabla resumen del total de lances, media y total de biomasa o número y frecuencia de la especie por estrato según el brks especificado
 #' @examples DpthPrfl(1, 50, "N08", "Cant",brks = "norte",tabres=TRUE,ind="p")
 #' @examples DpthPrfl(1,50,"P08","Porc",brks="porcupine",ti=TRUE)
@@ -28,7 +28,7 @@ DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,ind="p",es=TRUE,ti=TRUE
     options(scipen=2)
     values<-c("norte","porcupine","Sturges","scott","FD")
     #browser()
-    if (!is.numeric(brks) & any(!brks %in% values)) stop("brks tiene que ser norte, porcupine, valores num?ricos o Sturges como forma de determinar los rangos de profundidad")
+    if (!is.numeric(brks) & any(!brks %in% values)) stop("brks tiene que ser norte, porcupine, valores numéricos o Sturges como forma de determinar los rangos de profundidad")
     dumb<-maphist(gr,esp,camps,dns,cor.time=cor.time,plot=FALSE,out.dat=TRUE,ind=ind)
     if (sum(dumb$numero)==0) {
       stop(paste("La especie",buscaesp(gr,esp),"no tiene datos de capturas en las campañas seleccionadas, revise por favor"))

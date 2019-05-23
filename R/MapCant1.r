@@ -23,7 +23,7 @@ MapCant1<- function(gr,esp,camps,dns="Cant",color=1,bw=F,add=FALSE,escala=NA,ti=
   esp<-format(esp,width=3,justify="r")
 	ch1<-RODBC::odbcConnect(dsn=dns)
 	RODBC::odbcSetAutoCommit(ch1, FALSE)
-  #browser()
+  if (nrow(RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camps[1]," where grupo='",gr,"' and esp='",esp,"'",sep="")))==0) {stop(paste("No existe",buscaesp(gr,esp),"en la campaña",camps[1],"revise especie y/o campaña"))}
 	absp<-cbind(camp=camps[1],RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camps[1]," where grupo='",gr,"' and esp='",esp,"'",sep="")))
 	if (length(camps)>1) for (i in 2:length(camps)) {absp<-rbind(absp,cbind(camp=camps[i],RODBC::sqlQuery(ch1,
 	                                                                                                   paste("select lance,peso_gr,numero from FAUNA",camps[i],
