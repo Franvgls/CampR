@@ -1,11 +1,13 @@
 #' Mapa del Banco de Porcupine sin referencias en tierra
-#' 
+#'
 #' Función auxiliar para sacar el mapa de la campaña Porcupine
-#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña 
-#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña 
+#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña
+#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param lwdl Ancho de las líneas del mapa
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
+#' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
+#' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
 #' @param label Si T saca las etiquetas de cada una de las cuadriculas numeradas consecutivamente por estratos 1A,1B,2B,3A,3B
 #' @param colo Color de las etiquetas, por defecto rojas
 #' @param ax Si T saca los ejes x e y

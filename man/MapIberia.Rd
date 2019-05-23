@@ -5,8 +5,9 @@
 \title{Mapa de la Península Ibérica completo}
 \usage{
 MapIberia(xlims = c(-9.72, 5), ylims = c(35.9, 44.5), lwdl = 1,
-  cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE, bw = F,
-  ax = TRUE, wmf = FALSE, es = TRUE, places = TRUE, escmult = 1)
+  cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE,
+  ICESlab = FALSE, ICESlabcex = 0.5, bw = F, ax = TRUE,
+  wmf = FALSE, es = TRUE, places = TRUE, escmult = 1)
 }
 \arguments{
 \item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del ?rea de la campaña}
@@ -20,6 +21,10 @@ MapIberia(xlims = c(-9.72, 5), ylims = c(35.9, 44.5), lwdl = 1,
 \item{cuadrMSFD}{Si T dibuja caudr?cula de 10 millas naúticas utilizada para la evaluaci?n de la estrategia marina (MSFD)}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
+
+\item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
+
+\item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 
 \item{bw}{si T mapa con tierra en gris, si F tierra en color}
 
@@ -44,7 +49,7 @@ MapIberia()
 }
 \seealso{
 Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant}}, \code{\link{MapMedit}},
+  \code{\link{MapCant1}}, \code{\link{MapMedit}},
   \code{\link{MapNort}}, \code{\link{mapporco}}
 
 Other Medits: \code{\link{MapMedit}}

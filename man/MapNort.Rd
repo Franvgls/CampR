@@ -5,9 +5,9 @@
 \title{Mapa del Cantábrico y Galicia}
 \usage{
 MapNort(lwdl = 0.5, cuadr = FALSE, cuadrMSFD = FALSE,
-  ICESrect = FALSE, leg = F, bw = TRUE, es = FALSE, ax = TRUE,
-  strat = FALSE, places = FALSE, xlims = c(-10.25, -1.4),
-  ylims = c(41.82, 44.48))
+  ICESrect = FALSE, ICESlab = FALSE, ICESlabcex = 0.5, leg = F,
+  bw = TRUE, es = FALSE, ax = TRUE, strat = FALSE,
+  places = FALSE, xlims = c(-10.25, -1.4), ylims = c(41.82, 44.48))
 }
 \arguments{
 \item{lwdl}{Ancho de las líneas del mapa}
@@ -17,6 +17,10 @@ MapNort(lwdl = 0.5, cuadr = FALSE, cuadrMSFD = FALSE,
 \item{cuadrMSFD}{Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
+
+\item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
+
+\item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 
 \item{leg}{Si T saca una leyenda con los estratos batimétricos que salen de color o con grises en bw}
 
@@ -50,7 +54,7 @@ Función auxiliar para sacar el mapa de la campaña Demersales
 {\link{MapCant}}, {\link{mapporco}}
 
 Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant}}, \code{\link{MapIberia}},
+  \code{\link{MapCant1}}, \code{\link{MapIberia}},
   \code{\link{MapMedit}}, \code{\link{mapporco}}
 }
 \concept{Galicia Cantabrico}

@@ -40,7 +40,7 @@
 #' @family mapas
 #' @family resumen general
 #' @export
-armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,arrow=FALSE,leg=TRUE,es=FALSE,cols=TRUE,noval=TRUE,
+armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,arrow=FALSE,leg=TRUE,es=FALSE,cols=TRUE,noval=TRUE,
 	CTDs=FALSE,strat=FALSE,Nlans=FALSE,NCTDs=FALSE,Dates=F,places=FALSE,bw=FALSE,lans=TRUE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
 	ch1<-RODBC::odbcConnect(dsn=dns)

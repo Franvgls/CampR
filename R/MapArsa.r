@@ -1,12 +1,14 @@
 #' Mapa del Golfo de Cádiz
-#' 
+#'
 #' Función auxiliar para sacar mapas de la campaña ARSA
-#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña 
-#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña 
+#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña
+#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param lwdl Ancho de las líneas del mapa
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
-#' @param cuadrMSFD Si T dibuja cuadrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD) 
+#' @param cuadrMSFD Si T dibuja cuadrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
+#' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
+#' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
 #' @param leg si T incluye una legenda con los estratos de profundidad y los estratos se colorean respectivamente
 #' @param ax Si T saca los ejes x e y
 #' @param bw si T mapa con tierra en gris, si F tierra en color
@@ -19,7 +21,7 @@
 #' @family mapas base
 #' @family ARSA
 #' @export
-MapArsa<-function(xlims=c(-8.14,-5.54),ylims=c(35.95,37.33),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
+MapArsa<-function(xlims=c(-8.14,-5.54),ylims=c(35.95,37.33),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.5,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
   asp<-diff(c(35.95,37.33))/(diff(c(-8,-5.55))*cos(mean(c(35.95,37.33))*pi/180))
   if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
@@ -29,6 +31,7 @@ MapArsa<-function(xlims=c(-8.14,-5.54),ylims=c(35.95,37.33),lwdl=1,leg=F,cuadr=F
     abline(h=seq(31,45,by=1/12),col=gray(.6),lwd=.6)
     abline(v=seq(-12,0,by=0.089),col=gray(.6),lwd=.6)
   }
+  if (ICESlab) text(stat_y~stat_x,Area,label=ICESNAME,cex=ICESlabcex)
   if (ICESrect) {
     abline(h=seq(31,45,by=.5),col=gray(.2),lwd=.6)
     abline(v=seq(-12,0,by=1),col=gray(.2),lwd=.6)

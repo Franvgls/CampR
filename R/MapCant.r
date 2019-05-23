@@ -2,10 +2,11 @@
 #'
 #' Crea un mapa para el Cantábrico y Galicia con información para la especie solicitada en la campaña solicitada, sólo una campaña para mas campañas ver maphist
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos
-#' @param esp Código de la especie númerico o caracter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Código de la especie númerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: solo para el Cantábrico "Cant"
 #' @param color Color de los puntos que representan las abundancias
+#' @param bw si T los colores salen en blanco, si F en lightblue
 #' @param add Si T añade los puntos al gráfico actual, si F dibuja uno nuevo
 #' @param escala Varia el tamaño de los puntos
 #' @param ti Si T añade titulo al mapa, el nombre de la especie en latín
@@ -15,8 +16,7 @@
 #' @family mapas base
 #' @family Norte Demersales
 #' @export
-MapCant<- function(gr,esp,camp,dns="Cant",color=1,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F){
-  if (length(camp)>1) {stop("Seleccionadas mas de una campaña, no se pueden sacar resultados de más de una")}
+MapCant1<- function(gr,esp,camp,dns="Cant",color=1,bw=F,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F){
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
 	if (!add) {
@@ -29,7 +29,8 @@ MapCant<- function(gr,esp,camp,dns="Cant",color=1,add=FALSE,escala=NA,ti=FALSE,i
 	ch1<-RODBC::odbcConnect(dsn=dns)
 	RODBC::odbcSetAutoCommit(ch1, FALSE)
   #browser()
-	absp<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camp," where grupo='",gr,"' and esp='",esp,"'",sep=""))
+	absp<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camp[1]," where grupo='",gr,"' and esp='",esp,"'",sep=""))
+	if (length(camp)>1) for (i in 2:length(camp)) {RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camp[i]," where grupo='",gr,"' and esp='",esp,"'",sep=""))}
 	if (ti) {
 		ident<-RODBC::sqlQuery(ch1,paste("select ident from CAMP",camp,sep=""))[[1]]
 		ident<-as.character(ident)
@@ -64,11 +65,11 @@ MapCant<- function(gr,esp,camp,dns="Cant",color=1,add=FALSE,escala=NA,ti=FALSE,i
 			}
 		if (!add) {
 			leyenda<-cbind(rep(-4,5),seq(42.2,43,by=.2),maxml*c(.05,.1,.25,.5,1))
-			for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=2,col=1,bg="white")}
+			for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=2,col=1,bg=color)}
 			polygon(c(-4.25,-4.25,-3.4,-3.4,-4.25),c(41.9,43.15,43.15,41.9,41.9),col="white")
 			text(leyenda[,1]+.3,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
 			text(-3.8,42.05,milab)
-			for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=2,col=1,bg="white")}
+			for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=2,col=1,bg=ifelse(bw,"white","lightblue"))}
 			}
 		}
 	else {

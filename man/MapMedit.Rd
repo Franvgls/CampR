@@ -42,7 +42,7 @@ MapMedit()
 }
 \seealso{
 Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant}}, \code{\link{MapIberia}},
+  \code{\link{MapCant1}}, \code{\link{MapIberia}},
   \code{\link{MapNort}}, \code{\link{mapporco}}
 
 Other Medits: \code{\link{MapIberia}}

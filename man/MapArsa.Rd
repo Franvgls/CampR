@@ -6,7 +6,8 @@
 \usage{
 MapArsa(xlims = c(-8.14, -5.54), ylims = c(35.95, 37.33), lwdl = 1,
   leg = F, cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE,
-  ax = TRUE, bw = F, wmf = FALSE, es = TRUE, places = TRUE)
+  ICESlab = FALSE, ICESlabcex = 0.5, ax = TRUE, bw = F,
+  wmf = FALSE, es = TRUE, places = TRUE)
 }
 \arguments{
 \item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña}
@@ -22,6 +23,10 @@ MapArsa(xlims = c(-8.14, -5.54), ylims = c(35.95, 37.33), lwdl = 1,
 \item{cuadrMSFD}{Si T dibuja cuadrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
+
+\item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
+
+\item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 
 \item{ax}{Si T saca los ejes x e y}
 
@@ -45,7 +50,7 @@ MapArsa()
 \seealso{
 {\link{MapCant}}, {\link{mapporco}}
 
-Other mapas base: \code{\link{MapCant}},
+Other mapas base: \code{\link{MapCant1}},
   \code{\link{MapIberia}}, \code{\link{MapMedit}},
   \code{\link{MapNort}}, \code{\link{mapporco}}
 

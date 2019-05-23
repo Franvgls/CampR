@@ -1,9 +1,10 @@
 Package: CampR
 Title: Librería de funciones en R para el programa CAMP
 Description: Funciones para sacar resultados de los datos de campañas de arrastre 
-    demersal guardados en el **CAMP** version 12 Windows7 - Windows10 (Harbour)
+    demersal guardados en el **CAMP** version 12 Windows7 - Windows10 (Harbour) 
+    Solo para 32 bits y Rstudio < 1.2
 License: GPL-2
-Version: 0.6.10
+Version: 0.6.11
 Author: FVG <franvgls@gmail.com>
 Maintainer: FVG <franvgls@gmail.com>
 Roxygen: list(markdown = TRUE)

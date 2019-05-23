@@ -1,9 +1,9 @@
 #' Exporta datos de formato CAMP a formato DATRAs HH
 #'
 #' Función de Salida de datos a DATRAS:
-#' Extrae las características de los lances para una campaña y los transforma en formato DATRAS HH. 
+#' Extrae las características de los lances para una campaña y los transforma en formato DATRAS HH.
 #' @param camp Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" 
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa"
 #' @param quart si F deja en cada lance el valor del trimestre en que se realizó el lance, si T se deja el que tiene la campaña por defecto, 1 para Arsa 1Q, 3 para Porcupine y 4 para Arsa 4Q y Demersales Northern Shelf
 #' @param incl2 Si F deja fuera los lances especiales que actualmente no se transmiten a DATRAS, si T los incluye
 #' @return Devuelve un data.table con datos de cada lance en el formato HH de DATRAS. DATRAS requiere que los datos no tengan cabecera y el trimestre sea el que corresponde a la campaña, además de no tener "". Por ello se debe pasar a fichero con la orden: write.table(CAMPtoHH(Xyy,dns),"nombrearchivo.csv",sep=",",quote=F,col.names=F,row.names=F))
@@ -62,7 +62,20 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
     }
     DB$TimeShot<-paste0(formatC(as.numeric(substr(DB$hora_l,1,2)),flag=0,width=2),sprintf("%02s",substr(DB$hora_l,4,5)))
     DB$estn<-as.numeric(as.character(DB$estn))
-    HH_north<-data.table::data.table(RecordType="HH",Quarter=DB$quarter,Country="SPA",Ship=DB$barco,Gear=DB$Gear,SweepLngt=DB$malletas,GearExp=-9,DoorType=DB$DoorType,StNo=DB$StNo,HaulNo=DB$lance,Year=DB$year,Month=substr(DB$fecha,4,5),Day=substr(DB$fecha,1,2),TimeShot=DB$TimeShot,Stratum=DB$estrato,HaulDur=round(DB$haul.mins*DB$weight.time),DayNight="D",ShootLat=DB$latitud_l,ShootLong=DB$longitud_l,HaulLat=DB$latitud_v,HaulLong=DB$longitud_v,StatRec=DB$icesrect,Depth=DB$prof_l,HaulVal=ifelse(DB$validez==1,"V",ifelse(DB$validez==2 | DB$validez==3,"A","I")),HydroStNo=DB$estn,StdSpecRecCode=1,BycSpecRecCode=0,DataType="R",Netopening=round(DB$abert_v,1),Rigging=-9,Tickler=-9,Distance=round(DB$recorrido),Warplngt=DB$cable,Warpdia=DB$Warpdia,WarpDen=-9,DoorSurface=DB$DoorSurface,DoorWgt=DB$DoorWght,DoorSpread=trunc(DB$dista_p),WingSpread=round(DB$abert_h,1),Bouyancy=-9,KiteDim=-9,WgtGroundRope=-9,TowDir=formatC(DB$rumbo,flag=0,width=3),GroundSpeed=DB$velocidad,SpeedWater=-9,SurCurDir=-9,SurCurSpeed=-9,BotCurDir=-9,BotCurSpeed=-9,WindDir=DB$dir_viento,WindSpeed=DB$vel_viento,SwellDir=-9,SwellHeight=DB$est_mar,SurTemp=-9,BotTemp=DB$temp,SurSal=-9,BotSal=DB$sali,ThermoCline=-9,ThClineDepth=-9)
+    HH_north<-data.table::data.table(RecordType="HH",Quarter=DB$quarter,Country="SPA",Ship=DB$barco,Gear=DB$Gear,
+                                     SweepLngt=DB$malletas,GearExp=-9,DoorType=DB$DoorType,StNo=DB$StNo,
+                                     HaulNo=DB$lance,Year=DB$year,Month=substr(DB$fecha,4,5),
+                                     Day=substr(DB$fecha,1,2),TimeShot=DB$TimeShot,Stratum=DB$estrato,
+                                     HaulDur=round(DB$haul.mins*DB$weight.time),DayNight="D",ShootLat=DB$latitud_l,
+                                     ShootLong=DB$longitud_l,HaulLat=DB$latitud_v,HaulLong=DB$longitud_v,StatRec=DB$icesrect,
+                                     Depth=DB$prof_l,HaulVal=ifelse(DB$validez==1,"V",ifelse(DB$validez==2 | DB$validez==3,"A","I")),
+                                     HydroStNo=DB$estn,StdSpecRecCode=1,BycSpecRecCode=0,DataType="R",Netopening=round(DB$abert_v,1),
+                                     Rigging=-9,Tickler=-9,Distance=round(DB$recorrido),Warplngt=DB$cable,Warpdia=DB$Warpdia,WarpDen=-9,
+                                     DoorSurface=DB$DoorSurface,DoorWgt=DB$DoorWght,DoorSpread=trunc(DB$dista_p),WingSpread=round(DB$abert_h,1),
+                                     Bouyancy=-9,KiteDim=-9,WgtGroundRope=-9,TowDir=formatC(DB$rumbo,flag=0,width=3),GroundSpeed=DB$velocidad,
+                                     SpeedWater=-9,SurCurDir=-9,SurCurSpeed=-9,BotCurDir=-9,BotCurSpeed=-9,WindDir=DB$dir_viento,
+                                     WindSpeed=DB$vel_viento,SwellDir=-9,SwellHeight=DB$est_mar,SurTemp=-9,BotTemp=DB$temp,SurSal=-9,
+                                     BotSal=DB$sali,ThermoCline=-9,ThClineDepth=-9)
     HH_north$DoorSpread[is.na(HH_north$DoorSpread)]<-c(-9)
     HH_north$Netopening[is.na(HH_north$Netopening)]<-c(-9)
     HH_north$WingSpread[is.na(HH_north$WingSpread)]<-c(-9)
@@ -75,7 +88,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
     HH_north$HydroStNo[is.na(HH_north$HydroStNo)]<-c(-9)
     HH_north$TowDir[is.na(HH_north$TowDir)]<-c(-9)
 #    HH_north$Quarter<- ifelse(is.na(quarter),HH_north$Quarter,quarter)
-#    HH_north               
-    HH_north[order(HH_north$HaulNo),]               
+#    HH_north
+    HH_north[order(HH_north$HaulNo),]
     }
 

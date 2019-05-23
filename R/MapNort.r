@@ -7,6 +7,8 @@
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
 #' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
+#' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
+#' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
 #' @param leg Si T saca una leyenda con los estratos batimétricos que salen de color o con grises en bw
 #' @param bw si T mapa con tierra en gris, si F tierra en color
 #' @param dens si mayor de 0 las superficies de los estratos tienen patrones de líneas
@@ -21,7 +23,7 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
+MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.5,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (ax) {
      degs = seq(-10,-2,ifelse(abs(diff(xlims))>1,1,.5))
@@ -41,6 +43,7 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,leg=F,bw=T
     abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
     abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
   }
+  if (ICESlab) text(stat_y~stat_x,Area,label=ICESNAME,cex=ICESlabcex)
   if (ICESrect) {
     abline(h=seq(41,45,by=.5),col=gray(.2),lwd=.5)
     abline(v=seq(-12,-1),col=gray(.2),lwd=.5)

@@ -4,7 +4,8 @@
 \alias{maparea}
 \title{Mapa general del banco de Porcupine}
 \usage{
-maparea(es = TRUE, leg = TRUE, bw = FALSE, dens = 0)
+maparea(es = TRUE, leg = TRUE, bw = FALSE, dens = 0,
+  ICESrect = F)
 }
 \arguments{
 \item{es}{Textos en español, si F en inglés}

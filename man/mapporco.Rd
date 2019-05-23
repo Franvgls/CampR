@@ -28,6 +28,10 @@ mapporco(xlims = c(-15.5, -10.5), ylims = c(50.5, 54.5), lwdl = 1,
 \item{wmf}{Si T saca a fichero metafile porconc.emf}
 
 \item{corners}{Si T coloca dos puntos rojos en los extremos nordeste y suroeste para ajustar mapas al PescaWin con ax=F}
+
+\item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
+
+\item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones, si wmf=TRUE lo saca a metafile para fondo del pescawin
@@ -39,7 +43,7 @@ Función auxiliar para sacar el mapa de la campaña Porcupine
 {\link{MapNort}}, {\link{MapCant}}
 
 Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant}}, \code{\link{MapIberia}},
+  \code{\link{MapCant1}}, \code{\link{MapIberia}},
   \code{\link{MapMedit}}, \code{\link{MapNort}}
 
 Other Porcupine: \code{\link{Psh}},

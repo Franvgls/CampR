@@ -1,5 +1,5 @@
 #' Mapa general del banco de Porcupine
-#' 
+#'
 #' Mapa con la estratificación y el área general del banco de Porcupine incluyendo parte de Irlanda
 #' @param es Textos en español, si F en inglés
 #' @param leg incluye la leyenda con los colores/patrones de los estratos
@@ -8,13 +8,17 @@
 #' @family mapas
 #' @family Porcupine
 #' @export
-maparea<-function(es=TRUE,leg=TRUE,bw=FALSE,dens=0) {
+maparea<-function(es=TRUE,leg=TRUE,bw=FALSE,dens=0,ICESrect=F) {
   library(mapdata)
   maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
 		fill=TRUE,col="saddlebrown",type="n")
 	box()
 	rect(-16,50.,-8.,55)
 	abline(v=c(-15:-6),h=c(51:54),lty=3,col=gray(.2))
+	if (ICESrect) {
+	  abline(h=seq(50,55,by=.5),col=gray(.2),lwd=.6)
+	  abline(v=seq(-18,-10,by=1),col=gray(.2),lwd=.6)
+	  }
 	maps::map("worldHires",c("ireland","UK:Northern Ireland"),fill=TRUE,col=ifelse(!bw,"wheat","gray95"),add=TRUE)
 	detach("package:mapdata")
 	points(-(9+.0303/.6),(53+.1623/.6),pch=16,col=1)
