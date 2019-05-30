@@ -29,24 +29,14 @@
 datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,redux=FALSE,year=T,quarter=T,bio=F) {
   foop<-function(camp,dns,incl2=incl2,incl0=incl0,hidro=hidro) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-    ch1<-DBI::dbConnect(odbc::odbc(), dns)
-#    RODBC::odbcSetAutoCommit(ch1, FALSE)
-    lan<-DBI::dbGetQuery(ch1,paste("select lance,validez,latitud_l,latitud_v,longitud_l,longitud_v,prof_l,prof_v,velocidad,
+    ch1<-RODBC::odbcConnect(dsn=dns)
+    RODBC::odbcSetAutoCommit(ch1, FALSE)
+    lan<-RODBC::sqlQuery(ch1,paste("select lance,validez,latitud_l,latitud_v,longitud_l,longitud_v,prof_l,prof_v,velocidad,
                             sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,cuadricula,hora_l,hora_v,rumbo                                   ,dir_viento,vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp,sep=""))
-    lan$lance<-as.integer(lan$lance)
-    lan$validez<-as.integer(lan$validez)
-    lan$sector<-as.integer(lan$sector)
-    lan$estn<-as.integer(lan$estn)
-    lan$arte<-as.integer(lan$arte)
     if (hidro) {
-      if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {warning(paste0("No existe fichero de CTDs para ",camp));hidro=FALSE}
-      else
-        {dathidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
-        if(nrow(dathidro)==0) warning("Fichero de CTDs sin datos")
-        dathidro<-dathidro[,c(11:13,17:23)]}
+      dathidro<-RODBC::sqlFetch(ch1,paste("HIDRO",camp,sep=""))
+      dathidro<-dathidro[,c(11:13,17:23)]
     }
-    dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
-    DBI::dbDisconnect(ch1)
     lan$latitud_l<-round(sapply(lan$latitud_l,gradec),4)
     lan$longitud_l<-round(sapply(lan$longitud_l,gradec)*ifelse(lan$ewl=="E",1,-1),4)
     lan$latitud_v<-round(sapply(lan$latitud_v,gradec),4)
@@ -75,7 +65,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
     lan$sali[lan$sali==0]<-NA
     lan$temp[lan$temp==0]<-NA
     lan$fecha<-format(lan$fecha,"%d-%m-%y")
-    durlan<-dumb$DURLAN
+    durlan<-RODBC::sqlQuery(ch1,paste("select * from CAMP",camp,sep=""))$DURLAN
     lan$sector<-paste(lan$sector,lan$estrato,sep="")
     lan$weight.time<-ifelse(durlan==60,1,2)*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6)))
     lan$weight.time<-round(lan$weight.time,3)
@@ -84,11 +74,11 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
     lan$hora_v<-format(lan$hora_v,format="%H")
     if (!any(redux | bio)) lan<-lan[,c(1:33)]
     else lan<-lan[,c(1:2,32:34,9:31,35:36)]
-    #print(names(lan))
-    barco<-dumb$BARCO
-    area<-as.data.frame(cbind(sector=
-                                as.character(substr(names(dumb[,21:45]),2,3)),arsect=as.numeric(t(dumb[,21:45]))))
-    area<-area[!is.na(area$arsect),]
+    barco<-RODBC::sqlFetch(ch1,paste0("CAMP",camp),as.is=T)$BARCO
+    dumb<-RODBC::sqlFetch(ch1,paste0("CAMP",camp),as.is=T)
+    area<-as.data.frame(cbind(sector=as.character(substr(names(dumb[,21:45]),2,3)),arsect=as.numeric(t(dumb[,21:45]))))
+    #print(str(area))
+    RODBC::odbcClose(ch1)
     if (!incl0) {lan<-lan[c(lan$validez!=0),]}
     if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
     datos<-merge(lan,area,by.x="sector",by.y="sector",all.x=TRUE)
@@ -114,6 +104,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
     #		  datos$sector<-factor(as.character(datos$sector))
   }
   datos$sector<-factor(as.character(datos$sector))
+
+#  datos
   if (bio) datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")] else datos
   }
 

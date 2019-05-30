@@ -13,6 +13,9 @@
 #' @param bw Si T mapa en blanco y negro, si F colorea los estratos y sectores
 #' @param noval Si T añade las estaciones nulas
 #' @param CTDs Si T añade las estaciones de CTD realizadas
+#' @param NCTDs Si T identifica las estaciones de CTD numéricamente
+#' @param Dates Si T saca las fechas en la que se han realizado los lances (dd-mm), no incluye información año.
+#' @param lans Si T marca las estaciones de muestreo con un punto (si Nlans=FALSE)
 #' @param strat strat Si T represent los estratos
 #' @return Saca mapa con el desarrollo de la campaña con la zona y estratificación incluyendo tierra (Porcupine)
 #' @examples
@@ -21,17 +24,33 @@
 #' @family mapas
 #' @family resumen general
 #' @export
-armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,es=FALSE,bw=TRUE,noval=FALSE,
-	CTDs=FALSE,strat=FALSE) {
+armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,
+                    es=FALSE,bw=TRUE,noval=FALSE,Nlans=FALSE,CTDs=FALSE,NCTDs=FALSE,Dates=FALSE,lans=TRUE,strat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-	ch1<-RODBC::odbcConnect(dsn=dns)
-	RODBC::odbcSetAutoCommit(ch1, FALSE)
 	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE)
-	if (any(RODBC::sqlTables(ch1)$TABLE_NAME==paste("HIDRO",camp,sep="")))
-    {hidro<-RODBC::sqlQuery(ch1,paste("select latitud,longitud,eswe from HIDRO",camp,sep=""))}
-  else CTDs=F
-	RODBC::odbcClose(ch1)
- 	if (CTDs) {
+# 	ch1<-RODBC::odbcConnect(dsn=dns)
+# 	RODBC::odbcSetAutoCommit(ch1, FALSE)
+# 	if (any(RODBC::sqlTables(ch1)$TABLE_NAME==paste("HIDRO",camp,sep="")))
+#     {hidro<-RODBC::sqlQuery(ch1,paste("select latitud,longitud,eswe from HIDRO",camp,sep=""))}
+#   else CTDs=F
+# 	RODBC::odbcClose(ch1)
+  if (CTDs |NCTDs) {
+	ch1<-DBI::dbConnect(odbc::odbc(), dns)
+	if (DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {
+	  hidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
+	  names(hidro)<-tolower(names(hidro))
+	  hidro<-dplyr::select(hidro,estn,latitud,longitud,eswe)
+	  if(nrow(hidro)==0) warning("Fichero de CTDs sin datos")
+	}
+	else {
+	  if (CTDs | NCTDs) warning(paste("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS",sep=""))
+	  CTDs=F
+	}
+	DBI::dbDisconnect(ch1)
+  }
+	#camp.name<-DBI::dbReadTable(ch1, paste0("CAMP",camp[1]))$IDENT
+	#camp.name<-stringr::word(camp.name)
+	if (CTDs | NCTDs) {
     hidro$latitud<-gradec(hidro$latitud)
     hidro$longitud<-gradec(hidro$longitud)*ifelse(hidro$eswe=="W",-1,1)
     }
@@ -50,11 +69,18 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FAL
 		lan[c(2:length(lan[,1])),c(3)],
 		lan[c(2:length(lan[,1])),c(2)],0.05,col=col,lwd=argr)
 		}
-	if (noval) points(lan[lan$val==0,c(3,2)],pch=13,cex=1.5)
-	if (CTDs) points(hidro[,c(2,1)],pch=25,cex=1,bg="lightblue")
-	points(lan[lan$val==1,c(3,2)],pch=16)
-	points(lan[lan$val>1,c(3,2)],pch=16,col=3)
-	# print(str(hidro))
+	if (lans & noval& !Dates) points(lan[lan$val==0,c(3,2)],pch=13,cex=1.2)
+	if (lans & !Nlans & !NCTDs & !Dates) {
+	  points(lan[lan$val==1,c(3,2)],pch=21,cex=1.1,bg="gray40")
+	  points(lan[lan$val>1,c(3,2)],pch=21,col=ifelse(bw,1,3),cex=1.1,bg=ifelse(bw,"white","green"))
+	}
+	else {
+	  if (Nlans) text(lan[lan$val==1,c(3)],lan[lan$val==1,c(2)],lan[lan$val==1,1],cex=ifelse(NCTDs & Nlans,.6,.8),font=2)
+	  if (Nlans & length(lan[lan$val>1,1])>0) text(lan[lan$val>1,c(3)],lan[lan$val>1,c(2)],lan[lan$val>1,1],cex=ifelse(NCTDs & Nlans,.6,.8),font=2)
+	  if (NCTDs) text(hidro$longitud,hidro$latitud,hidro$estn,cex=ifelse(NCTDs & Nlans,.6,.8),font=2,col=2)
+	  if (Dates)   text(lan$long,lan$lat,substr(lan$fecha,1,5),cex=.7,font=1)
+	}
+	if (CTDs & !Nlans& !NCTDs) points(hidro[,c(3,2)],pch=25,cex=.8,bg=ifelse(bw,"white","lightblue"))
 	if (leg) {
 		l1<-c(ifelse(es,"Lances válidos","Valid tows"),ifelse(es,"Lances extra","Extra tows"))
 		pts<-c(16,21)

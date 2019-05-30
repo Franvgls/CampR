@@ -11,26 +11,20 @@ buscaesp<- function(gr,esp,id="l") {
   esp<-format(esp,width=3,justify="r")
   values<-c("i","e","l","a")
   if (!id %in% values) stop("Campo id debe ser l: latín, i: inglés, e: español o a: codigo AphiaID")
-  ch1<-RODBC::odbcConnect(dsn="camp")
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  ch1<-DBI::dbConnect(odbc::odbc(), "camp")
   if (length(esp)>1) {
     if (id=="l" | id=="e") { especie<-"Varias especies" }
     if (id=="i") { especie<-"Several species" }
   }
   else {
     if (gr!="9" & esp!="999") {
-      if (id=="l") {
-        especie<-as.character(RODBC::sqlQuery(ch1,paste("select especie from Especies where grupo='",gr,
-                                    "' and esp='",esp,"'",sep=""),as.is=TRUE)[[1]])}
-      if (id=="i") {
-        especie<-as.character(RODBC::sqlQuery(ch1,paste("select nombrei from Especies where grupo='",gr,
-                                    "' and esp='",esp,"'",sep=""),as.is=TRUE)[[1]])}
-      if (id=="e") {
-        especie<-as.character(RODBC::sqlQuery(ch1,paste("select nombree from Especies where grupo='",gr,
-                                     "' and esp='",esp,"'",sep=""),as.is=TRUE)[[1]])}
-      if (id=="a") {
-        especie<- as.character(RODBC::sqlQuery(ch1,paste("select APHIA from Especies where grupo='",gr,
-                                     "' and esp='",esp,"'",sep=""),as.is=TRUE)[[1]])}    }
+      ESPECIES<-DBI::dbGetQuery(ch1,paste("select especie,nombrei,nombree,aphia from Especies where grupo='",gr,
+                                "' and esp='",esp,"'",sep=""))
+      if (id=="l") {especie<-ESPECIES[["especie"]]}
+      if (id=="i") {especie<-ESPECIES[["nombrei"]]}
+      if (id=="i") {especie<-ESPECIES[["nombree"]]}
+      if (id=="a") {especie<-ESPECIES[["aphia"]]}
+    }
     if (gr!="9" & esp=="999") {
       if (id=="i") {especie<-paste("All",c("Fish","Crustaceans","Molluscs","Echinoderms","Other Invertebrates")[as.numeric(gr)])}
       else {especie<-paste("Total",c("peces","crustáceos","moluscos","equinodermos","otros invertebrados","otros")[as.numeric(gr)])}
@@ -39,8 +33,7 @@ buscaesp<- function(gr,esp,id="l") {
       if (id=="i") {especie<-"All Species"}
       else {especie<-"Total especies"}
       id<-"e"}
-    RODBC::odbcClose(ch1)
-  }
+    }
   if (length(especie)==0) especie<-c("ERROR CODIGO DESCONOCIDO")
   as.character(especie)
 }

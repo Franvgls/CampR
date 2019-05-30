@@ -8,15 +8,16 @@
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param cor.time Si T corrige abundancias con la duración del lance para llevarlo a 30 minutos
 #' @param incl2 Si F no tiene en cuenta los lances especiales, si T si los tiene en cuenta, pero da problemas por que no puede calcular las abundancias estratificadas
-#' @return Devuelve un data.frame con información del lance, latitud, longitud, profundidad, peso (gramos) y numero 
+#' @return Devuelve un data.frame con información del lance, latitud, longitud, profundidad, peso (gramos) y numero
 #' @examples datgr.camp(1,50,"P10","Porc",cor.time=TRUE,incl2=FALSE)
 #' @export
 datgr.camp<- function(gr,esp,camp,dns,cor.time=TRUE,incl2=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
-  fauna<-RODBC::sqlFetch(ch1,paste("FAUNA",camp,sep=""))
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  #    RODBC::odbcSetAutoCommit(ch1, FALSE)
+  fauna<-DBI::dbReadTable(ch1, paste0("FAUNA",camp))
+  DBI::dbDisconnect(ch1)
   fauna$ESP<-as.numeric(as.character(fauna$ESP))
   if (length(esp)==1) {
     if (gr!="9" & esp!="999") {
@@ -30,18 +31,18 @@ datgr.camp<- function(gr,esp,camp,dns,cor.time=TRUE,incl2=TRUE) {
     absp<-fauna[fauna$GRUPO==gr & fauna$ESP %in% as.integer(esp),c(1,4:5)]
   }
   lan<-datlan.camp(camp,dns,redux=TRUE,incl2=incl2)
-  RODBC::odbcClose(ch1)
   if (length(lan)==1) {
     mm<-data.frame(lan=0,lat=0,long=0,prof=0,numero=0,peso.gr=0)
   }
   else {
-    names(absp)<-gsub("_",".",tolower(names(absp)))
+    names(absp)<-tolower(gsub("_",".",names(absp),ignore.case = TRUE))
     lan<-lan[,c("lance","lat","long","prof","weight.time")]
     names(lan)<-c("lan","lat","long","prof","weight.time")
     if (any((gr=="9" | esp=="999" | length(esp)>1))) {
       absp<-data.frame(lance=names(tapply(absp$peso.gr,absp$lance,sum)),peso.gr=tapply(absp$peso.gr,absp$lance,sum),
                        numero=tapply(absp$numero,absp$lance,sum)) }
     if (nrow(absp)==0) {absp<-data.frame(lance=lan$lan,peso.gr=0,numero=0)}
+    absp$lance<-as.integer(absp$lance)
     mm<-try(merge(lan,absp,by.x="lan",by.y="lance",all.x=TRUE),silent=TRUE)
     #		browser()
     if (!identical(as.numeric(which(is.na(mm[,7]))),numeric(0))) {

@@ -12,12 +12,13 @@
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param layout Organización de gráficos en filas ó columnas c(r,c)
+#' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @family Distribuciones de tallas
 #' @examples denstall.camp(gr=1,esp=50,camp=Psh,dns="Porc",years=TRUE)
 #' @export
-denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,bw=TRUE,es=TRUE,plot=TRUE,idi="l",
+denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,ti=FALSE,bw=TRUE,es=TRUE,plot=TRUE,idi="l",
   layout=NA,years=TRUE,cexleg=1) {
   options(scipen=2)
   if (plot) lattice::trellis.par.set(lattice::col.whitebg())
@@ -47,7 +48,7 @@ denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,bw=TRUE,es=TRUE,
   # if (!plot) tit<-list(label=ifelse(es,"Distribución de tallas","Length distribution"),font=2,cex=.9)
   ndat<-length(camp)
   for (i in 1:ndat) {
-    dtall<-data.frame(talla=dattal.camp(gr,esp,camp[i],dns,cor.time=cor.time)[,1],n=rowSums(dattal.camp(gr,esp,camp[i],dns,cor.time=cor.time)[-1]))
+    dtall<-data.frame(talla=dattal.camp(gr,esp,camp[i],dns,excl.sect = excl.sect,cor.time=cor.time)[,1],n=rowSums(dattal.camp(gr,esp,camp[i],dns,excl.sect=excl.sect,cor.time=cor.time)[-1]))
     ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall$n))
     if (i==1) a<-ard
     else a<-rbind(a,ard)

@@ -18,12 +18,12 @@
 #' @family mapas base
 #' @family Norte Demersales
 #' @export
-MapCant1<- function(gr,esp,camps,dns="Cant",color=1,bw=F,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F,es=T,places=T){
+MapCant1<- function(gr,esp,camps,dns="Cant",color=1,bw=FALSE,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F,es=T,places=T){
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
 	ch1<-RODBC::odbcConnect(dsn=dns)
 	RODBC::odbcSetAutoCommit(ch1, FALSE)
-  if (nrow(RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camps[1]," where grupo='",gr,"' and esp='",esp,"'",sep="")))==0) {stop(paste("No existe",buscaesp(gr,esp),"en la campaña",camps[1],"revise especie y/o campaña"))}
+  if (nrow(RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camps[1]," where grupo='",gr,"' and esp='",esp,"'",sep="")))==0) {stop(paste(buscaesp(gr,esp),"no aparece en la campaña",camps[1],"revise especie y/o campaña"))}
 	absp<-cbind(camp=camps[1],RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camps[1]," where grupo='",gr,"' and esp='",esp,"'",sep="")))
 	if (length(camps)>1) for (i in 2:length(camps)) {absp<-rbind(absp,cbind(camp=camps[i],RODBC::sqlQuery(ch1,
 	                                                                                                   paste("select lance,peso_gr,numero from FAUNA",camps[i],
@@ -63,27 +63,27 @@ MapCant1<- function(gr,esp,camps,dns="Cant",color=1,bw=F,add=FALSE,escala=NA,ti=
 	}
 	else {especie=NULL}
 	if (is.na(escala)) {
-			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm),lwd=1,col=color,pch=21,bg=ifelse(bw,"white","lightblue"))
+			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm),lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
 			if (ceros) {points(lat~long,mm,subset=peso==0,cex=0.8,pch="+",col=color)}
 		if (!add) {
 		  leyenda<-cbind(rep(-4,55),seq(42.2,43,by=.2),maxml*c(.05,.1,.25,.5,1))
-		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm),lwd=1,col=1,bg=ifelse(bw,"white","lightblue"))
+		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm),lwd=1,col=1,bg=ifelse(bw,"darkgrey","lightblue"))
 		  polygon(c(-4.3,-4.3,-3.3,-3.3,-4.3),c(41.9,43.15,43.15,41.9,41.9),col="white")
 		  text(leyenda[,1]+.4,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
 		  text(-3.8,42.05,milab,font=2)
-		  for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=1,col=1,pch=21,bg=ifelse(bw,"white","lightblue"))}
+		  for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))}
 		  }
 		}
 	else {
 		for (i in 1:length(mm[,1])) {
-			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]/escala),lwd=1,col=color,pch=21,bg=ifelse(bw,"white","lightblue"))
+			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]/escala),lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
 			if (ceros) {points(lat~long,mm,subset=peso>0,cex=0.8,pch="+",col=color)}
 			if (!add) {
 				leyenda<-cbind(rep(-4.6,5),seq(42.2,43,by=.2),maxml*c(.05,.1,.25,.5,1))
 				polygon(c(-4.85,-4.85,-4,-4,-4.85),c(41.9,43.15,43.15,41.9,41.9),col="white")
 				text(leyenda[,1]+.3,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
 				text(-4.43,42.05,milab,font=2)
-				for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]/escala),lwd=1,pch=21,bg=ifelse(bw,"white","lightblue"))}
+				for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]/escala),lwd=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))}
 				}
 			}
 		}

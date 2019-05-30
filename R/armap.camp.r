@@ -43,19 +43,21 @@
 armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,arrow=FALSE,leg=TRUE,es=FALSE,cols=TRUE,noval=TRUE,
 	CTDs=FALSE,strat=FALSE,Nlans=FALSE,NCTDs=FALSE,Dates=F,places=FALSE,bw=FALSE,lans=TRUE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-	ch1<-RODBC::odbcConnect(dsn=dns)
-	RODBC::odbcSetAutoCommit(ch1, FALSE)
-	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE,bio=F)
-	if (any(RODBC::sqlTables(ch1)$TABLE_NAME==paste("HIDRO",camp,sep="")))
-    {hidro<-RODBC::sqlQuery(ch1,paste("select estn,latitud,longitud,eswe from HIDRO",camp,sep=""))
+	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE,bio=F,hidro=ifelse(any(CTDs|CTDs),TRUE,FALSE))
+	ch1<-DBI::dbConnect(odbc::odbc(), dns)
+	if (DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {
+	  hidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
+  	names(hidro)<-tolower(names(hidro))
+	  hidro<-dplyr::select(hidro,estn,latitud,longitud,eswe)
 	  if(nrow(hidro)==0) warning("Fichero de CTDs sin datos")
-	}
+	  }
   else {
     if (CTDs | NCTDs) warning(paste("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS",sep=""))
     CTDs=F
     }
-  camp.name<-as.character(RODBC::sqlQuery(ch1,paste("select IDENT from CAMP",camp,sep=""))$IDENT)
-  RODBC::odbcClose(ch1)
+	camp.name<-DBI::dbReadTable(ch1, paste0("CAMP",camp[1]))$IDENT
+	#camp.name<-stringr::word(camp.name)
+	DBI::dbDisconnect(ch1)
  	if (CTDs | NCTDs) {
     hidro$latitud<-gradec(hidro$latitud)
     hidro$longitud<-gradec(hidro$longitud)*ifelse(hidro$eswe=="W",-1,1)

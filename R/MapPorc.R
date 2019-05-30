@@ -1,8 +1,8 @@
-#' Mapa del Cantábrico y Galicia para una o varias especies y también combina campañas superponiéndolas
+#' Mapa de Porcupine para una o varias especies y también combina campañas superponiéndolas
 #' para dar una idea de la distribución de la especie. Si es muy escasa se puede pasar a representar
 #' solo a puntos de aparición
 #'
-#' Crea un mapa para la campaña Demersales con información para la especie solicitada en la campañas solicitadas, para varias campañas ver también {\link{maphist}}
+#' Crea un mapa para la campaña Porcupine con información para la especie solicitada en la campañas solicitadas, para varias campañas ver también {\link{maphist}}
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos
 #' @param esp Código de la especie númerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campañas a representar en el mapa, con MapCant1 se puede sacar más de  un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
@@ -17,9 +17,9 @@
 #' @param ceros Si T representa los ceros con cruces +, si F no representa lances sin captura
 #' @seealso {\link{maphist}}
 #' @family mapas base
-#' @family Galicia Cantabrico
+#' @family Porcupine
 #' @export
-MapCant<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F,es=T,places=T){
+MapPorc<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F,es=T,places=T){
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -32,7 +32,7 @@ MapCant<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FAL
     if (!is.null(tempdumb)) absp<-rbind(absp,cbind(tempdumb,camp=camps[i]))
   }
   absp$lance<-as.integer(absp$lance)
-  if (ti) {
+	if (ti) {
 		ident<-DBI::dbReadTable(ch1, paste0("CAMP",camps[1]))$IDENT
 		ident<-stringr::word(ident)
 		}
@@ -60,14 +60,14 @@ MapCant<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FAL
 		else {maxml<-10^(nchar(maxmm)-1)}
 		}
 	if (!add) {
-	  MapNort(lwdl=1,places=places,es=es,bw=bw)
+	  mapporco(lwdl=1)
 	}
 	if (ti) {
 	  especie<-buscaesp(gr,esp)
 	}
 	else {especie=NULL}
 	if (puntos) {
-	  MapNort(lwdl=1)
+	  mapporco()
 	  points(lat~long,mm,subset=peso>0,cex=1,pch=21,bg="red")
 	  #legend("bottomleft",legend = paste0("Presencia en campañas ",camptoyear(camps[1]),"-",camptoyear(camps[length(camps)])),inset=c(.22,.05),bg="white",box.col = "white",text.font=2,cex=.8)
 	  title(buscaesp(gr,esp,"e"),font.main=2,line=1.5)
@@ -79,12 +79,13 @@ MapCant<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FAL
 			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm),lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
 			if (ceros) {points(lat~long,mm,subset=peso==0,cex=0.8,pch="+",col=color)}
 		if (!add) {
-		  leyenda<-cbind(rep(-4,55),seq(42.2,43,by=.2),maxml*c(.05,.1,.25,.5,1))
+		  #-13,51.2,
+		  leyenda<-cbind(rep(-13,3),seq(51.2,51.6,by=.2),maxml*c(.25,.5,1))
 		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm),lwd=1,col=1,bg=ifelse(bw,"darkgrey","lightblue"))
-		  polygon(c(-4.3,-4.3,-3.3,-3.3,-4.3),c(41.9,43.15,43.15,41.9,41.9),col="white")
+		  polygon(c(-13.2,-13.2,-12.3,-12.3,-13.2),c(51,51.7,51.7,51,51),col="white")
 		  text(leyenda[,1]+.4,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
-		  text(-3.8,42.05,milab,font=2)
-		  for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))}
+		  text(-12.75,51.09,milab,font=2)
+		  for (i in 1:3) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))}
 		  }
 		}
 	else {
