@@ -4,9 +4,9 @@
 \alias{DpthPrfl}
 \title{Perfil de distribución por profundidad}
 \usage{
-DpthPrfl(gr, esp, camps, dns = "Porc", cor.time = TRUE, ind = "p",
-  es = TRUE, ti = TRUE, idi = "l", xmax = NA, nlans = TRUE,
-  spl = FALSE, brks = "Sturges", tabres = TRUE)
+DpthPrfl(gr, esp, camps, dns = "Porc", cor.time = TRUE, incl2 = TRUE,
+  ind = "p", es = TRUE, ti = TRUE, idi = "l", xmax = NA,
+  nlans = TRUE, spl = FALSE, brks = "Sturges", tabres = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados}

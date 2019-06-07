@@ -49,8 +49,9 @@ MapIberia()
 }
 \seealso{
 Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant1}}, \code{\link{MapMedit}},
-  \code{\link{MapNort}}, \code{\link{mapporco}}
+  \code{\link{MapCant}}, \code{\link{MapMedit}},
+  \code{\link{MapNort}}, \code{\link{MapPorc}},
+  \code{\link{mapporco}}
 
 Other Medits: \code{\link{MapMedit}}
 }

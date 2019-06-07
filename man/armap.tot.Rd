@@ -6,7 +6,8 @@
 \usage{
 armap.tot(camp, dns = "Porc", ICESrect = FALSE, lwdl = 1, col = 2,
   argr = 2, arrow = FALSE, leg = FALSE, es = FALSE, bw = TRUE,
-  noval = FALSE, CTDs = FALSE, strat = FALSE)
+  noval = FALSE, Nlans = FALSE, CTDs = FALSE, NCTDs = FALSE,
+  Dates = FALSE, lans = TRUE, strat = FALSE)
 }
 \arguments{
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -32,6 +33,12 @@ armap.tot(camp, dns = "Porc", ICESrect = FALSE, lwdl = 1, col = 2,
 \item{noval}{Si T añade las estaciones nulas}
 
 \item{CTDs}{Si T añade las estaciones de CTD realizadas}
+
+\item{NCTDs}{Si T identifica las estaciones de CTD numéricamente}
+
+\item{Dates}{Si T saca las fechas en la que se han realizado los lances (dd-mm), no incluye información año.}
+
+\item{lans}{Si T marca las estaciones de muestreo con un punto (si Nlans=FALSE)}
 
 \item{strat}{strat Si T represent los estratos}
 }

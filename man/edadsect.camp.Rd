@@ -2,9 +2,7 @@
 % Please edit documentation in R/edadsect.camp.r
 \name{edadsect.camp}
 \alias{edadsect.camp}
-\title{Calcula las abundancias estratificadas por edad
-
-Función de resultados: abundancias estratificadas por edad para cada sector geográfico a partir de los datos del camp.}
+\title{Calcula las abundancias estratificadas por edad}
 \usage{
 edadsect.camp(gr, esp, camp, dns = "Porc", plus = 8, cor.time = TRUE,
   AltAlk = NA)
@@ -25,8 +23,6 @@ edadsect.camp(gr, esp, camp, dns = "Porc", plus = 8, cor.time = TRUE,
 \item{AltAlk}{ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf sin ruta ni extensión}
 }
 \description{
-Calcula las abundancias estratificadas por edad
-
 Función de resultados: abundancias estratificadas por edad para cada sector geográfico a partir de los datos del camp.
 }
 \examples{

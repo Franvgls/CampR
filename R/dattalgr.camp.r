@@ -12,15 +12,13 @@
 #' @param sex Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo
 #' @param ind Parámetro a representar saca los datos en "p"eso o "n"úmero
 #' @seealso {\link{datgr.camp}}
-#' @examples dattalgr.camp("1",c(44:45),"N94","Cant",0,45,ind="p")
+#' @examples dattalgr.camp("1",c(44),"N94","Cant",0,45,ind="p")
 #' @export
 dattalgr.camp<- function(gr,esp,camp,dns="Porc",tmin=1,tmax=999,cor.time=TRUE,incl2=TRUE,sex=NA,ind="n") {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
-  tallas<-RODBC::sqlFetch(ch1,paste("NTALL",camp,sep=""))
-  #  browser()
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  tallas<-DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp))
   if (length(esp)>1 | any(esp=="999")) {
     if (!is.na(sex)) {
       stop("No tiene sentido elegir sexo de más de una especie")
@@ -39,7 +37,7 @@ dattalgr.camp<- function(gr,esp,camp,dns="Porc",tmin=1,tmax=999,cor.time=TRUE,in
     ntalls<-tallas[tallas$GR==gr & tallas$ESP %in% as.integer(esp),c(1,4,7,6,8,5,9)]
   }
   lan<-datlan.camp(camp,dns,redux=TRUE,incl2=incl2)
-  RODBC::odbcClose(ch1)
+  DBI::dbDisconnect(ch1)
   lan<-lan[,c("lance","lat","long","prof","weight.time")]
   names(lan)<-c("lan","lat","long","prof","weight.time")
   names(ntalls)<-gsub("_", ".",tolower(names(ntalls)))

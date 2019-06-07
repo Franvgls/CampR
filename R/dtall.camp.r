@@ -34,11 +34,11 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1 | any(esp=="999")) {
     if (verbose) print("Distintas especies pueden estar medidas en distintas unidades (mm y cm o .5 cm) o a la aleta anal")
-    increm<-unid.camp(gr,esp)[2] 
-    medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm",ifelse(increm==5,"x5 mm","mm")) }
+    increm<-unid.camp(gr,esp)["INCREM"] 
+    medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")) }
   else { 
-    increm<-unid.camp(gr,esp)[2] 
-    medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
+    increm<-unid.camp(gr,esp)["INCREM"] 
+    medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
   }
   if (bw) {
     colbars<-c(gray(.2),gray(.6),"white")

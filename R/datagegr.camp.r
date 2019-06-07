@@ -1,8 +1,8 @@
-#' Extrae los datos del FAUNA de una especie en concreto en una edad. 
-#' 
-#' Función de acceso a datos: saca las abundancias por edad y lance de la especie 
+#' Extrae los datos del FAUNA de una especie en concreto en una edad.
+#'
+#' Función de acceso a datos: saca las abundancias por edad y lance de la especie
 #' @param gr Grupo de la especie: 1 peces, 2 crustaceos: Sólo existen datos de edad para algunos peces y la cigala.
-#' @param esp Codigo de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Codigo de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña o campañas a representar en el mapa
 #' @param dns Elige el origen de las bases de datos Porcupine "Pnew????" Cantábrico "Cant????" Golfo de Cadiz "Arsa" proporciona los datos para Medits pero no saca mapas
 #' @param plus Edad plus: incluir la edad considerada como plus, solo afecta si se pide la edad solicitada que une todas las edades mayores
@@ -20,9 +20,8 @@ datagegr.camp<- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,n.ots=FALSE
     stop("Sólo se puede incluir una especie en esta función")
   }
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
-  ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+  ch1<-DBI::dbConnect(odbc::odbc(),dns)
+  ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
                              " where grupo='",gr,"' and esp='",esp,"'",sep=""))
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
@@ -56,7 +55,7 @@ datagegr.camp<- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,n.ots=FALSE
     bb<- vector("list", length(edadsx))
     for (i in 1:length(edadsx)) bb[[i]]<-which(match(edaddumb[[i]],talsdumb[[i]],nomatch=0)==0,T)
   }
-  else {		
+  else {
     a<-as.numeric(names(tapply(ntalls$numer,ntalls$talla,sum)))
     b<-which((match(a,edad$talla,nomatch=0)==0),T)
     bb<- vector("list",3)
@@ -78,14 +77,11 @@ datagegr.camp<- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,n.ots=FALSE
   else {
     sonedad<-which(substr(names(edad),1,1)=="E",T)
     for (i in sonedad) {edad[,i]<-edad[,i]/rowSums(edad[,sonedad])}
-    ch1<-RODBC::odbcConnect(dns)
-    lan<-datlan.camp(camp,dns,incl2=incl2,redux=FALSE)[,c("lance","latitud_l","latitud_v","longitud_l","longitud_v","sector","estrato","ewl","ewv","weight.time")] 
-    RODBC::odbcClose(ch1)
+    lan<-datlan.camp(camp,dns,incl2=incl2,redux=FALSE)[,c("lance","latitud_l","latitud_v","longitud_l","longitud_v","sector","estrato","ewl","ewv","weight.time")]
     if (all(lan==-1)) {
       lanedad<-data.frame(lan=0,lat=0,long=0,weight.time=0,numero=0,peso.gr=0)
     }
     else {
-      RODBC::odbcCloseAll()
       dumbtal<-data.frame(talla=c(0:(trunc(max(ntalls[,4])/10)*10+10)))
       ntalls<-merge(dumbtal,ntalls,by.x="talla",by.y="talla",all.x=TRUE)
       edad<-merge(dumbtal,edad,by.x="talla",by.y="talla",all.x=TRUE)
@@ -100,26 +96,26 @@ datagegr.camp<- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,n.ots=FALSE
         sexos<-names(edadsx)
         if ("1" %in% sexos) {
           lantalmac<-tapply(ntalls$numer,ntalls[,c(1,2,5)],sum)[,,1]
-          lantalmac[which(is.na(lantalmac))]<-0	
+          lantalmac[which(is.na(lantalmac))]<-0
           lanedadmac<-as.data.frame((as.matrix(t(lantalmac)) %*% as.matrix((edad[edad$sexo==1,sonedad]))))
           lanedad<-lanedadmac
         }
         if ("2" %in% sexos) {
           lantalhem<-tapply(ntalls$numer,ntalls[,c(1,2,5)],sum)[,,2]
-          lantalhem[which(is.na(lantalhem))]<-0	
+          lantalhem[which(is.na(lantalhem))]<-0
           lanedadhem<-as.data.frame((as.matrix(t(lantalhem)) %*% as.matrix((edad[edad$sexo==2,sonedad]))))
           lanedad<-lanedadhem+lanedad
         }
         if ("3" %in% sexos) {
           lantalund<-tapply(ntalls$numer,ntalls[,c(1,2,5)],sum)[,,3]
-          lantalund[which(is.na(lantalund))]<-0	
+          lantalund[which(is.na(lantalund))]<-0
           lanedadund<-as.data.frame((as.matrix(t(lantalund)) %*% as.matrix((edad[edad$sexo==3,sonedad]))))
           lanedad<-lanedadund+lanedad
         }
       }
       else {
         lantal<-tapply(ntalls$numer,ntalls[,c(1,2)],sum)
-        lantal[which(is.na(lantal))]<-0	
+        lantal[which(is.na(lantal))]<-0
         #print(dim(lantal))
         #print(dim(as.matrix(edad[,sonedad])))
         lanedad<-as.data.frame(t(as.matrix(lantal)) %*% as.matrix(edad[,sonedad]))*mediahora

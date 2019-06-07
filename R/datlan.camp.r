@@ -30,7 +30,6 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
   foop<-function(camp,dns,incl2=incl2,incl0=incl0,hidro=hidro) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
-#    RODBC::odbcSetAutoCommit(ch1, FALSE)
     lan<-DBI::dbGetQuery(ch1,paste("select lance,validez,latitud_l,latitud_v,longitud_l,longitud_v,prof_l,prof_v,velocidad,
                             sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,cuadricula,hora_l,hora_v,rumbo                                   ,dir_viento,vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp,sep=""))
     lan$lance<-as.integer(lan$lance)

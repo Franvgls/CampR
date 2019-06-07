@@ -28,12 +28,6 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FAL
                     es=FALSE,bw=TRUE,noval=FALSE,Nlans=FALSE,CTDs=FALSE,NCTDs=FALSE,Dates=FALSE,lans=TRUE,strat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
 	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE)
-# 	ch1<-RODBC::odbcConnect(dsn=dns)
-# 	RODBC::odbcSetAutoCommit(ch1, FALSE)
-# 	if (any(RODBC::sqlTables(ch1)$TABLE_NAME==paste("HIDRO",camp,sep="")))
-#     {hidro<-RODBC::sqlQuery(ch1,paste("select latitud,longitud,eswe from HIDRO",camp,sep=""))}
-#   else CTDs=F
-# 	RODBC::odbcClose(ch1)
   if (CTDs |NCTDs) {
 	ch1<-DBI::dbConnect(odbc::odbc(), dns)
 	if (DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {

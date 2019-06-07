@@ -19,7 +19,7 @@
 #' @examples DpthPrfl(1,50,"P08","Porc",brks="porcupine",ti=TRUE)
 #' @seealso {\link{DpthPrflTals}}
 #' @export
-DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,ind="p",es=TRUE,ti=TRUE,idi="l",xmax=NA,nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE) {
+DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,ind="p",es=TRUE,ti=TRUE,idi="l",xmax=NA,nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE) {
     esp<-format(esp,width=3,justify="r")
     if (length(gr)>1) stop("No se pueden mezclar datos de grupos distintos, se pueden mezclar todos menos 6, utilizando 9 como grupo")
     #  if (chpar)  opar<-par(no.readonly=TRUE)
@@ -29,7 +29,7 @@ DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,ind="p",es=TRUE,ti=TRUE
     values<-c("norte","porcupine","Sturges","scott","FD")
     #browser()
     if (!is.numeric(brks) & any(!brks %in% values)) stop("brks tiene que ser norte, porcupine, valores numéricos o Sturges como forma de determinar los rangos de profundidad")
-    dumb<-maphist(gr,esp,camps,dns,cor.time=cor.time,plot=FALSE,out.dat=TRUE,ind=ind)
+    dumb<-maphist(gr,esp,camps,dns,cor.time=cor.time,incl2=incl2,plot=FALSE,out.dat=TRUE,ind=ind)
     if (sum(dumb$numero)==0) {
       stop(paste("La especie",buscaesp(gr,esp),"no tiene datos de capturas en las campañas seleccionadas, revise por favor"))
     }

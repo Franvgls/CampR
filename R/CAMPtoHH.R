@@ -25,7 +25,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        DB$DoorSurface=ifelse(substr(DB$barco,1,3)=="CDS",3.6,1.8)
        DB$DoorWght=ifelse(substr(DB$barco,1,3)=="CDS",650,350)
        if(quart) DB$quarter<-"4"
-       DB$lance<-formatC(DB$lance,flag=0,width=3)
+       DB$lance<-format(as.integer(DB$lance),width=3,justify = "r")
        DB$StNo=DB$lance
     }
     if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
@@ -40,8 +40,8 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        if(quart) DB$quarter<-"3"
        DB$Warpdia=20
        if(any(nchar(DB$lance)>2)) warning("Lances con más de 2 carácteres, Porcupine no suele tener más de 99 lances, revise datos")
-       DB$lance<-formatC(DB$lance,flag=0,width=2)
-       DB$StNo<-DB$cuadricula
+       DB$lance<-format(as.integer(DB$lance),width=2,justify="r")
+       DB$StNo<-format(as.integer(DB$cuadricula),width = 3,justify="r")
        DB$estrato<-cut(DB$prof_l,breaks=c(120,300,450,800),labels=c("E","F","G"))
     }
     if (substr(dns,1,4)=="Arsa") {
@@ -56,7 +56,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
       DB$DoorWght=ifelse(DB$year<2008,650,350)
       if(quart) DB$quarter<-ifelse(substr(camp,1,1)=="1","1","4")
       if(any(nchar(DB$lance)>2)) warning("Lances con más de 2 carácteres, Arsa no suele tener más de 99 lances, revise datos")
-      DB$lance<-formatC(DB$lance,flag=0,width=2)
+      DB$lance<-format(as.integer(DB$lance),width=2,justify="r")
       DB$StNo=DB$lance
       DB$estrato<-cut(DB$prof_l,breaks=c(1,30,100,200,500,770),labels=c("H1","H2","H3","H4","H5"))
     }
@@ -89,6 +89,6 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
     HH_north$TowDir[is.na(HH_north$TowDir)]<-c(-9)
 #    HH_north$Quarter<- ifelse(is.na(quarter),HH_north$Quarter,quarter)
 #    HH_north
-    HH_north[order(HH_north$HaulNo),]
+    HH_north[order(as.numeric(HH_north$HaulNo)),]
     }
 

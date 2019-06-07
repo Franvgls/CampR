@@ -27,7 +27,7 @@ denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,ti=FALSE,bw=
     print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
     medida<-c("cm")
   }
-  else { medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm") }
+  else { medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm") }
   if (bw) {
     colbars<-c("black",gray(.5),"white")
     lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))

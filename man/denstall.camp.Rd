@@ -4,9 +4,9 @@
 \alias{denstall.camp}
 \title{Función de densidad distribución de tallas}
 \usage{
-denstall.camp(gr, esp, camp, dns, cor.time = TRUE, ti = FALSE,
-  bw = TRUE, es = TRUE, plot = TRUE, idi = "l", layout = NA,
-  years = TRUE, cexleg = 1)
+denstall.camp(gr, esp, camp, dns, cor.time = TRUE, excl.sect = NA,
+  ti = FALSE, bw = TRUE, es = TRUE, plot = TRUE, idi = "l",
+  layout = NA, years = TRUE, cexleg = 1)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos. 4 equinodermos y 5 invertebrados no se miden}
@@ -18,6 +18,8 @@ denstall.camp(gr, esp, camp, dns, cor.time = TRUE, ti = FALSE,
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew" o "Porc", Cantábrico "Cant" o "Cnew", Golfo de Cádiz "Arsa" y Mediterráneo "Medi" P}
 
 \item{cor.time}{Corrige la abundancia por la duración del lance frente al estándar de la campaña, al ser distribución de frecuencias no afecta a resultados pero se incluye por consistencia con otras fundiones de esta librería}
+
+\item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 
 \item{ti}{Si T añade título al gráfico, el nombre de la especie en latín}
 

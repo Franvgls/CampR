@@ -32,7 +32,7 @@ Other mapas: \code{\link{GrafMarksGPS_2}},
   \code{\link{maparea}}, \code{\link{maphistage}},
   \code{\link{maphistal}}, \code{\link{maphist}}
 
-Other Porcupine: \code{\link{Psh}},
+Other Porcupine: \code{\link{MapPorc}}, \code{\link{Psh}},
   \code{\link{VedaCigala}}, \code{\link{maparea}},
   \code{\link{mapporco}}
 }

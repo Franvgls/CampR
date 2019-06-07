@@ -40,7 +40,7 @@ MapGaltal<-function(gr,esp,camps,dns="Cant",tmin=1,tmax=999,cor.time=TRUE,ind="n
       }
     medida<-c("cm")
     }
-  else { medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm") }
+  else { medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm") }
   esp<-format(esp,width=3,justify="r")
 	ndat<-length(camps)
 	dumb<-NULL

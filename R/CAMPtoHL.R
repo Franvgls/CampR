@@ -7,7 +7,7 @@
 #' @param inclSpecie si T incluye el nombre de la especie y el Código, si no sólo el Aphia
 #' @param quart si F deja en cada lance el valor del trimestre en que se realizó el lance, si T se deja el que tiene la campaña por defecto, 1 para Arsa 1Q, 3 para Porcupine y 4 para Arsa 4Q y Demersales Northern Shelf
 #' @param incl2 Si F deja fuera los lances especiales que actualmente no se transmiten a DATRAS, si T los incluye
-#' @param export Si T crea un fichero csv con todos los datos corregidos (APHIAs) en el directorio CAMP donde está el especies.dbf este es importable al especies.dbf con un append from deli with , quitando todos los peces grupo="1"
+#' @param export Si T crea un fichero csv con todos los datos corregidos (APHIAs) en el directorio CAMP donde está el especies.dbf este es importable al especies.dbf con un append from deli with, quitando todos los peces grupo="1"
 #' @return Devuelve un data.table con datos de cada especie en el formato HL de DATRAS. DATRAS requiere que los datos no tengan cabecera y el trimestre sea el que corresponde a la campaña, además de no tener "". Por ello se debe pasar a fichero con la orden: write.table(CAMPtoHH(Xyy,dns),"nombrearchivo.csv",sep=",",quote=F,col.names=F,row.names=F))
 #' @examples # CAMPtoHL("P14","Porc")
 #' @export
@@ -18,15 +18,13 @@ CAMPtoHL <-
       stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")
     }
     DB <-data.table::as.data.table(datlan.camp(camp,dns,redux = F,incl0 = F,incl2 = incl2))
-    ch1 <- RODBC::odbcConnect(dsn = dns)
-    RODBC::odbcSetAutoCommit(ch1, FALSE)
-    ntalls <-data.table::as.data.table(RODBC::sqlFetch(ch1, paste0("NTALL", camp)))
+    ch1<-DBI::dbConnect(odbc::odbc(), dns)
+    ntalls <-data.table::as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='1'")))
+    DBI::dbDisconnect(ch1)
     names(ntalls) <- tolower(names(ntalls))
-    RODBC::odbcClose(ch1)
-    ch2 <- RODBC::odbcConnect(dsn = "Camp")
-    RODBC::odbcSetAutoCommit(ch2, FALSE)
-    especies <-data.table::as.data.table(RODBC::sqlFetch(ch2, "ESPECIES"))
-    RODBC::odbcClose(ch2)
+    ch2 <- DBI::dbConnect(odbc::odbc(), dsn = "Camp")
+    especies <-data.table::as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
+    DBI::dbDisconnect(ch2)
     names(especies) <- tolower(names(especies))
     especies <- subset(especies, especies$grupo == 1)
     #    especies<-subset(especies,especies$esp %in% unique(ntalls[ntalls$grupo==2,"esp"]))
@@ -60,8 +58,8 @@ CAMPtoHL <-
       DB$DoorType = ifelse(DB$barco == "CDS", "W", "P")
       if (quart)
         DB$quarter <- "4"
-      DB$lance <- formatC(DB$lance, flag = 0, width = 3)
-      ntalls$lance <- formatC(ntalls$lance, flag = 0, width = 3)
+      DB$lance <- format(DB$lance, width = 3,justify="r")
+      ntalls$lance <- format(as.integer(ntalls$lance), width = 3,justify="r")
       DB$StNo = DB$lance
     }
     if (substr(dns, 1, 4) == "Pnew" | substr(dns, 1, 4) == "Porc") {
@@ -71,9 +69,9 @@ CAMPtoHL <-
       DB$DoorType = "P"
       if (quart)
         DB$quarter <- "3"
-      DB$lance <- formatC(DB$lance, flag = 0, width = 2)
-      ntalls$lance <- formatC(ntalls$lance, flag = 0, width = 2)
-      DB$StNo <- DB$cuadricula
+      DB$lance <- format(as.integer(DB$lance), width = 2,justify="r")
+      ntalls$lance <- format(as.integer(ntalls$lance), width = 2,justify="r")
+      DB$StNo <- format(as.integer(DB$cuadricula),width = 3,justify="r")
       }
     if (substr(dns, 1, 4) == "Arsa") {
       if (any(DB$barco !="29MO")) {DB$barco = ifelse(substr(DB$barco, 1, 3) == "COR",
@@ -84,23 +82,27 @@ CAMPtoHL <-
       DB$DoorType = ifelse(substr(DB$barco, 1, 3) == "COR", "W", "P")
       if (quart)
         DB$quarter <- ifelse(substr(camp, 1, 1) == "1", "1", "4")
-      DB$lance <- formatC(DB$lance, flag = 0, width = 2)
-      ntalls$lance <- formatC(ntalls$lance, flag = 0, width = 2)
+      DB$lance <- format(DB$lance, width = 2,justify="r")
+      ntalls$lance <- format(ntalls$lance, width = 2,justify="r")
       DB$StNo = DB$lance
     }
-    DB <-DB[, c("year","barco","quarter","Gear","malletas","GearExp","DoorType","lance","StNo")]
+    DB <-DB[, c("year","barco","quarter","Gear","malletas","GearExp","DoorType","lance","StNo","validez")]
     ntalls <- ntalls[lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
     dumb <- ntalls[, .(NoMeas = sum(numer)), by = .(lance, esp, sexo, cate)]
     dumb <- dumb[, c("lance", "esp", "sexo", "cate", "NoMeas")]
     ntallsdumb <- merge(ntalls, dumb, all.x = TRUE)
+    ntallsdumb$esp<-as.integer(ntallsdumb$esp)
     ntallsdumb$SpecCode <-
-      as.character(especies$aphia[match(ntallsdumb$esp, especies$esp)])
+      as.character(especies$aphia[match(as.integer(ntallsdumb$esp), especies$esp)])
     ntallsdumb$Specie <-
-      as.character(especies$especie[match(ntallsdumb$esp, especies$esp)])
+      as.character(especies$especie[match(as.integer(ntallsdumb$esp), especies$esp)])
     ntallsdumb$med <-
       as.character(especies$med[match(ntallsdumb$esp, especies$esp)])
+    if (nrow(filter(ntallsdumb,is.na(SpecCode)))>1) {
+      print(filter(ntallsdumb,is.na(SpecCode)))
+    }
     ntallsdumb$incr <-
       as.character(especies$increm[match(ntallsdumb$esp, especies$esp)])
     ntallsdumb$LngtCode <- NA
@@ -135,7 +137,7 @@ CAMPtoHL <-
           SpecCodeType = "W",
           SpecCode = DB1$SpecCode,
           specie = DB1$Specie,
-          SpecVal = 1,
+          SpecVal = ifelse(DB1$validez==1,1,0),
           Sex = DB1$Sex,
           TotalNo = round(DB1$NoMeas * DB1$SubFactor, 2),
           CatIdentifier = DB1$cate,
@@ -164,7 +166,7 @@ CAMPtoHL <-
         Year = DB1$year,
         SpecCodeType = "W",
         SpecCode = DB1$SpecCode,
-        SpecVal = 1,
+        SpecVal = ifelse(DB1$validez==1,1,0),
         Sex = DB1$Sex,
         TotalNo = round(DB1$NoMeas * DB1$SubFactor, 2),
         CatIdentifier = DB1$cate,
@@ -182,5 +184,5 @@ CAMPtoHL <-
         "Algunas especies no tienen código AphiaID, conversión incompleta, revise especies.dbf"
       )
     }
-    HL_north[order(HL_north$HaulNo, HL_north$SpecCode, HL_north$LngtClass), ]
+    HL_north[order(as.numeric(HL_north$HaulNo), HL_north$SpecCode, HL_north$LngtClass), ]
   }

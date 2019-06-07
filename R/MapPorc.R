@@ -6,7 +6,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos
 #' @param esp Código de la especie númerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campañas a representar en el mapa, con MapCant1 se puede sacar más de  un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: solo para el Cantábrico "Cant"
+#' @param dns Elige el origen de las bases de datos: solo para Porcupine "Porc"
 #' @param color Color de los puntos que representan las abundancias
 #' @param puntos si TRUE en el mapa muestra sólo los puntos en los que aparece la especie, si false son puntos proporcionales al tamaño de la abundancia
 #' @param bw si T los colores salen en blanco, si F en lightblue
@@ -26,7 +26,7 @@ MapPorc<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FAL
   ndat<-length(camps)
   absp<-NULL
   for (i in 1:ndat) {
-    tempdumb<-DBI::dbReadTable(ch1, paste0("FAUNA",camps[i])) #RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camps[1]," where grupo='",gr,"' and esp='",esp,"'",sep=""))
+    tempdumb<-DBI::dbReadTable(ch1, paste0("FAUNA",camps[i]))
     tempdumb<-tempdumb[tempdumb$GRUPO==gr & tempdumb$ESP==esp,]
     tempdumb<-select(tempdumb,lance=LANCE,peso_gr=PESO_GR,numero=NUMERO)
     if (!is.null(tempdumb)) absp<-rbind(absp,cbind(tempdumb,camp=camps[i]))

@@ -33,7 +33,7 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,ti=FALSE,legend=TRUE,bw=TR
     if(is.list(ti)) tit<-ti
     else tit<-list(label=ti)
   }
-  medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm")
+  medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")
   dtall<-dtallan.camp(gr,esp,camp,dns,sex=sex,lances=lances)
   dtall<-cbind(talla=dtall[,1],dtall[,rev(2:length(dtall))]/length(lances))
   sxn<-c("Machos","Hembras","Indet")

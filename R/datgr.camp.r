@@ -15,20 +15,19 @@ datgr.camp<- function(gr,esp,camp,dns,cor.time=TRUE,incl2=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
-  #    RODBC::odbcSetAutoCommit(ch1, FALSE)
   fauna<-DBI::dbReadTable(ch1, paste0("FAUNA",camp))
   DBI::dbDisconnect(ch1)
-  fauna$ESP<-as.numeric(as.character(fauna$ESP))
+  fauna$ESP<-format(fauna$ESP,width = 3,justify="r")
   if (length(esp)==1) {
     if (gr!="9" & esp!="999") {
-      absp<-fauna[fauna$GRUPO==as.integer(gr) & fauna$ESP==as.integer(esp),c(1,4:5)] }
+      absp<-fauna[fauna$GRUPO==as.character(gr) & fauna$ESP==as.character(esp),c(1,4:5)] }
     if (gr!="9" & esp=="999") {
-      absp<-fauna[fauna$GRUPO==as.integer(gr),c(1,4:5)] }
+      absp<-fauna[fauna$GRUPO==as.character(gr),c(1,4:5)] }
     if (gr=="9" & esp=="999") {
       absp<-fauna[fauna$GRUPO!="6",c(1,4:5)] }
   }
   else {
-    absp<-fauna[fauna$GRUPO==gr & fauna$ESP %in% as.integer(esp),c(1,4:5)]
+    absp<-filter(fauna,GRUPO==gr & ESP %in% esp)
   }
   lan<-datlan.camp(camp,dns,redux=TRUE,incl2=incl2)
   if (length(lan)==1) {
@@ -42,7 +41,7 @@ datgr.camp<- function(gr,esp,camp,dns,cor.time=TRUE,incl2=TRUE) {
       absp<-data.frame(lance=names(tapply(absp$peso.gr,absp$lance,sum)),peso.gr=tapply(absp$peso.gr,absp$lance,sum),
                        numero=tapply(absp$numero,absp$lance,sum)) }
     if (nrow(absp)==0) {absp<-data.frame(lance=lan$lan,peso.gr=0,numero=0)}
-    absp$lance<-as.integer(absp$lance)
+    absp$lance<-as.integer(as.character(absp$lance))
     mm<-try(merge(lan,absp,by.x="lan",by.y="lance",all.x=TRUE),silent=TRUE)
     #		browser()
     if (!identical(as.numeric(which(is.na(mm[,7]))),numeric(0))) {

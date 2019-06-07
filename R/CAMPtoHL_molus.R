@@ -3,7 +3,7 @@
 #' Función de Salida de datos a DATRAS:
 #' Extrae las características de las capturas por lance para una campaña desde el fichero NTALLxxx.DBF y los transforma en formato DATRAS HL. De momento sólo funciona con peces y en el SPNGFS y SPPORC (Para completar crustáceos y moluscos hay que añadir los AphiaID, y para ARSA añadirlos al especies de ARSA)
 #' @param camp Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" 
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa"
 #' @param inclSpecie si T incluye el nombre de la especie y el Código, si no sólo el Aphia
 #' @param quart si F deja en cada lance el valor del trimestre en que se realizó el lance, si T se deja el que tiene la campaña por defecto, 1 para Arsa 1Q, 3 para Porcupine y 4 para Arsa 4Q y Demersales Northern Shelf
 #' @param incl2 Si F deja fuera los lances especiales que actualmente no se transmiten a DATRAS, si T los incluye
@@ -13,23 +13,20 @@
 CAMPtoHLmolus<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     DB<-data.table::as.data.table(datlan.camp(camp,dns,redux=F,incl0 = F,incl2=incl2))
-    ch1<-RODBC::odbcConnect(dsn=dns)
-    RODBC::odbcSetAutoCommit(ch1, FALSE)
-    ntalls<-data.table::as.data.table(RODBC::sqlFetch(ch1,paste0("NTALL",camp)))
+    ch1<-DBI::dbConnect(odbc::odbc(), dns)
+    ntalls <-data.table::as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='3'")))
     names(ntalls)<-tolower(names(ntalls))
-    RODBC::odbcClose(ch1)
-    ch2<-RODBC::odbcConnect(dsn="Camp")
- 	  RODBC::odbcSetAutoCommit(ch2, FALSE)
- 	  especies<-data.table::as.data.table(RODBC::sqlFetch(ch2,"ESPECIES"))
- 	  RODBC::odbcClose(ch2)
+    ch2 <- DBI::dbConnect(odbc::odbc(), dsn = "Camp")
+    especies <-data.table::as.data.table(DBI::dbGetQuery(ch2,paste0("select * from ESPECIES where GRUPO='3'")))
+    DBI::dbDisconnect(ch2)
     if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
        DB$Gear="BAK"
        DB$barco=ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="CDS","CDS"))
        DB$GearExp=-9
        DB$DoorType=ifelse(DB$barco=="CDS","W","P")
        if(quart) DB$quarter<-"4"
-       DB$lance<-formatC(DB$lance,flag=0,width=3)
-       ntalls$lance<-formatC(ntalls$lance,flag=0,width=3)
+       DB$lance<-format(as.integer(DB$lance),width=3,justify="r")
+       ntalls$lance<-format(as.integer(ntalls$lance),width=3,justify="r")
        DB$StNo=DB$lance
     }
     if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
@@ -38,9 +35,9 @@ CAMPtoHLmolus<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
        DB$GearExp=-9
        DB$DoorType="P"
        if(quart) DB$quarter<-"3"
-       DB$lance<-formatC(DB$lance,flag=0,width=2)
-       ntalls$lance<-formatC(ntalls$lance,flag=0,width=2)
-       DB$StNo<-DB$cuadricula
+       DB$lance<-format(as.integer(DB$lance),width=2,justify="r")
+       ntalls$lance<-format(as.integer(ntalls$lance),width=2,justify="r")
+       DB$StNo<-format(as.integer(DB$cuadricula),width = 3,justify="r")
     }
     if (substr(dns,1,4)=="Arsa") {
       DB$barco=ifelse(substr(DB$barco,1,3)=="COR","CDS",ifelse(DB$barco=="MOL","29MO"))
@@ -48,8 +45,8 @@ CAMPtoHLmolus<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
       DB$GearExp=-9
       DB$DoorType=ifelse(substr(DB$barco,1,3)=="COR","W","P")
       if(quart) DB$quarter<-ifelse(substr(camp,1,1)=="1","1","4")
-      DB$lance<-formatC(DB$lance,flag=0,width=2)
-      ntalls$lance<-formatC(ntalls$lance,flag=0,width=2)
+      DB$lance<-format(as.integer(DB$lance),width=2,justify="r")
+      ntalls$lance<-format(as.integer(ntalls$lance),width=2,justify="r")
       DB$StNo=DB$lance
     }
     DB<-DB[,c("year","barco","quarter","Gear","malletas","GearExp","DoorType","lance","StNo")]
@@ -97,6 +94,6 @@ CAMPtoHLmolus<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
       HL_north[HL_north$SpecCode==c(-999),]
       warning("Algunas especies tienen código AphiaID incorrecto especies.dbf")
     }
-        HL_north[order(HL_north$HaulNo,HL_north$SpecCode,HL_north$LngtClass),]               
+        HL_north[order(HL_north$HaulNo,HL_north$SpecCode,HL_north$LngtClass),]
   }
 

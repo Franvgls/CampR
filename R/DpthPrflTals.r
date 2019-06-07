@@ -38,7 +38,7 @@ DpthPrflTals<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,inc
     print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
     medida<-c("cm")
   }
-  else { medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm") }
+  else { medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm") }
   dumb<-maphistal(gr,esp,camps,dns,tmin,tmax,cor.time=cor.time,incl2=incl2,sex=sex,plot=FALSE,out.dat=TRUE,ind=ind)
   if (ind=="n") {
     if (sum(dumb$numero)==0) {

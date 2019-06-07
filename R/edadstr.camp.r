@@ -1,5 +1,5 @@
-#' Calcula las abundancias estratificadas por edad 
-#'  
+#' Calcula las abundancias estratificadas por edad
+#'
 #' Función de resultados: abundancias estratificadas por edad para cada estrato batimétrico a partir de los datos del camp.
 #' @param gr Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?
 #' @param esp Código de la especie numérico o carácter con tres espacios. Sólo admite una especie por gráfica
@@ -15,11 +15,17 @@ edadstr.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA,n.o
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {stop("Sólo se puede incluir una especie en esta función")}
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
-  ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
                              " where grupo='",gr,"' and esp='",esp,"'",sep=""))
-  RODBC::odbcCloseAll()
+  dumb<-as.character(names(DBI::dbGetQuery(ch1,paste0("select * from CAMP",camp))))
+  area<-NULL
+  for (i in 21:45) {
+    area<-paste(area,dumb[i],sep=",")
+  }
+  area<-substr(area,2,nchar(area))
+  area<-DBI::dbGetQuery(ch1,paste0("select ",area," from CAMP",camp,sep=""))
+  DBI::dbDisconnect(ch1)
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
@@ -80,16 +86,6 @@ edadstr.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA,n.o
     for (i in sonedad) {edad[,i]<-edad[,i]/rowSums(edad[,sonedad])}
     lan<-datlan.camp(camp,dns,redux=TRUE,incl2=FALSE)
     lan<-lan[!is.na(lan$estrato),c("lance","sector")]
-    area<-NULL
-    ch1<-RODBC::odbcConnect(dns)
-    RODBC::odbcSetAutoCommit(ch1, FALSE)
-    dumb<-as.character(names(RODBC::sqlQuery(ch1,paste("select * from CAMP",camp,sep=""))))
-    for (i in 21:45) {
-      area<-paste(area,dumb[i],sep=",")
-    }
-    area<-substr(area,2,nchar(area))
-    area<-RODBC::sqlQuery(ch1,paste("select ",area," from CAMP",camp,sep=""))
-    RODBC::odbcCloseAll()
     area<-area[-which(is.na(area) | area==0)]
     area<-as.data.frame(cbind(substr(names(area),2,3),as.numeric(t(area))))
     names(area)<-c("sector","arsect")

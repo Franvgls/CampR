@@ -6,12 +6,11 @@
 #' @export
 unid.camp<-function(gr,esp) {
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dsn="Camp")
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  ch1<-DBI::dbConnect(odbc::odbc(), "Camp")
   if (length(gr)>1 | length(esp)>2) {
     stop("Esta función no permite más de una especie por vez")
   }
-  else especie<-RODBC::sqlQuery(ch1,paste("select MED,INCREM from Especies where grupo='",gr,"' and esp='",esp,"'",sep=""))
-  RODBC::odbcClose(ch1)
+  else especie<-DBI::dbGetQuery(ch1,paste("select ESPECIE,MED,INCREM from Especies where grupo='",gr,"' and esp='",esp,"'",sep=""))
+  DBI::dbDisconnect(ch1)
   especie
 }

@@ -16,7 +16,7 @@
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
 #' @return Devuelve un vector con nombre con el número estratificado del rango de tallas deseados por campaña/año. Si se solicita plot=TRUE saca un gráfico de barras que muestra la abundancia por año. En peso sólo saca los resultados para una especie.
-#' @examples dattal.camps(1,36,Psh,"Porc",1,15,ind="n",plot=TRUE)
+#' @examples dattal.camps(2,19,Psh,"Porc",1,15,ind="n",plot=TRUE)
 #' @seealso {\link{dattal.camp}}
 #' @export
 dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect=NA,years=TRUE,ind="n",ti=TRUE,las=2,plot=FALSE,es=FALSE,bw=TRUE) {
@@ -43,12 +43,12 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
   if (years) colnames(dumbtal)<-c("talla",camptoyear(colnames(dumbtal[,2:ncol(dumbtal)])))
   #  browser()
   if (es){
-    if (ind=="p") print(paste("Peso medio estratificado en gramos por lance de",buscaesp(gr,esp),"entre",tmin,"y",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm")))
-    else print(paste("número medio estratificado de individuos por lance de",buscaesp(gr,esp),"entre",tmin,"y",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm")))
+    if (ind=="p") print(paste("Peso medio estratificado en gramos por lance de",buscaesp(gr,esp),"entre",tmin,"y",tmax,ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")))
+    else print(paste("número medio estratificado de individuos por lance de",buscaesp(gr,esp),"entre",tmin,"y",tmax,ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")))
   }
   else {
-    if (ind=="p") print(paste(buscaesp(gr,esp),"between",tmin,"and",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm"),"mean stratified weight in grams per haul"))
-    else print(paste(buscaesp(gr,esp),"between",tmin,"and",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm"),"mean stratified number of individuals per haul"))
+    if (ind=="p") print(paste(buscaesp(gr,esp),"between",tmin,"and",tmax,ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm"),"mean stratified weight in grams per haul"))
+    else print(paste(buscaesp(gr,esp),"between",tmin,"and",tmax,ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm"),"mean stratified number of individuals per haul"))
   }
     if (plot) {
 #    op<-par(no.readonly=TRUE)
@@ -59,7 +59,7 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
     box()
     if (ti) {
        title(main=buscaesp(gr,esp),font.main=4,line=2)
-       title(main=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)[1]==1,"cm","mm")),font.main=2,cex.main=.9,line=.9)
+       title(main=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")),font.main=2,cex.main=.9,line=.9)
        }
 #    par(op)
   }

@@ -53,7 +53,7 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
       }
     medida<-c("cm")
     }
-  else { medida<-ifelse(unid.camp(gr,esp)[1]==1,"cm","mm") }
+  else { medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm") }
   esp<-format(esp,width=3,justify="r")
 	ndat<-length(camps)
 	dumb<-NULL

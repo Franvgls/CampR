@@ -32,7 +32,7 @@ dattalgr.camp(gr, esp, camp, dns = "Porc", tmin = 1, tmax = 999,
 Muestra los datos de abundancia de una especie o conjunto de especies de un rango de tallas determinado a partir de las distribuciones de tallas. También puede mostrar los datos de biomasa a partir de la relación talla-peso
 }
 \examples{
-dattalgr.camp("1",c(44:45),"N94","Cant",0,45,ind="p")
+dattalgr.camp("1",c(44),"N94","Cant",0,45,ind="p")
 }
 \seealso{
 {\link{datgr.camp}}

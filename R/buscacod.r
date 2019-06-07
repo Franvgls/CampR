@@ -7,9 +7,8 @@
 #' @export
 buscacod<- function(nomb) {
   ch1<-DBI::dbConnect(odbc::odbc(), "camp")
-  #    RODBC::odbcSetAutoCommit(ch1, FALSE)
   if (length(nomb)>1) stop("Esta función no permite más de una especie por vez")
-  else especies<-DBI::dbReadTable(ch1, "ESPECIES")
+  else especies<-data.table::as.data.table(DBI::dbGetQuery(ch1,"select * from ESPECIES"))
   DBI::dbDisconnect(ch1)
 #  Encoding(especies$ESPECIE)  <- "UTF-8"
   print(especies[grep(nomb,especies$ESPECIE,ignore.case=T),c(1,3,4,2)])

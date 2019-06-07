@@ -16,25 +16,25 @@
 #'
 CVlist.camp<- function(gr="1",camp,dns,kg=TRUE,dec=3,percents=FALSE,cor.time=TRUE,excl.sect=NA,minim=F) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-  gr<-as.character(gr)
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  listsps<-RODBC::sqlQuery(ch1,paste("select grupo, esp from FAUNA",camp,sep=""),as.is=TRUE)
-  ch2<-RODBC::odbcConnect(dsn="camp")
-  espfam<-RODBC::sqlQuery(ch2,"select grupo,esp,especie,familia from Especies",as.is=TRUE)
-  RODBC::odbcCloseAll()
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  listsps<-DBI::dbGetQuery(ch1,paste0("select grupo, esp from FAUNA",camp))
+  DBI::dbDisconnect(ch1)
+  ch2<-DBI::dbConnect(odbc::odbc(), "Camp")
+  espfam<-DBI::dbGetQuery(ch2,"select grupo,esp,especie,familia from Especies")
+  DBI::dbDisconnect(ch2)
   if (gr!="9") {
-    listsps<-listsps[listsps$grupo==gr,]
-    espfam<-espfam[espfam$grupo==gr,]
+    listsps<-dplyr::filter(listsps,grupo==gr)
+    espfam<-dplyr::filter(espfam,grupo==gr)
   }
   else {
-    listsps<-listsps[listsps$grupo!=6,]
-    espfam<-espfam[espfam$grupo!=6,]
+    listsps<-dplyr::filter(listsps,grupo!=6)
+    espfam<-dplyr::filter(espfam,grupo!=6)
   }
   espfam$esp<-format(espfam$esp,width=3,justify="r")
-  listsps$esp<-sapply(listsps$esp,format,justify="r",width=3)
+  listsps$esp<-sapply(listsps$esp,format,width=3,justify="r")
   listesp<-levels(factor(listsps$esp))
-  listke<-levels(factor(paste(listsps$grupo,listsps$esp,sep="")))
-  espfam$ke<-paste(espfam$grupo,espfam$esp,sep="")
+  listke<-levels(factor(paste0(listsps$grupo,listsps$esp)))
+  espfam$ke<-paste0(espfam$grupo,espfam$esp)
   dumb<-data.frame(gr=substr(listke,1,1),esp=substr(listke,2,5),especie=espfam$especie[match(listke,espfam$ke)],
                    familia=espfam$familia[match(listke,espfam$ke)],camp=camp,weight=NA,number=NA,nlan=NA,stringsAsFactors=FALSE)
   for (i in 1:nrow(dumb)) {

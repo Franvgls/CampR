@@ -4,7 +4,7 @@
 #' Muestra la distribución de talla de cada categoría,los factores de ponderación por categoría, el número total de individuos medidos,
 #' y el número ideal de individuos a medir (10 por talla: Gerritsen & McGrath 2007)
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
-#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param lance Permite seleccionar el lance
@@ -21,11 +21,10 @@
 qcdtall.camp<- function(gr,esp,camp="P12",dns="Porc",lance,ti=FALSE,legend=TRUE,idi="l",ymax=NA) {
   esp<-format(esp,width=3,justify="r")
   lance<-format(lance,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
-  ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,cate,talla,sexo,numer from NTALL",camp,
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,cate,talla,sexo,numer from NTALL",camp,
                              " where grupo='",gr,"' and esp='",esp,"' and lance='",lance,"'",sep=""))
-  RODBC::odbcClose(ch1)
+  DBI::dbDisconnect(ch1)
   ntalls$wgnum<-ntalls$numer*ntalls$peso_gr/ntalls$peso_m
   dtalls1<-tapply(ntalls$wgnum,ntalls[,c("talla","cate")],sum,na.rm=TRUE)
   dtalls2<-tapply(ntalls$numer,ntalls[,c("talla","cate")],sum,na.rm=TRUE)

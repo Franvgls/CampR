@@ -1,5 +1,5 @@
 #' Datos del muestreo de la especie esp en la campaña
-#' 
+#'
 #' Saca un resumen de los ejemplares y peso muestreados de la especie esp en la campaña camp
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. Utilizar buscacod(gr,esp) para ver codigos
@@ -13,16 +13,17 @@ datmuest.camp<-function(gr,esp,camp,dns="Cant",excl.sect=NA) {
   esp<-format(esp,width=3,justify="r")
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de mas de una")}
   if (any(length(esp)>1 | esp==999)) {stop("seleccionadas más de una especie, no tiene sentido sacar resultados sobre el muestreo de varias especies, sacarlos por especie y sumarlos")}
-  ch1<-RODBC::odbcConnect(dns)
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
   lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect=excl.sect)
-  ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+  ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
                              " where grupo='",gr,"' and esp='",esp,"'",sep=""))
+  DBI::dbDisconnect(ch1)
   names(ntalls)<-gsub("_", ".",names(ntalls))
   if (any(!is.na(excl.sect))) {
     ntalls<-ntalls[ntalls$lance %in% lan$lance,]
     }
-  rgtal<-range(ntalls$talla)  
-  if (any(is.na(ntalls$numer))) 
+  rgtal<-range(ntalls$talla)
+  if (any(is.na(ntalls$numer)))
     {
     warning("Detectado valores perdidos en algún registro de talla")
     print(ntalls[is.na(ntalls$numer),])

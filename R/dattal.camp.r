@@ -18,23 +18,22 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbo
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
   abesp<-datos.camp(gr,esp,camp,dns,cor.time=cor.time)
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
   if (length(esp)==1) {
     if (esp!="999") {
-      ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"' and esp='",esp,"'",sep=""))
+      ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"' and esp='",esp,"'",sep=""))
       #browser()
       if (nrow(ntalls)==0 | sum(abesp$numero)==0) {ntalls<-data.frame(lance=abesp[1,"lance"],peso_gr=0,peso_m=.1,talla=1,sexo="3",numer=0,stringsAsFactors=FALSE)}
     }
     if (esp=="999") {
-      ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'",sep=""))
+      ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'",sep=""))
     }
   }
   if (length(esp)>1) {
-    ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+    ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
                                " where grupo='",gr,"' and esp='",esp[1],"'",sep=""))
     for (i in 2:length(esp)) {
-      ntalls<-rbind(ntalls,RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+      ntalls<-rbind(ntalls,DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
                                               " where grupo='",gr,"' and esp='",esp[i],"'",sep="")))
     }
     ntalls$sexo<-3
@@ -58,8 +57,8 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbo
     }
     ntalls$numer<-ntalls$numer/ntalls$weight.time
     ntalls<-ntalls[,1:6]
-  }                                 
-  RODBC::odbcClose(ch1)
+  }
+  DBI::dbDisconnect(ch1)
   if (any(!is.na(excl.sect))) {
     abesp$sector<-gsub("NA","N",abesp$sector) # print(datos)
     for (i in 1:length(excl.sect)) {if (length(grep(excl.sect[i],as.character(abesp$sector)))>0) abesp<-abesp[-grep(excl.sect[i],as.character(abesp$sector)),]}
@@ -80,7 +79,7 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbo
     dumb$sexo<-as.character(dumb$sexo)
     dumb[is.na(dumb$sexo),"sexo"]<-3
   }
-  if (sum(dumb$peso.m,na.rm=TRUE)==0) dumb[1,c("peso.m","talla")]<-c(.1,1)   
+  if (sum(dumb$peso.m,na.rm=TRUE)==0) dumb[1,c("peso.m","talla")]<-c(.1,1)
   dumb1<-tapply(dumb$numer,dumb[,c("talla","sector","sexo")],sum)
   dumb1[which(is.na(dumb1))]<-0
   lansect<-as.vector(tapply(abesp$sector,abesp$sector,length))
@@ -137,7 +136,7 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbo
     print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
   }
   if (!sex & ncol(dtall)>2) { dtall<-data.frame(talla=dtall[,1],numero=rowSums(dtall[,2:ncol(dtall)])) }
-  if (!sex & ncol(dtall)==2) names(dtall)<-c("talla","numero")	
+  if (!sex & ncol(dtall)==2) names(dtall)<-c("talla","numero")
   #browser()
   as.data.frame(dtall)
 }

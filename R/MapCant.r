@@ -19,7 +19,7 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapCant<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F,es=T,places=T){
+MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,bw=FALSE,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F,es=T,places=T){
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)

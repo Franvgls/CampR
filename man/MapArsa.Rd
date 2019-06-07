@@ -50,9 +50,10 @@ MapArsa()
 \seealso{
 {\link{MapCant}}, {\link{mapporco}}
 
-Other mapas base: \code{\link{MapCant1}},
+Other mapas base: \code{\link{MapCant}},
   \code{\link{MapIberia}}, \code{\link{MapMedit}},
-  \code{\link{MapNort}}, \code{\link{mapporco}}
+  \code{\link{MapNort}}, \code{\link{MapPorc}},
+  \code{\link{mapporco}}
 
 Other ARSA: \code{\link{As1}}, \code{\link{As2}}
 }

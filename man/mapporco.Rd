@@ -43,10 +43,11 @@ Función auxiliar para sacar el mapa de la campaña Porcupine
 {\link{MapNort}}, {\link{MapCant}}
 
 Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant1}}, \code{\link{MapIberia}},
-  \code{\link{MapMedit}}, \code{\link{MapNort}}
+  \code{\link{MapCant}}, \code{\link{MapIberia}},
+  \code{\link{MapMedit}}, \code{\link{MapNort}},
+  \code{\link{MapPorc}}
 
-Other Porcupine: \code{\link{Psh}},
+Other Porcupine: \code{\link{MapPorc}}, \code{\link{Psh}},
   \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
   \code{\link{maparea}}
 }
