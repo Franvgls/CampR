@@ -6,7 +6,7 @@
 #' @param lan lance para el que se quiere comprobar que estan medidas todas las especies (sólo comprueba peces, por defecto gr=1, si se quiere otros cambiar gr) Si lan=NA comprueba todos los lances de la campaña
 #' @param gr El grupo que se quiere comprobar 1 peces, 2 crustaceos, 3 cefalópodos. 4, 5 y 6 nunca se miden.
 #' @return Devuelve la lista de especies capturadas pero no medidas o viceversa
-#' @examples qcTalPez.lan("C14",dns="Cant",lan=NA,gr=1)
+#' @examples qcTalPez.lan("C14",dns="Cant",lan=14,gr=1)
 #' @family Control de calidad
 #' @export
 qcTalPez.lan<-function (camp, dns = "Cant", lan, gr = 1) {
@@ -19,10 +19,9 @@ qcTalPez.lan<-function (camp, dns = "Cant", lan, gr = 1) {
   if (!gr %in% 1:3) {
     stop("Solo se miden los grupos peces y algunos crustáceos y moluscos, cambie parámetro gr")
   }
-  ch1 <- RODBC::odbcConnect(dsn = dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
   lan <- format(lan, width = 3, justify = "r")
-  listsps <- RODBC::sqlQuery(ch1, paste("select lance,grupo,esp,peso_gr,numero from FAUNA",
+  listsps <- DBI::dbGetQuery(ch1, paste("select lance,grupo,esp,peso_gr,numero from FAUNA",
                                         camp, " where lance='", lan, "'", sep = ""))
   if (nrow(listsps) == 0) {
     dumblan <- datlan.camp(camp, dns)
@@ -32,11 +31,11 @@ qcTalPez.lan<-function (camp, dns = "Cant", lan, gr = 1) {
                                                  lan)))
   }
   listsps <- listsps[listsps$grupo == gr, ]
-  tals <- RODBC::sqlQuery(ch1, paste("select lance,grupo,esp,peso_m,peso_gr,cate,talla,numer from NTALL",
+  tals <- DBI::dbGetQuery(ch1, paste("select lance,grupo,esp,peso_m,peso_gr,cate,talla,numer from NTALL",
                                      camp, " where lance='", lan, "'", sep = ""))
   tals <- tals[tals$grupo == gr, ]
   tals$numpond <- tals$numer * tals$peso_gr/tals$peso_m
-  RODBC::odbcClose(ch1)
+  DBI::dbDisconnect(ch1)
   fau <- levels(as.factor(format(listsps$esp, width = 3, justify = "r")))
   talspes <- rowSums(tapply(tals$peso_gr, tals[, c("esp", "cate")],
                             mean), na.rm = T)

@@ -26,7 +26,7 @@ MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,bw=FALSE,add=FAL
   ndat<-length(camps)
   absp<-NULL
   for (i in 1:ndat) {
-    tempdumb<-DBI::dbReadTable(ch1, paste0("FAUNA",camps[i])) #RODBC::sqlQuery(ch1,paste("select lance,peso_gr,numero from FAUNA",camps[1]," where grupo='",gr,"' and esp='",esp,"'",sep=""))
+    tempdumb<-DBI::dbReadTable(ch1, paste0("FAUNA",camps[i]))
     tempdumb<-tempdumb[tempdumb$GRUPO==gr & tempdumb$ESP==esp,]
     tempdumb<-select(tempdumb,lance=LANCE,peso_gr=PESO_GR,numero=NUMERO)
     if (!is.null(tempdumb)) absp<-rbind(absp,cbind(tempdumb,camp=camps[i]))

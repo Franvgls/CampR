@@ -7,13 +7,12 @@
 #' @export
 talpes.camp<-function(gr,esp) {
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dsn="camp")
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  ch1<-DBI::dbConnect(odbc::odbc(), dsn="camp")
   if (length(gr)>1 | length(esp)>1) {
-    stop("Esta funci?n no permite m?s de una especie por vez")
+    stop("Esta funcion no permite mas de una especie por vez")
   }
-  else especie<-RODBC::sqlQuery(ch1,paste("select ESPECIE,A,B from Especies where grupo='",gr,"' and esp='",esp,"'",sep=""))
-  RODBC::odbcClose(ch1)
+  else especie<-DBI::dbGetQuery(ch1,paste("select ESPECIE,A,B from Especies where grupo='",gr,"' and esp='",esp,"'",sep=""))
+  DBI::dbDisconnect(ch1)
   if (especie$B==0 | especie$A==0) stop(paste("No existen A o B para",especie$ESPECIE))
   else especie<-as.vector(especie[,2:3],mode="numeric")
   especie

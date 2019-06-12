@@ -22,7 +22,7 @@ Devuelve la lista de especies capturadas pero no medidas o viceversa
 Sirve para control de calidad y asegurándose que no faltan datos o están incompletos (comprueba coherencia entre faunaXXX.dbf y NtallXXX.dbf y avisa cuando no son coherentes) Existe una funciòn escondida para procesar de una vez toda la campaña \code{qcTalPez.camp(camp=XXX,dns,gr=1)}, pero una vez encontrado que el lance en que está el error es mejor utilizar la función lance por lance
 }
 \examples{
-qcTalPez.lan("C14",dns="Cant",lan=NA,gr=1)
+qcTalPez.lan("C14",dns="Cant",lan=14,gr=1)
 }
 \seealso{
 Other Control de calidad: \code{\link{qcLW.camp}},

@@ -1,7 +1,7 @@
 #' Capturas del día para las especies peces
-#' 
+#'
 #' Da un resumen de las especies capturadas en el día solicitado (o los días solicitados). Sirve para dar los resúmenes de capturas que piden en el "Vizconde de Eza" y otros barcos peces y crust permiten seleccionar las especies que a extraer
-#' @param camp Es la campaña de la que queremos tomar los datos 
+#' @param camp Es la campaña de la que queremos tomar los datos
 #' @param dns Origen de Base de Datos seleccionado. Se usa sobretodo para "Porc" Porcupine pero ver "Cant", "Arsa", "Medi"
 #' @param dias Los días del mes en que queremos tomar los datos, pueden pedirse varios juntos. No acepta mezclar meses distintos
 #' @param peces Las especies de peces que se quieren incluir en los datos
@@ -13,12 +13,11 @@ captdia.camp<-function(camp="C14",dns="Cant",dias,peces=c(50,42,43,44,45,50,51,8
     if (nchar(dias[i])==1) dias[i]<-paste(0,dias[i],sep="")
   }
   #browser()
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  fauna<-DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camp))
+  DBI::dbDisconnect(ch1)
   lan<-datlan.camp(camp,dns,redux=TRUE,incl2=TRUE,incl0=FALSE)
   lan<-lan[,c("lance","fecha")]
-  fauna<-RODBC::sqlFetch(ch1,paste("FAUNA",camp,sep=""))
-  RODBC::odbcCloseAll()
   lansdia<-substr(as.Date(lan$fecha,format="%d-%m-%y"),9,10)
   #browser()
   fecha<-levels(as.factor(lan[substr(as.Date(lan$fecha,format="%d-%m-%y"),9,10) %in% dias,2]))

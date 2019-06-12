@@ -18,26 +18,29 @@ dattalgr.camp<- function(gr,esp,camp,dns="Porc",tmin=1,tmax=999,cor.time=TRUE,in
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
-  tallas<-DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp))
-  if (length(esp)>1 | any(esp=="999")) {
+#  tallas<-DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp))
+   if (length(esp)>1 | any(esp=="999")) {
     if (!is.na(sex)) {
       stop("No tiene sentido elegir sexo de más de una especie")
     }
     if (ind=="p") stop("No se pueden sacar pesos de más de una especie")
-  }
+   }
+  if (length(gr)>1 | as.character(gr)=="9") {stop("No tiene sentido mezclar grupos y considerar tallas de diferentes grupos taxonómicos")}
   if (length(esp)==1) {
     if (gr!="9" & esp!="999") {
-      ntalls<-tallas[tallas$GRUPO==as.integer(gr) & tallas$ESP==as.integer(esp),c(1,4,7,6,8,5,9)] }
+      ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,cate,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'AND esp='",esp,"'"))} # tallas[tallas$GRUPO==as.character(gr) & tallas$ESP==format(esp,width=3,justify="r"),c(1,4,7,6,8,5,9)] }
     if (gr!="9" & esp=="999") {
-      ntalls<-tallas[tallas$GRUPO==as.integer(gr),c(1,4,7,6,8,5,9)] }
+      ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,cate,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'"))}
     if (gr=="9" & esp=="999") {
-      ntalls<-tallas[,c(1,4,7,6,8,5,9)] }
+      ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,cate,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where NOT grupo='",6,"'")) }
   }
   else {
-    ntalls<-tallas[tallas$GR==gr & tallas$ESP %in% as.integer(esp),c(1,4,7,6,8,5,9)]
+    ntalls<-DBI::dbGetQuery(ch1,paste0("select esp,lance,cate,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'"))
+    ntalls<-ntalls[ntalls$esp %in% format(esp,width=3,justify="r"),c("lance","cate","peso_gr","peso_m","talla","sexo","numer")]
+    #ntalls<-  #tallas[tallas$GR==gr & tallas$ESP %in% as.integer(esp),c(1,4,7,6,8,5,9)]
   }
-  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=incl2)
   DBI::dbDisconnect(ch1)
+  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=incl2)
   lan<-lan[,c("lance","lat","long","prof","weight.time")]
   names(lan)<-c("lan","lat","long","prof","weight.time")
   names(ntalls)<-gsub("_", ".",tolower(names(ntalls)))
