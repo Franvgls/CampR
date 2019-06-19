@@ -7,8 +7,8 @@ para dar una idea de la distribución de la especie. Si es muy escasa se puede p
 solo a puntos de aparición}
 \usage{
 MapCant(gr, esp, camps, dns = "Cant", color = 1, puntos = FALSE,
-  bw = FALSE, add = FALSE, escala = NA, ti = FALSE, ind = "p",
-  ceros = F, es = T, places = T)
+  DpthStr = TRUE, bw = FALSE, add = FALSE, esc.mult = 1,
+  ti = FALSE, ind = "p", ceros = F, es = T, places = T)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos}
@@ -21,13 +21,15 @@ MapCant(gr, esp, camps, dns = "Cant", color = 1, puntos = FALSE,
 
 \item{color}{Color de los puntos que representan las abundancias}
 
-\item{puntos}{si TRUE en el mapa muestra sólo los puntos en los que aparece la especie, si false son puntos proporcionales al tamaño de la abundancia}
+\item{puntos}{si TRUE en el mapa muestra sólo los puntos en los que aparece la especie opcionalmente con color por estratos de profundidad, si false son puntos proporcionales al tamaño de la abundancia}
+
+\item{DpthStr}{si TRUE los puntos salen por estrato de profundidad con legenda explicándolo}
 
 \item{bw}{si T los colores salen en blanco, si F en lightblue}
 
 \item{add}{Si T añade los puntos al gráfico actual, si F dibuja uno nuevo}
 
-\item{escala}{Varia el tamaño de los puntos}
+\item{esc.mult}{Varia el tamaño de los puntos valores mayores de 1 disminuyen tamaño, valores de menos de cero lo aumentan}
 
 \item{ti}{Si T añade titulo al mapa, el nombre de la especie en latín}
 

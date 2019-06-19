@@ -8,10 +8,11 @@
 #' @param camps Campañas a representar en el mapa, con MapCant1 se puede sacar más de  un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: solo para el Cantábrico "Cant"
 #' @param color Color de los puntos que representan las abundancias
-#' @param puntos si TRUE en el mapa muestra sólo los puntos en los que aparece la especie, si false son puntos proporcionales al tamaño de la abundancia
+#' @param puntos si TRUE en el mapa muestra sólo los puntos en los que aparece la especie opcionalmente con color por estratos de profundidad, si false son puntos proporcionales al tamaño de la abundancia
+#' @param DpthStr si TRUE los puntos salen por estrato de profundidad con legenda explicándolo
 #' @param bw si T los colores salen en blanco, si F en lightblue
 #' @param add Si T añade los puntos al gráfico actual, si F dibuja uno nuevo
-#' @param escala Varia el tamaño de los puntos
+#' @param esc.mult Varia el tamaño de los puntos valores mayores de 1 disminuyen tamaño, valores de menos de cero lo aumentan
 #' @param ti Si T añade titulo al mapa, el nombre de la especie en latín
 #' @param ind Si "p" representa los datos de biomasa, si "n" representa los datos de abundancia
 #' @param ceros Si T representa los ceros con cruces +, si F no representa lances sin captura
@@ -19,7 +20,7 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,bw=FALSE,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F,es=T,places=T){
+MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,DpthStr=TRUE,bw=FALSE,add=FALSE,esc.mult=1,ti=FALSE,ind="p",ceros=F,es=T,places=T){
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -37,8 +38,8 @@ MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,bw=FALSE,add=FAL
 		ident<-stringr::word(ident)
 		}
   lan<-datlan.camp(camps,dns,redux=TRUE,incl2=TRUE,incl0=FALSE)
-	lan<-lan[,c("camp","lance","lat","long")]
-	names(lan)<-c("camp","lan","lat","long")
+	lan<-lan[,c("camp","lance","lat","long","estrato")]
+	names(lan)<-c("camp","lan","lat","long","estrato")
 	mm<-merge(lan,absp,by.x=c("camp","lan"),by.y=c("camp","lance"),all.x=TRUE)
 	mm$peso<-mm$peso_gr/1000
 	if (!identical(as.numeric(which(is.na(mm[,5]))),numeric(0))) {
@@ -46,7 +47,7 @@ MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,bw=FALSE,add=FAL
 		mm[which(is.na(mm[,6])),6]<-0
 		}
   if (ind=="p") peso=T else peso=F
-	mi<-ifelse(peso,5,6)
+	mi<-ifelse(peso,6,7)
 	milab<-ifelse(peso,"kg/lance","N/lance")
 	if (peso) {maxmm<-max(mm[,mi])}
 	else {
@@ -67,38 +68,27 @@ MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,bw=FALSE,add=FAL
 	}
 	else {especie=NULL}
 	if (puntos) {
-	  MapNort(lwdl=1)
-	  points(lat~long,mm,subset=peso>0,cex=1,pch=21,bg="red")
-	  #legend("bottomleft",legend = paste0("Presencia en campañas ",camptoyear(camps[1]),"-",camptoyear(camps[length(camps)])),inset=c(.22,.05),bg="white",box.col = "white",text.font=2,cex=.8)
+	  #MapNort(lwdl=1)
+	  points(lat~long,mm,subset=peso>0,cex=1,pch=21,bg=ifelse(bw,"gray","red"))
+    if (DpthStr) {
+      points(lat~long,mm,subset=peso>0,cex=1,pch=21,bg=ifelse(mm$estrato=="A","lightblue",ifelse(mm$estrato=="B","blue",ifelse(mm$estrato=="C","navyblue","yellow"))))
+      legend("bottomright",c("70-120","121-200","201-500","Extra"),pch=21,col=1,pt.bg=c("lightblue","blue","navyblue","yellow"),title=ifelse(es,"Estrato prof.","Depth strata"),inset=.02,bg="white")
+      }
 	  title(buscaesp(gr,esp,"e"),font.main=2,line=1.5)
 	  mtext(buscaesp(gr,esp,"l"),font=4,cex=.8,line=1.5,adj=0)
 	  mtext(paste0("Años: ",camptoyear(camps[1]),"-",camptoyear(camps[length(camps)])),3,cex=.8,font=2,line=1.5,adj=1)
 	  }
 	else {
-	if (is.na(escala)) {
-			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm),lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
+			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm)/esc.mult,lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
 			if (ceros) {points(lat~long,mm,subset=peso==0,cex=0.8,pch="+",col=color)}
 		if (!add) {
 		  leyenda<-cbind(rep(-4,55),seq(42.2,43,by=.2),maxml*c(.05,.1,.25,.5,1))
-		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm),lwd=1,col=1,bg=ifelse(bw,"darkgrey","lightblue"))
+		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,bg=ifelse(bw,"darkgrey","lightblue"))
 		  polygon(c(-4.3,-4.3,-3.3,-3.3,-4.3),c(41.9,43.15,43.15,41.9,41.9),col="white")
 		  text(leyenda[,1]+.4,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
 		  text(-3.8,42.05,milab,font=2)
-		  for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))}
+		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
 		  }
-		}
-	else {
-		for (i in 1:length(mm[,1])) {
-			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]/escala),lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
-			if (ceros) {points(lat~long,mm,subset=peso>0,cex=0.8,pch="+",col=color)}
-			if (!add) {
-				leyenda<-cbind(rep(-4.6,5),seq(42.2,43,by=.2),maxml*c(.05,.1,.25,.5,1))
-				polygon(c(-4.85,-4.85,-4,-4,-4.85),c(41.9,43.15,43.15,41.9,41.9),col="white")
-				text(leyenda[,1]+.3,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
-				text(-4.43,42.05,milab,font=2)
-				for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]/escala),lwd=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))}
-				}
-			}
 		}
 	if (ti) {
 		years<-camptoyear(camps)
@@ -106,5 +96,4 @@ MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,bw=FALSE,add=FAL
 		title(paste0(years[1],"-",years[length(years)]),font.main=2,cex.main=1,line=1.1)
 		#	text(-2.7,42.45,"kg/lance")
 		}
-	}
 	}

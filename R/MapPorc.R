@@ -11,7 +11,7 @@
 #' @param puntos si TRUE en el mapa muestra sólo los puntos en los que aparece la especie, si false son puntos proporcionales al tamaño de la abundancia
 #' @param bw si T los colores salen en blanco, si F en lightblue
 #' @param add Si T añade los puntos al gráfico actual, si F dibuja uno nuevo
-#' @param escala Varia el tamaño de los puntos
+#' @param esc.mult Varia el tamaño de los puntos valores mayores de 1 disminuyen tamaño, valores de menos de cero lo aumentan
 #' @param ti Si T añade titulo al mapa, el nombre de la especie en latín
 #' @param ind Si "p" representa los datos de biomasa, si "n" representa los datos de abundancia
 #' @param ceros Si T representa los ceros con cruces +, si F no representa lances sin captura
@@ -19,7 +19,7 @@
 #' @family mapas base
 #' @family Porcupine
 #' @export
-MapPorc<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FALSE,escala=NA,ti=FALSE,ind="p",ceros=F,es=T,places=T){
+MapPorc<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FALSE,esc.mult=1,ti=FALSE,ind="p",ceros=F,es=T,places=T){
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -75,37 +75,21 @@ MapPorc<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FAL
 	  mtext(paste0("Años: ",camptoyear(camps[1]),"-",camptoyear(camps[length(camps)])),3,cex=.8,font=2,line=1.5,adj=1)
 	  }
 	else {
-	if (is.na(escala)) {
-			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm),lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
-			if (ceros) {points(lat~long,mm,subset=peso==0,cex=0.8,pch="+",col=color)}
+		points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm)/esc.mult,lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
+		if (ceros) {points(lat~long,mm,subset=peso==0,cex=0.8,pch="+",col=color)}
 		if (!add) {
 		  #-13,51.2,
 		  leyenda<-cbind(rep(-13,3),seq(51.2,51.6,by=.2),maxml*c(.25,.5,1))
-		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm),lwd=1,col=1,bg=ifelse(bw,"darkgrey","lightblue"))
+		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,bg=ifelse(bw,"darkgrey","lightblue"))
 		  polygon(c(-13.2,-13.2,-12.3,-12.3,-13.2),c(51,51.7,51.7,51,51),col="white")
 		  text(leyenda[,1]+.4,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
 		  text(-12.75,51.09,milab,font=2)
-		  for (i in 1:3) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]*7/maxmm),lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))}
+		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
 		  }
-		}
-	else {
-		for (i in 1:length(mm[,1])) {
-			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]/escala),lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
-			if (ceros) {points(lat~long,mm,subset=peso>0,cex=0.8,pch="+",col=color)}
-			if (!add) {
-				leyenda<-cbind(rep(-4.6,5),seq(42.2,43,by=.2),maxml*c(.05,.1,.25,.5,1))
-				polygon(c(-4.85,-4.85,-4,-4,-4.85),c(41.9,43.15,43.15,41.9,41.9),col="white")
-				text(leyenda[,1]+.3,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
-				text(-4.43,42.05,milab,font=2)
-				for (i in 1:5) {points(leyenda[i,1],leyenda[i,2],cex=sqrt(leyenda[i,3]/escala),lwd=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))}
-				}
-			}
 		}
 	if (ti) {
 		years<-camptoyear(camps)
 	  title(ident,sub=especie,cex.main=1.3,font.sub=4,cex.sub=1,line=2)
 		title(paste0(years[1],"-",years[length(years)]),font.main=2,cex.main=1,line=1.1)
-		#	text(-2.7,42.45,"kg/lance")
 		}
-	}
 	}

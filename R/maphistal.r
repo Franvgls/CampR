@@ -36,11 +36,11 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
   if (plot) {
     if (bw) {
       colo=gray(.2)
-      lattice::trellis.device(color=FALSE) #par.set(strip.background = list(col = grey(7:1/8)))
+      lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
     }
     else {
-      colo=4
       lattice::trellis.par.set(lattice::col.whitebg())
+      colo=4
     }
     }
   if (length(esp)>1 | any(esp=="999")) {

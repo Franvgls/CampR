@@ -22,7 +22,7 @@ buscaesp<- function(gr,esp,id="l") {
                                 "' and esp='",esp,"'",sep=""))
       if (id=="l") {especie<-ESPECIES[["especie"]]}
       if (id=="i") {especie<-ESPECIES[["nombrei"]]}
-      if (id=="i") {especie<-ESPECIES[["nombree"]]}
+      if (id=="e") {especie<-ESPECIES[["nombree"]]}
       if (id=="a") {especie<-ESPECIES[["aphia"]]}
     }
     if (gr!="9" & esp=="999") {

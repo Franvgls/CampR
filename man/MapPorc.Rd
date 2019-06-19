@@ -7,7 +7,7 @@ para dar una idea de la distribución de la especie. Si es muy escasa se puede p
 solo a puntos de aparición}
 \usage{
 MapPorc(gr, esp, camps, dns = "Porc", color = 1, puntos = FALSE,
-  bw = FALSE, add = FALSE, escala = NA, ti = FALSE, ind = "p",
+  bw = FALSE, add = FALSE, esc.mult = 1, ti = FALSE, ind = "p",
   ceros = F, es = T, places = T)
 }
 \arguments{
@@ -27,7 +27,7 @@ MapPorc(gr, esp, camps, dns = "Porc", color = 1, puntos = FALSE,
 
 \item{add}{Si T añade los puntos al gráfico actual, si F dibuja uno nuevo}
 
-\item{escala}{Varia el tamaño de los puntos}
+\item{esc.mult}{Varia el tamaño de los puntos valores mayores de 1 disminuyen tamaño, valores de menos de cero lo aumentan}
 
 \item{ti}{Si T añade titulo al mapa, el nombre de la especie en latín}
 
