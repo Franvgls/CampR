@@ -1,6 +1,6 @@
-#' Capturas medias por lance de cada especie de gr (grupo) en una campaña 
+#' Capturas medias por lance de cada especie de gr (grupo) en una campaña
 #'
-#' Muestra un listado de la biomasa y número medio de todas las especies capturadas del grupo gr 
+#' Muestra un listado de la biomasa y número medio de todas las especies capturadas del grupo gr
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros.
 #' @param camp Campaña de la que se extrae el listado de especies capturadas: un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", Medits "Medi"
@@ -13,12 +13,15 @@
 ListFauna.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE,kg=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(gr)>1 | gr==9) {stop("no se pueden mezclar grupos en esta función")}
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
-  listsps<-RODBC::sqlQuery(ch1,paste("select esp,lance,peso_gr,numero from FAUNA",camp," where grupo='",gr,"'",sep=""))
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  # ch1<-RODBC::odbcConnect(dsn=dns)
+  # RODBC::odbcSetAutoCommit(ch1, FALSE)
+  listsps<-DBI::dbGetQuery(ch1,paste0("select esp,lance,peso_gr,numero from FAUNA",camp," where grupo='",gr,"'"))
+#  listsps<-RODBC::sqlQuery(ch1,paste("select esp,lance,peso_gr,numero from FAUNA",camp," where grupo='",gr,"'",sep=""))
+  DBI::dbDisconnect(ch1)
   lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect=excl.sect,incl2=incl2,incl0=FALSE)
   lan<-lan[,c("lance","sector","validez","arsect","weight.time")]
-  RODBC::odbcClose(ch1)
+  lan$lance<-format(lan$lance,width=3,justify = "r") #RODBC::odbcClose(ch1)
   dumb<-merge(listsps,lan)
   #browser()
   if (any(!is.na(excl.sect))) {
@@ -44,3 +47,4 @@ ListFauna.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE
   for (i in 4:6) {dumbres[,i]<-as.numeric(as.character(dumbres[,i]))}
   dumbres[order(as.numeric(as.character(dumbres[,4])),decreasing=TRUE),]
 }
+

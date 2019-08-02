@@ -5,8 +5,8 @@
 #' @family datos_especies
 #' @examples buscacod("sph")
 #' @export
-buscacod<- function(nomb) {
-  ch1<-DBI::dbConnect(odbc::odbc(), "camp")
+buscacod<- function(nomb,dns="Camp") {
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
   if (length(nomb)>1) stop("Esta función no permite más de una especie por vez")
   else especies<-data.table::as.data.table(DBI::dbGetQuery(ch1,"select * from ESPECIES"))
   DBI::dbDisconnect(ch1)

@@ -4,7 +4,7 @@
 \alias{buscacod}
 \title{Función de búsqueda del código del grupo y la familia}
 \usage{
-buscacod(nomb)
+buscacod(nomb, dns = "Camp")
 }
 \arguments{
 \item{nomb}{Nombre científico de la especie o fragmento del nombre entre ""}

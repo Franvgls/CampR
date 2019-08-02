@@ -1,8 +1,8 @@
 #' Histograma de distribución de tallas de un lance concreto o la distribución media en varios lances
-#' 
+#'
 #' Dibuja el histograma de la distribución de tallas de la especie por sexos (si existen). Si se selecciona más de un lance es la distribución de tallas media en los lances seleccionados, si sólo hay un lance es la total del lance.
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos (4 equinodermos y 5 invertebrados normalmente no medidos)
-#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña con el lance a representar en el histograma (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param lances Lance o lances de los que se quiere sacar la distribución de tallas. Si NA coge todos los lances de la campaña.

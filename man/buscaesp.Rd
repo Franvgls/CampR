@@ -4,7 +4,7 @@
 \alias{buscaesp}
 \title{Función de búsqueda del nombre de una especie}
 \usage{
-buscaesp(gr, esp, id = "l")
+buscaesp(gr, esp, id = "l", dns = "Camp")
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
