@@ -12,7 +12,7 @@ dtall.camp(gr, esp, camp, dns, cor.time = TRUE, ti = FALSE, sub = NA,
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
 
-\item{esp}{Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo}
+\item{esp}{Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo. Si se saca más de una especie avisa de que distintas especies pueden estar medidas en diferentes unidades, pero saca títulos y datos como si todos tuvieran las propiedades de la primera.}
 
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
