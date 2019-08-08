@@ -31,13 +31,19 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
   layout=NA,excl.sect=NA,ymax=NA,out.dat=FALSE,years=TRUE,verbose=TRUE) {
   library(lattice)
   options(scipen=2)
+  if (length(gr)>1) stop("No tiene sentido mezclar distribuciones de tallas de especies en distintos clases taxonómicas")
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1 | any(esp=="999")) {
-    if (verbose) print("Distintas especies pueden estar medidas en distintas unidades (mm y cm o .5 cm) o a la aleta anal")
-    increm<-unid.camp(gr,esp[1])["INCREM"]
-    medida<-ifelse(unid.camp(gr,esp[1])["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")) }
-  else {
-    increm<-unid.camp(gr,esp)["INCREM"]
+    increm<-NULL;medida<-NULL
+    for (i in esp) {
+      increm<-c(increm,as.numeric(unid.camp(gr,i)["INCREM"]))
+      medida<-c(medida,ifelse(unid.camp(gr,i)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")))
+      }
+    if (length(unique(increm))>1 | length(unique(medida))>1) stop("Seleccionadas especies medidas en distintas unidades (mm y cm o .5 cm) o a la aleta anal")
+    else increm<-increm[1];medida<-medida[1]
+      }
+      else {
+    increm<-unid.camp(gr,esp)[["INCREM"]]
     medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
   }
   if (bw) {

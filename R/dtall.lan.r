@@ -19,8 +19,14 @@
 #' @export
 dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,ti=FALSE,legend=TRUE,bw=TRUE,es=TRUE,sex=TRUE,idi="l",ymax=NA) {
   if (length(camp)>1) stop("Esta función sólo se puede utilizar para una sola campaña")
-  if (length(esp)>1) {
-    print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
+  if (length(esp)>1 | any(esp=="999")) {
+    increm<-NULL;medida<-NULL
+    for (i in esp) {
+      increm<-c(increm,as.numeric(unid.camp(gr,i)["INCREM"]))
+      medida<-c(medida,ifelse(unid.camp(gr,i)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")))
+    }
+    if (length(unique(increm))>1 | length(unique(medida))>1) stop("Seleccionadas especies medidas en distintas unidades (mm y cm o .5 cm) o a la aleta anal")
+    else increm<-increm[1];medida<-medida[1]
   }
   esp<-format(esp,width=3,justify="r")
   if(!bw) {colbars<-c("lightyellow","steelblue","yellow1")}
@@ -33,7 +39,7 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,ti=FALSE,legend=TRUE,bw=TR
     if(is.list(ti)) tit<-ti
     else tit<-list(label=ti)
   }
-  medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")
+  #medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")
   dtall<-dtallan.camp(gr,esp,camp,dns,sex=sex,lances=lances)
   dtall<-cbind(talla=dtall[,1],dtall[,rev(2:length(dtall))]/length(lances))
   sxn<-c("Machos","Hembras","Indet")
@@ -54,7 +60,4 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,ti=FALSE,legend=TRUE,bw=TR
           cex.lab=.9,cex.axis=.8,cex.names=.8,axis.lty=1)
   box()
   print(dtall)
-  if (length(esp)>1|esp=="999") {
-    print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
-  }
 }
