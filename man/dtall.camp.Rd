@@ -59,7 +59,7 @@ Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(fi
 Histograma de la distribución de tallas media estratificada por sexos a partir de ficheros del camp
 }
 \examples{
-dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T) 
+dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T)
 dtall.camp(1,50,Psh,"Porc",es=F,ti=T,years=T,out.dat=T)
 }
 \seealso{

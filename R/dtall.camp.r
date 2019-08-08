@@ -1,22 +1,22 @@
 #' Crea un histograma distribución de tallas estratificada especie y campañas
-#' 
+#'
 #'  Histograma de la distribución de tallas media estratificada por sexos a partir de ficheros del camp
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
-#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param ti Si T añade título al gráfico, el nombre de la especie en latín
 #' @param sub Si caracter lo añade como subtítulo en el gráfico
 #' @param leg Si T añade leyenda
-#' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda 
+#' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param bw Gráfico en blanco en negro si T o en color si F
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
 #' @param sex Sacar la distribución de tallas por sexos si existen (T), o conjunta (F)
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param clms Número de columnas para ordenar la serie histórica
-#' @param layout Organización de gráficos en filas ó columnas c(r,c) 
+#' @param layout Organización de gráficos en filas ó columnas c(r,c)
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
 #' @param ymax Valor máximo del eje y
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
@@ -24,7 +24,7 @@
 #' @param verbose Si T saca avisos de consistencia en tallas, sino los omite
 #' @return Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(filas)xCampañas(columnas)
 #' @seealso {\link{dtallbarplot}} {\link{dtall.lan}}
-#' @examples dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T) 
+#' @examples dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T)
 #' @examples dtall.camp(1,50,Psh,"Porc",es=F,ti=T,years=T,out.dat=T)
 #' @export
 dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cexleg=1,bw=TRUE,es=TRUE,sex=TRUE,plot=T,idi="l",clms=2,
@@ -34,10 +34,10 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1 | any(esp=="999")) {
     if (verbose) print("Distintas especies pueden estar medidas en distintas unidades (mm y cm o .5 cm) o a la aleta anal")
-    increm<-unid.camp(gr,esp)["INCREM"] 
-    medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")) }
-  else { 
-    increm<-unid.camp(gr,esp)["INCREM"] 
+    increm<-unid.camp(gr,esp[1])["INCREM"]
+    medida<-ifelse(unid.camp(gr,esp[1])["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")) }
+  else {
+    increm<-unid.camp(gr,esp)["INCREM"]
     medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
   }
   if (bw) {
@@ -80,7 +80,7 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
 			else a1<-cbind(dtall[,1],rep(camp[i],nrow(dtall)),rep(0,nrow(dtall)),rep(1,nrow(dtall)))
 			ard<-rbind(ard,a1)
 			}
-		else {       
+		else {
 			if (ncol(dtall)>2) {
          ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),rowSums(dtall[,c(2:ncol(dtall))]),rep(1,nrow(dtall))))
 			}
@@ -93,7 +93,7 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
 	names(a)<-c("talla","camp","n","sex")
   if (years) {
     acamp<-a
-    acamps<-camp                                                                              
+    acamps<-camp
     camp<-camptoyear(camp)
     a$camp<-camptoyear(a$camp)
     }
