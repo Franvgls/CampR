@@ -14,10 +14,7 @@ ListFauna.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(gr)>1 | gr==9) {stop("no se pueden mezclar grupos en esta función")}
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
-  # ch1<-RODBC::odbcConnect(dsn=dns)
-  # RODBC::odbcSetAutoCommit(ch1, FALSE)
   listsps<-DBI::dbGetQuery(ch1,paste0("select esp,lance,peso_gr,numero from FAUNA",camp," where grupo='",gr,"'"))
-#  listsps<-RODBC::sqlQuery(ch1,paste("select esp,lance,peso_gr,numero from FAUNA",camp," where grupo='",gr,"'",sep=""))
   DBI::dbDisconnect(ch1)
   lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect=excl.sect,incl2=incl2,incl0=FALSE)
   lan<-lan[,c("lance","sector","validez","arsect","weight.time")]

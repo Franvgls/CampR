@@ -11,11 +11,10 @@
 #' @export
 ListFauna.lan<- function(camp,dns="Porc",lan,gr=NA) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
   lan<-format(lan,width=3,justify="r")
-  listsps<-RODBC::sqlQuery(ch1,paste("select grupo,esp,lance,peso_gr,numero from FAUNA",camp," where lance='",lan,"'",sep=""))
-  RODBC::odbcClose(ch1)
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  listsps<-DBI::dbGetQuery(ch1,paste0("select grupo,esp,lance,peso_gr,numero from FAUNA",camp," where lance='",lan,"'"))
+  DBI::dbDisconnect(ch1)
   if (nrow(listsps)==0) {stop(paste("Sin capturas en el lance",lan))}
   if (any(!is.na(gr))) listsps<-listsps[listsps$grupo %in% gr,]
   if (nrow(listsps)==0) {stop(paste("Sin capturas del grupo",gr," en el lance",lan))}
@@ -23,5 +22,5 @@ ListFauna.lan<- function(camp,dns="Porc",lan,gr=NA) {
   listsps$peso=listsps$peso_gr/1000
   for (i in 1:nrow(listsps)) {
     listsps$especie[i]=buscaesp(listsps$grupo[i],listsps$esp[i]) }
-  listsps[order(-listsps$grupo,listsps$peso_gr,decreasing=TRUE),c(1,2,6,7,5,4)]
-}
+  print(setorder(listsps,grupo,-peso_gr))
+  }

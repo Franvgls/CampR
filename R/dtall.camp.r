@@ -40,10 +40,10 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
       medida<-c(medida,ifelse(unid.camp(gr,i)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")))
       }
     if (length(unique(increm))>1 | length(unique(medida))>1) stop("Seleccionadas especies medidas en distintas unidades (mm y cm o .5 cm) o a la aleta anal")
-    else increm<-increm[1];medida<-medida[1]
+    else increm<-unique(increm);medida<-unique(medida)
       }
       else {
-    increm<-unid.camp(gr,esp)[["INCREM"]]
+    increm<-unid.camp(gr,esp)["INCREM"]
     medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
   }
   if (bw) {
