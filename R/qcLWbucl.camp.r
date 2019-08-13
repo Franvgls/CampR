@@ -14,17 +14,11 @@ qcLWbucl.camp<- function(camp="P12",dns="Porc",nlans=2,out.dat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   dumblist<-ListFauna.camp(gr=1,camp,dns=dns)
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
-  # ch1<-RODBC::odbcConnect(dsn="camp")
-  # RODBC::odbcSetAutoCommit(ch1, FALSE)
-  especie<-DBI::dbGetQuery(ch1,paste0("select esp,especie,a,b from Especies where grupo='",1,"'"
-                                      ))
-#  especie<-RODBC::sqlQuery(ch1,paste("select ESP,ESPECIE,A,B from Especies where grupo='",1,"'",sep=""))
-#  RODBC::odbcClose(ch1)
+  especie<-DBI::dbGetQuery(ch1,paste0("select esp,especie,a,b from Especies where grupo='",1,"'"))
   DBI::dbDisconnect(ch1)
   especie<-especie[especie$esp %in% formatC(dumblist$esp,width=3,flag=" ") & especie$a>0,]
   dumblist<-dumblist[dumblist$esp %in% especie$esp,]
   dumblist<-dumblist[order(dumblist$nlan,decreasing=TRUE),]
-  #browser()
   if (!par("ask")) par(ask=TRUE)
   if (out.dat) dats<-NULL
   for (i in 1:nrow(dumblist)) {

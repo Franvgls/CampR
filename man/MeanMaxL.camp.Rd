@@ -28,7 +28,7 @@ MeanMaxL.camp(gr = 1, esps, camp, dns = "Cant", lmax = NA,
 Devuelve una lista con un data.frame datos por especie: gr, esps, unid, n, lmax y el valor del indice la talla maxima media ponderada a la abundancia
 }
 \description{
-Debería de usar especies de un ecotipo similar (mismo gr) y sobre todo medidas en la misma unidad, en caso contrario da un error y avisa del problema.
+Debería de usar especies de un ecotipo similar (mismo gr) y sobre todo medidas en la misma unidad, por defecto divide los datos que se en el fichero especies salen en mm por 10 y el valor es utilizado en la meida ponderada, revisar que efectivamente están en mm.
 Para cada especie calcula la abundancia estratificada y la talla máxima, con ello hace una media ponderada, la salida
 }
 \examples{

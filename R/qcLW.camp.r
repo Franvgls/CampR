@@ -18,11 +18,10 @@
 #' @export
 qcLW.camp<- function(gr,esp,camp="P11",dns="Porc",margerr=20,out.dat=FALSE,mm=FALSE,areg=NA,breg=NA,plot=TRUE) {
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
-  tall_esp<-RODBC::sqlQuery(ch1,paste("select LANCE,PESO_M,CATE,TALLA,NUMER from NTALL",camp,
-                               " where grupo='",gr,"' and esp='",esp,"'",sep=""))
-  fauna<-RODBC::sqlFetch(ch1,paste("FAUNA",camp,sep=""),as.is=TRUE)
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  tall_esp<-DBI::dbGetQuery(ch1,paste0("select lance,peso_m,cate,talla,numer from NTALL",camp,
+                               " where grupo='",gr,"' and esp='",esp,"'"))
+  fauna<-DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camp))
   fauna<-fauna[fauna$GRUPO==gr & fauna$ESP==esp,]
   dumblan<-levels(as.factor(tall_esp$LANCE))
   dumblan<-gsub(" ","",dumblan)
@@ -31,19 +30,18 @@ qcLW.camp<- function(gr,esp,camp="P11",dns="Porc",margerr=20,out.dat=FALSE,mm=FA
   #  browser()
   if (length(dumblan[!dumblan%in% dumbtal])>0) print(paste("Lances: ",dumbtal[!dumbtal %in% dumblan],
                                                            " sin distribución de tallas de ",buscaesp(gr,esp),sep=""))
-  RODBC::odbcClose(ch1)
-  ch2<-RODBC::odbcConnect(dsn="CAMP")
-  RODBC::odbcSetAutoCommit(ch2, FALSE)
-  esps<-RODBC::sqlFetch(ch2,"ESPECIES",as.is=TRUE)
-  RODBC::odbcClose(ch2)
+  DBI::dbDisconnect(ch1)
+  ch2<-DBI::dbConnect(odbc::odbc(), "Camp")
+  esps<-DBI::dbGetQuery(ch2,"select * from especies")
+  DBI::dbDisconnect(ch2)
   #  tall_esp<-talls[talls$GRUPO==gr & talls$ESP==esp,]
   a<-ifelse(is.na(areg),esps$A[esps$GRUPO==gr & esps$ESP==esp],areg)
   b<-ifelse(is.na(breg),esps$B[esps$GRUPO==gr & esps$ESP==esp],breg)
-  if (mm) tall_esp$peso<-(a*((tall_esp$TALLA/10)+.25)^b)*tall_esp$NUMER
-  else tall_esp$peso<-(a*(tall_esp$TALLA+.5)^b)*tall_esp$NUMER
-  regr<-tapply(tall_esp$peso,tall_esp[,c("LANCE","CATE")],sum,na.rm=TRUE)
-  muestr<-tapply(tall_esp$PESO_M,tall_esp[,c("LANCE","CATE")],mean,na.rm=TRUE)
-  nmuest<-tapply(tall_esp$NUMER,tall_esp[,c("LANCE","CATE")],sum,na.rm=TRUE)
+  if (mm) tall_esp$peso<-(a*((tall_esp$talla/10)+.25)^b)*tall_esp$numer
+  else tall_esp$peso<-(a*(tall_esp$talla+.5)^b)*tall_esp$numer
+  regr<-tapply(tall_esp$peso,tall_esp[,c("lance","cate")],sum,na.rm=TRUE)
+  muestr<-tapply(tall_esp$peso_m,tall_esp[,c("lance","cate")],mean,na.rm=TRUE)
+  nmuest<-tapply(tall_esp$numer,tall_esp[,c("lance","cate")],sum,na.rm=TRUE)
   dats<-data.frame(lance=NULL,estim=NULL,cate=NULL,obs=NULL,n=NULL)
   for (i in 1:dim(muestr)[2]) {
     dats<-rbind(dats,data.frame(lance=as.numeric(rownames(regr)),estim=as.vector(regr[,i]),cate=i,obs=as.vector(muestr[,i]),n=as.vector(nmuest[,i])))

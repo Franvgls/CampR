@@ -4,7 +4,7 @@
 \alias{PresenciaEsp.camp}
 \title{Datos de presencia de especie en campañas en dns}
 \usage{
-PresenciaEsp.camp(gr, esp, dns)
+PresenciaEsp.camp(gr, esp, dns, tablas = FALSE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros}
@@ -12,6 +12,8 @@ PresenciaEsp.camp(gr, esp, dns)
 \item{esp}{Código de la especie numérico o carácter con tres espacios. Función para una sola especie}
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+
+\item{tablas}{Si T muestra al final de los resultados una lista con todos los ficheros de definición (CAMP), fauna y tallas presentes en el directorio.}
 }
 \value{
 Devuelve dos vectores con las campañas con presencia de la especie, y con las campañas con datos de talla de la especie. Tb incluye información sobre campañas que no tienen datos en el fichero FAUNAXXX.dbf y/o NTALLXXX.dbf

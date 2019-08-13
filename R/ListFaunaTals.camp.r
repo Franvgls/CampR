@@ -12,15 +12,13 @@
 ListFaunaTals.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (gr==6) {stop("No tiene sentido tallas de deshechos")}
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
-  listsps<-RODBC::sqlQuery(ch1,paste("select esp,lance from FAUNA",camp," where grupo='",gr,"'",sep=""))
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  listsps<-DBI::dbGetQuery(ch1,paste("select esp,lance from FAUNA",camp," where grupo='",gr,"'",sep=""))
+  talls<-DBI::dbGetQuery(ch1,paste0("select lance,esp,talla,numer,peso_m,peso_gr from NTALL",camp," where grupo='",gr,"'"))
+  DBI::dbDisconnect(ch1)
   lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect=excl.sect,incl2=incl2,incl0=FALSE)
   lan<-lan[,c("lance","sector")]
-  talls<-RODBC::sqlQuery(ch1,paste("select lance,esp,talla,numer,peso_m,peso_gr from NTALL",camp," where grupo='",gr,"'",sep=""))
-  RODBC::odbcClose(ch1)
   talls$npond<-talls$numer*talls$peso_gr/talls$peso_m
-  #browser()
   dumb<-merge(listsps,lan)
   dumb<-merge(dumb,talls)
   if (any(!is.na(excl.sect))) {
@@ -28,10 +26,8 @@ ListFaunaTals.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE) {
     for (i in 1:length(excl.sect)) {if (length(grep(excl.sect[i],as.character(dumb$sector)))>0) dumb<-dumb[-grep(excl.sect[i],as.character(dumb$sector)),]}
     dumb$sector<-factor(as.character(dumb$sector))
   }
-  # str(listsps)
   listaesp<-levels(factor(dumb$esp))
   ndat<-length(listaesp)
-  #print(ndat)
   if (sum(dim(tapply(dumb$npond,dumb[,c(1,2)],sum)))==0) stop(paste("Ning?n lance tras la exclusi?n de sector",excl.sect[i]))
   dumbtap<-colSums(!is.na(tapply(dumb$npond,dumb[,c(1,2)],sum)))
   dumbpes<-tapply(dumb$peso_gr,dumb$esp,sum)
@@ -39,7 +35,6 @@ ListFaunaTals.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE) {
   dumbmax<-tapply(dumb$talla,dumb$esp,max)
   dumbmin<-tapply(dumb$talla,dumb$esp,min)
   dumbres<-data.frame(gr=NULL,esp=NULL,especie=NULL,nlans=NULL,num=NULL,peso_gr=NULL,Lmin=NULL,Lmax=NULL)
-  #browser()
   for (i in 1:ndat) {
     dumbres<-rbind(dumbres,data.frame(gr=gr,esp=as.numeric(as.character(listaesp[i])),especie=buscaesp(gr,listaesp[i]),
                                       nlans=dumbtap[names(dumbtap)==listaesp[i]],
@@ -48,6 +43,5 @@ ListFaunaTals.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE) {
                                       Lmin=dumbmin[as.vector(dimnames(dumbmin)[[1]])==listaesp[i]],
                                       Lmax=dumbmax[as.vector(dimnames(dumbmax)[[1]])==listaesp[i]]))
   }
-  #browser()
   dumbres[order(as.character(dumbres[,3]),decreasing=FALSE),]
 }

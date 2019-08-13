@@ -18,21 +18,17 @@ ListFauna.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE
   DBI::dbDisconnect(ch1)
   lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect=excl.sect,incl2=incl2,incl0=FALSE)
   lan<-lan[,c("lance","sector","validez","arsect","weight.time")]
-  lan$lance<-format(lan$lance,width=3,justify = "r") #RODBC::odbcClose(ch1)
+  lan$lance<-format(lan$lance,width=3,justify = "r")
   dumb<-merge(listsps,lan)
-  #browser()
   if (any(!is.na(excl.sect))) {
     dumb$sector<-gsub("NA","N",dumb$sector) # print(datos)
     for (i in 1:length(excl.sect)) {if (length(grep(excl.sect[i],as.character(dumb$sector)))>0) dumb<-dumb[-grep(excl.sect[i],as.character(dumb$sector)),]}
     dumb$sector<-factor(as.character(dumb$sector))
   }
-  # str(listsps)
   listaesp<-levels(factor(dumb$esp))
   ndat<-length(listaesp)
-  #print(ndat)
   dumbtap<-tapply(dumb$esp,dumb$esp,length)
   dumbres<-data.frame(gr=NULL,esp=NULL,especie=NULL,peso=NULL,numero=NULL,nlan=NULL)
-  #browser()
   for (i in 1:ndat) {
     dumbmedio<-CV.camps(gr=gr,esp=listaesp[i],camp=camp,dns=dns,excl.sect = excl.sect,cor.time=cor.time)
     dumbres<-rbind(dumbres,cbind(gr=gr,esp=listaesp[i],especie=buscaesp(gr,listaesp[i]),
@@ -40,8 +36,6 @@ ListFauna.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE
                                  numero=dumbmedio$number,
                                  nlan=dumbtap[as.vector(dimnames(dumbtap)[[1]])==listaesp[i]]))
   }
-  #browser()
   for (i in 4:6) {dumbres[,i]<-as.numeric(as.character(dumbres[,i]))}
   dumbres[order(as.numeric(as.character(dumbres[,4])),decreasing=TRUE),]
 }
-
