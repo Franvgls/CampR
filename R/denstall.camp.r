@@ -37,8 +37,8 @@ denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,ti=FALSE,bw=
     lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
   }
   else {colbars<-c("lightyellow","steelblue","yellow1")}
-  if (es) {ax<-c(paste("Talla (",medida,")",sep=""),"Número")}
-  else {ax<-c(paste("Length (",medida,")",sep=""),"Number")}
+  if (es) {ax<-c(paste0("Talla (",medida,")"),"Número")}
+  else {ax<-c(paste0("Length (",medida,")"),"Number")}
   if (is.logical(ti)) {
     if (ti) {tit<-list(label=buscaesp(gr,esp,id=idi),font=ifelse(idi=="l",4,2),cex=1)}
     else {tit<-NULL}

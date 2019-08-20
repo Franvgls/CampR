@@ -11,33 +11,30 @@
 #' @export
 PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
    if (any(length(esp)>1 | esp=="999" | gr=="9")) stop("Seleccionadas mas de una especie, función para sólo una especie")
-   esp<-formatC(esp,width=3,flag=" ")
+   esp<-format(esp,width=3,justify="r")
    ch1<-DBI::dbConnect(odbc::odbc(), dns)
+   dumbdir<-DBI::dbConnect(odbc::odbc(), dns)@info$dbname
    dumb<-DBI::dbListTables(ch1)
    dumb<-unlist(dumb)
    dumb<-dumb[nchar(dumb)<9]
    camps.f<-substr(dumb[grepl("FAUNA",dumb)],6,8)
    camps.t<-substr(dumb[grepl("NTALL",dumb)],6,8)
    camps.c<-substr(dumb[grepl("CAMP",dumb)],5,7)
-   fauna<-cbind(camp=camps.f[1],DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[1]," where grupo='",gr,"'")))   #sqlFetch(ch1,paste("FAUNA",camps.f[1],sep="")))
-   fauna<-filter(fauna,ESP %in% esp)
+   fauna<-cbind(camp=camps.f[1],DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[1]," where grupo='",gr,"' and esp='",esp,"'")))   #sqlFetch(ch1,paste("FAUNA",camps.f[1],sep="")))
    f_names<-c("LANCE","GRUPO","ESP","PESO_GR","NUMERO")
-   tallas<-cbind(camp=camps.t[1],DBI::dbGetQuery(ch1,paste0("select * from NTALL",camps.t[1]," where grupo='",gr,"'")))
-   tallas<-filter(tallas,ESP %in% esp)
+   tallas<-cbind(camp=camps.t[1],DBI::dbGetQuery(ch1,paste0("select * from NTALL",camps.t[1]," where grupo='",gr,"' and esp='",esp,"'")))
    t_names<-c("LANCE","GRUPO","ESP","CATE","SEXO","PESO_M","PESO_GR","TALLA","NUMER")
    for (i in 2:length(camps.f)) {
-      if(nrow(DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[i])))>0) {
-        fauna<-rbind(fauna,cbind(camp=camps.f[i],DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[i]," where grupo='",gr,"'"))[,c(f_names)]))
-        fauna<-filter(fauna,ESP %in% esp)
+      if(nrow(DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[i]," where grupo='",gr,"' and esp='",esp,"'")))>0) {
+        fauna<-rbind(fauna,cbind(camp=camps.f[i],DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[i]," where grupo='",gr,"' and esp='",esp,"'"))[,c(f_names)]))
         }
-     else warning(paste("Revisa campaña:",paste0("FAUNA",camps.f[i]),"no contiene datos"))
+     #else message(paste0("La campaña ",paste0("FAUNA",camps.f[i])," no tiene capturas de ",buscaesp(gr,esp)))
    }
    for (i in 2:length(camps.t)) {
-      if (nrow(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camps.t[i])))>0) {
-          tallas<-rbind(tallas,cbind(camp=camps.t[i],DBI::dbGetQuery(ch1,paste0("select * from NTALL",camps.t[i]," where grupo='",gr,"'"))[,c(t_names)]))
-          tallas<-filter(tallas,ESP %in% esp)
+      if (nrow(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camps.t[i]," where grupo='",gr,"' and esp='",esp,"'")))>0) {
+          tallas<-rbind(tallas,cbind(camp=camps.t[i],DBI::dbGetQuery(ch1,paste0("select * from NTALL",camps.t[i]," where grupo='",gr,"' and esp='",esp,"'"))[,c(t_names)]))
           }
-     else warning(paste("Revisa campaña:",paste0("NTALL",camps.f[i]),"no contiene datos de tallas"))
+     #else message(paste0("La campaña ",paste0("NTALL",camps.f[i])," no tiene datos de tallas de ",buscaesp(gr,esp)))
    }
    DBI::dbDisconnect(ch1)
    fauna$ESP<-as.numeric(as.character(fauna$ESP))
@@ -47,14 +44,15 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
    absp<-absp[absp$PESO_GR>0,]
    absp$camp<-as.factor(as.character(absp$camp))
    ntalls$camp<-as.factor(as.character(ntalls$camp))
+   message(paste0("En el directorio ",dumbdir,": "))
    if (length(levels(absp$camp))>0) {
-      print(paste("Especie",buscaesp(gr,esp),"en campañas:"))
-      print(levels(absp$camp))
+      message(paste0(buscaesp(gr,esp)," aparece en las campañas: ",paste(levels(absp$camp),sep=", ",collapse=", ")))
+      message(paste0("no aparece en las campañas ",paste(camps.f[!camps.t %in% levels(absp$camp)],collapse=", ")))
       if (length(levels(ntalls$camp))>0) {
-        print(paste("Especie",buscaesp(gr,esp),"con datos de tallas en campañas:"))
-        print(levels(ntalls$camp))
+        message(paste0("Hay datos de tallas de ",buscaesp(gr,esp)," en las campañas: ",paste(levels(ntalls$camp),collapse=", ")))
+        message(paste0("no hay datos de tallas en las campañas ",paste(camps.t[!camps.t %in% levels(tallas$camp)],collapse=", ")))
       }
-      else print(paste("No hay información de tallas para",buscaesp(gr,esp)))
+      else message(paste("No hay información de tallas para",buscaesp(gr,esp)))
    }
    else print(paste("No hay capturas de",buscaesp(gr,esp),"ninguna campaña"))
    if (tablas) data.table(campañas=dumb[grepl("CAMP",dumb)],faunas=dumb[grepl("FAUNA",dumb)],tallas=dumb[grepl("NTALL",dumb)])

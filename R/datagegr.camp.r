@@ -21,8 +21,8 @@ datagegr.camp<- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,n.ots=FALSE
   }
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(),dns)
-  ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                             " where grupo='",gr,"' and esp='",esp,"'",sep=""))
+  ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+                             " where grupo='",gr,"' and esp='",esp,"'"))
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m

@@ -36,10 +36,10 @@ datos.camp<-function(gr,esp,camp,dns,cor.time=TRUE,kg=TRUE,verbose=TRUE) {
     area<-paste(area,dumb[i],sep=",")
   }
   area<-substr(area,2,nchar(area))
-  area<-DBI::dbGetQuery(ch1,paste0("select ",area," from CAMP",camp,sep=""))
+  area<-DBI::dbGetQuery(ch1,paste0("select ",area," from CAMP",camp))
   DBI::dbDisconnect(ch1)
   lan<-datlan.camp(camp,dns,redux=TRUE,incl2=FALSE,incl0=FALSE)
-  if (any(is.na(lan$sector) | is.na(lan$estrato))) stop(paste("Lances con validez 1 fuera estratificación en campaña: ",camp,". Revise: lance",camp,".dbf lance: ",lan[is.na(lan$estrato),"lance"],sep=""))
+  if (any(is.na(lan$sector) | is.na(lan$estrato))) stop(paste0("Lances con validez 1 fuera estratificación en campaña: ",camp,". Revise: lance",camp,".dbf lance: ",lan[is.na(lan$estrato),"lance"]))
   lan<-lan[,c("lance","sector","weight.time")]
   names(absp)<-gsub("_",".",tolower(names(absp)))
   if (any((gr=="9" | esp=="999" | length(esp)>1))) {
@@ -47,7 +47,7 @@ datos.camp<-function(gr,esp,camp,dns,cor.time=TRUE,kg=TRUE,verbose=TRUE) {
                      numero=tapply(absp$numero,absp$lance,sum)) }
   absp$lance<-as.numeric(as.character(absp$lance))
   if ((sum(is.na(area))/length(area))==1) {
-    stop(paste("El fichero",paste("camp",camp,".dbf,",sep=""),"está vacío, define la estratificación de la campaña",camp))
+    stop(paste0("El fichero",paste0("camp",camp,".dbf,"),"está vacío, define la estratificación de la campaña ",camp))
   }
   if (dns=="Cant" & (sum(is.na(area))/length(area))>.4) {
     warning("Muchos NAs en fichero camp",camp,", está definida la campaña ",camp,"? Revisar antes de aceptar el resultado")
@@ -72,7 +72,7 @@ datos.camp<-function(gr,esp,camp,dns,cor.time=TRUE,kg=TRUE,verbose=TRUE) {
   }
   datos<-merge(mm,area,by.x="sector",by.y="sector")
   datos$arsect<-as.numeric(as.character(datos$arsect))
-  if (especial>0 & sum(mm$numero)==0) {message(paste("campaña ",camp,","," capturas en lances especiales pero no en los lances válidos estandarizados",sep="")) }
-  if (length(esp)>1 & verbose) {print(c("Códigos de especie: ",esp))}
+  if (especial>0 & sum(mm$numero)==0) {message(paste0("campaña ",camp,","," capturas en lances especiales pero no en los lances válidos estandarizados")) }
+  if (length(esp)>1 & verbose) {message(paste0("Códigos de especie: ",paste(esp,collapse=", ")))}
   datos[order(datos$lance),]
 }

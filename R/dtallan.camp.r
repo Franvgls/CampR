@@ -19,11 +19,11 @@ dtallan.camp<- function(gr,esp,camp,dns,lances=NA,sex=FALSE,muestr=TRUE) {
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
   if (length(esp)==1) {
-    if (esp!="999") {ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                                                " where grupo='",gr,"' and esp='",esp,"'",sep=""))}
+    if (esp!="999") {ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+                                                " where grupo='",gr,"' and esp='",esp,"'"))}
     if (esp=="999") {
-      ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                                 " where grupo='",gr,"'",sep=""))
+      ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+                                 " where grupo='",gr,"'"))
       if (sex==TRUE) {
         warning("Con varias especies no se puede separar por sexos, resultados sin sexos")
         sex=F
@@ -32,11 +32,11 @@ dtallan.camp<- function(gr,esp,camp,dns,lances=NA,sex=FALSE,muestr=TRUE) {
     }
   }
   if (length(esp)>1) {
-    ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                               " where grupo='",gr,"' and esp='",esp[1],"'",sep=""))
+    ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+                               " where grupo='",gr,"' and esp='",esp[1],"'"))
     for (i in 2:length(esp)) {
-      ntalls<-rbind(ntalls,DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                                              " where grupo='",gr,"' and esp='",esp[i],"'",sep="")))
+      ntalls<-rbind(ntalls,DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+                                              " where grupo='",gr,"' and esp='",esp[i],"'")))
     }
     if (sex==TRUE) {
       warning("Con varias especies no se puede separar por sexos, resultados sin sexos")

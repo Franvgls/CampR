@@ -92,7 +92,7 @@ dattalgr.camp<- function(gr,esp,camp,dns="Porc",tmin=1,tmax=999,cor.time=TRUE,in
   }
   if (ind=="p") {
     if (exists("ntalls.error") & any(ntalls.error>.3,na.rm=TRUE)) {
-      texto<-paste(paste("qcLW.camp(",gr,sep=""),esp,camp,paste(dns,")",sep=""),sep=",")
+      texto<-paste(paste0("qcLW.camp(",gr),esp,camp,paste0(dns,")"),sep=",")
       print(paste("Estimaciones peso regresión mayores que datos en un 30% para algún lance, compruebe",texto))
     }
   }

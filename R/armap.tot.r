@@ -37,7 +37,7 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FAL
 	  if(nrow(hidro)==0) warning("Fichero de CTDs sin datos")
 	}
 	else {
-	  if (CTDs | NCTDs) warning(paste("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS",sep=""))
+	  if (CTDs | NCTDs) warning(paste0("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS"))
 	  CTDs=F
 	}
 	DBI::dbDisconnect(ch1)

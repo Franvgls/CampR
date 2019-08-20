@@ -12,29 +12,42 @@
 #' @param verbose Si T muestra avisos problemas de tallas entre distintas especies
 #' @return Devuelve un data.frame con variables: talla, machos, hembras e indet(erminados) si existen todos y si sex=TRUE
 #' @seealso {\link{datos.camp}}
-#' @examples dattal.camp("1"," 50",paste("P0",7,sep=""),"Porc",excl.sect=c("B","C"))
+#' @examples dattal.camp("1"," 50",paste0("P0",7),"Porc",excl.sect=c("B","C"))
 #' @export
 dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbose=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
   abesp<-datos.camp(gr,esp,camp,dns,cor.time=cor.time)
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  if (length(esp)>1 | any(esp=="999")) {
+    increm<-NULL;medida<-NULL
+    for (i in esp) {
+      increm<-c(increm,as.numeric(unid.camp(gr,i)["INCREM"]))
+      medida<-c(medida,ifelse(unid.camp(gr,i)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")))
+    }
+    if (length(unique(increm))>1 | length(unique(medida))>1) stop("Seleccionadas especies medidas en distintas unidades (mm y cm o .5 cm) o a la aleta anal")
+    else increm<-unique(increm);medida<-unique(medida)
+  }
+  else {
+    increm<-unid.camp(gr,esp)["INCREM"]
+    medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
+  }
   if (length(esp)==1) {
     if (esp!="999") {
-      ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"' and esp='",esp,"'",sep=""))
+      ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"' and esp='",esp,"'"))
       #browser()
       if (nrow(ntalls)==0 | sum(abesp$numero)==0) {ntalls<-data.frame(lance=abesp[1,"lance"],peso_gr=0,peso_m=.1,talla=1,sexo="3",numer=0,stringsAsFactors=FALSE)}
     }
     if (esp=="999") {
-      ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'",sep=""))
+      ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'"))
     }
   }
   if (length(esp)>1) {
-    ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                               " where grupo='",gr,"' and esp='",esp[1],"'",sep=""))
+    ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+                               " where grupo='",gr,"' and esp='",esp[1],"'"))
     for (i in 2:length(esp)) {
-      ntalls<-rbind(ntalls,DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                                              " where grupo='",gr,"' and esp='",esp[i],"'",sep="")))
+      ntalls<-rbind(ntalls,DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+                                              " where grupo='",gr,"' and esp='",esp[i],"'")))
     }
     ntalls$sexo<-3
   }
@@ -44,11 +57,6 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbo
   lan<-datlan.camp(camp,dns,incl2=FALSE)[,c("lance","sector","weight.time","estrato")]
   lan<-lan[!is.na(lan$estrato),]
   lan<-lan[,c("lance","sector","weight.time")]
-#  lan<-data.frame(lance=lan$lance,sector=paste(lan$sector,lan$estrato,sep=""),hora_v=as.numeric(lan$hora_v),
-#                  hora_l=as.numeric(lan$hora_l))
-#  lan<-data.frame(lance=lan$lance,sector=paste(lan$sector,lan$estrato,sep=""),
-#                  weight.time=2*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6)#)))
-#  if (max(lan$weight.time>=1.5)) {
   if (any(cor.time,camp=="N83",camp=="N84")) {
     ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
     if (any(ntalls$weight.time==0)) {
@@ -132,9 +140,9 @@ dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbo
       dtall[which(is.na(dtall[,i])),i]<-0
     }
   }
-  if (length(esp)>1 & verbose) {
-    print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
-  }
+  # if (length(esp)>1 & verbose) {
+  #   print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
+  # }
   if (!sex & ncol(dtall)>2) { dtall<-data.frame(talla=dtall[,1],numero=rowSums(dtall[,2:ncol(dtall)])) }
   if (!sex & ncol(dtall)==2) names(dtall)<-c("talla","numero")
   #browser()

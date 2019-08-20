@@ -10,7 +10,7 @@
 #' @export
 captdia.camp<-function(camp="C14",dns="Cant",dias,peces=c(50,42,43,44,45,50,51,80,90,60,99),crust=c(19,29)) {
   for (i in 1:length(dias)) {
-    if (nchar(dias[i])==1) dias[i]<-paste(0,dias[i],sep="")
+    if (nchar(dias[i])==1) dias[i]<-paste0(0,dias[i])
   }
   #browser()
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -38,7 +38,7 @@ captdia.camp<-function(camp="C14",dns="Cant",dias,peces=c(50,42,43,44,45,50,51,8
   }
   dumb<-data.frame(Especie=c(capt$spc,"Total"),Captura=c(round(c(capt$peso,total)/1000,1)))
   print(fecha)
-  print(paste("Lances: ",paste(lan,collapse=", ",sep=""),".",sep=""))
+  print(paste0("Lances: ",paste0(lan,collapse=", "),"."))
   nlansscapt<-length(lan[!lan %in% names(totlan)])
   if (nlansscapt>0) print(paste(ifelse(nlansscapt==1,"Lance: ","Lances: "),paste(lan[!lan %in% names(totlan)],collapse=" "),"sin captura"))
   dumb[order(dumb$Captura,decreasing=TRUE),]

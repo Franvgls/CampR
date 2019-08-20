@@ -75,7 +75,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
     lan$temp[lan$temp==0]<-NA
     lan$fecha<-format(lan$fecha,"%d-%m-%y")
     durlan<-dumb$DURLAN
-    lan$sector<-paste(lan$sector,lan$estrato,sep="")
+    lan$sector<-paste0(lan$sector,lan$estrato)
     lan$weight.time<-ifelse(durlan==60,1,2)*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6)))
     lan$weight.time<-round(lan$weight.time,3)
     lan$Haul.mins<-durlan

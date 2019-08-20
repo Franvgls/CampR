@@ -1,5 +1,5 @@
-#' Crea gráficos de burbujas de la abundancia sqrt(num) 
-#' 
+#' Crea gráficos de burbujas de la abundancia sqrt(num)
+#'
 #' Tipico bubleplot de análisis de VPA y evaluación de poblaciones con gráfico por edad y año
 #' @param gr Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?
 #' @param esp Código de la especie numérico o carácter con tres espacios. Sólo admite una especie por gráfica
@@ -21,7 +21,7 @@ bubbage.camp <-function(gr,esp,camps,dns="Porc",plus=8,recr=0,cor.time=TRUE) {
   dumb<-data.frame(n=NULL,age=NULL,year=NULL,camp=NULL)
   for (i in 1:length(camps)) {
     if (camps[i]=="N87") dumb<-rbind(dumb,data.frame(n=rep(NA,plus+1),age=0:plus,year=1987,camp="N87"))
-    else {			
+    else {
       anyo<-ifelse(as.numeric(substr(camps[i],2,3))>50,1900,2000)+as.numeric(substr(camps[i],2,3))
       dumb<-rbind(dumb,data.frame(n=edadstr.camp(gr,esp,camps[i],dns,plus,cor.time=cor.time)$total,age=0:plus,year=anyo,camp=camps[i]))
     }
@@ -40,11 +40,11 @@ bubbage.camp <-function(gr,esp,camps,dns="Porc",plus=8,recr=0,cor.time=TRUE) {
   ## Abundances in number
   screen(4)
   plot(dumb$age~dumb$year,cex=2.5*sqrt(dumb$n/max(dumb$n,na.rm=TRUE)),ylab=NA,xlab=NA,pch=16,axes=FALSE,col=gray(.1))
-  title("Abundance at age")                                
+  title("Abundance at age")
   title(xlab="Survey",line=1)
   title(ylab="Age",line=1.5)
   axis(1,cex.axis=.7,las=1,tck=-0.03,padj=-2)
-  axis(2,at=0:c(plus),labels=c(as.character(0:c(plus-1)),paste(plus,"+",sep="")),tck=-.03,hadj=-.1,las=2)
+  axis(2,at=0:c(plus),labels=c(as.character(0:c(plus-1)),paste0(plus,"+")),tck=-.03,hadj=-.1,las=2)
   box()
   # Proportion at age
   screen(5)
@@ -55,7 +55,7 @@ bubbage.camp <-function(gr,esp,camps,dns="Porc",plus=8,recr=0,cor.time=TRUE) {
   title(xlab="Survey",line=1)
   title(ylab="Age",line=1.5)
   axis(1,cex.axis=.7,las=1,tck=-.03,padj=-2)
-  axis(2,at=0:c(plus),labels=c(as.character(0:c(plus-1)),paste(plus,"+",sep="")),tck=-.03,hadj=-.1,las=2)
+  axis(2,at=0:c(plus),labels=c(as.character(0:c(plus-1)),paste0(plus,"+")),tck=-.03,hadj=-.1,las=2)
   box()
   # Abundances standardized with the median (abund-median(ts))
   screen(6)
@@ -67,7 +67,7 @@ bubbage.camp <-function(gr,esp,camps,dns="Porc",plus=8,recr=0,cor.time=TRUE) {
   title(xlab="Survey",line=1)
   title(ylab="Age",line=1.5)
   axis(1,cex.axis=.7,las=1,tck=-.03,padj=-2)
-  axis(2,at=0:c(plus),labels=c(as.character(0:c(plus-1)),paste(plus,"+",sep="")),tck=-.03,hadj=-.1,las=2)
+  axis(2,at=0:c(plus),labels=c(as.character(0:c(plus-1)),paste0(plus,"+")),tck=-.03,hadj=-.1,las=2)
   box()
   # Proportions at age standardized with the median
   screen(7)
@@ -79,7 +79,7 @@ bubbage.camp <-function(gr,esp,camps,dns="Porc",plus=8,recr=0,cor.time=TRUE) {
   title(xlab="Survey",line=1)
   title(ylab="Age",line=1.5)
   axis(1,cex.axis=.7,las=1,tck=-.03,padj=-2)
-  axis(2,at=0:c(plus),labels=c(as.character(0:c(plus-1)),paste(plus,"+",sep="")),tck=-.03,hadj=-.1,las=2)
+  axis(2,at=0:c(plus),labels=c(as.character(0:c(plus-1)),paste0(plus,"+")),tck=-.03,hadj=-.1,las=2)
   box()
   # abundance of recruitment (variable recr in function) along the time series
   screen(3)

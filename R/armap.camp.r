@@ -52,7 +52,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
 	  if(nrow(hidro)==0) warning("Fichero de CTDs sin datos")
 	  }
   else {
-    if (CTDs | NCTDs) warning(paste("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS",sep=""))
+    if (CTDs | NCTDs) warning(paste0("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS"))
     CTDs=F
     }
 	camp.name<-DBI::dbReadTable(ch1, paste0("CAMP",camp[1]))$IDENT

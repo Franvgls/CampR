@@ -15,8 +15,8 @@ datmuest.camp<-function(gr,esp,camp,dns="Cant",excl.sect=NA) {
   if (any(length(esp)>1 | esp==999)) {stop("seleccionadas más de una especie, no tiene sentido sacar resultados sobre el muestreo de varias especies, sacarlos por especie y sumarlos")}
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
   lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect=excl.sect)
-  ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                             " where grupo='",gr,"' and esp='",esp,"'",sep=""))
+  ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+                             " where grupo='",gr,"' and esp='",esp,"'"))
   DBI::dbDisconnect(ch1)
   names(ntalls)<-gsub("_", ".",names(ntalls))
   if (any(!is.na(excl.sect))) {

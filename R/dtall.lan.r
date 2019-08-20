@@ -28,6 +28,10 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,ti=FALSE,legend=TRUE,bw=TR
     if (length(unique(increm))>1 | length(unique(medida))>1) stop("Seleccionadas especies medidas en distintas unidades (mm y cm o .5 cm) o a la aleta anal")
     else increm<-increm[1];medida<-medida[1]
   }
+  else {
+    increm<-c(as.numeric(unid.camp(gr,esp)["INCREM"]))
+    medida<-c(ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")))
+  }
   esp<-format(esp,width=3,justify="r")
   if(!bw) {colbars<-c("lightyellow","steelblue","yellow1")}
   else {colbars<-c("black","white",gray(.5))}
@@ -45,9 +49,9 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,ti=FALSE,legend=TRUE,bw=TR
   sxn<-c("Machos","Hembras","Indet")
   sxs<-tolower(sxn) %in% colnames(dtall[,-1])
   if (es) {sxn<-factor(c("Machos","Hembras","Indet")[sxs],ordered=T)
-           ax<-c(paste("Talla (",medida,")",sep=""),expression("Ind"%*%"lan"^-1))}
+           ax<-c(paste0("Talla (",medida,")"),expression("Ind"%*%"lan"^-1))}
   else {sxn<-factor(c("Male","Female","Undet")[sxs],ordered=T)
-        ax<-c(paste("Length (",medida,")",sep=""),expression("Ind"%*%"haul"^-1))}
+        ax<-c(paste0("Length (",medida,")"),expression("Ind"%*%"haul"^-1))}
   ymax<-ifelse(ncol(dtall)==2,max(dtall[,2]),max(rowSums(dtall[,-1])))*1.05
   leg<-rev(sxn)
   if (ncol(dtall)==3) colbars<-c("white",gray(.5))

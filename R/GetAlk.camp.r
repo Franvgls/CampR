@@ -16,18 +16,19 @@ GetAlk.camp<-function(gr,esp,camp,dns="Porc",plus=8,n.ots=FALSE,AltAlk=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {stop("Sólo se puede incluir una especie en esta función")}
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dns)
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
   if (is.logical(AltAlk) | is.na(AltAlk)) {
-    edad<-RODBC::sqlQuery(ch1,paste("select * from EDAD",camp," where grupo='",
-                             gr,"' and esp='",esp,"'",sep=""))
+    edad<-DBI::dbGetQuery(ch1,paste0("select * from EDAD",camp," where grupo='",
+                             gr,"' and esp='",esp,"'"))
 
     if (nrow(edad)==0) stop(paste("no existe clave talla edad para la especie",buscaesp(gr,esp),"en la campaña",camp))
     }
   else {
-    edad<-RODBC::sqlFetch(ch1,AltAlk)
+    edad<-DBI::dbGetQuery(ch1,paste0("select * from ",AltAlk))
     edad$ESP<-format(edad$ESP,width=3,justify="r")
     edad<-edad[edad$GRUPO==gr & edad$ESP==esp,]
     }
+  DBI::dbDisconnect(ch1)
   edad[is.na(edad)]<-0
   edad<-edad[which(rowSums(edad[5:20],na.rm=TRUE)>0),-c(21)]
   edad<-edad[order(edad$TALLA,edad$SEXO),]
@@ -36,6 +37,5 @@ GetAlk.camp<-function(gr,esp,camp,dns="Porc",plus=8,n.ots=FALSE,AltAlk=FALSE) {
   names(edad)<-c("talla","sexo",paste("E",0:(plus-1),sep=""),paste("E",plus,"+",sep=""))
   # identifica si la ALK est? hecha por sexos o conjunta
   agebysex<-ifelse(any(edad$SEXO!=3),T,F)
-  RODBC::odbcCloseAll()
   edad[,c(1,3:ncol(edad))]
 }

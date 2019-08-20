@@ -1,5 +1,5 @@
-#' Extrae los datos del FAUNA de una especie en concreto. 
-#' 
+#' Extrae los datos del FAUNA de una especie en concreto.
+#'
 #' Crea un data frame con campos lance, peso, numero, subestrato (en doble cifra), área subestrato  y posición geográfica. Usando códigos "9" "999" extrae los datos para el conjunto de todas las especies y grupos
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6 ver parámetro incl6 mas abajo
 #' @param esp ha de ser 999 cuando se quiere incluir todas las especies del grupo, o elegir todas las especies deseadas con los codigos de las especies
@@ -15,11 +15,12 @@
 ecolmatrix.camp<- function(gr,esp=999,camp,dns,ind="p",incl6=FALSE,codes=TRUE) {
   grupo<-as.character(gr)
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dsn=dns)
-  fauna<-RODBC::sqlFetch(ch1,paste("FAUNA",camp,sep=""))
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  fauna<-DBI:::dbGetQuery(ch1,paste0("select * from FAUNA",camp))
+  DBI::dbDisconnect(ch1)
   if (length(esp)==1) {
     if (grupo!="9" & esp!="999") {
-      absp<-fauna[fauna$GRUPO==as.integer(grupo) & fauna$ESP==as.integer(esp),] 
+      absp<-fauna[fauna$GRUPO==as.integer(grupo) & fauna$ESP==as.integer(esp),]
       }
     if (grupo!="9" & esp=="999") {
       absp<-fauna[fauna$GRUPO==as.integer(grupo),] }
@@ -32,11 +33,10 @@ ecolmatrix.camp<- function(gr,esp=999,camp,dns,ind="p",incl6=FALSE,codes=TRUE) {
     absp<-fauna[fauna$GRUPO==grupo & fauna$ESP %in% as.integer(esp),]
     }
   names(absp)<-tolower(names(absp))
-  RODBC::odbcCloseAll()
   lan<-datlan.camp(camp,dns,redux=TRUE,incl0=FALSE,incl2=TRUE)
-  ch1<-RODBC::odbcConnect(dsn="camp")
-  especies<-RODBC::sqlQuery(ch1,"select grupo,esp,especie from Especies")
-  RODBC::odbcCloseAll()
+  lan$lance<-format(lan$lance,width=nchar(absp$lan[1]),justify="r")
+  ch1<-DBI::dbConnect(odbc::odbc(), "Camp")
+  especies<-DBI::dbGetQuery(ch1,"select grupo,esp,especie from Especies")
   especies$especie<-as.character(especies$especie)
   especies$ke<-paste(especies$grupo,format(especies$esp,width=3,justify="r"),sep=".")
   absp$ke<-paste(absp$grupo,format(absp$esp,width=3,justify="r"),sep=".")

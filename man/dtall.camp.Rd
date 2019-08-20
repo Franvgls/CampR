@@ -60,7 +60,7 @@ Histograma de la distribución de tallas media estratificada por sexos a partir 
 }
 \examples{
 dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T)
-dtall.camp(1,50,Psh,"Porc",es=F,ti=T,years=T,out.dat=T)
+dtall.camp(1,50,Nsh[c(length(Nsh)-9):length(Nsh)],"Cant",es=F,ti=T,years=T,out.dat=T)
 }
 \seealso{
 {\link{dtallbarplot}} {\link{dtall.lan}}

@@ -25,7 +25,7 @@
 #' @return Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(filas)xCampañas(columnas)
 #' @seealso {\link{dtallbarplot}} {\link{dtall.lan}}
 #' @examples dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T)
-#' @examples dtall.camp(1,50,Psh,"Porc",es=F,ti=T,years=T,out.dat=T)
+#' @examples dtall.camp(1,50,Nsh[c(length(Nsh)-9):length(Nsh)],"Cant",es=F,ti=T,years=T,out.dat=T)
 #' @export
 dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cexleg=1,bw=TRUE,es=TRUE,sex=TRUE,plot=T,idi="l",clms=2,
   layout=NA,excl.sect=NA,ymax=NA,out.dat=FALSE,years=TRUE,verbose=TRUE) {
@@ -53,9 +53,9 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
     colbars<-c("lightyellow","steelblue","yellow1")
     }
 	if (es) {sxn<-c("Indet","Machos","Hembras")
-		ax<-c(paste("Talla (",medida,")",sep=""),expression("Ind"%*%"lan"^-1))}
+		ax<-c(paste0("Talla (",medida,")"),expression("Ind"%*%"lan"^-1))}
 	else {sxn<-c("Undet","Male","Female")
-		ax<-c(paste("Length (",medida,")",sep=""),expression("Ind"%*%"haul"^-1))}
+		ax<-c(paste0("Length (",medida,")"),expression("Ind"%*%"haul"^-1))}
 	sexn<-c("2","3","1")
 	sixn<-c("1","2","3")
 	dtalln<-c("machos","hembras","indet")
