@@ -20,9 +20,15 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
    camps.f<-substr(dumb[grepl("FAUNA",dumb)],6,8)
    camps.t<-substr(dumb[grepl("NTALL",dumb)],6,8)
    camps.c<-substr(dumb[grepl("CAMP",dumb)],5,7)
-   fauna<-cbind(camp=camps.f[1],DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[1]," where grupo='",gr,"' and esp='",esp,"'")))   #sqlFetch(ch1,paste("FAUNA",camps.f[1],sep="")))
+   if (nrow(DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[1]," where grupo='",gr,"' and esp='",esp,"'")))>0){
+     fauna<-cbind(camp=camps.f[1],DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[1]," where grupo='",gr,"' and esp='",esp,"'")))
+   }
+   else fauna<-data.frame(camp=NULL,LANCE=NULL,GRUPO=NULL,ESP=NULL,PESO_GR=NULL,NUMERO=NULL)
    f_names<-c("LANCE","GRUPO","ESP","PESO_GR","NUMERO")
+   if (nrow(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camps.t[1]," where grupo='",gr,"' and esp='",esp,"'")))>0){
    tallas<-cbind(camp=camps.t[1],DBI::dbGetQuery(ch1,paste0("select * from NTALL",camps.t[1]," where grupo='",gr,"' and esp='",esp,"'")))
+   }
+   else tallas<-data.frame(camp=NULL,LANCE=NULL,GRUPO=NULL,ESP=NULL,CATE=NULL,SEXO=NULL,PESO_M=NULL,PESO_GR=NULL,TALLA=NULL,NUMER=NULL)
    t_names<-c("LANCE","GRUPO","ESP","CATE","SEXO","PESO_M","PESO_GR","TALLA","NUMER")
    for (i in 2:length(camps.f)) {
       if(nrow(DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[i]," where grupo='",gr,"' and esp='",esp,"'")))>0) {
@@ -39,6 +45,10 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
    DBI::dbDisconnect(ch1)
    fauna$ESP<-as.numeric(as.character(fauna$ESP))
    tallas$ESP<-as.numeric(as.character(tallas$ESP))
+   if (nrow(fauna)==0) {
+     message(paste("No hay capturas de",buscaesp(gr,esp),"en ninguna campaña del directorio",dumbdir))
+   }
+   else {
    absp<-fauna[fauna$GRUPO==as.integer(gr) & fauna$ESP==as.integer(esp),c(1:2,4:5)]
    ntalls<-tallas[tallas$GRUPO==as.integer(gr) & tallas$ESP==as.integer(esp),c(1,4,7,6,8,5,9)]
    absp<-absp[absp$PESO_GR>0,]
@@ -54,8 +64,8 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
       }
       else message(paste("No hay información de tallas para",buscaesp(gr,esp)))
    }
-   else print(paste("No hay capturas de",buscaesp(gr,esp),"ninguna campaña"))
    if (tablas) data.table(campañas=dumb[grepl("CAMP",dumb)],faunas=dumb[grepl("FAUNA",dumb)],tallas=dumb[grepl("NTALL",dumb)])
-}
+   }
+   }
 
 
