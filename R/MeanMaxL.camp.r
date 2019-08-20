@@ -33,7 +33,7 @@ MeanMaxL.camp<- function(gr=1,esps,camp,dns="Cant",lmax=NA,cor.time=TRUE,incl2=F
     if (any(c(!incl2,!is.na(excl.sect)))) ntalls<-ntalls[ntalls$lance %in% datlan$lance,]  # quita los lances especiales si se quiere, pero sólo para Lmax
     dumbdat$lmax[i]<-ifelse(is.na(dumbdat$lmax[i]),ifelse(dumbdat$unid[i]=="cm",max(ntalls$talla),max(ntalls$talla)/10),dumbdat$lmax[i])
   }
-  if (length(unique(dumbdat$unid))>1) { warning("Las especies elegidas están en distintas unidades, los mm han se han convertido a cm, revisa que es correcto") }
+  if (length(unique(dumbdat$unid))>1) { message("Las especies elegidas están en distintas unidades, los mm han se han convertido a cm, revisa que es correcto") }
   ind<-weighted.mean(dumbdat$lmax,dumbdat$n,na.rm=TRUE)
   dumbdat=list(datos=dumbdat,ind=ind)
   dumbdat
