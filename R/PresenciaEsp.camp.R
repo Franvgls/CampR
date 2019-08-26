@@ -57,10 +57,10 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
    message(paste0("En el directorio ",dumbdir,": "))
    if (length(levels(absp$camp))>0) {
       message(paste0(buscaesp(gr,esp)," aparece en las campañas: ",paste(levels(absp$camp),sep=", ",collapse=", ")))
-      message(paste0("no aparece en las campañas ",paste(camps.f[!camps.t %in% levels(absp$camp)],collapse=", ")))
+      if(sum(!camps.t %in% levels(absp$camp))>0) message(paste0("no aparece en las campañas ",paste(camps.f[!camps.t %in% levels(absp$camp)],collapse=", ")))
       if (length(levels(ntalls$camp))>0) {
         message(paste0("Hay datos de tallas de ",buscaesp(gr,esp)," en las campañas: ",paste(levels(ntalls$camp),collapse=", ")))
-        message(paste0("no hay datos de tallas en las campañas ",paste(camps.t[!camps.t %in% levels(tallas$camp)],collapse=", ")))
+        if(sum(!camps.t %in% levels(ntalls$camp))>0) message(paste0("no hay datos de tallas en las campañas ",paste(camps.t[!camps.t %in% levels(ntalls$camp)],collapse=", ")))
       }
       else message(paste("No hay información de tallas para",buscaesp(gr,esp)))
    }
