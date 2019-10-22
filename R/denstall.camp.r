@@ -21,6 +21,7 @@
 denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,ti=FALSE,bw=TRUE,es=TRUE,plot=TRUE,idi="l",
   layout=NA,years=TRUE,cexleg=1) {
   options(scipen=2)
+  increm<-NULL;medida<-NULL
   if (plot) lattice::trellis.par.set(lattice::col.whitebg())
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1 | any(esp=="999")) {

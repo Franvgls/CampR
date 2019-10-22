@@ -50,7 +50,7 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FAL
     }
 	lan<-lan[,c("lance","lat","long","validez")]
 	names(lan)<-c("lan","lat","long","val")
-	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=FALSE,bw=bw,ICESrect=ICESrect)
+	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=FALSE,sectcol = T,bw=T,ICESrect=ICESrect)
   else {
 	  if (dns=="Cant" | dns=="Cnew") MapNort(strat=strat,bw=bw,es=es,ICESrect = ICESrect)
     else {
@@ -79,7 +79,7 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FAL
 		l1<-c(ifelse(es,"Lances válidos","Valid tows"),ifelse(es,"Lances extra","Extra tows"))
 		pts<-c(16,21)
 		cexs<-c(1.3,1.3)
-		bgs<-c(1,"green")
+		bgs<-c(1,ifelse(bw,"white","green"))
 		if (noval) {
 			l1<-c(l1,ifelse(es,"Lances nulos","Null tows"))
 			pts<-c(pts,13)

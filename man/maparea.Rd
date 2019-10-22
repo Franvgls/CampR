@@ -5,7 +5,7 @@
 \title{Mapa general del banco de Porcupine}
 \usage{
 maparea(es = TRUE, leg = TRUE, bw = FALSE, dens = 0,
-  ICESrect = F)
+  ICESrect = F, sectcol = F)
 }
 \arguments{
 \item{es}{Textos en español, si F en inglés}
@@ -15,6 +15,8 @@ maparea(es = TRUE, leg = TRUE, bw = FALSE, dens = 0,
 \item{bw}{Si T mapa en blanco y negro, si F colorea los estratos y sectores}
 
 \item{dens}{si mayor de 0 las superficies de los estratos tienen patrones de líneas}
+
+\item{sectcol}{si F pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot}
 }
 \description{
 Mapa con la estratificación y el área general del banco de Porcupine incluyendo parte de Irlanda
