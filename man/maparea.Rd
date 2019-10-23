@@ -12,14 +12,18 @@ maparea(es = TRUE, leg = TRUE, bw = FALSE, dens = 0,
 
 \item{leg}{incluye la leyenda con los colores/patrones de los estratos}
 
-\item{bw}{Si T mapa en blanco y negro, si F colorea los estratos y sectores}
+\item{bw}{Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE}
 
 \item{dens}{si mayor de 0 las superficies de los estratos tienen patrones de líneas}
 
-\item{sectcol}{si F pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot}
+\item{sectcol}{si T pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot}
 }
 \description{
 Mapa con la estratificación y el área general del banco de Porcupine incluyendo parte de Irlanda
+}
+\examples{
+maparea(sectcol=TRUE,leg=TRUE)
+maparea(sectcol=FALSE,leg=FALSE)
 }
 \seealso{
 Other mapas: \code{\link{GrafMarksGPS_2}},

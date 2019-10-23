@@ -50,7 +50,7 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FAL
     }
 	lan<-lan[,c("lance","lat","long","validez")]
 	names(lan)<-c("lan","lat","long","val")
-	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=FALSE,sectcol = T,bw=T,ICESrect=ICESrect)
+	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=FALSE,sectcol = F,bw=bw,ICESrect=ICESrect)
   else {
 	  if (dns=="Cant" | dns=="Cnew") MapNort(strat=strat,bw=bw,es=es,ICESrect = ICESrect)
     else {

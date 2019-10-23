@@ -3,9 +3,11 @@
 #' Mapa con la estratificación y el área general del banco de Porcupine incluyendo parte de Irlanda
 #' @param es Textos en español, si F en inglés
 #' @param leg incluye la leyenda con los colores/patrones de los estratos
-#' @param bw Si T mapa en blanco y negro, si F colorea los estratos y sectores
+#' @param bw Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE
 #' @param dens si mayor de 0 las superficies de los estratos tienen patrones de líneas
-#' @param sectcol si F pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot
+#' @param sectcol si T pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot
+#' @examples maparea(sectcol=TRUE,leg=TRUE)
+#' @examples maparea(sectcol=FALSE,leg=FALSE)
 #' @family mapas
 #' @family Porcupine
 #' @export
@@ -25,7 +27,7 @@ maparea<-function(es=TRUE,leg=TRUE,bw=FALSE,dens=0,ICESrect=F,sectcol=F) {
 	points(-(9+.0303/.6),(53+.1623/.6),pch=16,col=1)
 	text(-(9+.0303/.6),(53+.1623/.6),label="Galway",pos=3,cex=.7,font=2)
 	text(-(8.95),(52.2),label=ifelse(es,"IRLANDA","IRELAND"),cex=1.3,font=2)
-	if (!bw & !sectcol) colrs=c("Steelblue2","Steelblue2","Steelblue","blue4","green","darkgreen",gray(.7))
+	if (sectcol) colrs=c("Steelblue2","Steelblue2","Steelblue","blue4","green","darkgreen",gray(.7))
 	else {
 		colrs=c("white","white","white","white","white","white",gray(.7))
 		#dens=0
