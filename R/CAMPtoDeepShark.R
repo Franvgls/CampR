@@ -1,4 +1,4 @@
-#' Exporta datos de formato CAMP a formato DATRAs HL. Depende de que los códigos Aphia estén correctos en especies.dbf da error si son incompletos
+#' Exporta datos de formato De repuesta a DATA call  DeepSeaSharks2019. Depende de que los códigos Aphia estén correctos en especies.dbf da error si son incompletos
 #'
 #' Función de Salida de datos a DATRAS:
 #' Extrae las características de las capturas por lance para una campaña desde el fichero NTALLxxx.DBF y los transforma en formato DATRAS HL. De momento sólo funciona con peces y en el SPNGFS y SPPORC (Para completar crustáceos y moluscos hay que añadir los AphiaID, y para ARSA añadirlos al especies de ARSA)
@@ -11,12 +11,13 @@
 #' @return Devuelve un data.table con datos de cada especie en el formato HL de DATRAS. DATRAS requiere que los datos no tengan cabecera y el trimestre sea el que corresponde a la campaña, además de no tener "". Por ello se debe pasar a fichero con la orden: write.table(CAMPtoHH(Xyy,dns),"nombrearchivo.csv",sep=",",quote=F,col.names=F,row.names=F))
 #' @examples # CAMPtoHL("P14","Porc")
 #' @export
-CAMPtoHL <-
+CAMPtoDeepShark <-
   function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,export = FALSE) {
     require(dplyr)
     if (length(camp) > 1) {
       stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")
     }
+    sharks<-read.csv("c:/users/francisco.velasco.ST/documents/FVG/ACOM/data calls/2019/deepseasharks/Shark_species.csv")
     DB <-data.table::as.data.table(datlan.camp(camp,dns,redux = F,incl0 = F,incl2 = incl2))
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
     ntalls <-data.table::as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='1'")))
@@ -56,23 +57,32 @@ CAMPtoHL <-
       if (any(DB$barco !="29MO")) {DB$barco = ifelse(DB$barco == "MOL", "29MO", ifelse(DB$barco == "CDS", "CDS"))}
       DB$GearExp = -9
       DB$DoorType = ifelse(DB$barco == "CDS", "W", "P")
+      DB$Survey = "SP-NORTH"
       if (quart)
         DB$quarter <- "4"
       DB$lance <- format(DB$lance, width = 3,justify="r")
       ntalls$lance <- format(as.integer(ntalls$lance), width = 3,justify="r")
       DB$StNo = DB$lance
+      DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-10,to=-1,by=1),labels=rev(c("E8","E7","E6","E5","E4","E3","E2","E1","E0"))) # ,"D9","D8"
+      DB$rectlat<-cut(DB$latitud_l,breaks=seq(from=41.5,to=44.5,by=.5),labels=c(12:17))
+      #Crea la columna del rectangulo ICES
+      DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
     }
     if (substr(dns, 1, 4) == "Pnew" | substr(dns, 1, 4) == "Porc") {
       DB$barco = "EZA"
       DB$Gear = "PORB"
       DB$GearExp = -9
       DB$DoorType = "P"
+      DB$Survey = "SP-PORC"
       if (quart)
         DB$quarter <- "3"
       DB$lance <- format(as.integer(DB$lance), width = 2,justify="r")
       ntalls$lance <- format(as.integer(ntalls$lance), width = 2,justify="r")
       DB$StNo <- format(as.integer(DB$cuadricula),width = 3,justify="r")
-      }
+      DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-15,to=-11,by=1),labels=rev(c("D8","D7","D6","D5"))) # ,"D9","D8"
+      DB$rectlat<-cut(DB$latitud_l,breaks=seq(from=50.5,to=54,by=.5),labels=c(30:36))
+      DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
+    }
     if (substr(dns, 1, 4) == "Arsa") {
       if (any(DB$barco !="29MO")) {DB$barco = ifelse(substr(DB$barco, 1, 3) == "COR",
                         "CDS",
@@ -80,13 +90,17 @@ CAMPtoHL <-
       DB$Gear = "BAK"
       DB$GearExp = -9
       DB$DoorType = ifelse(substr(DB$barco, 1, 3) == "COR", "W", "P")
+      DB$Survey = "SP-ARSA"
       if (quart)
         DB$quarter <- ifelse(substr(camp, 1, 1) == "1", "1", "4")
       DB$lance <- format(DB$lance, width = 2,justify="r")
       ntalls$lance <- format(ntalls$lance, width = 2,justify="r")
       DB$StNo = DB$lance
+      DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-9,to=-6,by=1),labels=rev(c("E1","E2","E3"))) # ,"D9","D8"
+      DB$rectlat<-paste0("0",cut(DB$latitud_l,breaks=seq(from=36.0,to=37.5,by=.5),labels=as.character(c(1:3))))
+      DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
     }
-    DB <-DB[, c("year","barco","quarter","Gear","malletas","GearExp","DoorType","lance","StNo","validez","prof_l","prof_v")]
+    DB <-DB[, c("year","barco","quarter","Gear","malletas","GearExp","DoorType","lance","StNo","validez","prof_l","prof_v","fecha","longitud_l","longitud_v","latitud_l","latitud_v","Survey","icesrect")]
     ntalls <- ntalls[lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
@@ -109,6 +123,7 @@ CAMPtoHL <-
     ntallsdumb$LngtCode[ntallsdumb$med == 1] <- "1"
     ntallsdumb$LngtCode[ntallsdumb$med == 2] <- "."
     ntallsdumb$LngtCode[ntallsdumb$incr == 5] <- "0"
+    ntallsdumb<-filter(ntallsdumb,SpecCode %in% sharks$AphiaID)
     DB1 <-
       merge(ntallsdumb,
             data.table::as.data.table(DB),
@@ -120,73 +135,38 @@ CAMPtoHL <-
         levels = as.character(1:3),
         labels = c("M", "F", "U")
       ))
-    if (inclSpecie == T) {
-      HL_north <-
+    HL_north <-
         data.table::data.table(
-          RecordType = "HL",
-          Quarter = DB1$quarter,
-          Country = "SPA",
-          Ship = DB1$barco,
-          Gear = DB1$Gear,
-          SweepLngt = DB1$malletas,
-          GearExp = DB1$GearExp,
-          DoorType = DB1$DoorType,
-          StNo = DB1$StNo,
-          HaulNo = DB1$lance,
+          Country = "ES",
           Year = DB1$year,
-          SpecCodeType = "W",
-          SpecCode = DB1$SpecCode,
+          Month = substr(DB1$fecha,4,5),
+          Day = substr(DB1$fecha,1,2),
+          Ship = DB1$barco,
+          Survey = "Y",
+          Survey_Code = DB1$Survey,
+          Gear = DB1$Gear,
+          HaulNo = DB1$lance,
+          LatShot = DB1$latitud_l,
+          LongShot = DB1$longitud_l,
+          LatHaul= DB1$latitud_v,
+          LongHaul = DB1$longitud_l,
+          ICESdiv = Area[match(DB1$icesrect,Area$ICESNAME),"Area"],
+          DepthShot = DB1$prof_l,
+          DepthHaul = DB1$prof_v,
           specie = DB1$Specie,
-          SpecVal = ifelse(DB1$validez==1,1,0),
           Sex = DB1$Sex,
-          TotalNo = round(DB1$NoMeas * DB1$SubFactor, 2),
-          CatIdentifier = DB1$cate,
-          NoMeas = DB1$NoMeas,
-          SubFactor = DB1$SubFactor,
-          SubWgt = DB1$peso_m,
-          CatCatchWgt = DB1$peso_gr,
-          LngtCode = DB1$LngtCode,
+          Maturity = NA,
           LngtClass = DB1$talla,
-          HLNoAtLngt = DB1$numer,
-          DevStage=-9,
-          LenMeasType=-9
+          HLNoAtLngt = DB1$numer
         )
-    }
-    else
-      HL_north <-
-      data.table::data.table(
-        RecordType = "HL",
-        Quarter = DB1$quarter,
-        Country = "SPA",
-        Ship = DB1$barco,
-        Gear = DB1$Gear,
-        SweepLngt = DB1$malletas,
-        GearExp = DB1$GearExp,
-        DoorType = DB1$DoorType,
-        StNo = DB1$StNo,
-        HaulNo = DB1$lance,
-        Year = DB1$year,
-        SpecCodeType = "W",
-        SpecCode = DB1$SpecCode,
-        SpecVal = ifelse(DB1$validez==1,1,0),
-        Sex = DB1$Sex,
-        TotalNo = round(DB1$NoMeas * DB1$SubFactor, 2),
-        CatIdentifier = DB1$cate,
-        NoMeas = DB1$NoMeas,
-        SubFactor = DB1$SubFactor,
-        SubWgt = DB1$peso_m,
-        CatCatchWgt = DB1$peso_gr,
-        LngtCode = DB1$LngtCode,
-        LngtClass = DB1$talla,
-        HLNoAtLngt = DB1$numer,
-        DevStage=-9,
-        LenMeasType=-9
-      )
+    HL_north$Date<-paste(HL_north$Day,HL_north$Month,HL_north$Year,sep="/")
+    HL_north$Day<-NULL
+
     if (any(is.na(HL_north$SpecCode))) {
       HL_north[is.na(HL_north$SpecCode), ]
       warning(
         "Algunas especies no tienen código AphiaID, conversión incompleta, revise especies.dbf"
       )
     }
-    HL_north[order(as.numeric(HL_north$HaulNo), HL_north$SpecCode, HL_north$LngtClass), ]
+    HL_north[order(as.numeric(HL_north$HaulNo), HL_north$specie, HL_north$LngtClass), ]
   }

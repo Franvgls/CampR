@@ -20,8 +20,8 @@
 #' @family mapas base
 #' @family Medits
 #' @export
-MapIberia<-function(xlims=c(-9.72,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.5,bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE,escmult=1) {
-  asp<-diff(c(35,43))/(diff(c(-5.7,5))*cos(mean(c(35,43))*pi/180))
+MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,nepFU=F,FUs=c(NULL),ICESlab=FALSE,ICESlabcex=.5,bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE,escmult=1) {
+  asp<-diff(c(35,43))/(diff(c(-10.2,5))*cos(mean(c(35,43))*pi/180))
   if (wmf) win.metafile(filename = "Iberia.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3)
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
@@ -39,6 +39,11 @@ MapIberia<-function(xlims=c(-9.72,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
     abline(h=seq(35,45,by=1/6),col=gray(.4),lwd=.5)
     abline(v=seq(-10,5,by=0.2174213),col=gray(.4),lwd=.5)
   }
+  if (nepFU) {
+    for (i in FUs)  {
+      lines(lat~long,i,col=2,lty=1,lwd=2)
+    }
+    }
   if (bw) {colo="lightgray"}
   else colo="wheat"
   maps::map(Iberiamap,add=TRUE,fill=TRUE,col=colo,lwd=lwdl)

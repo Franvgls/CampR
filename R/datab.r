@@ -1,5 +1,5 @@
 #' Datos estratificados por sector para una especie para grupos de trabajo
-#' 
+#'
 #' Salida de datos estratificados por sector a csv para rellenar los informes de grupo de trabajo, filas con datos ab estratificada (Biomasa y N) y error estándar por sector. Da la abundancia y error estándar en cada sector (geográfico definido en el Camp)
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
@@ -17,7 +17,8 @@ datab<-function(gr,esp,camp,dns="Cant",cor.time=TRUE,Nas=FALSE) {
   dumb2<-t(CV.camp(gr,esp,camp,dns,Nas=Nas)$total[1:2,])
   dumb3<-sapply(CV.camp(gr,esp,camp,dns,cor.time=cor.time,ind="n",Nas=Nas)$sectores[1:2,],t)
   dumb4<-t(CV.camp(gr,esp,camp,dns,cor.time=cor.time,ind="n",Nas=Nas)$total[1:2,])
-  names1<-rep(sapply(row.names(CV.camp(gr,esp,camp,dns,cor.time=cor.time,ind="n",Nas=Nas)$sectores[1:2,]),t),length(dumb1)/2)
+  if (length(dumb1)>2) {names1<-rep(sapply(row.names(CV.camp(gr,esp,camp,dns,cor.time=cor.time,ind="n",Nas=Nas)$sectores[1:2,]),t),length(dumb1)/2)}
+  if (length(dumb1)==2) {names1<-names(CV.camp(gr,esp,camp,dns,cor.time=cor.time,ind="n",Nas=Nas)$sectores[1:2,])}
   names2<-t(names(CV.camp(gr,esp,camp,dns,cor.time=cor.time,ind="n",Nas=Nas)$total[1:2,]))
   dumb5<-rbind(c(dumb1,dumb2),
                c(dumb3,dumb4))

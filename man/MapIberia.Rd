@@ -4,10 +4,10 @@
 \alias{MapIberia}
 \title{Mapa de la Península Ibérica completo}
 \usage{
-MapIberia(xlims = c(-9.72, 5), ylims = c(35.9, 44.5), lwdl = 1,
-  cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE,
-  ICESlab = FALSE, ICESlabcex = 0.5, bw = F, ax = TRUE,
-  wmf = FALSE, es = TRUE, places = TRUE, escmult = 1)
+MapIberia(xlims = c(-10.2, 5), ylims = c(35.9, 44.5), lwdl = 1,
+  cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE, nepFU = F,
+  FUs = c(NULL), ICESlab = FALSE, ICESlabcex = 0.5, bw = F,
+  ax = TRUE, wmf = FALSE, es = TRUE, places = TRUE, escmult = 1)
 }
 \arguments{
 \item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del ?rea de la campaña}

@@ -5,7 +5,7 @@
 \title{Comparación histograma tallas de una especie entre una campaña y serie histórica}
 \usage{
 dtallbarplot(gr, esp, camps, dns, camp = NA, excl.sect = NA,
-  cor.time = TRUE, ymax = NA, horiz = T, years = TRUE)
+  cor.time = TRUE, ymax = NA, horiz = T, years = TRUE, es = T)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
@@ -27,6 +27,8 @@ dtallbarplot(gr, esp, camps, dns, camp = NA, excl.sect = NA,
 \item{horiz}{F por defecto saca el histograma en vertical, se puede poner horizontal haciendolo T}
 
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
+
+\item{es}{si T saca los títulos en castellano, si no en inglés}
 }
 \description{
 Histograma de la distribución de tallas media estratificada por sexos a partir de ficheros del camp
