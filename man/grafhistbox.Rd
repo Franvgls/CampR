@@ -71,4 +71,8 @@ grafhistbox(1,45,Nsh[1:31],"Cant",es=FALSE,years=TRUE,tline=FALSE,DLS=TRUE,ti=TR
 }
 \seealso{
 {\link{grafhistbox.comp}}
+
+Other abunds: \code{\link{grafhistbox.comp}},
+  \code{\link{histboxplot.comp}}, \code{\link{histboxplot}}
 }
+\concept{abunds}

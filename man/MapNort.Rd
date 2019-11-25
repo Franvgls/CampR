@@ -7,7 +7,8 @@
 MapNort(lwdl = 0.5, cuadr = FALSE, cuadrMSFD = FALSE,
   ICESrect = FALSE, ICESlab = FALSE, ICESlabcex = 0.5, leg = F,
   bw = TRUE, es = FALSE, ax = TRUE, strat = FALSE,
-  places = FALSE, xlims = c(-10.25, -1.4), ylims = c(41.82, 44.48))
+  places = FALSE, country = F, xlims = c(-10.25, -1.4),
+  ylims = c(41.82, 44.48))
 }
 \arguments{
 \item{lwdl}{Ancho de las líneas del mapa}
@@ -33,6 +34,8 @@ MapNort(lwdl = 0.5, cuadr = FALSE, cuadrMSFD = FALSE,
 \item{strat}{Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)}
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
+
+\item{country}{si T saca el país}
 
 \item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña}
 

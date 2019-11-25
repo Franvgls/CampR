@@ -29,6 +29,7 @@
 #' @seealso {\link{grafhistbox.comp}}
 #' @examples grafhistbox(1,45,Nsh[7:27],"Cant",es=FALSE,years=TRUE,tline=TRUE,DLS=FALSE,ti=TRUE,sub=TRUE)
 #' @examples grafhistbox(1,45,Nsh[1:31],"Cant",es=FALSE,years=TRUE,tline=FALSE,DLS=TRUE,ti=TRUE,sub=TRUE)
+#' @family abunds
 #' @export
 grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.lev=.8,DLS=F,DLSrat=c(2,5),idi="l",SE=TRUE,
   es=TRUE,excl.sect=NA,sector=NA,ti=TRUE,Nas=FALSE,ymax=NA,mar=NA,tline=FALSE,years=TRUE,sub=FALSE,cex.leg=1.1) {

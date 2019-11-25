@@ -13,7 +13,8 @@
 qcLWbucl.camp<- function(camp="P12",dns="Porc",nlans=2,out.dat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   dumblist<-ListFauna.camp(gr=1,camp,dns=dns)
-  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+#  ch2<-DBI::dbConnect(odbc::odbc(), dns)
+  ch1<-DBI::dbConnect(odbc::odbc(), "Camp")
   especie<-DBI::dbGetQuery(ch1,paste0("select esp,especie,a,b from Especies where grupo='",1,"'"))
   DBI::dbDisconnect(ch1)
   especie<-especie[especie$esp %in% formatC(dumblist$esp,width=3,flag=" ") & especie$a>0,]

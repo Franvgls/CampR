@@ -16,6 +16,7 @@
 #' @param ax Si T saca los ejes x e y
 #' @param strat Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)
 #' @param places Si T saca ciudades y puntos geográficos de referencia
+#' @param country si T saca el país
 #' @param xlims Define los limites longitudinales del mapa, por defecto -10.25 y -1.4 oeste
 #' @param ylims Define los limites longitudinales del mapa, por defecto 41.82 y 44.48 norte
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones
@@ -23,7 +24,7 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.5,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
+MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.5,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (ax) {
      degs = seq(-10,-2,ifelse(abs(diff(xlims))>1,1,.5))
@@ -77,9 +78,11 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FA
       maps::map(Nort.map,Nort.map$names[grep(".c",Nort.map$names,fixed=T)],add=TRUE,fill=TRUE,col=gray(.3))
       legend("bottomright",c("A: 70-120 m","B: 121-200 m","C: 201-500 m"),fill=c(gray(.8),gray(.6),gray(.3)),title=ifelse(es,"Estr. prof","Depth strata"),cex=.8,inset=.05,bg="white")
       }
-    }
-  if (places) {
+  }
+  if (country) {
     legend("bottom",ifelse(es,"España","Spain"),cex=2,inset=.15,bty="n")
+  }
+  if (places) {
     text(-8.383,43.367,"A Coruña",cex=.85,font=2,pos=1)
     points(-8.383,43.367,pch=15,cex=.9)
     text(-8.7167,42.233,"Vigo",cex=.85,font=2,pos=4)

@@ -40,7 +40,8 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
   }
   else dumbtal<-data.frame(talla=talla,as.data.frame(dumbtal))
   dumbtal<-dumbtal[dumbtal$talla>=tmin & dumbtal$talla<=tmax,]
-  if (years) colnames(dumbtal)<-c("talla",camptoyear(colnames(dumbtal[,2:ncol(dumbtal)])))
+  if (years) colnames(
+    dumbtal)<-c("talla",camptoyear(colnames(dumbtal[,2:ncol(dumbtal)])))
   #  browser()
   if (es){
     if (ind=="p") print(paste("Peso medio estratificado en gramos por lance de",buscaesp(gr,esp),"entre",tmin,"y",tmax,ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")))
@@ -52,7 +53,7 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
   }
     if (plot) {
 #    op<-par(no.readonly=TRUE)
-    par(mgp=c(2,.6,0))
+    ifelse(ti,par(mgp=c(2,.6,0)),par(mpg=c(1.5,.5,9)))
     yetiq<-ifelse(es,expression("Ind"%*%"lan"^-1),expression("Ind"%*%"haul"^-1))
     datos<-colSums(dumbtal[,2:ncol(dumbtal)],na.rm=TRUE)
     barplot(datos,ylim=c(0,max(datos)*1.1),names.arg=colnames(datos),col=ifelse(bw,"grey","steelblue"),space=0,ylab=yetiq,las=las)

@@ -27,7 +27,7 @@ En esta versión de CampR estan implementadas funciones para las siguientes zona
  Orígenes de datos: DSNs de Usuario
 ------------
 
-Las DSNs de usuario para los ficheros de Dbase III utilizados en el CAMP funcionan bien en 32 bits más que en 64 bits, por ello es mejor instalarlos desde el odbcad32.exe del directorio system32, o bien hacerlo desde el system64 pero siempre buscar el odbcad32.exe. Esto supone que no se puede utilizar CampR con R a 64 bits. Es muy importante utilizar "Microsoft Access Dbase driver .dbf, .ndx" y no "driver do Microsoft dBase .dbf" que no funciona bien
+Las DSNs de usuario para los ficheros de Dbase III utilizados en el CAMP funcionan bien en 32 bits más que en 64 bits, por ello es mejor instalarlos desde el odbcad32.exe del directorio system32, o bien hacerlo desde el system64 pero siempre buscar el odbcad32.exe. <b>Esto supone que no se puede utilizar CampR con R a 64 bits</b>. Es muy importante utilizar <b>"Microsoft Access Dbase driver .dbf, .ndx"</b> y no "driver do Microsoft dBase .dbf" que no funciona bien
 
 Para cada uno de estos directorios habrá que agregar un origen de datos DSN de usuario en el panel de control de herramientas administrativas de Windows: 
 

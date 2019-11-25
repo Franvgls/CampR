@@ -2,7 +2,7 @@
 #'
 #' Ver documentación grafhistbox
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6
-#' @param esp Codigo de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo 
+#' @param esp Codigo de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camps campañas de la serie de datos a representar en el gráfico de abundancias Demersales Nsh, Porcupine Psh, Arsa primavera As1 y Arsa otoño As2
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
@@ -21,8 +21,9 @@
 #' @param mar Si se quiere dejar un margen ya establecido hacerlo igual a F
 #' @param tline Si T dibuja una línea de tendencia a traves de un glm con los datos de abundancia. Gráficos evaluación MSFD.
 #' @param years Si T saca los años como nombre de campaña en el eje de las equis en vez del nombre de campaña
-#' @return Crea una gráfica doble de evolución de las abundancias en biomasa y número. 
+#' @return Crea una gráfica doble de evolución de las abundancias en biomasa y número.
 #' @seealso {\link{grafhistbox}}, {\link{grafhistbox.comp}}
+#' @family abunds
 #' @examples grafhistbox(1,45,Nsh[7:27],"Cant",DLS=T,es=FALSE,years=TRUE,tline=TRUE,ti=TRUE,sub=TRUE)
 #' @export
 grafhistbox.comp<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,kg=TRUE,ci.lev=.8,DLS=F,idi="l",SE=TRUE,es=TRUE,sector=NA,
