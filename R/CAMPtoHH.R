@@ -75,8 +75,8 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
                                      Buoyancy=-9,KiteDim=-9,WgtGroundRope=-9,TowDir=formatC(DB$rumbo,flag=0,width=3),GroundSpeed=DB$velocidad,
                                      SpeedWater=-9,SurCurDir=-9,SurCurSpeed=-9,BotCurDir=-9,BotCurSpeed=-9,WindDir=DB$dir_viento,
                                      WindSpeed=DB$vel_viento,SwellDir=-9,SwellHeight=DB$est_mar,SurTemp=-9,BotTemp=DB$temp,SurSal=-9,
-                                     BotSal=DB$sali,ThermoCline=-9,ThClineDepth=-9,codendMesh=-9,PelSampType=-9,MinTrawlDepth=-9,
-                                     MaxTrawlDepth=-9,SecchiDepth=-9,Turbidity=-9,TidePhase=-9,TideSpeed=-9)
+                                     BotSal=DB$sali,ThermoCline=-9,ThClineDepth=-9,CodendMesh=-9,SecchiDepth=-9,Turbidity=-9,TidePhase=-9,TideSpeed=-9,
+                                     PelSampType=-9,MinTrawlDepth=-9,MaxTrawlDepth=-9)
     HH_north$DoorSpread[is.na(HH_north$DoorSpread)]<-c(-9)
     HH_north$Netopening[is.na(HH_north$Netopening)]<-c(-9)
     HH_north$WingSpread[is.na(HH_north$WingSpread)]<-c(-9)

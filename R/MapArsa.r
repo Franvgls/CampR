@@ -21,8 +21,8 @@
 #' @family mapas base
 #' @family ARSA
 #' @export
-MapArsa<-function(xlims=c(-8.,-5.55),ylims=c(35.95,37.33),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.5,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
-  asp<-diff(c(35.95,37.33))/(diff(c(-8,-5.55))*cos(mean(c(35.95,37.33))*pi/180))
+MapArsa<-function(xlims=c(-8.1711,-5.50),ylims=c(35.95,37.35),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.5,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
+  asp<-diff(c(35.95,37.33))/(diff(c(-8.1711,-5.5))*cos(mean(c(35.95,37.35))*pi/180))
   if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
@@ -76,7 +76,7 @@ MapArsa<-function(xlims=c(-8.,-5.55),ylims=c(35.95,37.33),lwdl=1,leg=F,cuadr=FAL
      axis(2, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
      axis(4, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
   }
-  box(lwd=lwdl)
+  rect(xlims[1],ylims[1],xlims[2],ylims[2],lwd=lwdl); box(lwd=lwdl)
   if (wmf) dev.off()
   if (wmf) par(mar=c(5, 4, 4, 2) + 0.1)
  }
