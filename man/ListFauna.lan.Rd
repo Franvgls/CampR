@@ -4,7 +4,7 @@
 \alias{ListFauna.lan}
 \title{Capturas de un lance específico}
 \usage{
-ListFauna.lan(camp, dns = "Porc", lan, gr = NA)
+ListFauna.lan(camp, dns = "Porc", lan, gr = NA, out = TRUE)
 }
 \arguments{
 \item{camp}{Campaña de la que se extrae los datos del lance (lan) un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -14,9 +14,11 @@ ListFauna.lan(camp, dns = "Porc", lan, gr = NA)
 \item{lan}{Lance del que se extrae la faunística}
 
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados. Si NA, muestra todos los grupos a excepción de 6 desechos y otros no orgánicos}
+
+\item{out}{salida de la función, por defecto TRUE, pero si FALSE no saca el resultado en pantalla (lo asigna a variable para ListFauna.lans)}
 }
 \value{
-Devuelve un data.frame con columnas grupo,esp,especie,peso,numero
+Devuelve un data.frame con columnas grupo,esp,lanceui,especie,peso,numero
 }
 \description{
 Muestra un listado de las especies capturadas en peso y número en un lance concreto. Se pueden seleccionar grupos de especies
