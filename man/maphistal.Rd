@@ -4,11 +4,30 @@
 \alias{maphistal}
 \title{Mapa distribución entre tallas tmin y tmax}
 \usage{
-maphistal(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
-  cor.time = TRUE, incl2 = TRUE, ind = "n", ICESrect = FALSE,
-  sex = NA, bw = TRUE, ti = TRUE, sub = NULL, plot = TRUE,
-  out.dat = FALSE, idi = "l", layout = NA, leg = TRUE,
-  ceros = TRUE, escmult = 0.25, cexleg = 1, years = TRUE)
+maphistal(
+  gr,
+  esp,
+  camps,
+  dns = "Porc",
+  tmin = 0,
+  tmax = 999,
+  cor.time = TRUE,
+  incl2 = TRUE,
+  ind = "n",
+  ICESrect = FALSE,
+  sex = NA,
+  bw = TRUE,
+  ti = TRUE,
+  plot = TRUE,
+  out.dat = FALSE,
+  idi = "l",
+  layout = NA,
+  leg = TRUE,
+  ceros = TRUE,
+  escmult = 0.25,
+  cexleg = 1,
+  years = TRUE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados. 6 Desechos y otros inorgánicos no tiene sentido sacar tallas, sólo recogidas en peces, crustáceos decápodos y algunos moluscos}
@@ -37,8 +56,6 @@ maphistal(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
 
 \item{ti}{Si T añade titulo al mapa, el nombre de la especie en latín}
 
-\item{sub}{Añade un subtítulo debajo del gráfico, sin texto por defecto.}
-
 \item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
 
 \item{out.dat}{Si T el resultado final de la funcion es la figura en pantalla, pero los datos en objeto}
@@ -56,6 +73,8 @@ maphistal(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
 \item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
 
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
+
+\item{sub}{Añade un subtítulo debajo del gráfico, sin texto por defecto.}
 }
 \value{
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
@@ -67,15 +86,23 @@ Saca mapas de distribución de una especie entre tallas tmin y tmax para varias 
 maphistal(1,50,Psh[1:12],"Porc",1,23,layout=c(4,3),out.dat=TRUE)
 }
 \seealso{
-Other mapas: \code{\link{GrafMarksGPS_2}},
-  \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
-  \code{\link{MapGaltal}}, \code{\link{MapLansGPS}},
-  \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
-  \code{\link{armap.camp}}, \code{\link{armap.tot}},
-  \code{\link{map.check}}, \code{\link{maparea}},
-  \code{\link{maphistage}}, \code{\link{maphist}}
+Other mapas: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{GrafMarksGPS}()},
+\code{\link{MapEcol.camp}()},
+\code{\link{MapGaltal}()},
+\code{\link{MapLansGPS}()},
+\code{\link{VedaCigala.out}},
+\code{\link{VedaCigala}},
+\code{\link{armap.camp}()},
+\code{\link{armap.tot}()},
+\code{\link{map.check}()},
+\code{\link{maparea}()},
+\code{\link{maphistage}()},
+\code{\link{maphist}()}
 
-Other tallas: \code{\link{MapGaltal}}
+Other tallas: 
+\code{\link{MapGaltal}()}
 }
 \concept{mapas}
 \concept{tallas}

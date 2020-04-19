@@ -4,8 +4,18 @@
 \alias{datlan.camp}
 \title{Características del lance}
 \usage{
-datlan.camp(camp, dns, incl2 = TRUE, incl0 = FALSE, hidro = FALSE,
-  excl.sect = NA, redux = FALSE, year = T, quarter = T, bio = F)
+datlan.camp(
+  camp,
+  dns,
+  incl2 = TRUE,
+  incl0 = FALSE,
+  hidro = FALSE,
+  excl.sect = NA,
+  redux = FALSE,
+  year = T,
+  quarter = T,
+  bio = F
+)
 }
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}

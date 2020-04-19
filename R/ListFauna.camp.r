@@ -7,10 +7,11 @@
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos, NA no excluye ninguno
 #' @param incl2 Si T incluye los lances especiales "2"
+#' @param verbose si T saca en pantalla, si F no salen en pantalla
 #' @return Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr. Columnas: gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp) Los valores NaN en las abundancias corresponden a especies que sólo han aparecido en los lances especiales, y que no puede calcularse la abundancia estratificada al no contar con áreas para los estratos en que aparecen
 #' @examples ListFauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=FALSE,incl2=FALSE)
 #' @export
-ListFauna.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE,kg=TRUE) {
+ListFauna.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE,verbose=TRUE,kg=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(gr)>1 | gr==9) {stop("no se pueden mezclar grupos en esta función")}
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -30,7 +31,7 @@ ListFauna.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,incl2=FALSE
   dumbtap<-tapply(dumb$esp,dumb$esp,length)
   dumbres<-data.frame(gr=NULL,esp=NULL,especie=NULL,peso=NULL,numero=NULL,nlan=NULL)
   for (i in 1:ndat) {
-    dumbmedio<-CV.camps(gr=gr,esp=listaesp[i],camp=camp,dns=dns,excl.sect = excl.sect,cor.time=cor.time)
+    dumbmedio<-CV.camps(gr=gr,esp=listaesp[i],camp=camp,dns=dns,excl.sect = excl.sect,cor.time=cor.time,verbose = verbose)
     dumbres<-rbind(dumbres,cbind(gr=gr,esp=listaesp[i],especie=buscaesp(gr,listaesp[i]),
                                  peso=dumbmedio$weight,
                                  numero=dumbmedio$number,

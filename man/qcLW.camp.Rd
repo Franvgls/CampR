@@ -4,8 +4,18 @@
 \alias{qcLW.camp}
 \title{Outliers capturas según tallas medidas y relación talla-peso}
 \usage{
-qcLW.camp(gr, esp, camp = "P11", dns = "Porc", margerr = 20,
-  out.dat = FALSE, mm = FALSE, areg = NA, breg = NA, plot = TRUE)
+qcLW.camp(
+  gr,
+  esp,
+  camp = "P11",
+  dns = "Porc",
+  margerr = 20,
+  out.dat = FALSE,
+  mm = FALSE,
+  areg = NA,
+  breg = NA,
+  plot = TRUE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
@@ -40,8 +50,11 @@ qcLW.camp(1,50,"N08","Cant")
 \seealso{
 {link{qcLWbucl.camp}}
 
-Other Control de calidad: \code{\link{qcLWbucl.camp}},
-  \code{\link{qcTalPez.lan}}, \code{\link{qcdistlan.camp}},
-  \code{\link{qcdtall.camp}}, \code{\link{qcdtallrev.camp}}
+Other Control de calidad: 
+\code{\link{qcLWbucl.camp}()},
+\code{\link{qcTalPez.lan}()},
+\code{\link{qcdistlan.camp}()},
+\code{\link{qcdtall.camp}()},
+\code{\link{qcdtallrev.camp}()}
 }
 \concept{Control de calidad}

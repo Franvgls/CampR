@@ -23,12 +23,16 @@ ALKs.dns.camp("Porc","P")
 ALKs.dns.camp("Arsa","1")
 }
 \seealso{
-Other edades: \code{\link{GetAlk.camp}},
-  \code{\link{bubbage.camp}}, \code{\link{datagegr.camp}},
-  \code{\link{edadsect.camp}}, \code{\link{edadstr.camp}},
-  \code{\link{grafedtal.camps}},
-  \code{\link{grafedtal.camp}},
-  \code{\link{logabage.camp}},
-  \code{\link{logabage2.camp}}, \code{\link{maphistage}}
+Other edades: 
+\code{\link{GetAlk.camp}()},
+\code{\link{bubbage.camp}()},
+\code{\link{datagegr.camp}()},
+\code{\link{edadsect.camp}()},
+\code{\link{edadstr.camp}()},
+\code{\link{grafedtal.camps}()},
+\code{\link{grafedtal.camp}()},
+\code{\link{logabage.camp}()},
+\code{\link{logabage2.camp}()},
+\code{\link{maphistage}()}
 }
 \concept{edades}

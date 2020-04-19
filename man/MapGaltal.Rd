@@ -4,11 +4,29 @@
 \alias{MapGaltal}
 \title{Mapa distribución en Galicia entre tallas tmin y tmax}
 \usage{
-MapGaltal(gr, esp, camps, dns = "Cant", tmin = 1, tmax = 999,
-  cor.time = TRUE, ind = "n", sex = NA, bw = TRUE, ti = TRUE,
-  plot = TRUE, idi = "l", cexleg = 1, years = TRUE, layout = NA,
-  out.dat = TRUE, leg = TRUE, ceros = TRUE, escmult = 0.25,
-  incl2 = FALSE)
+MapGaltal(
+  gr,
+  esp,
+  camps,
+  dns = "Cant",
+  tmin = 1,
+  tmax = 999,
+  cor.time = TRUE,
+  ind = "n",
+  sex = NA,
+  bw = TRUE,
+  ti = TRUE,
+  plot = TRUE,
+  idi = "l",
+  cexleg = 1,
+  years = TRUE,
+  layout = NA,
+  out.dat = TRUE,
+  leg = TRUE,
+  ceros = TRUE,
+  escmult = 0.25,
+  incl2 = FALSE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: Sólo hay tallas para 1 peces, 2 crustáceos decápodos y 3 algunos moluscos}
@@ -61,15 +79,23 @@ Saca mapas de distribución de una especie entre tallas tmin y tmax para varias 
 MapGaltal(1,50,Nsh[21:29],"Cant",1,23,layout=c(3,3),out.dat=TRUE,ceros=FALSE,incl2=TRUE)
 }
 \seealso{
-Other mapas: \code{\link{GrafMarksGPS_2}},
-  \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
-  \code{\link{MapLansGPS}}, \code{\link{VedaCigala.out}},
-  \code{\link{VedaCigala}}, \code{\link{armap.camp}},
-  \code{\link{armap.tot}}, \code{\link{map.check}},
-  \code{\link{maparea}}, \code{\link{maphistage}},
-  \code{\link{maphistal}}, \code{\link{maphist}}
+Other mapas: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{GrafMarksGPS}()},
+\code{\link{MapEcol.camp}()},
+\code{\link{MapLansGPS}()},
+\code{\link{VedaCigala.out}},
+\code{\link{VedaCigala}},
+\code{\link{armap.camp}()},
+\code{\link{armap.tot}()},
+\code{\link{map.check}()},
+\code{\link{maparea}()},
+\code{\link{maphistage}()},
+\code{\link{maphistal}()},
+\code{\link{maphist}()}
 
-Other tallas: \code{\link{maphistal}}
+Other tallas: 
+\code{\link{maphistal}()}
 }
 \concept{mapas}
 \concept{tallas}

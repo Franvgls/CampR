@@ -24,7 +24,7 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.5,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
+MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (ax) {
      degs = seq(-10,-2,ifelse(abs(diff(xlims))>1,1,.5))
@@ -44,7 +44,7 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FA
     abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
     abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
   }
-  if (ICESlab) text(stat_y~stat_x,Area,label=ICESNAME,cex=ICESlabcex)
+  if (ICESlab) text(c(stat_y+.22)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
   if (ICESrect) {
     abline(h=seq(41,45,by=.5),col=gray(.2),lwd=.5)
     abline(v=seq(-12,-1),col=gray(.2),lwd=.5)

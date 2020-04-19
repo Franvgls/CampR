@@ -9,28 +9,36 @@
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
 #' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
 #' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
+#' @param NepFU Si T saca recuadros marcando los rectángulos de las unidades funcionales de cigala
+#' @param FUs Por defecto NULL pero si se incluye un vector con la lista de las unidades funcionales las pinta
 #' @param bw si T mapa con tierra en gris, si F tierra en color
 #' @param ax Si T saca los ejes x e y
 #' @param es Si T saca titulos y ejes en español
 #' @param wmf Si T saca a fichero metafile Iberia.emf
 #' @param places Si T saca ciudades y puntos geográficos de referencia
-#' @param escmult =1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, m?s de uno lo aumenta
+#' @param escmult =1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, más de uno lo aumenta
+#' @param add
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones
 #' @examples MapIberia()
+#' @examples MapIberia(nepFU=T,FUs=list(FU25,FU31),ICESrect=TRUE,ICESlab=T)
 #' @family mapas base
 #' @family Medits
 #' @export
-MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,nepFU=F,FUs=c(NULL),ICESlab=FALSE,ICESlabcex=.5,bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE,escmult=1) {
+MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,
+                   ICESlab=FALSE,ICESlabcex=.6,nepFU=F,FUs=c(NULL),bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE,
+                    escmult=1,add=FALSE) {
   asp<-diff(c(35,43))/(diff(c(-10.2,5))*cos(mean(c(35,43))*pi/180))
-  if (wmf) win.metafile(filename = "Iberia.emf", width = 10, height = 10*asp+.63, pointsize = 10)
-  if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3)
-  if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
-  maps::map(Iberiamap,xlim=xlims,ylim=ylims,type="n",yaxs="i",xaxs="i")
+  if (!add) {
+    if (wmf) win.metafile(filename = "Iberia.emf", width = 10, height = 10*asp+.63, pointsize = 10)
+    if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3)
+    if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
+    maps::map(Iberiamap,xlim=xlims,ylim=ylims,type="n",yaxs="i",xaxs="i")
+  }
   if (cuadr) {
     abline(h=seq(35,45,by=1/12),col=gray(.6),lwd=.6)
     abline(v=seq(-10,5,by=0.089),col=gray(.6),lwd=.6)
   }
-  if (ICESlab) text(stat_y~stat_x,Area,label=ICESNAME,cex=ICESlabcex)
+  if (ICESlab) text(c(stat_y+.19)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
   if (ICESrect) {
     abline(h=seq(35,45,by=.5),col=gray(.2),lwd=.6)
     abline(v=seq(-10,5,by=1),col=gray(.2),lwd=.6)
@@ -41,7 +49,7 @@ MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
   }
   if (nepFU) {
     for (i in FUs)  {
-      lines(lat~long,i,col=2,lty=1,lwd=2)
+      lines(i,col=2,lty=1,lwd=2)
     }
     }
   if (bw) {colo="lightgray"}
@@ -54,7 +62,7 @@ MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
     text(-8.25,39.5,"PORTUGAL",cex=escmult*1.3,font=2,pos=4,srt=90)
     points(-9.1427,38.737,pch=1,lwd=2,cex=.9)
     text(-9.1427,38.737,ifelse(es,"Lisboa","Lisbon"),cex=escmult*0.7,font=2,pos=4,offset=.7)
-    legend(-6,mean(par("usr")[3:4]),ifelse(es,"ESPAÑA","SPAIN"),text.font=2,cex=escmult*2,inset=.15,bty="n")
+    legend(-7,mean(par("usr")[3:4]),ifelse(es,"ESPAÑA","SPAIN"),text.font=2,cex=escmult*2,inset=.15,bty="n")
     text(-8.383,43.367,"A Coruña",cex=escmult*0.7,font=2,pos=1)
     points(-8.383,43.367,pch=1,lwd=2,cex=.9)
     text(-8.7167,42.233,"Vigo",cex=escmult*0.7,font=2,pos=4)

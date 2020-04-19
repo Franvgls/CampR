@@ -4,13 +4,33 @@
 \alias{armap.camp}
 \title{Mapa con las estaciones realizadas}
 \usage{
-armap.camp(camp, dns = "Porc", ti = FALSE, lwdl = 1, col = 2,
-  argr = 2, cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE,
-  ICESlab = FALSE, arrow = FALSE, leg = TRUE, es = FALSE,
-  cols = TRUE, noval = TRUE, CTDs = FALSE, strat = FALSE,
-  Nlans = FALSE, NCTDs = FALSE, Dates = F, places = FALSE,
-  bw = FALSE, lans = TRUE, xlims = c(-10.25, -1.4),
-  ylims = c(41.82, 44.48))
+armap.camp(
+  camp,
+  dns = "Porc",
+  ti = FALSE,
+  lwdl = 1,
+  col = 2,
+  argr = 2,
+  cuadr = FALSE,
+  cuadrMSFD = FALSE,
+  ICESrect = FALSE,
+  ICESlab = FALSE,
+  arrow = FALSE,
+  leg = TRUE,
+  es = FALSE,
+  cols = TRUE,
+  noval = TRUE,
+  CTDs = FALSE,
+  strat = FALSE,
+  Nlans = FALSE,
+  NCTDs = FALSE,
+  Dates = F,
+  places = FALSE,
+  bw = FALSE,
+  lans = TRUE,
+  xlims = c(-10.25, -1.4),
+  ylims = c(41.82, 44.48)
+)
 }
 \arguments{
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX", Arsa otoño "2XX" y Medits "MXX"}
@@ -79,15 +99,23 @@ mtext("Porcupine 2014 survey",line=1,outer=TRUE,cex=1.4,font=2)
 par(op)
 }
 \seealso{
-Other mapas: \code{\link{GrafMarksGPS_2}},
-  \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
-  \code{\link{MapGaltal}}, \code{\link{MapLansGPS}},
-  \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
-  \code{\link{armap.tot}}, \code{\link{map.check}},
-  \code{\link{maparea}}, \code{\link{maphistage}},
-  \code{\link{maphistal}}, \code{\link{maphist}}
+Other mapas: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{GrafMarksGPS}()},
+\code{\link{MapEcol.camp}()},
+\code{\link{MapGaltal}()},
+\code{\link{MapLansGPS}()},
+\code{\link{VedaCigala.out}},
+\code{\link{VedaCigala}},
+\code{\link{armap.tot}()},
+\code{\link{map.check}()},
+\code{\link{maparea}()},
+\code{\link{maphistage}()},
+\code{\link{maphistal}()},
+\code{\link{maphist}()}
 
-Other resumen general: \code{\link{armap.tot}}
+Other resumen general: 
+\code{\link{armap.tot}()}
 }
 \concept{mapas}
 \concept{resumen general}

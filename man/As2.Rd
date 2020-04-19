@@ -15,10 +15,15 @@ Serie histórica Campañas ARSA Otoño
 Serie completa con las campañas de otoño realizadas en el Golfo de Cádiz (Arrastre Sur Atlántica)
 }
 \seealso{
-Other Series datos: \code{\link{As1}}, \code{\link{Msh}},
-  \code{\link{Nsh}}, \code{\link{Psh}}
+Other Series datos: 
+\code{\link{As1}},
+\code{\link{Msh}},
+\code{\link{Nsh}},
+\code{\link{Psh}}
 
-Other ARSA: \code{\link{As1}}, \code{\link{MapArsa}}
+Other ARSA: 
+\code{\link{As1}},
+\code{\link{MapArsa}()}
 }
 \concept{ARSA}
 \concept{Series datos}

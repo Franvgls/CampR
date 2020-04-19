@@ -4,9 +4,22 @@
 \alias{GrafMarksGPS}
 \title{Gráficos de dragas o ctds a partir de las marcas del pescawin}
 \usage{
-GrafMarksGPS(camp, dns = "Cant", event = "Draga", add = FALSE,
-  ti = TRUE, years = TRUE, pch = NA, ptbg = NA, xlims = NA,
-  ylims = NA, cuadr = TRUE, es = T, places = TRUE, bw = FALSE)
+GrafMarksGPS(
+  camp,
+  dns = "Cant",
+  event = "Draga",
+  add = FALSE,
+  ti = TRUE,
+  years = TRUE,
+  pch = NA,
+  ptbg = NA,
+  xlims = NA,
+  ylims = NA,
+  cuadr = TRUE,
+  es = T,
+  places = TRUE,
+  bw = FALSE
+)
 }
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -43,16 +56,25 @@ Requiere que los ficheros de marcas del PescaWin estén en los directorios "C:/G
 GrafMarksGPS("N14","Cant")
 }
 \seealso{
-Other mapas: \code{\link{GrafMarksGPS_2}},
-  \code{\link{MapEcol.camp}}, \code{\link{MapGaltal}},
-  \code{\link{MapLansGPS}}, \code{\link{VedaCigala.out}},
-  \code{\link{VedaCigala}}, \code{\link{armap.camp}},
-  \code{\link{armap.tot}}, \code{\link{map.check}},
-  \code{\link{maparea}}, \code{\link{maphistage}},
-  \code{\link{maphistal}}, \code{\link{maphist}}
+Other mapas: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{MapEcol.camp}()},
+\code{\link{MapGaltal}()},
+\code{\link{MapLansGPS}()},
+\code{\link{VedaCigala.out}},
+\code{\link{VedaCigala}},
+\code{\link{armap.camp}()},
+\code{\link{armap.tot}()},
+\code{\link{map.check}()},
+\code{\link{maparea}()},
+\code{\link{maphistage}()},
+\code{\link{maphistal}()},
+\code{\link{maphist}()}
 
-Other PescaWin: \code{\link{GrafMarksGPS_2}},
-  \code{\link{MapLansGPS}}, \code{\link{pasa.lan}}
+Other PescaWin: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{MapLansGPS}()},
+\code{\link{pasa.lan}()}
 }
 \concept{PescaWin}
 \concept{mapas}

@@ -25,9 +25,11 @@ Sirve para control de calidad y asegurándose que no faltan datos o están incom
 qcTalPez.lan("C14",dns="Cant",lan=14,gr=1)
 }
 \seealso{
-Other Control de calidad: \code{\link{qcLW.camp}},
-  \code{\link{qcLWbucl.camp}},
-  \code{\link{qcdistlan.camp}}, \code{\link{qcdtall.camp}},
-  \code{\link{qcdtallrev.camp}}
+Other Control de calidad: 
+\code{\link{qcLW.camp}()},
+\code{\link{qcLWbucl.camp}()},
+\code{\link{qcdistlan.camp}()},
+\code{\link{qcdtall.camp}()},
+\code{\link{qcdtallrev.camp}()}
 }
 \concept{Control de calidad}

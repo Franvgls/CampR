@@ -4,10 +4,27 @@
 \alias{DpthPrflTals}
 \title{Perfil de distribución por profundidad y tallas}
 \usage{
-DpthPrflTals(gr, esp, camps, dns = "Porc", tmin = 0, tmax = 999,
-  cor.time = TRUE, incl2 = T, ind = "n", sex = NA, es = TRUE,
-  ti = TRUE, idi = "l", xmax = NA, nlans = TRUE, spl = FALSE,
-  brks = "Sturges", tabres = TRUE, tit2 = TRUE)
+DpthPrflTals(
+  gr,
+  esp,
+  camps,
+  dns = "Porc",
+  tmin = 0,
+  tmax = 999,
+  cor.time = TRUE,
+  incl2 = T,
+  ind = "n",
+  sex = NA,
+  es = TRUE,
+  ti = TRUE,
+  idi = "l",
+  xmax = NA,
+  nlans = TRUE,
+  spl = FALSE,
+  brks = "Sturges",
+  tabres = TRUE,
+  tit2 = TRUE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados}

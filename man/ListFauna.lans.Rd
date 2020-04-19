@@ -4,8 +4,7 @@
 \alias{ListFauna.lans}
 \title{Capturas de un todos los lances en una campaña}
 \usage{
-ListFauna.lans(camp, dns = "Porc", gr = NA, excl.sect = NA,
-  incl2 = FALSE)
+ListFauna.lans(camp, dns = "Porc", gr = NA, excl.sect = NA, incl2 = FALSE)
 }
 \arguments{
 \item{camp}{Campaña de la que se extrae los datos del lance (lan) un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}

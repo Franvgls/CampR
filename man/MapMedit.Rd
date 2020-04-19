@@ -4,9 +4,19 @@
 \alias{MapMedit}
 \title{Mapa del Mediterráneo Ibérico completo}
 \usage{
-MapMedit(xlims = c(-5.7, 5), ylims = c(35, 43), lwdl = 1,
-  cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE, bw = F,
-  ax = TRUE, wmf = FALSE, es = TRUE, places = TRUE)
+MapMedit(
+  xlims = c(-5.7, 5),
+  ylims = c(35, 43),
+  lwdl = 1,
+  cuadr = FALSE,
+  cuadrMSFD = FALSE,
+  ICESrect = FALSE,
+  bw = F,
+  ax = TRUE,
+  wmf = FALSE,
+  es = TRUE,
+  places = TRUE
+)
 }
 \arguments{
 \item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña}
@@ -41,12 +51,16 @@ Función auxiliar para sacar mapas de la campaña MEDITS
 MapMedit()
 }
 \seealso{
-Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant}}, \code{\link{MapIberia}},
-  \code{\link{MapNort}}, \code{\link{MapPorc}},
-  \code{\link{mapporco}}
+Other mapas base: 
+\code{\link{MapArsa}()},
+\code{\link{MapCant}()},
+\code{\link{MapIberia}()},
+\code{\link{MapNort}()},
+\code{\link{MapPorc}()},
+\code{\link{mapporco}()}
 
-Other Medits: \code{\link{MapIberia}}
+Other Medits: 
+\code{\link{MapIberia}()}
 }
 \concept{Medits}
 \concept{mapas base}

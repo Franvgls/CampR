@@ -18,9 +18,8 @@
 #' @param lans Si T marca las estaciones de muestreo con un punto (si Nlans=FALSE)
 #' @param strat strat Si T represent los estratos
 #' @return Saca mapa con el desarrollo de la campaña con la zona y estratificación incluyendo tierra (Porcupine)
-#' @examples
-#' armap.tot("P14",dns="Porc",noval=TRUE,CTDs=FALSE,bw=TRUE,strat=FALSE,leg=TRUE)
-#' armap.tot("N14",dns="Cant",noval=TRUE,CTDs=FALSE,bw=FALSE,leg=TRUE)
+#' @examples armap.tot("P14",dns="Porc",noval=TRUE,CTDs=FALSE,bw=TRUE,strat=FALSE,leg=TRUE)
+#' @examples armap.tot("N14",dns="Cant",noval=TRUE,CTDs=FALSE,bw=FALSE,leg=TRUE)
 #' @family mapas
 #' @family resumen general
 #' @export

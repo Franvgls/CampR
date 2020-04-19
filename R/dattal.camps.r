@@ -60,7 +60,11 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
     box()
     if (ti) {
        title(main=buscaesp(gr,esp),font.main=4,line=2)
-       title(main=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")),font.main=2,cex.main=.9,line=.9)
+       if (tmin==0) {
+         tmax<-format(paste(tmax,ifelse(unid.camp(grupo,esp)$MED==2,"mm","cm")))
+         title(main=bquote(" "<= .(tmax)),font.main=2,cex.main=.9,line=.9)
+          }
+       else title(main=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")),font.main=2,cex.main=.9,line=.9)
        }
 #    par(op)
   }

@@ -29,7 +29,7 @@
 #' @family mapas
 #' @family tallas
 #' @export
-maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",ICESrect=FALSE,sex=NA,bw=TRUE,ti=TRUE,sub=NULL,
+maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",ICESrect=FALSE,sex=NA,bw=TRUE,ti=TRUE,
   plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,escmult=.25,cexleg=1,years=TRUE) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)
@@ -74,16 +74,16 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
     escala<-signif(max(dumb$peso,na.rm=TRUE),1)*escmult
     }
 	if (is.logical(ti)) {
-		if (ti) {
-      titulo<-list(label=paste(buscaesp(gr,esp,id=idi),"\n",tmin,"-",tmax,medida,ifelse(is.na(sex),"",sex)),
-        font=ifelse(c(idi=="l" & gr!="9" & esp!="999"),4,2))
-      }
-		else {titulo<-NULL}
-		}
+	  if (ti) {titulo<-list(label=buscaesp(gr,esp,id=idi),font=ifelse((idi=="l" & gr!="9" & esp!="999"),4,2))
+	  }
+	  else {titulo<-NULL}
+	}
 	else {
-    if(is.list(ti)) titulo<-ti
-    else titulo<-list(label=ti)
-    }
+	  if(is.list(ti)) titulo<-ti
+	  else titulo<-list(label=ti)
+	}
+	if (tmin==0) sub<-list(label=bquote(" "<=.(format(paste0(tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm"))))),cex=cexleg*.9)
+  else sub<- list(label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
 	if (any(is.na(layout))) {
 		if (ndat!=4) layout=c(1,ndat)
 		if (ndat==4) layout=c(2,2)

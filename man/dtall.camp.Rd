@@ -4,10 +4,29 @@
 \alias{dtall.camp}
 \title{Crea un histograma distribución de tallas estratificada especie y campañas}
 \usage{
-dtall.camp(gr, esp, camp, dns, cor.time = TRUE, ti = FALSE, sub = NA,
-  leg = TRUE, cexleg = 1, bw = TRUE, es = TRUE, sex = TRUE,
-  plot = T, idi = "l", clms = 2, layout = NA, excl.sect = NA,
-  ymax = NA, out.dat = FALSE, years = TRUE, verbose = TRUE)
+dtall.camp(
+  gr,
+  esp,
+  camp,
+  dns,
+  cor.time = TRUE,
+  ti = FALSE,
+  sub = NA,
+  leg = TRUE,
+  cexleg = 1,
+  bw = TRUE,
+  es = TRUE,
+  sex = TRUE,
+  plot = T,
+  idi = "l",
+  clms = 2,
+  layout = NA,
+  excl.sect = NA,
+  ymax = NA,
+  out.dat = FALSE,
+  years = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}

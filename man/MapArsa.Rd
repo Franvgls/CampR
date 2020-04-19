@@ -4,10 +4,22 @@
 \alias{MapArsa}
 \title{Mapa del Golfo de Cádiz}
 \usage{
-MapArsa(xlims = c(-8.1711, -5.5), ylims = c(35.95, 37.35), lwdl = 1,
-  leg = F, cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE,
-  ICESlab = FALSE, ICESlabcex = 0.5, ax = TRUE, bw = F,
-  wmf = FALSE, es = TRUE, places = TRUE)
+MapArsa(
+  xlims = c(-8.1711, -5.5),
+  ylims = c(35.95, 37.35),
+  lwdl = 1,
+  leg = F,
+  cuadr = FALSE,
+  cuadrMSFD = FALSE,
+  ICESrect = FALSE,
+  ICESlab = FALSE,
+  ICESlabcex = 0.5,
+  ax = TRUE,
+  bw = F,
+  wmf = FALSE,
+  es = TRUE,
+  places = TRUE
+)
 }
 \arguments{
 \item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña}
@@ -50,12 +62,17 @@ MapArsa()
 \seealso{
 {\link{MapCant}}, {\link{mapporco}}
 
-Other mapas base: \code{\link{MapCant}},
-  \code{\link{MapIberia}}, \code{\link{MapMedit}},
-  \code{\link{MapNort}}, \code{\link{MapPorc}},
-  \code{\link{mapporco}}
+Other mapas base: 
+\code{\link{MapCant}()},
+\code{\link{MapIberia}()},
+\code{\link{MapMedit}()},
+\code{\link{MapNort}()},
+\code{\link{MapPorc}()},
+\code{\link{mapporco}()}
 
-Other ARSA: \code{\link{As1}}, \code{\link{As2}}
+Other ARSA: 
+\code{\link{As1}},
+\code{\link{As2}}
 }
 \concept{ARSA}
 \concept{mapas base}

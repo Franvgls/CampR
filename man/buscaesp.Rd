@@ -20,7 +20,8 @@ Busca el nombre de una especie a partir del código del grupo y especie.Puede da
 buscaesp(1,50)
 }
 \seealso{
-Other datos_especies: \code{\link{buscacod}},
-  \code{\link{talpes.camp}}
+Other datos_especies: 
+\code{\link{buscacod}()},
+\code{\link{talpes.camp}()}
 }
 \concept{datos_especies}

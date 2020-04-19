@@ -4,11 +4,31 @@
 \alias{grafhistbox}
 \title{Evolución en biomasa o abundancia de la especie en la serie histórica}
 \usage{
-grafhistbox(gr, esp, camps, dns = "Porc", ind = "p", cor.time = TRUE,
-  kg = TRUE, ci.lev = 0.8, DLS = F, DLSrat = c(2, 5), idi = "l",
-  SE = TRUE, es = TRUE, excl.sect = NA, sector = NA, ti = TRUE,
-  Nas = FALSE, ymax = NA, mar = NA, tline = FALSE, years = TRUE,
-  sub = FALSE, cex.leg = 1.1)
+grafhistbox(
+  gr,
+  esp,
+  camps,
+  dns = "Porc",
+  ind = "p",
+  cor.time = TRUE,
+  kg = TRUE,
+  ci.lev = 0.8,
+  DLS = F,
+  DLSrat = c(2, 5),
+  idi = "l",
+  SE = TRUE,
+  es = TRUE,
+  excl.sect = NA,
+  sector = NA,
+  ti = TRUE,
+  Nas = FALSE,
+  ymax = NA,
+  mar = NA,
+  tline = FALSE,
+  years = TRUE,
+  sub = FALSE,
+  cex.leg = 1.1
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6}
@@ -72,7 +92,9 @@ grafhistbox(1,45,Nsh[1:31],"Cant",es=FALSE,years=TRUE,tline=FALSE,DLS=TRUE,ti=TR
 \seealso{
 {\link{grafhistbox.comp}}
 
-Other abunds: \code{\link{grafhistbox.comp}},
-  \code{\link{histboxplot.comp}}, \code{\link{histboxplot}}
+Other abunds: 
+\code{\link{grafhistbox.comp}()},
+\code{\link{histboxplot.comp}()},
+\code{\link{histboxplot}()}
 }
 \concept{abunds}

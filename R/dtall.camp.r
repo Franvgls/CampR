@@ -128,7 +128,8 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
   if (leg & (haysex != 0)) {
   	ddd<-tapply(a$n,a$sex,sum)
     leg<-list(columns=3,space="top",rectangles=list(T,size=5),
-		  col=colbars[c(2,3,1)],text=list(labels=sxn[c(3,1,2)],col="black",cex=cexleg*ifelse(!plot,.7,.9)))}     #,col=colbars
+		  col=colbars[c(2,3,1)],text=list(labels=sxn[c(3,1,2)],col="black",
+		                                  cex=cexleg*ifelse(!plot,.7,.9)))}     #,col=colbars
 	else {leg<-NULL}
 	xlimi<-c(min(a$talla)*(.95-1),max(a$talla)*1.05)
 	if (is.character(sub)) sub=list(label=sub,font=2,cex=cexleg*.9)

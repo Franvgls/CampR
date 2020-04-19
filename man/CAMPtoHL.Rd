@@ -4,8 +4,14 @@
 \alias{CAMPtoHL}
 \title{Exporta datos de formato CAMP a formato DATRAs HL. Depende de que los códigos Aphia estén correctos en especies.dbf da error si son incompletos}
 \usage{
-CAMPtoHL(camp, dns, inclSpecie = FALSE, quart = TRUE, incl2 = FALSE,
-  export = FALSE)
+CAMPtoHL(
+  camp,
+  dns,
+  inclSpecie = FALSE,
+  quart = TRUE,
+  incl2 = FALSE,
+  export = FALSE
+)
 }
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}

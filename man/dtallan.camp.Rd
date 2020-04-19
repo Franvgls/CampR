@@ -4,8 +4,16 @@
 \alias{dtallan.camp}
 \title{Valores absolutos en número por talla}
 \usage{
-dtallan.camp(gr, esp, camp, dns, lances = NA, sex = FALSE,
-  muestr = TRUE)
+dtallan.camp(
+  gr,
+  esp,
+  camp,
+  dns,
+  lances = NA,
+  depth_range = NA,
+  sex = FALSE,
+  muestr = TRUE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
@@ -17,6 +25,8 @@ dtallan.camp(gr, esp, camp, dns, lances = NA, sex = FALSE,
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{lances}{Da la opción de escribir un número de lance y saca los valores solo para ese lance o grupo de lances.}
+
+\item{depth_range}{NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances.}
 
 \item{sex}{Por defecto (F) suma todos los individuos como indet. T saca los datos por sexo si los hay, no afecta si sólo hay indeterminados (3)}
 
@@ -31,8 +41,10 @@ dtallan.camp(gr=1,esp=10,camp="N14",dns="Cant",lances=108,muestr=F)
 dtallan.camp(gr=1,esp=10,camp="N14",dns="Cant",lances=NA,muestr=F)
 }
 \seealso{
-Other Distribuciones de tallas: \code{\link{denstall.camp}},
-  \code{\link{dtall.lan}}, \code{\link{dtallan.peso}},
-  \code{\link{dtallbarplot}}
+Other Distribuciones de tallas: 
+\code{\link{denstall.camp}()},
+\code{\link{dtall.lan}()},
+\code{\link{dtallan.peso}()},
+\code{\link{dtallbarplot}()}
 }
 \concept{Distribuciones de tallas}

@@ -24,17 +24,27 @@ mapporco();lines(lat~long,VedaCigala,col=2,lwd=2)
 Medidas de gestión del stock de Cigala del banco de Porcupine FU 16 \url{http://www.nwwac.org/_fileupload/Opinions and Advice/Year 12/Dictamen_CCANOC_Gestion_Cigala_Porcupine_UF16_2017_ES.pdf}
 }
 \seealso{
-Other mapas: \code{\link{GrafMarksGPS_2}},
-  \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
-  \code{\link{MapGaltal}}, \code{\link{MapLansGPS}},
-  \code{\link{VedaCigala.out}}, \code{\link{armap.camp}},
-  \code{\link{armap.tot}}, \code{\link{map.check}},
-  \code{\link{maparea}}, \code{\link{maphistage}},
-  \code{\link{maphistal}}, \code{\link{maphist}}
+Other mapas: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{GrafMarksGPS}()},
+\code{\link{MapEcol.camp}()},
+\code{\link{MapGaltal}()},
+\code{\link{MapLansGPS}()},
+\code{\link{VedaCigala.out}},
+\code{\link{armap.camp}()},
+\code{\link{armap.tot}()},
+\code{\link{map.check}()},
+\code{\link{maparea}()},
+\code{\link{maphistage}()},
+\code{\link{maphistal}()},
+\code{\link{maphist}()}
 
-Other Porcupine: \code{\link{MapPorc}}, \code{\link{Psh}},
-  \code{\link{VedaCigala.out}}, \code{\link{maparea}},
-  \code{\link{mapporco}}
+Other Porcupine: 
+\code{\link{MapPorc}()},
+\code{\link{Psh}},
+\code{\link{VedaCigala.out}},
+\code{\link{maparea}()},
+\code{\link{mapporco}()}
 }
 \concept{Porcupine}
 \concept{mapas}

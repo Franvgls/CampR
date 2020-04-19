@@ -4,8 +4,17 @@
 \alias{qcdtall.camp}
 \title{Revisión del histograma de distribución de tallas}
 \usage{
-qcdtall.camp(gr, esp, camp = "P12", dns = "Porc", lance, ti = FALSE,
-  legend = TRUE, idi = "l", ymax = NA)
+qcdtall.camp(
+  gr,
+  esp,
+  camp = "P12",
+  dns = "Porc",
+  lance,
+  ti = FALSE,
+  legend = TRUE,
+  idi = "l",
+  ymax = NA
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
@@ -43,9 +52,11 @@ Gerritsen & McGrath. 2007. Precision estimates and suggested sample sizes for le
 \seealso{
 {\link{dtall.camp}}
 
-Other Control de calidad: \code{\link{qcLW.camp}},
-  \code{\link{qcLWbucl.camp}}, \code{\link{qcTalPez.lan}},
-  \code{\link{qcdistlan.camp}},
-  \code{\link{qcdtallrev.camp}}
+Other Control de calidad: 
+\code{\link{qcLW.camp}()},
+\code{\link{qcLWbucl.camp}()},
+\code{\link{qcTalPez.lan}()},
+\code{\link{qcdistlan.camp}()},
+\code{\link{qcdtallrev.camp}()}
 }
 \concept{Control de calidad}

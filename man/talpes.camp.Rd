@@ -15,7 +15,8 @@ talpes.camp(gr, esp)
 Extrae los parámetros a y b de la relación talla-peso de una especie determinada
 }
 \seealso{
-Other datos_especies: \code{\link{buscacod}},
-  \code{\link{buscaesp}}
+Other datos_especies: 
+\code{\link{buscacod}()},
+\code{\link{buscaesp}()}
 }
 \concept{datos_especies}

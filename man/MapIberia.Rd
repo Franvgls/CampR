@@ -4,10 +4,25 @@
 \alias{MapIberia}
 \title{Mapa de la Península Ibérica completo}
 \usage{
-MapIberia(xlims = c(-10.2, 5), ylims = c(35.9, 44.5), lwdl = 1,
-  cuadr = FALSE, cuadrMSFD = FALSE, ICESrect = FALSE, nepFU = F,
-  FUs = c(NULL), ICESlab = FALSE, ICESlabcex = 0.5, bw = F,
-  ax = TRUE, wmf = FALSE, es = TRUE, places = TRUE, escmult = 1)
+MapIberia(
+  xlims = c(-10.2, 5),
+  ylims = c(35.9, 44.5),
+  lwdl = 1,
+  cuadr = FALSE,
+  cuadrMSFD = FALSE,
+  ICESrect = FALSE,
+  ICESlab = FALSE,
+  ICESlabcex = 0.6,
+  nepFU = F,
+  FUs = c(NULL),
+  bw = F,
+  ax = TRUE,
+  wmf = FALSE,
+  es = TRUE,
+  places = TRUE,
+  escmult = 1,
+  add = FALSE
+)
 }
 \arguments{
 \item{xlims}{Define los limites longitudinales del mapa, los valores por defecto son los del total del ?rea de la campaña}
@@ -26,6 +41,8 @@ MapIberia(xlims = c(-10.2, 5), ylims = c(35.9, 44.5), lwdl = 1,
 
 \item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 
+\item{FUs}{Por defecto NULL pero si se incluye un vector con la lista de las unidades funcionales las pinta}
+
 \item{bw}{si T mapa con tierra en gris, si F tierra en color}
 
 \item{ax}{Si T saca los ejes x e y}
@@ -36,7 +53,9 @@ MapIberia(xlims = c(-10.2, 5), ylims = c(35.9, 44.5), lwdl = 1,
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
 
-\item{escmult}{=1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, m?s de uno lo aumenta}
+\item{escmult}{=1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, más de uno lo aumenta}
+
+\item{NepFU}{Si T saca recuadros marcando los rectángulos de las unidades funcionales de cigala}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones
@@ -46,14 +65,19 @@ Función auxiliar para sacar mapas de la campaña MEDITS
 }
 \examples{
 MapIberia()
+MapIberia(nepFU=T,FUs=list(FU25,FU31),ICESrect=TRUE,ICESlab=T)
 }
 \seealso{
-Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapCant}}, \code{\link{MapMedit}},
-  \code{\link{MapNort}}, \code{\link{MapPorc}},
-  \code{\link{mapporco}}
+Other mapas base: 
+\code{\link{MapArsa}()},
+\code{\link{MapCant}()},
+\code{\link{MapMedit}()},
+\code{\link{MapNort}()},
+\code{\link{MapPorc}()},
+\code{\link{mapporco}()}
 
-Other Medits: \code{\link{MapMedit}}
+Other Medits: 
+\code{\link{MapMedit}()}
 }
 \concept{Medits}
 \concept{mapas base}

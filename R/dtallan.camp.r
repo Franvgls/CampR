@@ -6,6 +6,7 @@
 #' @param camp Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param lances Da la opción de escribir un número de lance y saca los valores solo para ese lance o grupo de lances.
+#' @param depth_range NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances.
 #' @param sex Por defecto (F) suma todos los individuos como indet. T saca los datos por sexo si los hay, no afecta si sólo hay indeterminados (3)
 #' @param muestr Por defecto (T) pondera los datos por el peso total en la captura del lance, si F coge los medidos realmente
 #' @family Distribuciones de tallas
@@ -14,7 +15,7 @@
 #' dtallan.camp(gr=1,esp=10,camp="N14",dns="Cant",lances=108,muestr=F)
 #' dtallan.camp(gr=1,esp=10,camp="N14",dns="Cant",lances=NA,muestr=F)
 #' @export
-dtallan.camp<- function(gr,esp,camp,dns,lances=NA,sex=FALSE,muestr=TRUE) {
+dtallan.camp<- function(gr,esp,camp,dns,lances=NA,depth_range=NA,sex=FALSE,muestr=TRUE) {
   if (length(camp)>1) stop("Esta función sólo se puede utilizar para una sola campaña")
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -48,6 +49,11 @@ dtallan.camp<- function(gr,esp,camp,dns,lances=NA,sex=FALSE,muestr=TRUE) {
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   if (muestr) ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
+  if (any(!is.na(depth_range) & is.na(lances))) {
+    lances<-datlan.camp(camp,dns,redux=T,incl2=T)[,c("lance","prof")]
+    lances<-subset(lances,prof>depth_range[1] & prof<depth_range[2])$lance
+    print(length(lances))
+  }
   if (any(!is.na(lances))) {
     ntalls<-ntalls[ntalls$lance %in% lances,]
   }

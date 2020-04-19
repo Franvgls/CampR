@@ -47,6 +47,7 @@ CAMPtoHL <-
                 perl = T,useBytes = T)
           }
           especies$aphia[i1] <- worrms::wm_name2id(especies$especie[i1])
+          write.csv(especies[,c("especie","aphia")], "c:/camp/peces.csv", row.names = F)
         }
       }
       write.csv(especies, "c:/camp/peces.csv", row.names = F)

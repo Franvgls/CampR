@@ -4,8 +4,15 @@
 \alias{ecolmatrix.camp}
 \title{Extrae los datos del FAUNA de una especie en concreto.}
 \usage{
-ecolmatrix.camp(gr, esp = 999, camp, dns, ind = "p", incl6 = FALSE,
-  codes = TRUE)
+ecolmatrix.camp(
+  gr,
+  esp = 999,
+  camp,
+  dns,
+  ind = "p",
+  incl6 = FALSE,
+  codes = TRUE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6 ver parámetro incl6 mas abajo}

@@ -4,8 +4,7 @@
 \alias{maparea}
 \title{Mapa general del banco de Porcupine}
 \usage{
-maparea(es = TRUE, leg = TRUE, bw = FALSE, dens = 0,
-  ICESrect = F, sectcol = F)
+maparea(es = TRUE, leg = TRUE, bw = FALSE, dens = 0, ICESrect = F, sectcol = F)
 }
 \arguments{
 \item{es}{Textos en español, si F en inglés}
@@ -26,17 +25,27 @@ maparea(sectcol=TRUE,leg=TRUE)
 maparea(sectcol=FALSE,leg=FALSE)
 }
 \seealso{
-Other mapas: \code{\link{GrafMarksGPS_2}},
-  \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
-  \code{\link{MapGaltal}}, \code{\link{MapLansGPS}},
-  \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
-  \code{\link{armap.camp}}, \code{\link{armap.tot}},
-  \code{\link{map.check}}, \code{\link{maphistage}},
-  \code{\link{maphistal}}, \code{\link{maphist}}
+Other mapas: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{GrafMarksGPS}()},
+\code{\link{MapEcol.camp}()},
+\code{\link{MapGaltal}()},
+\code{\link{MapLansGPS}()},
+\code{\link{VedaCigala.out}},
+\code{\link{VedaCigala}},
+\code{\link{armap.camp}()},
+\code{\link{armap.tot}()},
+\code{\link{map.check}()},
+\code{\link{maphistage}()},
+\code{\link{maphistal}()},
+\code{\link{maphist}()}
 
-Other Porcupine: \code{\link{MapPorc}}, \code{\link{Psh}},
-  \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
-  \code{\link{mapporco}}
+Other Porcupine: 
+\code{\link{MapPorc}()},
+\code{\link{Psh}},
+\code{\link{VedaCigala.out}},
+\code{\link{VedaCigala}},
+\code{\link{mapporco}()}
 }
 \concept{Porcupine}
 \concept{mapas}

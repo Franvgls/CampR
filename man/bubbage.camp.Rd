@@ -4,8 +4,7 @@
 \alias{bubbage.camp}
 \title{Crea gráficos de burbujas de la abundancia sqrt(num)}
 \usage{
-bubbage.camp(gr, esp, camps, dns = "Porc", plus = 8, recr = 0,
-  cor.time = TRUE)
+bubbage.camp(gr, esp, camps, dns = "Porc", plus = 8, recr = 0, cor.time = TRUE)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?}
@@ -32,12 +31,16 @@ Tipico bubleplot de análisis de VPA y evaluación de poblaciones con gráfico p
 bubbage.camp(1,43,Nsh[1:29],"Cant",8,0)
 }
 \seealso{
-Other edades: \code{\link{ALKs.dns.camp}},
-  \code{\link{GetAlk.camp}}, \code{\link{datagegr.camp}},
-  \code{\link{edadsect.camp}}, \code{\link{edadstr.camp}},
-  \code{\link{grafedtal.camps}},
-  \code{\link{grafedtal.camp}},
-  \code{\link{logabage.camp}},
-  \code{\link{logabage2.camp}}, \code{\link{maphistage}}
+Other edades: 
+\code{\link{ALKs.dns.camp}()},
+\code{\link{GetAlk.camp}()},
+\code{\link{datagegr.camp}()},
+\code{\link{edadsect.camp}()},
+\code{\link{edadstr.camp}()},
+\code{\link{grafedtal.camps}()},
+\code{\link{grafedtal.camp}()},
+\code{\link{logabage.camp}()},
+\code{\link{logabage2.camp}()},
+\code{\link{maphistage}()}
 }
 \concept{edades}

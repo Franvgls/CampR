@@ -3,14 +3,14 @@
 #' Grafica todas las dragas o CTDs de una campaña siempre que se hayan marcado con el PescaWin durante la misma
 #' Requiere que los ficheros de marcas del PescaWin estén en los directorios "C:/GPS/mrk/porcupine/" para Porcupine o "C:/GPS/mrk/Norte/" para Demersales y "C:/GPS/mrk/arsa/" para el Golfo de Cádiz
 #' @param camp Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" 
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa"
 #' @param event Elige el evento que se representa, dragas o CTDs
 #' @param add Si T añade los puntos al gráfico previo, si F saca el gráfico nuevo
 #' @param ti Si T incluye un título con el nombre de la campaña
 #' @param years Si T cambia el código de campaña por el año de la campaña si tiene formato camp (ver parámetro camp)
 #' @param ptbg Definido como NA, si tiene valor 1:4 o colores definidos en R cambia el color del punto de los datos.
-#' @param xlims Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña 
-#' @param ylims Define los limites latitudinales del mapa, si se deja en NA toma los límites de lat del área definida en la campaña  
+#' @param xlims Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña
+#' @param ylims Define los limites latitudinales del mapa, si se deja en NA toma los límites de lat del área definida en la campaña
 #' @param cuadr Si T por defecto, incluye cuadrículas de 5x5 millas, si F no incluye las líneas
 #' @param places si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine
 #' @param es Si T por defecto los carteles salen en español, en caso contrario en inglés
@@ -29,10 +29,10 @@ GrafMarksGPS<-function(camp,dns="Cant",event="Draga",add=FALSE,ti=TRUE,years=TRU
     if (!add) {
       if (any(!is.na(xlims))) {MapNort(xlims=xlims,ylims=ylims,cuadr=cuadr,es=es,places=places,bw=bw)} else MapNort(cuadr=cuadr,es=es,places=places,bw=bw)
     }
-    legend("bottomright",paste0("Dredge","s ",ifelse(years,camptoyear(camp),camp)),pch=ifelse(is.na(pch),25,pch),pt.bg=ptbg,inset=ifelse(add,c(.15,.15),c(.1,.15)),bty="n")
+    legend("bottomright",paste0("Dredge","s ",ifelse(years,camptoyear(camp),camp)),pch=ifelse(is.na(pch),25,pch),pt.bg=ptbg,inset=ifelse(add,c(.2,.10),c(.1,.15)),bty="n")
   }
     if (substr(dns,1,4)=="Porc" |substr(dns,1,4)=="Pnew") {
-    di<-"Porcupine"    
+    di<-"Porcupine"
     fil<-paste0("Porcupin_",camp,".mrk")
     if (!add) {
       if (any(!is.na(xlims))) {mapporco(xlims=xlims,ylims=ylims,cuadr=cuadr)} else mapporco(cuadr=cuadr)

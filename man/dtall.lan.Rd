@@ -4,9 +4,21 @@
 \alias{dtall.lan}
 \title{Histograma de distribución de tallas de un lance concreto o la distribución media en varios lances}
 \usage{
-dtall.lan(gr, esp, camp, dns = "Cant", lances = NA, ti = FALSE,
-  legend = TRUE, bw = TRUE, es = TRUE, sex = TRUE, idi = "l",
-  ymax = NA)
+dtall.lan(
+  gr,
+  esp,
+  camp,
+  dns = "Cant",
+  lances = NA,
+  depth_range = c(NA),
+  ti = FALSE,
+  legend = TRUE,
+  bw = TRUE,
+  es = TRUE,
+  sex = TRUE,
+  idi = "l",
+  ymax = NA
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos (4 equinodermos y 5 invertebrados normalmente no medidos)}
@@ -18,6 +30,8 @@ dtall.lan(gr, esp, camp, dns = "Cant", lances = NA, ti = FALSE,
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{lances}{Lance o lances de los que se quiere sacar la distribución de tallas. Si NA coge todos los lances de la campaña.}
+
+\item{depth_range}{NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances.}
 
 \item{ti}{Si T añade título al gráfico, el nombre de la especie en latín.}
 
@@ -43,8 +57,10 @@ Dibuja el histograma de la distribución de tallas de la especie por sexos (si e
 dtall.lan(1,36,"P08","Porc",lances=c(10:15,17),ti=TRUE)
 }
 \seealso{
-Other Distribuciones de tallas: \code{\link{denstall.camp}},
-  \code{\link{dtallan.camp}}, \code{\link{dtallan.peso}},
-  \code{\link{dtallbarplot}}
+Other Distribuciones de tallas: 
+\code{\link{denstall.camp}()},
+\code{\link{dtallan.camp}()},
+\code{\link{dtallan.peso}()},
+\code{\link{dtallbarplot}()}
 }
 \concept{Distribuciones de tallas}

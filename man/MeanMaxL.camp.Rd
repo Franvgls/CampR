@@ -4,8 +4,16 @@
 \alias{MeanMaxL.camp}
 \title{Talla máxima media del grupo de especies elegidas}
 \usage{
-MeanMaxL.camp(gr = 1, esps, camp, dns = "Cant", lmax = NA,
-  cor.time = TRUE, incl2 = FALSE, excl.sect = NA)
+MeanMaxL.camp(
+  gr = 1,
+  esps,
+  camp,
+  dns = "Cant",
+  lmax = NA,
+  cor.time = TRUE,
+  incl2 = FALSE,
+  excl.sect = NA
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos (4 equinodermos 5 invertebrados habitualmente no medidos)}
@@ -35,7 +43,8 @@ Para cada especie calcula la abundancia estratificada y la talla máxima, con el
 MeanMaxL.camp(gr=1,c(50,42,43,44,45),"N05","Cant")
 }
 \seealso{
-Other MSFD: \code{\link{MeanMaxL.camps}},
-  \code{\link{P95talesps.camp}}
+Other MSFD: 
+\code{\link{MeanMaxL.camps}()},
+\code{\link{P95talesps.camp}()}
 }
 \concept{MSFD}

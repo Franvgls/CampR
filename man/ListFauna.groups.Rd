@@ -4,8 +4,15 @@
 \alias{ListFauna.groups}
 \title{Capturas medias por lance de cada especie de gr (grupo) de varias campañas}
 \usage{
-ListFauna.groups(camp, dns, excl.sect = NA, incl2 = FALSE,
-  cor.time = TRUE, kg = TRUE)
+ListFauna.groups(
+  camp,
+  dns,
+  excl.sect = NA,
+  incl2 = FALSE,
+  verbose = TRUE,
+  cor.time = TRUE,
+  kg = TRUE
+)
 }
 \arguments{
 \item{camp}{campaña de la que se extrae el listado de especies capturadas: un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -15,6 +22,8 @@ ListFauna.groups(camp, dns, excl.sect = NA, incl2 = FALSE,
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 
 \item{incl2}{Si T incluye los lances especiales "2", en estos algunas abundancias salen como NaN al no poder calcular los índices estratificados por no tener asociada un área a los estratos}
+
+\item{verbose}{si T imprime resultados en pantalla si F no.....}
 }
 \value{
 Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr en cada campaña. Columnas: camp,gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp) LOs valores NaN corresponden a especies que sólo aparecen en lances especiales

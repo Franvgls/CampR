@@ -6,9 +6,23 @@
 para dar una idea de la distribución de la especie. Si es muy escasa se puede pasar a representar
 solo a puntos de aparición}
 \usage{
-MapCant(gr, esp, camps, dns = "Cant", color = 1, puntos = FALSE,
-  DpthStr = TRUE, bw = FALSE, add = FALSE, esc.mult = 1,
-  ti = FALSE, ind = "p", ceros = F, es = T, places = T)
+MapCant(
+  gr,
+  esp,
+  camps,
+  dns = "Cant",
+  color = 1,
+  puntos = FALSE,
+  DpthStr = TRUE,
+  bw = FALSE,
+  add = FALSE,
+  esc.mult = 1,
+  ti = FALSE,
+  ind = "p",
+  ceros = F,
+  es = T,
+  places = T
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos}
@@ -43,12 +57,16 @@ Crea un mapa para la campaña Demersales con información para la especie solici
 \seealso{
 {\link{maphist}}
 
-Other mapas base: \code{\link{MapArsa}},
-  \code{\link{MapIberia}}, \code{\link{MapMedit}},
-  \code{\link{MapNort}}, \code{\link{MapPorc}},
-  \code{\link{mapporco}}
+Other mapas base: 
+\code{\link{MapArsa}()},
+\code{\link{MapIberia}()},
+\code{\link{MapMedit}()},
+\code{\link{MapNort}()},
+\code{\link{MapPorc}()},
+\code{\link{mapporco}()}
 
-Other Galicia Cantabrico: \code{\link{MapNort}}
+Other Galicia Cantabrico: 
+\code{\link{MapNort}()}
 }
 \concept{Galicia Cantabrico}
 \concept{mapas base}

@@ -20,7 +20,8 @@ Busca el código del grupo, especie y la familia a partir del nombre o fragmento
 buscacod("sph")
 }
 \seealso{
-Other datos_especies: \code{\link{buscaesp}},
-  \code{\link{talpes.camp}}
+Other datos_especies: 
+\code{\link{buscaesp}()},
+\code{\link{talpes.camp}()}
 }
 \concept{datos_especies}

@@ -4,8 +4,17 @@
 \alias{CVlist.camp}
 \title{Abundancias en número y peso totales para todas las especies de un grupo en una campaña}
 \usage{
-CVlist.camp(gr = "1", camp, dns, kg = TRUE, dec = 3,
-  percents = FALSE, cor.time = TRUE, excl.sect = NA, minim = F)
+CVlist.camp(
+  gr = "1",
+  camp,
+  dns,
+  kg = TRUE,
+  dec = 3,
+  percents = FALSE,
+  cor.time = TRUE,
+  excl.sect = NA,
+  minim = F
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6}

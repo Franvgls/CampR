@@ -30,6 +30,7 @@ ecolgr.camp(1,999,"M08","Medi",ind="n")
 \seealso{
 {\link{MapEcol.camp}}
 
-Other ecologia: \code{\link{MapEcol.camp}}
+Other ecologia: 
+\code{\link{MapEcol.camp}()}
 }
 \concept{ecologia}

@@ -4,8 +4,18 @@
 \alias{dattalgr.camp}
 \title{Biomasa y abundancia para un rango de talla}
 \usage{
-dattalgr.camp(gr, esp, camp, dns = "Porc", tmin = 1, tmax = 999,
-  cor.time = TRUE, incl2 = TRUE, sex = NA, ind = "n")
+dattalgr.camp(
+  gr,
+  esp,
+  camp,
+  dns = "Porc",
+  tmin = 1,
+  tmax = 999,
+  cor.time = TRUE,
+  incl2 = TRUE,
+  sex = NA,
+  ind = "n"
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}

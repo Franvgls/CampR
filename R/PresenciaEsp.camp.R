@@ -50,10 +50,16 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
    }
    else {
    absp<-fauna[fauna$GRUPO==as.integer(gr) & fauna$ESP==as.integer(esp),c(1:2,4:5)]
+   if (nrow(tallas)==0) {
+     message(paste("No hay datos de tallas",buscaesp(gr,esp),"en ninguna campaña del directorio",dumbdir))
+     ntalls<-tallas
+        }
+   else {
    ntalls<-tallas[tallas$GRUPO==as.integer(gr) & tallas$ESP==as.integer(esp),c(1,4,7,6,8,5,9)]
+   ntalls$camp<-as.factor(as.character(ntalls$camp))
+  }
    absp<-absp[absp$PESO_GR>0,]
    absp$camp<-as.factor(as.character(absp$camp))
-   ntalls$camp<-as.factor(as.character(ntalls$camp))
    message(paste0("En el directorio ",dumbdir,": "))
    if (length(levels(absp$camp))>0) {
       message(paste0(buscaesp(gr,esp)," aparece en las campañas: ",paste(levels(absp$camp),sep=", ",collapse=", ")))
@@ -64,7 +70,7 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
       }
       else message(paste("No hay información de tallas para",buscaesp(gr,esp)))
    }
-   if (tablas) data.table(campañas=dumb[grepl("CAMP",dumb)],faunas=dumb[grepl("FAUNA",dumb)],tallas=dumb[grepl("NTALL",dumb)])
+   if (tablas) data.table(campanas=dumb[grepl("CAMP",dumb)],faunas=dumb[grepl("FAUNA",dumb)],tallas=dumb[grepl("NTALL",dumb)])
    }
    }
 

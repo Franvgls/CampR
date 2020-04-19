@@ -4,10 +4,25 @@
 \alias{armap.tot}
 \title{Mapa ampliado de Porcupine con las estaciones realizadas}
 \usage{
-armap.tot(camp, dns = "Porc", ICESrect = FALSE, lwdl = 1, col = 2,
-  argr = 2, arrow = FALSE, leg = FALSE, es = FALSE, bw = TRUE,
-  noval = FALSE, Nlans = FALSE, CTDs = FALSE, NCTDs = FALSE,
-  Dates = FALSE, lans = TRUE, strat = FALSE)
+armap.tot(
+  camp,
+  dns = "Porc",
+  ICESrect = FALSE,
+  lwdl = 1,
+  col = 2,
+  argr = 2,
+  arrow = FALSE,
+  leg = FALSE,
+  es = FALSE,
+  bw = TRUE,
+  noval = FALSE,
+  Nlans = FALSE,
+  CTDs = FALSE,
+  NCTDs = FALSE,
+  Dates = FALSE,
+  lans = TRUE,
+  strat = FALSE
+)
 }
 \arguments{
 \item{camp}{Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -53,15 +68,23 @@ armap.tot("P14",dns="Porc",noval=TRUE,CTDs=FALSE,bw=TRUE,strat=FALSE,leg=TRUE)
 armap.tot("N14",dns="Cant",noval=TRUE,CTDs=FALSE,bw=FALSE,leg=TRUE)
 }
 \seealso{
-Other mapas: \code{\link{GrafMarksGPS_2}},
-  \code{\link{GrafMarksGPS}}, \code{\link{MapEcol.camp}},
-  \code{\link{MapGaltal}}, \code{\link{MapLansGPS}},
-  \code{\link{VedaCigala.out}}, \code{\link{VedaCigala}},
-  \code{\link{armap.camp}}, \code{\link{map.check}},
-  \code{\link{maparea}}, \code{\link{maphistage}},
-  \code{\link{maphistal}}, \code{\link{maphist}}
+Other mapas: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{GrafMarksGPS}()},
+\code{\link{MapEcol.camp}()},
+\code{\link{MapGaltal}()},
+\code{\link{MapLansGPS}()},
+\code{\link{VedaCigala.out}},
+\code{\link{VedaCigala}},
+\code{\link{armap.camp}()},
+\code{\link{map.check}()},
+\code{\link{maparea}()},
+\code{\link{maphistage}()},
+\code{\link{maphistal}()},
+\code{\link{maphist}()}
 
-Other resumen general: \code{\link{armap.camp}}
+Other resumen general: 
+\code{\link{armap.camp}()}
 }
 \concept{mapas}
 \concept{resumen general}

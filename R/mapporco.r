@@ -18,7 +18,7 @@
 #' @family mapas base
 #' @family Porcupine
 #' @export
-mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,cuadr=FALSE,ICESrect=FALSE,label=FALSE,colo=2,ax=TRUE,wmf=FALSE,corners=FALSE) {
+mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,cuadr=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,label=FALSE,colo=2,ax=TRUE,wmf=FALSE,corners=FALSE) {
   asp<-diff(c(50.5,54.5))/(diff(range(-15.5,-10.5))*cos(mean(50.5,54.5)*pi/180))
   if (wmf) win.metafile(filename = "porconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3, mgp=c(2,.5,0))
@@ -44,6 +44,7 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,cuadr=FALSE,IC
     abline(h=seq(50,55,by=.5),col=gray(.2),lwd=.6)
     abline(v=seq(-18,-10,by=1),col=gray(.2),lwd=.6)
   }
+  if (ICESlab) text(c(stat_y+.215)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
   maps::map(Porc.map,add=TRUE,fill=TRUE,col=c(rep(NA,nstrat),rep("gray85",nland)),lwd=lwdl)
   box(lwd=lwdl)
   if (label) {

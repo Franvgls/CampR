@@ -4,8 +4,16 @@
 \alias{dattal.camp}
 \title{Abundancia estratificada por talla y sexo}
 \usage{
-dattal.camp(gr, esp, camp, dns, cor.time = TRUE, excl.sect = NA,
-  sex = TRUE, verbose = TRUE)
+dattal.camp(
+  gr,
+  esp,
+  camp,
+  dns,
+  cor.time = TRUE,
+  excl.sect = NA,
+  sex = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}

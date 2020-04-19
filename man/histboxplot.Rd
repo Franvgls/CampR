@@ -4,10 +4,25 @@
 \alias{histboxplot}
 \title{Gráficos de boxplot para la serie histórica incluyendo lances especiales o no y con rangosx de profundidad}
 \usage{
-histboxplot(gr, esp, camps, dns = "Porc", cor.time = TRUE,
-  incl2 = TRUE, es = T, bw = TRUE, ti = TRUE, sub = NULL,
-  out.dat = FALSE, ind = "p", idi = "l", ceros = TRUE,
-  cex.leg = 1.1, years = TRUE, profrange = NA)
+histboxplot(
+  gr,
+  esp,
+  camps,
+  dns = "Porc",
+  cor.time = TRUE,
+  incl2 = TRUE,
+  es = T,
+  bw = TRUE,
+  ti = TRUE,
+  sub = NULL,
+  out.dat = FALSE,
+  ind = "p",
+  idi = "l",
+  ceros = TRUE,
+  cex.leg = 1.1,
+  years = TRUE,
+  profrange = NA
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos}
@@ -61,7 +76,9 @@ histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE)
 histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n")
 }
 \seealso{
-Other abunds: \code{\link{grafhistbox.comp}},
-  \code{\link{grafhistbox}}, \code{\link{histboxplot.comp}}
+Other abunds: 
+\code{\link{grafhistbox.comp}()},
+\code{\link{grafhistbox}()},
+\code{\link{histboxplot.comp}()}
 }
 \concept{abunds}

@@ -22,7 +22,9 @@ Devuelve un data.frame con datos long_l,lat_l,prof_l,long_v,lat_v,prof_v en grad
 Saca un fichero de lances de la campaña con el formato de datos del PescaWin
 }
 \seealso{
-Other PescaWin: \code{\link{GrafMarksGPS_2}},
-  \code{\link{GrafMarksGPS}}, \code{\link{MapLansGPS}}
+Other PescaWin: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{GrafMarksGPS}()},
+\code{\link{MapLansGPS}()}
 }
 \concept{PescaWin}

@@ -4,8 +4,15 @@
 \alias{edadsect.camp}
 \title{Calcula las abundancias estratificadas por edad}
 \usage{
-edadsect.camp(gr, esp, camp, dns = "Porc", plus = 8, cor.time = TRUE,
-  AltAlk = NA)
+edadsect.camp(
+  gr,
+  esp,
+  camp,
+  dns = "Porc",
+  plus = 8,
+  cor.time = TRUE,
+  AltAlk = NA
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?}
@@ -29,12 +36,16 @@ Función de resultados: abundancias estratificadas por edad para cada sector geo
 edadsect.camp("1"," 45","P01","Porc",8)
 }
 \seealso{
-Other edades: \code{\link{ALKs.dns.camp}},
-  \code{\link{GetAlk.camp}}, \code{\link{bubbage.camp}},
-  \code{\link{datagegr.camp}}, \code{\link{edadstr.camp}},
-  \code{\link{grafedtal.camps}},
-  \code{\link{grafedtal.camp}},
-  \code{\link{logabage.camp}},
-  \code{\link{logabage2.camp}}, \code{\link{maphistage}}
+Other edades: 
+\code{\link{ALKs.dns.camp}()},
+\code{\link{GetAlk.camp}()},
+\code{\link{bubbage.camp}()},
+\code{\link{datagegr.camp}()},
+\code{\link{edadstr.camp}()},
+\code{\link{grafedtal.camps}()},
+\code{\link{grafedtal.camp}()},
+\code{\link{logabage.camp}()},
+\code{\link{logabage2.camp}()},
+\code{\link{maphistage}()}
 }
 \concept{edades}

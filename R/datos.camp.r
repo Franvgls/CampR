@@ -72,7 +72,7 @@ datos.camp<-function(gr,esp,camp,dns,cor.time=TRUE,kg=TRUE,verbose=TRUE) {
   }
   datos<-merge(mm,area,by.x="sector",by.y="sector")
   datos$arsect<-as.numeric(as.character(datos$arsect))
-  if (especial>0 & sum(mm$numero)==0) {message(paste0("campaña ",camp,","," capturas en lances especiales pero no en los lances válidos estandarizados")) }
+  if (especial>0 & sum(mm$numero)==0 & verbose) {message(paste0("campaña ",camp,","," capturas en lances especiales pero no en los lances válidos estandarizados")) }
   if (length(esp)>1 & verbose) {message(paste0("Códigos de especie: ",paste(esp,collapse=", ")))}
   datos[order(datos$lance),]
 }

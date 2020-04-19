@@ -4,8 +4,7 @@
 \alias{qcLWbucl.camp}
 \title{Outliers en capturas segun la relación talla-peso de todos los peces de una campaña}
 \usage{
-qcLWbucl.camp(camp = "P12", dns = "Porc", nlans = 2,
-  out.dat = FALSE)
+qcLWbucl.camp(camp = "P12", dns = "Porc", nlans = 2, out.dat = FALSE)
 }
 \arguments{
 \item{camp}{Campaña de la que se procesan y comprueban los posibles outliers en el peso de las capturas de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
@@ -28,8 +27,11 @@ qcLWbucl.camp("P11","Porc",nlans=1)
 \seealso{
 {\link{qcLW.camp}}
 
-Other Control de calidad: \code{\link{qcLW.camp}},
-  \code{\link{qcTalPez.lan}}, \code{\link{qcdistlan.camp}},
-  \code{\link{qcdtall.camp}}, \code{\link{qcdtallrev.camp}}
+Other Control de calidad: 
+\code{\link{qcLW.camp}()},
+\code{\link{qcTalPez.lan}()},
+\code{\link{qcdistlan.camp}()},
+\code{\link{qcdtall.camp}()},
+\code{\link{qcdtallrev.camp}()}
 }
 \concept{Control de calidad}

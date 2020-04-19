@@ -4,8 +4,14 @@
 \alias{CAMPtoDeepShark}
 \title{Exporta datos de formato De repuesta a DATA call  DeepSeaSharks2019. Depende de que los códigos Aphia estén correctos en especies.dbf da error si son incompletos}
 \usage{
-CAMPtoDeepShark(camp, dns, inclSpecie = FALSE, quart = TRUE,
-  incl2 = FALSE, export = FALSE)
+CAMPtoDeepShark(
+  camp,
+  dns,
+  inclSpecie = FALSE,
+  quart = TRUE,
+  incl2 = FALSE,
+  export = FALSE
+)
 }
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
