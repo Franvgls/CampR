@@ -1,17 +1,18 @@
-#' Calcula las abundancias estratificadas por edad 
-#'  
+#' Calcula las abundancias estratificadas por edad
+#'
 #' Función de resultados: abundancias estratificadas por edad para cada sector geográfico a partir de los datos del camp.
 #' @param gr Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?
 #' @param esp Código de la especie numérico o carácter con tres espacios. Sólo admite una especie por gráfica
 #' @param camp Campaña de la que se extraen los datos un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
+#' @param excl.sect excluye sectores para calcular el resultado por lo sectores individualmente o en conjunto.
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param AltAlk ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf sin ruta ni extensión
 #' @examples edadsect.camp("1"," 45","P01","Porc",8)
 #' @family edades
 #' @export
-edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA) {
+edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,excl.sect=NA,cor.time=TRUE,AltAlk=NA) {
   #calcula las abundancias estratificadas por edad para cada sector a partir de los datos del camp.
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {
@@ -26,7 +27,7 @@ edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA) {
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
-  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=FALSE,incl0=FALSE)
+  lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect = excl.sect,incl2=FALSE,incl0=FALSE)
   lan<-lan[,c("lance","sector","weight.time")]
   ntalls<-ntalls[ntalls$lance %in% as.character(lan$lance),]
   if (any(cor.time,camp=="N83",camp=="N84")) {

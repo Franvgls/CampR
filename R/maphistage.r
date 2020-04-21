@@ -29,7 +29,7 @@
 #' @family mapas
 #' @family edades
 #' @export
-maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE,ICESrect=F,AltAlk=NA,incl2=TRUE,bw=TRUE,ti=TRUE,plot=TRUE,
+maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRUE,n.ots=FALSE,ICESrect=F,AltAlk=NA,incl2=TRUE,bw=TRUE,ti=TRUE,plot=TRUE,
   out.dat=FALSE,ind="n",cexleg=1,idi="l",es=TRUE,layout=NA,ceros=FALSE,years=TRUE,mediahora=1) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)
@@ -50,7 +50,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,cor.time=TRUE,n.ots=FALSE
 	ndat<-length(camp)
 	dumb<-NULL
 	for (i in 1:ndat) {
-	  if (!is.null(datagegr.camp(gr,esp,camp[i],dns,plus,cor.time=cor.time,n.ots=n.ots,AltAlk=AltAlk,incl2=incl2,mediahora=mediahora))) {
+	  if (!is.null(datagegr.camp(gr,esp,camp[i],dns,plus,excl.sect = excl.sect,cor.time=cor.time,n.ots=n.ots,AltAlk=AltAlk,incl2=incl2,mediahora=mediahora))) {
 	   	anyo<-ifelse(as.numeric(substr(camp[i],2,3))>50,1900,2000)+as.numeric(substr(camp[i],2,3))
   			dumb<-rbind(dumb,cbind(datagegr.camp(gr,esp,camp[i],dns,plus,cor.time=cor.time,n.ots=n.ots,AltAlk=AltAlk,incl2=incl2,mediahora=mediahora),camp=camp[i]))
   			}

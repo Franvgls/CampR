@@ -6,12 +6,13 @@
 #' @param camp Campaña de la que se extraen los datos un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
+#' @param excl.sect excluye sectores o estratos seleccionándolos, Si NA, por defecto, se ignora y calcula todos los sectores.
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param AltAlk ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf sin ruta ni extensión
 #' @examples edadstr.camp(1,45,"P01","Porc",8)
 #' @family edades
 #' @export
-edadstr.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA,n.ots=F) {
+edadstr.camp<-function(gr,esp,camp,dns="Porc",plus=8,excl.sect=NA,cor.time=TRUE,AltAlk=NA,n.ots=F) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {stop("Sólo se puede incluir una especie en esta función")}
   esp<-format(esp,width=3,justify="r")
@@ -29,7 +30,7 @@ edadstr.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA,n.o
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
-  lan<-datlan.camp(camp,dns,redux=TRUE,incl0=FALSE,incl2=FALSE)
+  lan<-datlan.camp(camp,dns,excl.sect = excl.sect,redux=TRUE,incl0=FALSE,incl2=FALSE)
   lan<-lan[!is.na(lan$estrato),]
   lan<-lan[,c("lance","sector","weight.time")]
   ntalls<-ntalls[ntalls$lance %in% as.character(lan$lance),]

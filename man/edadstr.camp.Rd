@@ -10,6 +10,7 @@ edadstr.camp(
   camp,
   dns = "Porc",
   plus = 8,
+  excl.sect = NA,
   cor.time = TRUE,
   AltAlk = NA,
   n.ots = F
@@ -25,6 +26,8 @@ edadstr.camp(
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{plus}{Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +}
+
+\item{excl.sect}{excluye sectores o estratos seleccionándolos, Si NA, por defecto, se ignora y calcula todos los sectores.}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 

@@ -6,6 +6,7 @@
 #' @param camp Campaña o campañas a representar en el mapa
 #' @param dns Elige el origen de las bases de datos Porcupine "Pnew????" Cantábrico "Cant????" Golfo de Cadiz "Arsa" proporciona los datos para Medits pero no saca mapas
 #' @param plus Edad plus: incluir la edad considerada como plus, solo afecta si se pide la edad solicitada que une todas las edades mayores
+#' @param excl.sect excluye sectores si se quiere.
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param n.ots Valor interno para decir que no se saque el número de otolitos en la clave sino las proporciones
 #' @param AltAlk Clave talla edad alternativa sin ruta ni extensión, NA por defecto usa la clave de la campaña edadXYY.dbf
@@ -14,7 +15,7 @@
 #' @return Devuelve un data.frame con campos lance, lat, long y abundancia por edad 0,1,2...Plus de edad, lance, peso número subestrato...
 #' @family edades
 #' @export
-datagegr.camp<- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,n.ots=FALSE,AltAlk=NA,incl2=TRUE,mediahora=1) {
+datagegr.camp<- function(gr,esp,camp,dns="Porc",plus=8,excl.sect=NA,cor.time=TRUE,n.ots=FALSE,AltAlk=NA,incl2=TRUE,mediahora=1) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de m?s de una")}
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
@@ -26,7 +27,7 @@ datagegr.camp<- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,n.ots=FALSE
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
-  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=incl2)
+  lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect = excl.sect,incl2=incl2)
   lan<-lan[,c("lance","sector","weight.time")]
   ntalls<-ntalls[ntalls$lance %in% lan$lance,]
   if (any(cor.time,camp=="N83",camp=="N84")) {

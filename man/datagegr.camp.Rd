@@ -10,6 +10,7 @@ datagegr.camp(
   camp,
   dns = "Porc",
   plus = 8,
+  excl.sect = NA,
   cor.time = TRUE,
   n.ots = FALSE,
   AltAlk = NA,
@@ -27,6 +28,8 @@ datagegr.camp(
 \item{dns}{Elige el origen de las bases de datos Porcupine "Pnew????" Cantábrico "Cant????" Golfo de Cadiz "Arsa" proporciona los datos para Medits pero no saca mapas}
 
 \item{plus}{Edad plus: incluir la edad considerada como plus, solo afecta si se pide la edad solicitada que une todas las edades mayores}
+
+\item{excl.sect}{excluye sectores si se quiere.}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 

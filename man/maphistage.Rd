@@ -11,6 +11,7 @@ maphistage(
   dns = "Porc",
   age,
   plus = 8,
+  excl.sect = NA,
   cor.time = TRUE,
   n.ots = FALSE,
   ICESrect = F,

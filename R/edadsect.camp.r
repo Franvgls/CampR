@@ -6,33 +6,28 @@
 #' @param camp Campaña de la que se extraen los datos un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
+#' @param excl.sect excluye sectores para calcular el resultado por lo sectores individualmente o en conjunto.
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param AltAlk ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf sin ruta ni extensión
 #' @examples edadsect.camp("1"," 45","P01","Porc",8)
 #' @family edades
 #' @export
-edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA) {
+edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,excl.sect=NA,cor.time=TRUE,AltAlk=NA) {
   #calcula las abundancias estratificadas por edad para cada sector a partir de los datos del camp.
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
   }
   esp<-format(esp,width=3,justify="r")
-  ch1<-DBI::dbConnect(odbc::odbc(), dns)
-  ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                             " where grupo='",gr,"' and esp='",esp,"'"))
-  dumb<-as.character(names(DBI::dbGetQuery(ch1,paste0("select * from CAMP",camp))))
-  area<-NULL
-  for (i in 21:45) {
-    area<-paste(area,dumb[i],sep=",")
-  }
-  area<-substr(area,2,nchar(area))
-  area<-DBI::dbGetQuery(ch1,paste0("select ",area," from CAMP",camp,sep=""))
-  DBI::dbDisconnect(ch1)
+  ch1<-RODBC::odbcConnect(dns)
+  RODBC::odbcSetAutoCommit(ch1, FALSE)
+  ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
+                             " where grupo='",gr,"' and esp='",esp,"'",sep=""))
+  RODBC::odbcCloseAll()
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
-  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=FALSE,incl0=FALSE)
+  lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect = excl.sect,incl2=FALSE,incl0=FALSE)
   lan<-lan[,c("lance","sector","weight.time")]
   ntalls<-ntalls[ntalls$lance %in% as.character(lan$lance),]
   if (any(cor.time,camp=="N83",camp=="N84")) {
@@ -89,6 +84,16 @@ edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,AltAlk=NA) {
     for (i in sonedad) {edad[,i]<-edad[,i]/rowSums(edad[,sonedad])}
     lan<-datlan.camp(camp,dns,redux=TRUE,incl2=FALSE)
     lan<-lan[!is.na(lan$estrato),c("lance","sector")]
+    area<-NULL
+    ch1<-RODBC::odbcConnect(dns)
+    RODBC::odbcSetAutoCommit(ch1, FALSE)
+    dumb<-as.character(names(RODBC::sqlQuery(ch1,paste("select * from CAMP",camp,sep=""))))
+    for (i in 21:45) {
+      area<-paste(area,dumb[i],sep=",")
+    }
+    area<-substr(area,2,nchar(area))
+    area<-RODBC::sqlQuery(ch1,paste("select ",area," from CAMP",camp,sep=""))
+    RODBC::odbcCloseAll()
     area<-area[-which(is.na(area) | area==0)]
     area<-as.data.frame(cbind(substr(names(area),2,3),as.numeric(t(area))))
     names(area)<-c("sector","arsect")
