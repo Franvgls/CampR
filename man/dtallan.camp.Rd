@@ -10,9 +10,10 @@ dtallan.camp(
   camp,
   dns,
   lances = NA,
+  cor.time = TRUE,
   depth_range = NA,
   sex = FALSE,
-  muestr = TRUE
+  muestr = FALSE
 )
 }
 \arguments{
@@ -26,11 +27,13 @@ dtallan.camp(
 
 \item{lances}{Da la opción de escribir un número de lance y saca los valores solo para ese lance o grupo de lances.}
 
+\item{cor.time}{Corrige el tiempo del lance a 30 minutos si está fuera del tiempo (especialmente importante para 1983 y 1984)}
+
 \item{depth_range}{NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances.}
 
 \item{sex}{Por defecto (F) suma todos los individuos como indet. T saca los datos por sexo si los hay, no afecta si sólo hay indeterminados (3)}
 
-\item{muestr}{Por defecto (T) pondera los datos por el peso total en la captura del lance, si F coge los medidos realmente}
+\item{muestr}{Por defecto (F) no pondera los datos por el peso total en la captura del lance, si T coge los medidos realmente}
 }
 \description{
 Da Valores absolutos (totales por lance o grupos de lances) en número por talla y sexo (si lo hay)

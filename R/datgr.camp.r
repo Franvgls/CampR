@@ -53,7 +53,7 @@ datgr.camp<- function(gr,esp,camp,dns,cor.time=TRUE,incl2=TRUE) {
       warning("Hay lances con duración 0 minutos, revisa validez")
     }
     mm$peso.gr<-mm$peso.gr/mm$weight.time
-    mm$numero<-round(mm$numero/mm$weight.time,0)
+    mm$numero<-round(mm$numero/mm$weight.time,1)
     }
   mm<-mm[,c("lan","lat","long","prof","peso.gr","numero")]
   }

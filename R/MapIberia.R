@@ -17,7 +17,7 @@
 #' @param wmf Si T saca a fichero metafile Iberia.emf
 #' @param places Si T saca ciudades y puntos geográficos de referencia
 #' @param escmult =1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, más de uno lo aumenta
-#' @param add
+#' @param add si T se añade al mapa si no saca la pantalla nueva
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones
 #' @examples MapIberia()
 #' @examples MapIberia(nepFU=T,FUs=list(FU25,FU31),ICESrect=TRUE,ICESlab=T)

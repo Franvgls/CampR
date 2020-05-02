@@ -10,6 +10,7 @@ dtall.lan(
   camp,
   dns = "Cant",
   lances = NA,
+  cor.time = TRUE,
   depth_range = c(NA),
   ti = FALSE,
   legend = TRUE,
@@ -30,6 +31,8 @@ dtall.lan(
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
 \item{lances}{Lance o lances de los que se quiere sacar la distribución de tallas. Si NA coge todos los lances de la campaña.}
+
+\item{cor.time}{T por defecto, si T corrige los lances con tiempo distinto de 30'}
 
 \item{depth_range}{NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances.}
 

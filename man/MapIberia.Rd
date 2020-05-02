@@ -55,6 +55,8 @@ MapIberia(
 
 \item{escmult}{=1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, más de uno lo aumenta}
 
+\item{add}{si T se añade al mapa si no saca la pantalla nueva}
+
 \item{NepFU}{Si T saca recuadros marcando los rectángulos de las unidades funcionales de cigala}
 }
 \value{
