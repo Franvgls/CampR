@@ -50,8 +50,7 @@ dtallan.camp<- function(gr,esp,camp,dns,lances=NA,cor.time=TRUE,depth_range=NA,s
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   if (!muestr) ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
-  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=TRUE)[,c("lance","sector","weight.time","estrato","prof")]
-  lan<-lan[!is.na(lan$estrato),]
+  lan<-datlan.camp(camp,dns,redux=TRUE,incl2=TRUE)[,c("lance","sector","weight.time","prof")]
   lan<-lan[,c("lance","sector","weight.time")]
   if (any(cor.time,camp=="N83",camp=="N84")) {
     ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
