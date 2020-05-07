@@ -4,7 +4,9 @@
 \name{Nsh}
 \alias{Nsh}
 \title{Serie histórica de la campaña Demersales plataforma Norte}
-\format{Vector con los códigos de las campañas realizadas desde 1983 hasta 2018}
+\format{
+Vector con los códigos de las campañas realizadas desde 1983 hasta 2018
+}
 \usage{
 Nsh
 }

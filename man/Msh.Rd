@@ -4,7 +4,9 @@
 \name{Msh}
 \alias{Msh}
 \title{Serie histórica de la campaña Medits}
-\format{A vector with codes for the surveys from 1994 to 2011}
+\format{
+A vector with codes for the surveys from 1994 to 2011
+}
 \usage{
 Msh
 }

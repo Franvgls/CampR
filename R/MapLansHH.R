@@ -47,7 +47,9 @@ MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,xlims=NA,ylims=NA,col=2
   if (dns=="Other") {
     longrank<-range(lan$ShootLong,lan$HaulLong,na.rm=T)
     if (max(lan$ShootLong,lan$HaulLong)<c(-10)) longrank<-c(longrank[1],c(-10))
+    longrank<-c(floor(longrank[1]),ceiling(longrank[2]))
     latrank<-range(lan$Shootlat,lan$HaulLat,na.rm=T)
+    latrank<-c(floor(latrank[1]),ceiling(latrank[2]))
     NeAtlIBTS::IBTSNeAtl_map(nl=latrank[2]+.5,sl=latrank[1]-.5,xlims = c(longrank[1]-.5,
                   longrank[2]+.5),leg=F,dens=0,load=F,ICESdiv=F)
   }

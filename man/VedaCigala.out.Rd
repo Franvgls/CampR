@@ -4,7 +4,9 @@
 \name{VedaCigala.out}
 \alias{VedaCigala.out}
 \title{Polígono área de veda}
-\format{A data.frame with long and lat points defining the closed area}
+\format{
+A data.frame with long and lat points defining the closed area
+}
 \usage{
 VedaCigala.out
 }
