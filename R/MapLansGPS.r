@@ -6,6 +6,8 @@
 #' @param incl0 Si T se incluyen los lances nulos
 #' @param xlims Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña
 #' @param ylims Define los limites latitudinales del mapa, si se deja en NA toma los límites de lat del área definida en la campaña
+#' @param col Define el color de los segmentos
+#' @param lwd Define el ancho de los segmentos
 #' @param places si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine
 #' @param Nlans se T incluye los números de lance por encima de los segmentos
 #' @param ax Si T saca los ejes x e y
@@ -16,7 +18,7 @@
 #' @family mapas
 #' @family PescaWin
 #' @export
-MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,places=TRUE,Nlans=FALSE,es=T,bw=FALSE,ax=T) {
+MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,es=T,bw=FALSE,ax=T) {
   if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
   lan<-datlan.camp(camp,dns,redux=FALSE,incl2=TRUE,incl0=TRUE)
   lannul<-lan[lan$validez==0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
@@ -33,7 +35,7 @@ MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,places=TRUE,N
   if (dns=="Medi") {
     if (any(!is.na(xlims))) {MapMedit(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapMedit()
   }
-  segments(lan$longitud_l,lan$latitud_l,lan$longitud_v,lan$latitud_v,col=1,lwd=2)
+  segments(lan$longitud_l,lan$latitud_l,lan$longitud_v,lan$latitud_v,col=col,lwd=lwd)
   if (incl0) segments(lannul$longitud_l,lannul$latitud_l,lannul$longitud_v,lannul$latitud_l,col=2,lwd=2)
   if (Nlans) text(latitud_v~longitud_v,lan,label=lan$lance,pos=1,cex=.8)
   if (Nlans & incl0) text(latitud_v~longitud_v,lannul,label=lannul$lance,pos=1,cex=.8,col=2)

@@ -69,6 +69,7 @@ Other mapas:
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapGaltal}()},
 \code{\link{MapLansGPS}()},
+\code{\link{MapLansHH}()},
 \code{\link{VedaCigala.out}},
 \code{\link{VedaCigala}},
 \code{\link{armap.camp}()},
