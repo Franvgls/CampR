@@ -28,7 +28,7 @@ MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,xlims=NA,ylims=NA,col=2
              "SwellHeight","SurTemp","BotTemp","SurSal","BotSal","ThermoCline","ThClineDepth")
   if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
   if (is.numeric(nurows)) lan<-fread(fic,nrows=nurows)
-  else lan<-fread(fic)
+  else lan<-data.table::fread(fic)
   if (names(lan)[1]=="V1") {names(lan)<-namesHH}
   if (incl0) {lannul<-dplyr::filter(lan,HaulVal=="I")}
   lan<-dplyr::filter(lan,HaulVal!="I")

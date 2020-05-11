@@ -35,6 +35,14 @@ MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,p
   if (dns=="Medi") {
     if (any(!is.na(xlims))) {MapMedit(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapMedit()
   }
+  if (dns=="Other") {
+    longrank<-range(lan$longitud_l,lan$longitud_v,na.rm=T)
+    if (max(lan$longitud_l,lan$longitud_v)<c(-10)) longrank<-c(longrank[1],c(-10))
+    longrank<-c(floor(longrank[1]),ceiling(longrank[2]))
+    latrank<-range(lan$latitud_l,lan$latitud_v,na.rm=T)
+    latrank<-c(floor(latrank[1]),ceiling(latrank[2]))
+    maps::map("worldHires",xlim=longrank,ylim=latrank,fill=T,col="grey")
+    }
   segments(lan$longitud_l,lan$latitud_l,lan$longitud_v,lan$latitud_v,col=col,lwd=lwd)
   if (incl0) segments(lannul$longitud_l,lannul$latitud_l,lannul$longitud_v,lannul$latitud_l,col=2,lwd=2)
   if (Nlans) text(latitud_v~longitud_v,lan,label=lan$lance,pos=1,cex=.8)
