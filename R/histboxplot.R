@@ -49,11 +49,11 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	if (any(!is.na(profrange))) dumb<-filter(dumb,prof>min(profrange) & prof<max(profrange))
 	if (ind=="p") {
 	    dumb$peso<-dumb$peso.gr/1000
-	    boxplot(peso~camp,dumb,outline=F,varwidth=T,col=colo,ylab=ifelse(es,expression("kg · lance"^-1),expression("kg · haul"^-1)),
+	    boxplot(peso~camp,dumb,outline=F,varwidth=T,col=colo,ylab=ifelse(es,expression("kg"%*%"lance"^-1),expression("kg"%*%"haul"^-1)),
 	     xlab=ifelse(es,"Año","Year"),las=2)
 	}
   if (ind=="n") {
-    boxplot(numero~camp,dumb,outline=F,varwidth=T,col=colo,ylab=ifelse(es,expression("ind · lance"^-1),expression("ind · haul"^-1)),
+    boxplot(numero~camp,dumb,outline=F,varwidth=T,col=colo,ylab=ifelse(es,expression("ind"%*%"lance"^-1),expression("ind"%*%"haul"^-1)),
       xlab=ifelse(es,"Año","Year"),las=2)
   }
 	if (is.logical(ti)) {
