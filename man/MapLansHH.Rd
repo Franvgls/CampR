@@ -9,6 +9,7 @@ MapLansHH(
   dns = "Cant",
   nurows = NA,
   incl0 = FALSE,
+  incl2 = TRUE,
   xlims = NA,
   ylims = NA,
   col = 2,

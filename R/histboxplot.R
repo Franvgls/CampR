@@ -1,6 +1,16 @@
-#' Gráficos de boxplot para la serie histórica incluyendo lances especiales o no y con rangosx de profundidad
+#' Gráficos de boxplot para la serie histórica incluyendo lances especiales o no y con rangos de profundidad
 #'
-#' Crea mapas con la distribución en biomasa o numero para distintas zonas: Porcupine (dns="Pnew"), el Cantábrico (dns=Cant), Cádiz= (dns=Arsa), y el Mediterráneo (dns=Medi)
+#' @description
+#' Crea box plots con la distribución de la abundancia, en biomasa o número, no teniendo
+#' en cuenta la ponderación al área (_see details_) para distintas zonas: Porcupine
+#' (dns="Porc"), el Cantábrico (dns=Cant), Cádiz= (dns=Arsa), y el Mediterráneo
+#' (dns=Medi).
+#'
+#' @details
+#' Estos boxplots pueden ser engañosos y hay que explicar bien en la gráfica sus resultados. Sí se decide eliminar los ceros (=F) hay que tener cuidado porque los
+#' resultados pueden depender mucho del número de lances sin captura y dar resultados muy engañosos al poder compararse datos con distinto numero de lances. Ver en
+#' examples ambas opciones
+#'
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros, 9 escoge todos los orgánicos pero excluye desechos
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
@@ -13,22 +23,24 @@
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
 #' @param ind Parámetro a representar saca los datos en "p"eso o "n"úmero
-#' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param es Si T rotulos gráfico en español, si F en inglés
 #' @param profrange Si c(profmin,profmax) filtra por ese rango de profundidad
-#' @param layout Organización de gráficos en filas ó columnas c(r,c)
-#' @param ceros por defecto incluye los valores de 0 al calcular los rangos y medianas, si T los quita, reflejarlo en el pie del gráfico
+#' @param ceros por defecto incluye los valores de 0 al calcular los rangos y medianas, si T los quita, Es importante avisarlo en el la explicación de la gráfica
+#' @param nlans T por defecto presenta el número de lances en la campaña por encima del eje x
+#' @param lan.cex tamaño de las etiquetas del numero de lances por campaña
+#' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
+#' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param escmult Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
-#' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,peso.gr,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
 #' @examples
 #' histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE)
 #' histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n")
+#' histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n",ceros=FALSE)
 #' @family abunds
 #' @export
 histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.dat=FALSE,ind="p",idi="l",
-  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA) {
+  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,nlans=TRUE,lan.cex=.6) {
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   especie<-buscaesp(gr,esp,idi)
@@ -47,18 +59,24 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	if (out.dat) print(dumb[dumb[,5]>0,])
 	if (!ceros) dumb<-filter(dumb,numero>0)
 	if (any(!is.na(profrange))) dumb<-filter(dumb,prof>min(profrange) & prof<max(profrange))
+  op<-par(no.readonly=T)
+  par(mgp=c(2.5,.8,0))
 	if (ind=="p") {
 	    dumb$peso<-dumb$peso.gr/1000
 	    boxplot(peso~camp,dumb,outline=F,varwidth=T,col=colo,ylab=ifelse(es,expression("kg"%*%"lance"^-1),expression("kg"%*%"haul"^-1)),
-	     xlab=ifelse(es,"Año","Year"),las=2)
+	     xlab=ifelse(es,"Año","Year"),las=2,cex.axis=cex.leg*.8)
 	}
   if (ind=="n") {
     boxplot(numero~camp,dumb,outline=F,varwidth=T,col=colo,ylab=ifelse(es,expression("ind"%*%"lance"^-1),expression("ind"%*%"haul"^-1)),
-      xlab=ifelse(es,"Año","Year"),las=2)
+      xlab=ifelse(es,"Año","Year"),las=2,cex.axis=cex.leg*.8)
   }
+	if (!ceros) mtext(ifelse(es,"Lances sin captura excluidos","0 catches hauls excluded"),
+	                  side=3,0,font=2,cex=.8,adj=ifelse(ceros,0,1))
+  if (nlans) mtext(side=1,at=1:ndat,line=-1,text=tapply(dumb$numero,dumb$camp,length),cex=lan.cex,font=2)
 	if (is.logical(ti)) {
 	  if (ti) {title(main=especie,cex.main=1.1*cex.leg,
 	                 font.main=ifelse((idi!="l" | any(esp=="999")),2,4),line=ifelse(any(is.character(sub),sub),1.5,1))}
+	par(op)
 	}
 	else {title(main=ti,font.main=4,line=1.3,cex.main=1.1*cex.leg)}
 	if (is.logical(sub)) {
@@ -66,7 +84,7 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	                  font.main=2,line=.3,cex.main=cex.leg*.9)}
 	}
 	else title(main=sub,line=.3,font.main=2,cex.main=cex.leg*.9)
-	if(any(!is.na(profrange))) mtext(paste(ifelse(es,"Rango prof:","Depth range:"),min(profrange),"-",max(profrange),"m",collapse=" "),side=3,line=.1,cex=.7,font=2,adj=1)
+	if(any(!is.na(profrange))) mtext(paste(ifelse(es,"Rango prof:","Depth range:"),min(profrange),"-",max(profrange),"m",collapse=" "),side=3,line=.1,cex=.7,font=2,adj=ifelse(ceros,1,0))
 	if (out.dat) {
     dumb$peso<-round(dumb$peso,3)
     if (years) dumb<-dumbcamp

@@ -2,7 +2,7 @@
 % Please edit documentation in R/histboxplot.R
 \name{histboxplot}
 \alias{histboxplot}
-\title{Gráficos de boxplot para la serie histórica incluyendo lances especiales o no y con rangosx de profundidad}
+\title{Gráficos de boxplot para la serie histórica incluyendo lances especiales o no y con rangos de profundidad}
 \usage{
 histboxplot(
   gr,
@@ -21,7 +21,9 @@ histboxplot(
   ceros = TRUE,
   cex.leg = 1.1,
   years = TRUE,
-  profrange = NA
+  profrange = NA,
+  nlans = TRUE,
+  lan.cex = 0.6
 )
 }
 \arguments{
@@ -51,15 +53,17 @@ histboxplot(
 
 \item{idi}{Nombre científico de la especie ("l") o nombre común ("e")}
 
-\item{ceros}{por defecto incluye los valores de 0 al calcular los rangos y medianas, si T los quita, reflejarlo en el pie del gráfico}
+\item{ceros}{por defecto incluye los valores de 0 al calcular los rangos y medianas, si T los quita, Es importante avisarlo en el la explicación de la gráfica}
 
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
 
 \item{profrange}{Si c(profmin,profmax) filtra por ese rango de profundidad}
 
-\item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
+\item{nlans}{T por defecto presenta el número de lances en la campaña por encima del eje x}
 
-\item{layout}{Organización de gráficos en filas ó columnas c(r,c)}
+\item{lan.cex}{tamaño de las etiquetas del numero de lances por campaña}
+
+\item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
 
 \item{escmult}{Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos}
 
@@ -69,11 +73,20 @@ histboxplot(
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,peso.gr,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
 }
 \description{
-Crea mapas con la distribución en biomasa o numero para distintas zonas: Porcupine (dns="Pnew"), el Cantábrico (dns=Cant), Cádiz= (dns=Arsa), y el Mediterráneo (dns=Medi)
+Crea box plots con la distribución de la abundancia, en biomasa o número, no teniendo
+en cuenta la ponderación al área (\emph{see details}) para distintas zonas: Porcupine
+(dns="Porc"), el Cantábrico (dns=Cant), Cádiz= (dns=Arsa), y el Mediterráneo
+(dns=Medi).
+}
+\details{
+Estos boxplots pueden ser engañosos y hay que explicar bien en la gráfica sus resultados. Sí se decide eliminar los ceros (=F) hay que tener cuidado porque los
+resultados pueden depender mucho del número de lances sin captura y dar resultados muy engañosos al poder compararse datos con distinto numero de lances. Ver en
+examples ambas opciones
 }
 \examples{
 histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE)
 histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n")
+histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n",ceros=FALSE)
 }
 \seealso{
 Other abunds: 
