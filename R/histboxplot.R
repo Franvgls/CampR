@@ -84,7 +84,7 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	                  font.main=2,line=.3,cex.main=cex.leg*.9)}
 	}
 	else title(main=sub,line=.3,font.main=2,cex.main=cex.leg*.9)
-	if(any(!is.na(profrange))) mtext(paste(ifelse(es,"Rango prof:","Depth range:"),min(profrange),"-",max(profrange),"m",collapse=" "),side=3,line=.1,cex=.7,font=2,adj=ifelse(ceros,1,0))
+	if(any(!is.na(profrange))) mtext(paste(ifelse(es,"Rango prof:","Depth range:"),min(profrange),"-",max(profrange),"m",collapse=" "),side=3,cex=.7,font=2,adj=ifelse(ceros,1,0))
 	if (out.dat) {
     dumb$peso<-round(dumb$peso,3)
     if (years) dumb<-dumbcamp

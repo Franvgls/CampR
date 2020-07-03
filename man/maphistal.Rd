@@ -38,9 +38,9 @@ maphistal(
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
-\item{tmin}{Talla mínima del intervalo de tallas a incluir}
+\item{tmin}{Talla mínima del intervalo de tallas a incluir, si 0 el subtítulo sale =< tmax}
 
-\item{tmax}{Talla máxima del intervalo de tallas a incluir}
+\item{tmax}{Talla máxima del intervalo de tallas a incluir, si 999 el subtítulo sale >= tmin}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 
@@ -73,8 +73,6 @@ maphistal(
 \item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
 
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
-
-\item{sub}{Añade un subtítulo debajo del gráfico, sin texto por defecto.}
 }
 \value{
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis

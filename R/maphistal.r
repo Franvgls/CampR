@@ -5,8 +5,8 @@
 #' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
-#' @param tmin Talla mínima del intervalo de tallas a incluir
-#' @param tmax Talla máxima del intervalo de tallas a incluir
+#' @param tmin Talla mínima del intervalo de tallas a incluir, si 0 el subtítulo sale =< tmax
+#' @param tmax Talla máxima del intervalo de tallas a incluir, si 999 el subtítulo sale >= tmin
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param incl2 Si F no presenta los lances especiales, si T si los tiene en cuenta, pero puede dar problemas por que no puede calcular las abundancias estratificadas
 #' @param ind Permite elegir entre número "n" o peso "p" peso sólo funciona cuando existen a y b en especies.dbf y se elige sólo una especie
@@ -14,7 +14,6 @@
 #' @param bw gráfico en blanco en negro si T o en color si F
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
 #' @param ti Si T añade titulo al mapa, el nombre de la especie en latín
-#' @param sub Añade un subtítulo debajo del gráfico, sin texto por defecto.
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param out.dat Si T el resultado final de la funcion es la figura en pantalla, pero los datos en objeto
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
@@ -82,8 +81,10 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	  if(is.list(ti)) titulo<-ti
 	  else titulo<-list(label=ti)
 	}
-	if (tmin==0) sub<-list(label=bquote(" "<=.(format(paste0(tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm"))))),cex=cexleg*.9)
-  else sub<- list(label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
+	if (tmin==0) sub<-list(label=bquote(" "<=.(format(paste0(tmax,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),font.sub=2,cex=cexleg*.9)
+	if (tmax==999) sub<-list(font.sub=2,label=bquote(" ">=.(format(paste0(tmin,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),cex=cexleg*.9)
+	if (tmin!=0 & tmax!=999) sub<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
+	if (tmin==0 & tmax==999) sub<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
 	if (any(is.na(layout))) {
 		if (ndat!=4) layout=c(1,ndat)
 		if (ndat==4) layout=c(2,2)
