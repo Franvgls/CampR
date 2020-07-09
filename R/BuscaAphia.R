@@ -1,6 +1,6 @@
-#' Exporta datos de formato CAMP a formato DATRAs HL. Depende de que los códigos Aphia estén correctos en especies.dbf da error si son incompletos
+#' Recupera los AphiaId de las especies sin Aphiaid en el fichero especies.dbf
 #'
-#' Función de Salida de datos a DATRAS:
+#' Función de comprobación Aphials
 #' Extrae las características de las capturas por lance para una campaña desde el fichero NTALLxxx.DBF y los transforma en formato DATRAS HL. De momento sólo funciona con peces y en el SPNGFS y SPPORC (Para completar crustáceos y moluscos hay que añadir los AphiaID, y para ARSA añadirlos al especies de ARSA)
 #' @param gr Grupo del que se desea buscar el AphiaID: 1 peces, 2 crustáceos, 3 moluscos, 4 equinodermos, 5 otros invertebrados
 #' @param camp Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
@@ -10,9 +10,9 @@
 #' @param incl2 Si F deja fuera los lances especiales que actualmente no se transmiten a DATRAS, si T los incluye
 #' @param export Si T crea un fichero csv con todos los datos corregidos (APHIAs) en el directorio CAMP donde está el especies.dbf este es importable al especies.dbf con un append from deli with, quitando todos los peces grupo="1"
 #' @return Devuelve un data.table con datos de cada especie en el formato HL de DATRAS. DATRAS requiere que los datos no tengan cabecera y el trimestre sea el que corresponde a la campaña, además de no tener "". Por ello se debe pasar a fichero con la orden: write.table(CAMPtoHH(Xyy,dns),"nombrearchivo.csv",sep=",",quote=F,col.names=F,row.names=F))
-#' @examples # CAMPtoHL("P14","Porc")
+#' @examples # BuscaAphia(1,"P14","Porc")
 #' @export
-BuscaAphia <-function(gr = 1,camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,export = FALSE) {
+BuscaAphia <-function(gr = 1,camp,dns,inclSpecie = TRUE,quart = TRUE,incl2 = FALSE,export = FALSE) {
     require(dplyr)
     if (length(camp) > 1) {
       stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")
@@ -54,4 +54,6 @@ BuscaAphia <-function(gr = 1,camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FA
       print(especies[is.na(especies$aphia),])
       write.csv(especies, "c:/camp/peces.csv", row.names = F)
       }
+    print(especies)
+    print(paste0("Fichero salida: ",getwd()))
   }

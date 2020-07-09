@@ -77,6 +77,7 @@ histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n")
 Other abunds: 
 \code{\link{grafhistbox.comp}()},
 \code{\link{grafhistbox}()},
+\code{\link{grafhisttalbox}()},
 \code{\link{histboxplot}()}
 }
 \concept{abunds}

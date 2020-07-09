@@ -2,13 +2,13 @@
 % Please edit documentation in R/BuscaAphia.R
 \name{BuscaAphia}
 \alias{BuscaAphia}
-\title{Exporta datos de formato CAMP a formato DATRAs HL. Depende de que los códigos Aphia estén correctos en especies.dbf da error si son incompletos}
+\title{Recupera los AphiaId de las especies sin Aphiaid en el fichero especies.dbf}
 \usage{
 BuscaAphia(
   gr = 1,
   camp,
   dns,
-  inclSpecie = FALSE,
+  inclSpecie = TRUE,
   quart = TRUE,
   incl2 = FALSE,
   export = FALSE
@@ -33,9 +33,9 @@ BuscaAphia(
 Devuelve un data.table con datos de cada especie en el formato HL de DATRAS. DATRAS requiere que los datos no tengan cabecera y el trimestre sea el que corresponde a la campaña, además de no tener "". Por ello se debe pasar a fichero con la orden: write.table(CAMPtoHH(Xyy,dns),"nombrearchivo.csv",sep=",",quote=F,col.names=F,row.names=F))
 }
 \description{
-Función de Salida de datos a DATRAS:
+Función de comprobación Aphials
 Extrae las características de las capturas por lance para una campaña desde el fichero NTALLxxx.DBF y los transforma en formato DATRAS HL. De momento sólo funciona con peces y en el SPNGFS y SPPORC (Para completar crustáceos y moluscos hay que añadir los AphiaID, y para ARSA añadirlos al especies de ARSA)
 }
 \examples{
-# CAMPtoHL("P14","Porc")
+# BuscaAphia(1,"P14","Porc")
 }
