@@ -19,6 +19,7 @@ datmuest.camp<-function(gr,esp,camp,dns="Cant",excl.sect=NA) {
                              " where grupo='",gr,"' and esp='",esp,"'"))
   DBI::dbDisconnect(ch1)
   names(ntalls)<-gsub("_", ".",names(ntalls))
+  ntalls$lance<-as.numeric(ntalls$lance)
   if (any(!is.na(excl.sect))) {
     ntalls<-ntalls[ntalls$lance %in% lan$lance,]
     }

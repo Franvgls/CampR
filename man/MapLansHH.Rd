@@ -24,7 +24,7 @@ MapLansHH(
 \arguments{
 \item{fic}{Nombre del fichero HH con los datos a comprobar en formato HH de DATRAS, con su path o sin el si se está en el mismo directorio}
 
-\item{dns}{Elige el supuesto origen de los datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" para otras campañas IBTS "other"}
+\item{dns}{Elige el supuesto origen de los datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" para otras campañas IBTS "Other"}
 
 \item{incl0}{Si T se incluyen los lances nulos}
 
@@ -51,6 +51,10 @@ Devuelve un data.frame con datos de cada lance, las variables dependen de la sel
 }
 \description{
 gráfica todos los lances de una campaña con las distancias recorridas en cada uno de ellos
+}
+\examples{
+MapLansHH(fic=icesDatras::getDATRAS("HH","SP-NORTH",2001,4),dns="Other")
+MapLansHH(fic=icesDatras::getDATRAS("HH","IE-IGFS",2019,4),dns="Other")
 }
 \seealso{
 {\link{MapLansGPS}}, {\link{armap.camp}}

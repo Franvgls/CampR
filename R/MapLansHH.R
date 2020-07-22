@@ -2,7 +2,7 @@
 #'
 #' gráfica todos los lances de una campaña con las distancias recorridas en cada uno de ellos
 #' @param fic Nombre del fichero HH con los datos a comprobar en formato HH de DATRAS, con su path o sin el si se está en el mismo directorio
-#' @param dns Elige el supuesto origen de los datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" para otras campañas IBTS "other"
+#' @param dns Elige el supuesto origen de los datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" para otras campañas IBTS "Other"
 #' @param nrows Número de filas del fichero que se quieren obtener, por defecto NA y coge todo el fichero
 #' @param incl0 Si T se incluyen los lances nulos
 #' @param xlims Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña
@@ -15,7 +15,8 @@
 #' @param bw Si T gráfico en blanco y negro por default, si F gráfico en color
 #' @return Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux
 #' @seealso {\link{MapLansGPS}}, {\link{armap.camp}}
-#' @examples MapLansHH(CAMPtoHH(icesDatras::getDATRAS("HH",N01","Cant")))
+#' @examples MapLansHH(fic=icesDatras::getDATRAS("HH","SP-NORTH",2001,4),dns="Other")
+#' @examples MapLansHH(fic=icesDatras::getDATRAS("HH","IE-IGFS",2019,4),dns="Other")
 #' @family mapas
 #' @family PescaWin
 #' @export
@@ -28,7 +29,7 @@ MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,yli
              "SwellHeight","SurTemp","BotTemp","SurSal","BotSal","ThermoCline","ThClineDepth")
   if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
   if (is.numeric(nurows)) lan<-fread(fic,nrows=nurows)
-  else lan<-data.table::fread(fic)
+  else lan<-data.table(fic)
   if (names(lan)[1]=="V1") {names(lan)<-namesHH}
   if (incl0) {lannul<-dplyr::filter(lan,HaulVal=="I")}
   if (incl2) {lanesp<-dplyr::filter(lan,HaulVal=="A")}
@@ -45,7 +46,7 @@ MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,yli
   if (dns=="Medi") {
     if (any(!is.na(xlims))) {MapMedit(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapMedit()
   }
-  if (dns=="Other") {
+  if (tolower(dns)=="other") {
     longrank<-range(lan$ShootLong,lan$HaulLong,na.rm=T)
     if (max(lan$ShootLong,lan$HaulLong)<c(-10)) longrank<-c(longrank[1],c(-10))
     longrank<-c(floor(longrank[1]),ceiling(longrank[2]))
@@ -61,4 +62,5 @@ MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,yli
                                                            bty = "n", cex = .8,lty=1,lwd=2,col=c(1,3,2),horiz=T)}
   if (Nlans) text(HaulLat~HaulLong,lan,label=lan$HaulNo,pos=1,cex=.7,font=2)
   if (Nlans & incl0) text(HaulLat~HaulLong,lannul,label=lannul$HaulNo,pos=1,cex=.7,col=2)
+  lan
 }
