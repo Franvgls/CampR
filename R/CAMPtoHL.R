@@ -54,9 +54,9 @@ CAMPtoHL <-
     }
     if (substr(dns, 1, 4) == "Cant" | substr(dns, 1, 4) == "Cnew") {
       DB$Gear = "BAK"
-      if (any(DB$barco !="29MO")) {DB$barco = ifelse(DB$barco == "MOL", "29MO", ifelse(DB$barco == "CDS", "CDS"))}
+      if (any(DB$barco !="29MO")) {DB$barco = ifelse(DB$barco == "MOL", "29MO", ifelse(DB$barco == "CDS", "29CS"))}
       DB$GearExp = -9
-      DB$DoorType = ifelse(DB$barco == "CDS", "W", "P")
+      DB$DoorType = ifelse(DB$barco == "29CS", "W", "P")
       if (quart)
         DB$quarter <- "4"
       DB$lance <- format(DB$lance, width = 3,justify="r")
@@ -64,7 +64,7 @@ CAMPtoHL <-
       DB$StNo = DB$lance
     }
     if (substr(dns, 1, 4) == "Pnew" | substr(dns, 1, 4) == "Porc") {
-      DB$barco = "EZA"
+      DB$barco = "29EZ"
       DB$Gear = "PORB"
       DB$GearExp = -9
       DB$DoorType = "P"
@@ -126,7 +126,7 @@ CAMPtoHL <-
         data.table::data.table(
           RecordType = "HL",
           Quarter = DB1$quarter,
-          Country = "SPA",
+          Country = "ES",
           Ship = DB1$barco,
           Gear = DB1$Gear,
           SweepLngt = DB1$malletas,
@@ -158,7 +158,7 @@ CAMPtoHL <-
       data.table::data.table(
         RecordType = "HL",
         Quarter = DB1$quarter,
-        Country = "SPA",
+        Country = "ES",
         Ship = DB1$barco,
         Gear = DB1$Gear,
         SweepLngt = DB1$malletas,

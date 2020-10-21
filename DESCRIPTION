@@ -4,7 +4,7 @@ Description: Funciones para sacar resultados de los datos de campañas de arrast
     demersal guardados en el CAMP version 12 Windows7 - Windows10 (Harbour) 
     Solo para 32 bits y Rstudio < 1.2 no funciona con R de 64 bits
 License: GPL-2
-Version: 0.7.22
+Version: 0.7.24
 Author: FVG <franvgls@gmail.com>
 Maintainer: FVG <franvgls@gmail.com>
 Roxygen: list(markdown = TRUE)
@@ -31,4 +31,4 @@ Imports:
     vegan,
     worrms,
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

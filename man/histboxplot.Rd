@@ -22,6 +22,7 @@ histboxplot(
   cex.leg = 1.1,
   years = TRUE,
   profrange = NA,
+  proflab = F,
   nlans = TRUE,
   lan.cex = 0.6
 )

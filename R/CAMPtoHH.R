@@ -19,7 +19,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        #Crea la columna del rectangulo ICES
        DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
        DB$Gear="BAK"
-       DB$barco=ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="CDS","CDS"))
+       DB$barco=ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="CDS","29CS"))
        DB$Warpdia=ifelse(DB$barco=="CDS",22,24)
        DB$DoorType=ifelse(DB$barco=="CDS","WR","T4")
        DB$DoorSurface=ifelse(substr(DB$barco,1,3)=="CDS",3.6,1.8)
@@ -32,7 +32,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-15,to=-11,by=1),labels=rev(c("D8","D7","D6","D5"))) # ,"D9","D8"
        DB$rectlat<-cut(DB$latitud_l,breaks=seq(from=50.5,to=54,by=.5),labels=c(30:36))
        DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
-       DB$barco="EZA"
+       DB$barco="29VE"
        DB$Gear="PORB"
        DB$DoorType="P"
        DB$DoorSurface=4.5
@@ -49,8 +49,8 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
       DB$rectlat<-paste0("0",cut(DB$latitud_l,breaks=seq(from=36.0,to=37.5,by=.5),labels=as.character(c(1:3))))
       DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
       DB$Gear="BAK"
-      DB$barco=ifelse(substr(DB$barco,1,3)=="COR","CDS",ifelse(DB$barco=="MOL","29MO"))
-      DB$Warpdia=ifelse(DB$barco=="CDS",22,24)
+      DB$barco=ifelse(substr(DB$barco,1,3)=="COR","29CS",ifelse(DB$barco=="MOL","29MO"))
+      DB$Warpdia=ifelse(DB$barco=="29CS",22,24)
       DB$DoorType=ifelse(DB$year<2008,"WR","T4")
       DB$DoorSurface=ifelse(DB$year<2008,3.6,1.8)
       DB$DoorWght=ifelse(DB$year<2008,650,350)
@@ -62,7 +62,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
     }
     DB$TimeShot<-paste0(formatC(as.numeric(substr(DB$hora_l,1,2)),flag=0,width=2),sprintf("%02s",substr(DB$hora_l,4,5)))
     DB$estn<-as.numeric(as.character(DB$estn))
-    HH_north<-data.table::data.table(RecordType="HH",Quarter=DB$quarter,Country="SPA",Ship=DB$barco,Gear=DB$Gear,
+    HH_north<-data.table::data.table(RecordType="HH",Quarter=DB$quarter,Country="ES",Ship=DB$barco,Gear=DB$Gear,
                                      SweepLngt=DB$malletas,GearExp=-9,DoorType=DB$DoorType,StNo=DB$StNo,
                                      HaulNo=DB$lance,Year=DB$year,Month=substr(DB$fecha,4,5),
                                      Day=substr(DB$fecha,1,2),TimeShot=DB$TimeShot,Stratum=DB$estrato,

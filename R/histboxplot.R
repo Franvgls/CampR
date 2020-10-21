@@ -40,11 +40,11 @@
 #' @family abunds
 #' @export
 histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.dat=FALSE,ind="p",idi="l",
-  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,nlans=TRUE,lan.cex=.6) {
+  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,proflab=F,nlans=TRUE,lan.cex=.6) {
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   especie<-buscaesp(gr,esp,idi)
-  colo<-ifelse(bw,gray(.8),"lightblue")
+  colo<-ifelse(bw,gray(1),"lightblue")
   ndat<-length(camps)
 	dumb<-NULL
 	for (i in 1:ndat) {
@@ -78,13 +78,13 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	                 font.main=ifelse((idi!="l" | any(esp=="999")),2,4),line=ifelse(any(is.character(sub),sub),1.5,1))}
 	par(op)
 	}
-	else {title(main=ti,font.main=4,line=1.3,cex.main=1.1*cex.leg)}
+	else {title(main=ti,font.main=2,line=1.3,cex.main=1.1*cex.leg)}
 	if (is.logical(sub)) {
 	  if (sub) {title(main=ifelse(ind=="p",ifelse(es,"Biomasa","Biomass"),ifelse(es,"Número","Number")),
 	                  font.main=2,line=.3,cex.main=cex.leg*.9)}
 	}
 	else title(main=sub,line=.3,font.main=2,cex.main=cex.leg*.9)
-	if(any(!is.na(profrange))) mtext(paste(ifelse(es,"Rango prof:","Depth range:"),min(profrange),"-",max(profrange),"m",collapse=" "),side=3,cex=.7,font=2,adj=ifelse(ceros,1,0))
+	if(any(!is.na(profrange)) & proflab) mtext(paste(ifelse(es,"Rango prof:","Depth range:"),min(profrange),"-",max(profrange),"m",collapse=" "),side=3,cex=.7,font=2,adj=ifelse(ceros,1,0))
 	if (out.dat) {
     dumb$peso<-round(dumb$peso,3)
     if (years) dumb<-dumbcamp

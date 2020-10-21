@@ -19,7 +19,7 @@
 #' @family PescaWin
 #' @export
 MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,es=T,bw=FALSE,ax=T) {
-  if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
+  #if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
   lan<-datlan.camp(camp,dns,redux=FALSE,incl2=TRUE,incl0=TRUE)
   lannul<-lan[lan$validez==0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
   lan<-lan[lan$validez!=0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
@@ -48,3 +48,4 @@ MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,p
   if (Nlans) text(latitud_v~longitud_v,lan,label=lan$lance,pos=1,cex=.8)
   if (Nlans & incl0) text(latitud_v~longitud_v,lannul,label=lannul$lance,pos=1,cex=.8,col=2)
 }
+
