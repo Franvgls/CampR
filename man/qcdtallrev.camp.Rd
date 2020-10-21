@@ -25,7 +25,7 @@ qcdtallrev.camp(camp="N10",dns="Cant",nlans=2)
 Other Control de calidad: 
 \code{\link{qcLW.camp}()},
 \code{\link{qcLWbucl.camp}()},
-\code{\link{qcTalPez.lan}()},
+\code{\link{qcTalPez.camp}()},
 \code{\link{qcdistlan.camp}()},
 \code{\link{qcdtall.camp}()}
 }

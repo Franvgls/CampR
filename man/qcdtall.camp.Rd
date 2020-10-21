@@ -55,7 +55,7 @@ Gerritsen & McGrath. 2007. Precision estimates and suggested sample sizes for le
 Other Control de calidad: 
 \code{\link{qcLW.camp}()},
 \code{\link{qcLWbucl.camp}()},
-\code{\link{qcTalPez.lan}()},
+\code{\link{qcTalPez.camp}()},
 \code{\link{qcdistlan.camp}()},
 \code{\link{qcdtallrev.camp}()}
 }

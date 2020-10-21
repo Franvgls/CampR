@@ -34,7 +34,7 @@ distHaversine function gives the haversine calculation of distance between two g
 Other Control de calidad: 
 \code{\link{qcLW.camp}()},
 \code{\link{qcLWbucl.camp}()},
-\code{\link{qcTalPez.lan}()},
+\code{\link{qcTalPez.camp}()},
 \code{\link{qcdtall.camp}()},
 \code{\link{qcdtallrev.camp}()}
 }
