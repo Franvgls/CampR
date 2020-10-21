@@ -56,6 +56,7 @@ Other Control de calidad:
 \code{\link{qcLW.camp}()},
 \code{\link{qcLWbucl.camp}()},
 \code{\link{qcTalPez.camp}()},
+\code{\link{qcTalPez.lan}()},
 \code{\link{qcdistlan.camp}()},
 \code{\link{qcdtallrev.camp}()}
 }

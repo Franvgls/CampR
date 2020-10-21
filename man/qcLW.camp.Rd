@@ -53,6 +53,7 @@ qcLW.camp(1,50,"N08","Cant")
 Other Control de calidad: 
 \code{\link{qcLWbucl.camp}()},
 \code{\link{qcTalPez.camp}()},
+\code{\link{qcTalPez.lan}()},
 \code{\link{qcdistlan.camp}()},
 \code{\link{qcdtall.camp}()},
 \code{\link{qcdtallrev.camp}()}
