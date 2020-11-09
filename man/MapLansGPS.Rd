@@ -2,7 +2,7 @@
 % Please edit documentation in R/MapLansGPS.R
 \name{MapLansGPS}
 \alias{MapLansGPS}
-\title{Gráfico con los lances en segmentos}
+\title{Mapa con los lances en segmentos}
 \usage{
 MapLansGPS(
   camp,
@@ -14,9 +14,10 @@ MapLansGPS(
   lwd = 2,
   places = TRUE,
   Nlans = FALSE,
-  es = T,
+  rumbo = FALSE,
+  es = TRUE,
   bw = FALSE,
-  ax = T
+  ax = TRUE
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ MapLansGPS(
 \item{places}{si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine}
 
 \item{Nlans}{se T incluye los números de lance por encima de los segmentos}
+
+\item{rumbo}{si T incluye}
 
 \item{bw}{Si T gráfico en blanco y negro por default, si F gráfico en color}
 
@@ -62,6 +65,7 @@ Other mapas:
 \code{\link{MapLansHH}()},
 \code{\link{VedaCigala.out}},
 \code{\link{VedaCigala}},
+\code{\link{arMapLansGPS}()},
 \code{\link{armap.camp}()},
 \code{\link{armap.tot}()},
 \code{\link{map.check}()},
@@ -74,6 +78,7 @@ Other PescaWin:
 \code{\link{GrafMarksGPS_2}()},
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapLansHH}()},
+\code{\link{arMapLansGPS}()},
 \code{\link{pasa.lan}()}
 }
 \concept{PescaWin}

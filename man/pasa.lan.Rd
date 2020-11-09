@@ -26,6 +26,7 @@ Other PescaWin:
 \code{\link{GrafMarksGPS_2}()},
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapLansGPS}()},
-\code{\link{MapLansHH}()}
+\code{\link{MapLansHH}()},
+\code{\link{arMapLansGPS}()}
 }
 \concept{PescaWin}

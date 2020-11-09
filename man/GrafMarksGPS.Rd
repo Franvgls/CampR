@@ -64,6 +64,7 @@ Other mapas:
 \code{\link{MapLansHH}()},
 \code{\link{VedaCigala.out}},
 \code{\link{VedaCigala}},
+\code{\link{arMapLansGPS}()},
 \code{\link{armap.camp}()},
 \code{\link{armap.tot}()},
 \code{\link{map.check}()},
@@ -76,6 +77,7 @@ Other PescaWin:
 \code{\link{GrafMarksGPS_2}()},
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
+\code{\link{arMapLansGPS}()},
 \code{\link{pasa.lan}()}
 }
 \concept{PescaWin}

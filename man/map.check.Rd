@@ -63,6 +63,7 @@ Other mapas:
 \code{\link{MapLansHH}()},
 \code{\link{VedaCigala.out}},
 \code{\link{VedaCigala}},
+\code{\link{arMapLansGPS}()},
 \code{\link{armap.camp}()},
 \code{\link{armap.tot}()},
 \code{\link{maparea}()},

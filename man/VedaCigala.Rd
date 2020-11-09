@@ -34,6 +34,7 @@ Other mapas:
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
 \code{\link{VedaCigala.out}},
+\code{\link{arMapLansGPS}()},
 \code{\link{armap.camp}()},
 \code{\link{armap.tot}()},
 \code{\link{map.check}()},
