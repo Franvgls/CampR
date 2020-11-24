@@ -11,10 +11,11 @@
 #' otros ficheros de lances de los últimos años
 #'
 #' @param camp Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
+#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las RODBCs
 #' @param incl2 Si T se incluyen los lances extra no incluidos para las abundancias o biomasas estratificadas
 #' @param incl0 Si T se incluyen los lances nulos
 #' @param hidro Si T muestra datos de hidrografía. Necesita que exista fichero base de datos de hidro: HIDROXYY.dbf
+#' @param outhidro si T saca los datos del fichero hidro al final de todo el proceso como salida
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
 #' @param redux Si T elimina datos de longitud y latitud de virada y muestra la media de las profundidades de largada y virada
 #' @param year si T incluye una columna con el año al final de los datos
@@ -26,8 +27,8 @@
 #'   print(datlan.camp(Nsh[24:28],"Cant",hidro=FALSE,excl.sect=c("A")))
 #'   print(datlan.camp("P16","Porc",bio=T))
 #' @export
-datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,redux=FALSE,year=T,quarter=T,bio=F) {
-  foop<-function(camp,dns,incl2=incl2,incl0=incl0,hidro=hidro) {
+datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE,excl.sect=NA,redux=FALSE,year=T,quarter=T,bio=F) {
+  foop<-function(camp,dns,incl2=incl2,incl0=incl0,hidro=hidro,outhidro=outhidro) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
     lan<-DBI::dbGetQuery(ch1,paste0("select lance,validez,latitud_l,latitud_v,longitud_l,longitud_v,prof_l,prof_v,velocidad,
@@ -42,8 +43,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
       else
         {dathidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
         if(nrow(dathidro)==0) warning("Fichero de CTDs sin datos")
-        dathidro<-dathidro[,c(11:13,17:23)]}
-    }
+        dumbdathidro<-ifelse(outhidro,dathidro,dathidro[,c(11:13,17:23)]) }
+        }
     dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
     DBI::dbDisconnect(ch1)
     lan$latitud_l<-round(sapply(lan$latitud_l,gradec),4)
@@ -114,5 +115,6 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,excl.sect=NA,r
   }
   datos$sector<-factor(as.character(datos$sector))
   if (bio) datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")] else datos
+  if (outhidro) dumbdathidro
   }
 
