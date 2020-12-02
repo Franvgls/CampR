@@ -2,5 +2,6 @@
 .Rhistory
 .RData
 .CampR.Rproj
+*.csv
 inst/doc
 packrat/lib*/

@@ -10,6 +10,7 @@ datlan.camp(
   incl2 = TRUE,
   incl0 = FALSE,
   hidro = FALSE,
+  outhidro = FALSE,
   excl.sect = NA,
   redux = FALSE,
   year = T,
@@ -20,13 +21,15 @@ datlan.camp(
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las RODBCs}
 
 \item{incl2}{Si T se incluyen los lances extra no incluidos para las abundancias o biomasas estratificadas}
 
 \item{incl0}{Si T se incluyen los lances nulos}
 
 \item{hidro}{Si T muestra datos de hidrografía. Necesita que exista fichero base de datos de hidro: HIDROXYY.dbf}
+
+\item{outhidro}{si T saca los datos del fichero hidro al final de todo el proceso como salida}
 
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 

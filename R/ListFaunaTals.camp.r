@@ -5,11 +5,13 @@
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
+#' @param profrange Si c(profmin,profmax) filtra por ese rango de profundidad, por defecto NA no filtra por profunidades, debe ser o NA o un rango con dos profundidades
 #' @param incl2 Si T incluye los lances especiales "2"
 #' @seealso {\link{ListFauna.camp}}
 #' @examples ListFaunaTals.camp(gr="1",camp="N90",dns="Cant",excl.sect=NA)
+#' @examples ListFaunaTals.camp(gr="1",camp="N90",dns="Cant",excl.sect=NA,profrange=c(400,500))
 #' @export
-ListFaunaTals.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE) {
+ListFaunaTals.camp<- function(gr="1",camp,dns,excl.sect=NA,profrange=NA,incl2=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (gr==6) {stop("No tiene sentido tallas de deshechos")}
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -17,18 +19,19 @@ ListFaunaTals.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE) {
   talls<-DBI::dbGetQuery(ch1,paste0("select lance,esp,talla,numer,peso_m,peso_gr from NTALL",camp," where grupo='",gr,"'"))
   DBI::dbDisconnect(ch1)
   lan<-datlan.camp(camp,dns,redux=TRUE,excl.sect=excl.sect,incl2=incl2,incl0=FALSE)
-  lan<-lan[,c("lance","sector")]
+  lan<-lan[,c("lance","sector","prof")]
   talls$npond<-talls$numer*talls$peso_gr/talls$peso_m
-  dumb<-merge(listsps,lan)
-  dumb<-merge(dumb,talls)
   if (any(!is.na(excl.sect))) {
     dumb$sector<-gsub("NA","N",dumb$sector) # print(datos)
     for (i in 1:length(excl.sect)) {if (length(grep(excl.sect[i],as.character(dumb$sector)))>0) dumb<-dumb[-grep(excl.sect[i],as.character(dumb$sector)),]}
     dumb$sector<-factor(as.character(dumb$sector))
   }
+  if (any(!is.na(profrange))) lan<-filter(lan,prof>min(profrange) & prof<max(profrange))
+  dumb<-merge(listsps,lan)
+  dumb<-merge(dumb,talls)
   listaesp<-levels(factor(dumb$esp))
   ndat<-length(listaesp)
-  if (sum(dim(tapply(dumb$npond,dumb[,c(1,2)],sum)))==0) stop(paste("Ning?n lance tras la exclusi?n de sector",excl.sect[i]))
+  if (sum(dim(tapply(dumb$npond,dumb[,c(1,2)],sum)))==0) stop(paste("Ningún lance tras la exclusión de sector",ifelse(!is.na(excl.sect),excl.sect,profrange)))
   dumbtap<-colSums(!is.na(tapply(dumb$npond,dumb[,c(1,2)],sum)))
   dumbpes<-tapply(dumb$peso_gr,dumb$esp,sum)
   dumbsum<-tapply(dumb$npond,dumb$esp,sum)
@@ -43,5 +46,7 @@ ListFaunaTals.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE) {
                                       Lmin=dumbmin[as.vector(dimnames(dumbmin)[[1]])==listaesp[i]],
                                       Lmax=dumbmax[as.vector(dimnames(dumbmax)[[1]])==listaesp[i]]))
   }
-  dumbres[order(as.character(dumbres[,3]),decreasing=FALSE),]
+  if (any(!is.na(profrange))) print(paste("Seleccionados lances de profundidades entre",paste0(min(profrange),"-",max(profrange)," m")))
+  if (any(!is.na(excl.sect))) print(paste("Excluidos los sectores/estratos",excl.sect))
+  dumbres[order(dumbres[,6],decreasing=TRUE),]
 }

@@ -5,8 +5,10 @@
 #' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param lwdl Ancho de las líneas del mapa
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
+#' @param cuadrcol Color para los recuadros de muestreo
 #' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
+#' @param icesrectcol Color para los rectángulos ICES
 #' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
 #' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
 #' @param leg Si T saca una leyenda con los estratos batimétricos que salen de color o con grises en bw
@@ -24,7 +26,7 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
+MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (ax) {
      degs = seq(-10,-2,ifelse(abs(diff(xlims))>1,1,.5))
@@ -37,8 +39,8 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FA
      axis(4, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
   }
   if (cuadr) {
-    abline(h=seq(41,45,by=1/12),col=gray(.4),lwd=.5)
-    abline(v=seq(-12,0,by=3/26),col=gray(.4),lwd=.5)
+    abline(h=seq(41,45,by=1/12),col=cuadrcol,lwd=.5)
+    abline(v=seq(-12,0,by=3/26),col=cuadrcol,lwd=.5)
   }
   if (cuadrMSFD) {
     abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
@@ -46,8 +48,8 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FA
   }
   if (ICESlab) text(c(stat_y+.22)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
   if (ICESrect) {
-    abline(h=seq(41,45,by=.5),col=gray(.2),lwd=.5)
-    abline(v=seq(-12,-1),col=gray(.2),lwd=.5)
+    abline(h=seq(41,45,by=.5),col=ICESrectcol,lwd=2)
+    abline(v=seq(-12,-1),col=ICESrectcol,lwd=2)
   }
   if (strat) {
     abline(h=43,v=c(-7.66,-6,-3.5),lty=1,col=gray(.0),lwd=2)

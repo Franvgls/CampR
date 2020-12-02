@@ -27,7 +27,7 @@
 #'   print(datlan.camp(Nsh[24:28],"Cant",hidro=FALSE,excl.sect=c("A")))
 #'   print(datlan.camp("P16","Porc",bio=T))
 #' @export
-datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE,excl.sect=NA,redux=FALSE,year=T,quarter=T,bio=F) {
+datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE,excl.sect=NA,redux=FALSE,year=TRUE,quarter=TRUE,bio=FALSE) {
   foop<-function(camp,dns,incl2=incl2,incl0=incl0,hidro=hidro,outhidro=outhidro) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -43,8 +43,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
       else
         {dathidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
         if(nrow(dathidro)==0) warning("Fichero de CTDs sin datos")
-        dumbdathidro<-ifelse(outhidro,dathidro,dathidro[,c(11:13,17:23)]) }
-        }
+        }}
+    #if (hidro) {dumbdathidro<-ifelse(outhidro,dathidro,dathidro[,c(11:13,17:23)]) }
     dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
     DBI::dbDisconnect(ch1)
     lan$latitud_l<-round(sapply(lan$latitud_l,gradec),4)
@@ -92,7 +92,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     if (!incl0) {lan<-lan[c(lan$validez!=0),]}
     if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
     datos<-merge(lan,area,by.x="sector",by.y="sector",all.x=TRUE)
-    if (hidro) datos<-merge(datos,dathidro,by.x="lance",by.y="LANCE",all.x=TRUE)
+    if (hidro) datos<-merge(datos,dathidro[,c(11:13,17:23)],by.x="lance",by.y="LANCE",all.x=TRUE)
     datos$arsect<-as.numeric(as.character(datos$arsect))
     datos$barco<-barco
     #browser()
@@ -101,7 +101,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     if(quarter==T) datos$quarter=as.character(cut(as.numeric(substr(datos$fecha,4,5)),c(0,3,6,9,12),labels=c(1:4)))
     if(year==T) datos$year=as.numeric(paste0(ifelse(as.numeric(substr(camp,2,3)>50),19,20),substr(camp,2,3)))
     datos[order(datos$lance),]
-  }
+    }
   datos<-data.frame(foop(camp[1],dns=dns,incl2=incl2,incl0=incl0,hidro=hidro),camp=camp[1])
   if (length(camp)>1) {
     for (i in camp[2:length(camp)]) datos<-rbind(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0,hidro=hidro),camp=i))
@@ -115,6 +115,6 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
   }
   datos$sector<-factor(as.character(datos$sector))
   if (bio) datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")] else datos
-  if (outhidro) dumbdathidro
+  if (!outhidro & !bio) datos
   }
 

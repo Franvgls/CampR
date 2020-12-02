@@ -13,7 +13,10 @@ qcdtall.camp(
   ti = FALSE,
   legend = TRUE,
   idi = "l",
-  ymax = NA
+  ymax = NA,
+  mm = FALSE,
+  areg = NA,
+  breg = NA
 )
 }
 \arguments{
@@ -34,6 +37,12 @@ qcdtall.camp(
 \item{idi}{Nombre científico de la especie ("l") o nombre común ("e")}
 
 \item{ymax}{Valor máximo del eje y}
+
+\item{mm}{Usar T para especies medidas en milímetros}
+
+\item{areg}{Para cambiar el coeficiente "a" de la regresión si es distinto al archivado en el CAMP}
+
+\item{breg}{Para cambiar el coeficiente "b" de la regresión si es distinto al archivado en el CAMP}
 }
 \value{
 Saca en pantalla un gráfico con el histograma de individuos medidos divididos en sus categorías y ponderaciones, ademas del numero ideal de individuos medidos
