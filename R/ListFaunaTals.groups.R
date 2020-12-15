@@ -1,7 +1,6 @@
 #' Capturas medias por lance de cada especie de gr (grupo) de varias campañas
 #'
 #' Ver documentación ListFauna.camp
-#' @details Por defecto extrae los datos de todos los grupos taxonómicos menos el 6 (deshechos y no orgánicos), sólo se puede utilizar para los lances estándares y los resultados responden a las abundancias estandarizadas, sólo incluyen los lances estándare, ni extras  ni fuera de estatos áreas de la campaña. Para incluir estos lances utilizar las funciones de ListFaunaTals
 #' @param camp campaña de la que se extrae el listado de especies capturadas: un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Medits "Medi"
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
@@ -11,10 +10,10 @@
 #' @examples
 #' ListFauna.groups(Nsh[length(Nsh)],"Cant",excl.sect=NA,incl2=TRUE)
 #' @export
-ListFauna.groups<- function(camp,dns,excl.sect=NA,verbose=TRUE,cor.time=TRUE,kg=TRUE) {
-  dumb<-ListFauna.camp(1,camp,dns,excl.sect=excl.sect,verbose=verbose,cor.time=cor.time)
+ListFaunaTals.groups<- function(camp,dns,cor.time=F,excl.sect=NA,profrange=NA,incl2=TRUE) {
+  dumb<-ListFaunaTals.camp(1,camp,dns,cor.time=cor.time,excl.sect=excl.sect,profrange=profrange,incl2=incl2)
     for (i in 2:5) {
-      dumb<-rbind(dumb,ListFauna.camp(i,camp,dns,excl.sect,cor.time = cor.time))
+      dumb<-rbind(dumb,ListFaunaTals.camp(i,camp,dns,cor.time=cor.time,excl.sect=excl.sect,profrange=profrange,incl2=incl2))
     }
-  dplyr::arrange(dumb,gr,desc(peso))
+  dplyr::arrange(dumb,gr,desc(peso_gr))
   }

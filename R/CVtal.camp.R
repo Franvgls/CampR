@@ -11,7 +11,7 @@
 #' @param Nas Si F el error estándar de los subestratos y estratos con un solo lance son NA. Si T utiliza el valor del estrato y evita los NAs
 #' @param excl.sect Excluye los sectores o subsectores dados como caracteres
 #' @return Devuelve una lista con valorees de media, SE y CV para los subestratos, estratos y total de la campaña
-#' @seealso {\link{CVtal.camps}}, {\link{CVtal.bt.camp}}
+#' @seealso {\link{CV.camp}}, {\link{CVtal.bt.camp}}
 #' @export
 CVtal.camp<- function(gr,esp,camp,dns,tmin,tmax,cor.time=TRUE,Nas=FALSE,excl.sect=NA) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de m?s de una")}

@@ -58,7 +58,7 @@ histboxplot(
 
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
 
-\item{profrange}{Si c(profmin,profmax) filtra por ese rango de profundidad}
+\item{profrange}{Si c(profmin,profmax) filtra por ese rango de profundidadm por defecto NA no filtra profundidades}
 
 \item{nlans}{T por defecto presenta el número de lances en la campaña por encima del eje x}
 

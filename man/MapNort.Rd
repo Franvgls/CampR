@@ -7,8 +7,10 @@
 MapNort(
   lwdl = 0.5,
   cuadr = FALSE,
+  cuadrcol = gray(0.4),
   cuadrMSFD = FALSE,
   ICESrect = FALSE,
+  ICESrectcol = gray(0.2),
   ICESlab = FALSE,
   ICESlabcex = 0.7,
   leg = F,
@@ -26,6 +28,8 @@ MapNort(
 \item{lwdl}{Ancho de las líneas del mapa}
 
 \item{cuadr}{Si T saca las cuadrículas de 5x5 millas naúticas}
+
+\item{cuadrcol}{Color para los recuadros de muestreo}
 
 \item{cuadrMSFD}{Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)}
 
@@ -52,6 +56,8 @@ MapNort(
 \item{xlims}{Define los limites longitudinales del mapa, por defecto -10.25 y -1.4 oeste}
 
 \item{ylims}{Define los limites longitudinales del mapa, por defecto 41.82 y 44.48 norte}
+
+\item{icesrectcol}{Color para los rectángulos ICES}
 
 \item{dens}{si mayor de 0 las superficies de los estratos tienen patrones de líneas}
 }

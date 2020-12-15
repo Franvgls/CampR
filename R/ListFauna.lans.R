@@ -8,7 +8,7 @@
 #' @param excl.sect Sirve para excluir uno o más sectores o estratos, ponerlos como un vector por separado, i.e. c("A","B")
 #' @param incl2 Si TRUE se incuyen los lances especiales
 #' @return Devuelve un data.frame con columnas grupo,esp, lance,especie,peso,numero
-#' @seealso {\link{ListFauna.camps}}, {\link{ListFaunaTals.camps}}
+#' @family ListadosFauna
 #' @examples ListFauna.lans("12C","Cant",gr=c(1,2))
 #' @export
 ListFauna.lans<- function(camp,dns="Porc",gr=NA,excl.sect=NA,incl2=FALSE) {
@@ -18,5 +18,5 @@ ListFauna.lans<- function(camp,dns="Porc",gr=NA,excl.sect=NA,incl2=FALSE) {
   for (i in lans$lance[2:length(lans)]) {
     datos<-rbind(datos,ListFauna.lan(camp,dns,i,gr=gr,out=FALSE))
   }
-  print(setorder(datos,lance,grupo,-peso_gr))
+  print(setorder(datos,lance,grupo,-peso))
 }

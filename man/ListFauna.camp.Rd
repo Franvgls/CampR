@@ -2,7 +2,7 @@
 % Please edit documentation in R/ListFauna.camp.r
 \name{ListFauna.camp}
 \alias{ListFauna.camp}
-\title{Capturas medias por lance de cada especie de gr (grupo) en una campaña}
+\title{Capturas medias estratificadas por lance de cada especie de gr (grupo) en una campaña}
 \usage{
 ListFauna.camp(
   gr = "1",
@@ -10,7 +10,6 @@ ListFauna.camp(
   dns,
   cor.time = TRUE,
   excl.sect = NA,
-  incl2 = FALSE,
   verbose = TRUE,
   kg = TRUE
 )
@@ -26,16 +25,27 @@ ListFauna.camp(
 
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos, NA no excluye ninguno}
 
-\item{incl2}{Si T incluye los lances especiales "2"}
-
 \item{verbose}{si T saca en pantalla, si F no salen en pantalla}
 }
 \value{
 Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr. Columnas: gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp) Los valores NaN en las abundancias corresponden a especies que sólo han aparecido en los lances especiales, y que no puede calcularse la abundancia estratificada al no contar con áreas para los estratos en que aparecen
 }
 \description{
-Muestra un listado de la biomasa y número medio de todas las especies capturadas del grupo gr
+Capturas medias estratificadas por lance de cada especie de gr (grupo) en una campaña
+}
+\details{
+Muestra un listado de la biomasa y número estratificados medios de todas las especies capturadas del grupo gr. \emph{Es importante tener en cuenta que sólo sirve para los lances estándares} y no tiene en cuenta los datos de los lances especiales. \emph{Para sacar resultados con lances especiales y fuera de estratos de profundidad utilizar ListFaunaTals.camp}.
 }
 \examples{
-ListFauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=FALSE,incl2=FALSE)
+ListFauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA)
 }
+\seealso{
+Other ListadosFauna: 
+\code{\link{ListFauna.groups}()},
+\code{\link{ListFauna.lans}()},
+\code{\link{ListFauna.lan}()},
+\code{\link{ListFaunaTals.camps}()},
+\code{\link{ListFaunaTals.camp}()},
+\code{\link{ListFaunaTals.groups}()}
+}
+\concept{ListadosFauna}

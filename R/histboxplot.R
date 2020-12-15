@@ -24,7 +24,7 @@
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
 #' @param ind Parámetro a representar saca los datos en "p"eso o "n"úmero
 #' @param es Si T rotulos gráfico en español, si F en inglés
-#' @param profrange Si c(profmin,profmax) filtra por ese rango de profundidad
+#' @param profrange Si c(profmin,profmax) filtra por ese rango de profundidadm por defecto NA no filtra profundidades
 #' @param ceros por defecto incluye los valores de 0 al calcular los rangos y medianas, si T los quita, Es importante avisarlo en el la explicación de la gráfica
 #' @param nlans T por defecto presenta el número de lances en la campaña por encima del eje x
 #' @param lan.cex tamaño de las etiquetas del numero de lances por campaña

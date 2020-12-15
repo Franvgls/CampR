@@ -13,9 +13,9 @@ datlan.camp(
   outhidro = FALSE,
   excl.sect = NA,
   redux = FALSE,
-  year = T,
-  quarter = T,
-  bio = F
+  year = TRUE,
+  quarter = TRUE,
+  bio = FALSE
 )
 }
 \arguments{

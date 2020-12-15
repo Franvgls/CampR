@@ -4,14 +4,7 @@
 \alias{ListFauna.camps}
 \title{Capturas medias por lance de cada especie de gr (grupo) de varias campañas}
 \usage{
-ListFauna.camps(
-  gr = "1",
-  camps,
-  dns,
-  cor.time = TRUE,
-  excl.sect = NA,
-  incl2 = FALSE
-)
+ListFauna.camps(gr = "1", camps, dns, cor.time = TRUE, excl.sect = NA)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros.}
@@ -23,8 +16,6 @@ ListFauna.camps(
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
-
-\item{incl2}{Si T incluye los lances especiales "2"}
 }
 \value{
 Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr en cada campaña. Columnas: camp,gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp) ordenadas por campaña y abundancia en peso decreciente dentro de la campaña
@@ -33,7 +24,8 @@ Devuelve un data.frame con las capturas medias por lance de cada especie captura
 Ver documentación ListFauna.camp
 }
 \examples{
-ListFauna.camps(gr="1",Nsh[25:27],"Cant",excl.sect=NA,incl2=TRUE)
+ListFauna.camps(gr="1",Nsh[25:27],"Cant",excl.sect=NA)
+ListFauna.camps(gr="1",Nsh[25:26],"Cant",excl.sect="A")
 }
 \seealso{
 {\link{ListFauna.camp}}

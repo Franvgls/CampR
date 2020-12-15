@@ -27,5 +27,12 @@ Muestra un listado de las especies capturadas en peso y número en un lance conc
 ListFauna.lan("12C","Cant",1,gr=c(1,2))
 }
 \seealso{
-{\link{ListFauna.camps}}, {\link{ListFaunaTals.camps}}
+Other ListadosFauna: 
+\code{\link{ListFauna.camp}()},
+\code{\link{ListFauna.groups}()},
+\code{\link{ListFauna.lans}()},
+\code{\link{ListFaunaTals.camps}()},
+\code{\link{ListFaunaTals.camp}()},
+\code{\link{ListFaunaTals.groups}()}
 }
+\concept{ListadosFauna}

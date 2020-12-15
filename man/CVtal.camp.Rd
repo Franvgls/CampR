@@ -42,5 +42,5 @@ Devuelve una lista con valorees de media, SE y CV para los subestratos, estratos
 Función de resultados
 }
 \seealso{
-{\link{CVtal.camps}}, {\link{CVtal.bt.camp}}
+{\link{CV.camp}}, {\link{CVtal.bt.camp}}
 }

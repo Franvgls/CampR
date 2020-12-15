@@ -4,7 +4,15 @@
 \alias{ListFaunaTals.camp}
 \title{Capturas y tallas mínima y máxima de grupos de especies para todos los lances de una campaña}
 \usage{
-ListFaunaTals.camp(gr = "1", camp, dns, excl.sect = NA, incl2 = TRUE)
+ListFaunaTals.camp(
+  gr = "1",
+  camp,
+  dns,
+  cor.time = TRUE,
+  excl.sect = NA,
+  profrange = NA,
+  incl2 = TRUE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados. 6 desechos y no orgánicos no se puede incluir.}
@@ -15,6 +23,8 @@ ListFaunaTals.camp(gr = "1", camp, dns, excl.sect = NA, incl2 = TRUE)
 
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 
+\item{profrange}{Si c(profmin,profmax) filtra por ese rango de profundidad, por defecto NA no filtra por profunidades, debe ser o NA o un rango con dos profundidades}
+
 \item{incl2}{Si T incluye los lances especiales "2"}
 }
 \description{
@@ -22,7 +32,15 @@ Muestras las abundancias totales sin estratificar, en número y peso y las talla
 }
 \examples{
 ListFaunaTals.camp(gr="1",camp="N90",dns="Cant",excl.sect=NA)
+ListFaunaTals.camp(gr="1",camp="N90",dns="Cant",excl.sect=NA,profrange=c(400,500))
 }
 \seealso{
-{\link{ListFauna.camp}}
+Other ListadosFauna: 
+\code{\link{ListFauna.camp}()},
+\code{\link{ListFauna.groups}()},
+\code{\link{ListFauna.lans}()},
+\code{\link{ListFauna.lan}()},
+\code{\link{ListFaunaTals.camps}()},
+\code{\link{ListFaunaTals.groups}()}
 }
+\concept{ListadosFauna}

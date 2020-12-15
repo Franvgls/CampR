@@ -15,3 +15,5 @@ Transforma grados y minutos decimales a grados decimales, avisa si el dato es in
 \examples{
 gradms("43:14:25")
 }
+\concept{Conversion unidades
+#'@export}

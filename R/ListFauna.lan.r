@@ -7,7 +7,7 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados. Si NA, muestra todos los grupos a excepción de 6 desechos y otros no orgánicos
 #' @param out salida de la función, por defecto TRUE, pero si FALSE no saca el resultado en pantalla (lo asigna a variable para ListFauna.lans)
 #' @return Devuelve un data.frame con columnas grupo,esp,lanceui,especie,peso,numero
-#' @seealso {\link{ListFauna.camps}}, {\link{ListFaunaTals.camps}}
+#' @family ListadosFauna
 #' @examples ListFauna.lan("12C","Cant",1,gr=c(1,2))
 #' @export
 ListFauna.lan<- function(camp,dns="Porc",lan,gr=NA,out=TRUE) {
@@ -26,5 +26,5 @@ ListFauna.lan<- function(camp,dns="Porc",lan,gr=NA,out=TRUE) {
     listsps$especie[i]=buscaesp(listsps$grupo[i],listsps$esp[i]) }
   listsps<-listsps[,c("grupo","esp","lance","especie","peso","numero")]
   if (out) print(setorder(listsps,grupo,-peso))
-  else setorder(listsps,grupo,-peso_gr)}
+  else setorder(listsps,grupo,-peso)}
   }

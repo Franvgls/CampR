@@ -15,3 +15,8 @@ Transforma grados y minutos decimales a grados decimales, avisa si el dato es in
 \examples{
 gradec(43.3080)
 }
+\seealso{
+Other Conversion unidades: 
+\code{\link{HdectoH}()}
+}
+\concept{Conversion unidades}
