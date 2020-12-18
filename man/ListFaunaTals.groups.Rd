@@ -26,7 +26,7 @@ ListFaunaTals.groups(
 Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr en cada campaña. Columnas: camp,gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp) LOs valores NaN corresponden a especies que sólo aparecen en lances especiales
 }
 \description{
-Ver documentación ListFauna.camp
+Ver documentación en ListFaunaTals.camp
 }
 \examples{
 ListFauna.groups(Nsh[length(Nsh)],"Cant",excl.sect=NA,incl2=TRUE)

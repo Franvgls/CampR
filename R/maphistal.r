@@ -13,7 +13,8 @@
 #' @param sex Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo
 #' @param bw gráfico en blanco en negro si T o en color si F
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
-#' @param ti Si T añade titulo al mapa, el nombre de la especie en latín
+#' @param ti Si T añade titulo al mapa, el nombre de la especie en latín. También se puede poner como list con parámetros **main**: el título, **font** y demás.
+#' @param subti ti T añade un subtítulo bajo la gráfica con el rango de tallas seleccionado.
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param out.dat Si T el resultado final de la funcion es la figura en pantalla, pero los datos en objeto
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
@@ -28,8 +29,9 @@
 #' @family mapas
 #' @family tallas
 #' @export
-maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",ICESrect=FALSE,sex=NA,bw=TRUE,ti=TRUE,
-  plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,escmult=.25,cexleg=1,years=TRUE) {
+maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",ICESrect=FALSE,
+                    sex=NA,bw=TRUE,ti=TRUE,subti=TRUE,plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,
+                    escmult=.25,cexleg=1,years=TRUE) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)
   if (plot) {
@@ -81,10 +83,12 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	  if(is.list(ti)) titulo<-ti
 	  else titulo<-list(label=ti)
 	}
+	if (subti) {
 	if (tmin==0) sub<-list(label=bquote(" "<=.(format(paste0(tmax,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),font.sub=2,cex=cexleg*.9)
 	if (tmax==999) sub<-list(font.sub=2,label=bquote(" ">=.(format(paste0(tmin,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),cex=cexleg*.9)
 	if (tmin!=0 & tmax!=999) sub<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
 	if (tmin==0 & tmax==999) sub<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
+	}
 	if (any(is.na(layout))) {
 		if (ndat!=4) layout=c(1,ndat)
 		if (ndat==4) layout=c(2,2)

@@ -28,7 +28,7 @@ ListFaunaTals.camp(
 \item{incl2}{Si T incluye los lances especiales "2"}
 }
 \description{
-Muestras las abundancias totales sin estratificar, en número y peso y las tallas mínima y máxima de un grupo de especies para todos los lances de una campaña
+Muestras las abundancias totales \strong{sin estratificar}, en número y peso y las tallas mínima y máxima de un grupo taxonómico de especies para todos los lances de una campaña. Hay que tener en cuenta que en numerosas especies de invertebrados no se toman datos de tallas, sobre todo históricamente, por lo que para estos taxones Lmin y Lmax resultan NA
 }
 \examples{
 ListFaunaTals.camp(gr="1",camp="N90",dns="Cant",excl.sect=NA)

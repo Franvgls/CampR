@@ -18,6 +18,7 @@ maphistal(
   sex = NA,
   bw = TRUE,
   ti = TRUE,
+  subti = TRUE,
   plot = TRUE,
   out.dat = FALSE,
   idi = "l",
@@ -54,7 +55,9 @@ maphistal(
 
 \item{bw}{gráfico en blanco en negro si T o en color si F}
 
-\item{ti}{Si T añade titulo al mapa, el nombre de la especie en latín}
+\item{ti}{Si T añade titulo al mapa, el nombre de la especie en latín. También se puede poner como list con parámetros \strong{main}: el título, \strong{font} y demás.}
+
+\item{subti}{ti T añade un subtítulo bajo la gráfica con el rango de tallas seleccionado.}
 
 \item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
 

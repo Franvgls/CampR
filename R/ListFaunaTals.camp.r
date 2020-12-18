@@ -1,6 +1,6 @@
 #' Capturas y tallas mínima y máxima de grupos de especies para todos los lances de una campaña
 #'
-#' Muestras las abundancias totales sin estratificar, en número y peso y las tallas mínima y máxima de un grupo de especies para todos los lances de una campaña
+#' @description Muestras las abundancias totales **sin estratificar**, en número y peso y las tallas mínima y máxima de un grupo taxonómico de especies para todos los lances de una campaña. Hay que tener en cuenta que en numerosas especies de invertebrados no se toman datos de tallas, sobre todo históricamente, por lo que para estos taxones Lmin y Lmax resultan NA
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados. 6 desechos y no orgánicos no se puede incluir.
 #' @param camp Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
@@ -41,8 +41,8 @@ ListFaunaTals.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,profran
   dumbtap<-rowSums(!is.na(tapply(dumb$numero,dumb[,c("esp","lance")],sum,na.rm=T)),na.rm=T)
   dumbpes<-round(rowMeans(tapply(dumb$peso,dumb[,c("esp","lance")],mean,na.rm=T),na.rm=T),1)
   dumbsum<-round(rowMeans(tapply(dumb$num,dumb[,c("esp","lance")],mean,na.rm=T),na.rm=T),1)
-  dumbmax<-tapply(dumbtal$talla,dumbtal$esp,max,na.rm=T)
-  dumbmin<-tapply(dumbtal$talla,dumbtal$esp,min,na.rm=T)
+  dumbmax<-tapply(dumbtal$talla,dumbtal$esp,hablar::max_)
+  dumbmin<-tapply(dumbtal$talla,dumbtal$esp,hablar::min_)
   dumbres<-data.frame(camp=camp,gr=gr,esp=as.numeric(listaesp),especie=NA,nlans=dumbtap,peso_gr=dumbpes,num=dumbsum,Lmin=dumbmin,Lmax=dumbmax)
 #  dumbres<-data.frame(gr=NULL,esp=NULL,especie=NULL,nlans=NULL,num=NULL,peso_gr=NULL,Lmin=NULL,Lmax=NULL)
   for (i in 1:nrow(dumbres)) {

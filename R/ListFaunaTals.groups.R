@@ -1,6 +1,6 @@
 #' Capturas medias por lance de cada especie de gr (grupo) de varias campañas
 #'
-#' Ver documentación ListFauna.camp
+#' @description Ver documentación en ListFaunaTals.camp
 #' @param camp campaña de la que se extrae el listado de especies capturadas: un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Medits "Medi"
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
