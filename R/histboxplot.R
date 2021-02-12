@@ -59,8 +59,8 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	if (out.dat) print(dumb[dumb[,5]>0,])
 	if (!ceros) dumb<-filter(dumb,numero>0)
 	if (any(!is.na(profrange))) dumb<-filter(dumb,prof>min(profrange) & prof<max(profrange))
-  op<-par(no.readonly=T)
-  par(mgp=c(2.5,.8,0))
+#  op<-par(no.readonly=T)
+#  par(mgp=c(2.5,.8,0))
 	if (ind=="p") {
 	    dumb$peso<-dumb$peso.gr/1000
 	    boxplot(peso~camp,dumb,outline=F,varwidth=T,col=colo,ylab=ifelse(es,expression("kg"%*%"lance"^-1),expression("kg"%*%"haul"^-1)),
@@ -76,12 +76,11 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	if (is.logical(ti)) {
 	  if (ti) {title(main=especie,cex.main=1.1*cex.leg,
 	                 font.main=ifelse((idi!="l" | any(esp=="999")),2,4),line=ifelse(any(is.character(sub),sub),1.5,1))}
-	par(op)
 	}
 	else {title(main=ti,font.main=2,line=1.3,cex.main=1.1*cex.leg)}
 	if (is.logical(sub)) {
 	  if (sub) {title(main=ifelse(ind=="p",ifelse(es,"Biomasa","Biomass"),ifelse(es,"Número","Number")),
-	                  font.main=2,line=.3,cex.main=cex.leg*.9)}
+	                  font.main=2,line=.5,cex.main=cex.leg*.9)}
 	}
 	else title(main=sub,line=.3,font.main=2,cex.main=cex.leg*.9)
 	if(any(!is.na(profrange)) & proflab) mtext(paste(ifelse(es,"Rango prof:","Depth range:"),min(profrange),"-",max(profrange),"m",collapse=" "),side=3,cex=.7,font=2,adj=ifelse(ceros,1,0))
@@ -91,4 +90,5 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
     if (!ceros) dumb<-dumb[dumb$numero>0,]
     print(dumb)
     }
-	}
+#  par(op)
+}

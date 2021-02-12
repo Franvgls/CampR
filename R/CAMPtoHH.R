@@ -19,7 +19,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        #Crea la columna del rectangulo ICES
        DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
        DB$Gear="BAK"
-       DB$barco=ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="CDS","29CS"))
+       DB$barco=ifelse(DB$barco=="29MO","29MO",ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="CDS","29CS")))
        DB$Warpdia=ifelse(DB$barco=="CDS",22,24)
        DB$DoorType=ifelse(DB$barco=="CDS","WR","T4")
        DB$DoorSurface=ifelse(substr(DB$barco,1,3)=="CDS",3.6,1.8)

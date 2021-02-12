@@ -22,7 +22,12 @@ CAMPtoHL <-
     ntalls <-data.table::as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='1'")))
     DBI::dbDisconnect(ch1)
     names(ntalls) <- tolower(names(ntalls))
-    ch2 <- DBI::dbConnect(odbc::odbc(), dsn = "Camp")
+    if (dns=="Arsa") {
+      ch2<-DBI::dbConnect(odbc::odbc(),dns="Arsa")
+    }
+    if (dsn=="Cant" |dsn=="Porc"){
+      ch2 <- DBI::dbConnect(odbc::odbc(), dns = "Camp")
+      }
     especies <-data.table::as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
     DBI::dbDisconnect(ch2)
     names(especies) <- tolower(names(especies))

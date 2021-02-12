@@ -33,17 +33,21 @@ ListFaunaTals.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,profran
   dumb$peso<-dumb$peso_gr/dumb$weight.time
   dumb$num<-dumb$numero/dumb$weight.time
   }
-  else dumb$peso=dumb$peso_gr;dumb$num=dumb$numero
+  else
+    {dumb$peso=dumb$peso_gr
+    dumb$num=dumb$numero}
   dumbtal<-merge(dumb,talls,all.x = T)
   listaesp<-levels(factor(dumb$esp))
   ndat<-length(listaesp)
   if (sum(dim(tapply(dumb$num,dumb[,c(1,2)],sum)))==0) stop(paste("Ningún lance tras la exclusión de sector",ifelse(!is.na(excl.sect),excl.sect,profrange)))
   dumbtap<-rowSums(!is.na(tapply(dumb$numero,dumb[,c("esp","lance")],sum,na.rm=T)),na.rm=T)
   dumbpes<-round(rowMeans(tapply(dumb$peso,dumb[,c("esp","lance")],mean,na.rm=T),na.rm=T),1)
-  dumbsum<-round(rowMeans(tapply(dumb$num,dumb[,c("esp","lance")],mean,na.rm=T),na.rm=T),1)
+  dumbnum<-round(rowMeans(tapply(dumb$num,dumb[,c("esp","lance")],mean,na.rm=T),na.rm=T),1)
+  dumbTpes<-round(rowSums(tapply(dumb$peso,dumb[,c("esp","lance")],sum,na.rm=T),na.rm=T),1)
+  dumbTnum<-round(rowMeans(tapply(dumb$num,dumb[,c("esp","lance")],sum,na.rm=T),na.rm=T),1)
   dumbmax<-tapply(dumbtal$talla,dumbtal$esp,hablar::max_)
   dumbmin<-tapply(dumbtal$talla,dumbtal$esp,hablar::min_)
-  dumbres<-data.frame(camp=camp,gr=gr,esp=as.numeric(listaesp),especie=NA,nlans=dumbtap,peso_gr=dumbpes,num=dumbsum,Lmin=dumbmin,Lmax=dumbmax)
+  dumbres<-data.frame(camp=camp,gr=gr,esp=as.numeric(listaesp),especie=NA,nlans=dumbtap,peso_gr=dumbpes,num=dumbnum,Tpes=dumbTpes,Tnum=dumbTnum,Lmin=dumbmin,Lmax=dumbmax)
 #  dumbres<-data.frame(gr=NULL,esp=NULL,especie=NULL,nlans=NULL,num=NULL,peso_gr=NULL,Lmin=NULL,Lmax=NULL)
   for (i in 1:nrow(dumbres)) {
     dumbres$especie[i]<-buscaesp(dumbres$gr[i],dumbres$esp[i])
