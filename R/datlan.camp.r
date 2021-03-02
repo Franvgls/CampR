@@ -114,7 +114,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     #		  datos$sector<-factor(as.character(datos$sector))
   }
   datos$sector<-factor(as.character(datos$sector))
-  if (bio) datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")] else datos
   if (!outhidro & !bio) datos
+  if (bio) datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")] else datos
   }
 

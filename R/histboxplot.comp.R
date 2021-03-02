@@ -32,7 +32,7 @@ histboxplot.comp<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T
   op<- par(no.readonly = TRUE) # the whole list of settable par's.
   options(scipen=2)
   par(mfrow=c(2,1))
-  histboxplot(gr=gr,esp=esp,camps=camps,dns=dns,cor.time = cor.time,incl2=incl2,bw=bw,ti=ti,sub=T,idi=idi,ind="p",ceros=ceros,cex.leg=cex.leg,years=years,profrange=profrange)
-  histboxplot(gr=gr,esp=esp,camps=camps,dns=dns,cor.time = cor.time,incl2=incl2,bw=bw,ti=F,sub=T,idi=idi,ind="n",ceros=ceros,cex.leg=cex.leg,years=years,profrange=profrange)
+  histboxplot(gr=gr,esp=esp,camps=camps,dns=dns,cor.time = cor.time,incl2=incl2,es=es,bw=bw,ti=ti,sub=ifelse(es,"Biomasa","Biomass"),idi=idi,ind="p",ceros=ceros,cex.leg=cex.leg,years=years,profrange=profrange)
+  histboxplot(gr=gr,esp=esp,camps=camps,dns=dns,cor.time = cor.time,incl2=incl2,es=es,bw=bw,ti=F,sub=ifelse(es,"Número","Number"),idi=idi,ind="n",ceros=ceros,cex.leg=cex.leg,years=years,profrange=profrange)
   par(op)
     }
