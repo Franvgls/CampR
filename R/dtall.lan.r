@@ -10,16 +10,20 @@
 #' @param cor.time T por defecto, si T corrige los lances con tiempo distinto de 30'
 #' @param ti Si T añade título al gráfico, el nombre de la especie en latín.
 #' @param legend Si T (por defecto) añade la leyenda, si no se saca por sexos no añade información
+#' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param bw Gráfico en blanco en negro si T o en color si F.
 #' @param es Si T gráfico en castellano, si F gráfico en inglés.
 #' @param sex por defecto (T) da valores por sexos si los hay, si solo hay indeterminados funciona igual.
+#' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e").
 #' @param ymax permite establecer el valor máximo de las ordenadas en el gráfico.Por defecto (NA) se ajusta al valor máximo del número de individuos.
+#' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
 #' @return Saca el gráfico en pantalla, para sacar datos utilizar {\link{dattal.camp}}
 #' @family Distribuciones de tallas
 #' @examples dtall.lan(1,36,"P08","Porc",lances=c(10:15,17),ti=TRUE)
 #' @export
-dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,cor.time=TRUE,depth_range=c(NA),ti=FALSE,legend=TRUE,bw=TRUE,es=TRUE,sex=TRUE,idi="l",ymax=NA) {
+dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,cor.time=TRUE,depth_range=c(NA),ti=FALSE,legend=TRUE,cexleg=1,bw=TRUE,es=TRUE,
+                     sex=TRUE,plot=TRUE,idi="l",ymax=NA,out.dat=FALSE) {
   if (length(camp)>1) stop("Esta función sólo se puede utilizar para una sola campaña")
   if (length(esp)>1 | any(esp=="999")) {
     increm<-NULL;medida<-NULL
@@ -35,8 +39,12 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,cor.time=TRUE,depth_range=
     medida<-c(ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")))
   }
   esp<-format(esp,width=3,justify="r")
-  if(!bw) {colbars<-c("lightyellow","steelblue","yellow1")}
-  else {colbars<-c("black","white",gray(.5))}
+  if (bw) {
+    colbars<-c(gray(.2),gray(.6),"white")
+  }
+  else {
+    colbars<-c("lightyellow","steelblue","yellow1")
+  }
   if (is.logical(ti)) {
     if (ti) {tit<-list(buscaesp(gr,esp,id=idi),font=ifelse(idi=="l",4,2),cex=1)}
     else {tit<-NULL}
@@ -48,22 +56,145 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,cor.time=TRUE,depth_range=
   #medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")
   dtall<-dtallan.camp(gr,esp,camp,dns,cor.time = cor.time,depth_range = depth_range,sex=sex,lances=lances)
   dtall<-cbind(talla=dtall[,1],dtall[,rev(2:length(dtall))]/length(lances))
+  sexn<-c("2","3","1")
+  sixn<-c("1","2","3")
+  dtalln<-c("machos","hembras","indet")
   sxn<-c("Machos","Hembras","Indet")
   sxs<-tolower(sxn) %in% colnames(dtall[,-1])
-  if (es) {sxn<-factor(c("Machos","Hembras","Indet")[sxs],ordered=T)
-           ax<-c(paste0("Talla (",medida,")"),expression("Ind"%*%"lan"^-1))}
-  else {sxn<-factor(c("Male","Female","Undet")[sxs],ordered=T)
-        ax<-c(paste0("Length (",medida,")"),expression("Ind"%*%"haul"^-1))}
+  sxn<-as.character(factor(c("Machos","Hembras","Indet")[sxs],ordered=T))
+           ax<-c(paste0("Talla (",medida,")"),expression("Ind"%*%"lan"^-1))
   if(is.na(ymax)) {ymax<-ifelse(ncol(dtall)==2,max(dtall[,2]),max(rowSums(dtall[,-1])))*1.05}
   leg<-rev(sxn)
-  if (ncol(dtall)==3) colbars<-c("white",gray(.5))
+  if (ncol(dtall)==4) colbars<-ifelse(bw,c(gray(.2),gray(.6),"white"),c("lightyellow","steelblue","yellow1"))
   if (ncol(dtall)==2) {
     colbars=colbars[2]
     leg=F
+  }
+  sxs<- match(tolower(as.character(sxn)),names(dtall)[2:length(names(dtall))])
+  if (sex) {
+    ard<-c(NULL,NULL,NULL,NULL)
+    if (!is.na(sxs[2])) a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,match(names(dtall)[2])],rep(2,nrow(dtall)))
+    else a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),rep(0,nrow(dtall)),rep(2,nrow(dtall)))
+    ard<-rbind(ard,a1)
+    if (!is.na(sxs[3])) a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,match("indet",names(dtall)[3])],rep(3,nrow(dtall)))
+    else a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),rep(0,nrow(dtall)),rep(3,nrow(dtall)))
+    ard<-rbind(ard,a1)
+    if (!is.na(sxs[1])) a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,match("machos",names(dtall)[1])],rep(1,nrow(dtall)))
+    else a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),rep(0,nrow(dtall)),rep(1,nrow(dtall)))
+    ard<-rbind(ard,a1)
+  }
+  else {
+    if (ncol(dtall)>2) {
+      ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),rowSums(dtall[,c(2:ncol(dtall))]),rep(1,nrow(dtall))))
     }
-  barplot(t(as.matrix(dtall[,-1])),names.arg=as.character(dtall[,1]),space=0,beside=FALSE,
-          legend.text=leg,col=colbars,main=tit,ylim=c(0,ymax),ylab=ax[2],xlab=ax[1],
-          cex.lab=.9,cex.axis=.8,cex.names=.8,axis.lty=1)
-  box()
-  print(dtall)
+    else ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,2],rep(1,nrow(dtall))))
+  }
+  a<-ard
+  a<-as.data.frame(a)
+names(a)<-c("talla","camp","n","sex")
+a$camp<-factor(as.character(a$camp),levels=camp)
+a$talla<-as.numeric(as.character(a$talla))
+a$n<-as.numeric(as.character(a$n))
+if (sum(a$n)==0) stop(paste0(ifelse(es,"No hay capturas de la especie ","No catches of species "),buscaesp(gr,esp),ifelse(es," en las campañas seleccionadas"," in surveys selected")))
+a$sex<-factor(as.character(a$sex),levels=c(1:3))
+maxy<-tapply(a$n,a[,c(1,2)],sum)
+maxy[which(is.na(maxy))]<-0
+ylim<-c(0,ifelse(is.na(ymax),max(maxy)*1.05,ymax))
+haysex<-sum(tapply(a$n,a$sex,sum)[c(2,3)])
+if (sex & (haysex != 0)) {
+  #		if (length(camp)==1) {
+  sxn<-sxn[(sxs)]          # sxn<-sxn[which(!is.na(sxs))]
+  colbars<-colbars[which(!is.na(sxs))]
+  a$sex<-factor((a$sex),exclude=sexn[which(is.na(sxs))])  # a$sex<-factor((a$sex),exclude=sixn[which(is.na(sxs))])
+  #			}
 }
+else {
+  if (bw) colbars<-gray(.3)
+  else colbars<-"olivedrab1"
+  leg=F
+}
+#browser()
+if (!is.logical(leg) & (haysex != 0)) {
+  ddd<-tapply(a$n,a$sex,sum)
+  leg<-list(columns=3,space="top",rectangles=list(T,size=5),
+            col=colbars[c(2,3,1)],text=list(labels=sxn[c(3,1,2)],col="black",
+                                            cex=cexleg*ifelse(!plot,.7,.9)))}     #,col=colbars
+else {leg<-NULL}
+xlimi<-c(min(a$talla)*(.95-1),max(a$talla)*1.05)
+if (is.character(sub)) sub=list(label=sub,font=2,cex=cexleg*.9)
+  foo<-lattice::barchart(n~talla,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,box.width=increm,ylim=ylim,xlim=xlimi,
+                         scales=list(alternating=F,tck=c(1,1),
+                                     x=list(at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
+                                            rot=45)),
+                         stack=T,h=F,main=tit,par.strip.text=list(cex=cexleg*.8,font=2),
+                         xlab=list(label=ax[1],cex=cexleg*1.2),ylab=list(label=ax[2],cex=cexleg*1.2),sub=sub,strip=TRUE,
+                         panel=function(x,y,...) {lattice::panel.fill(col="white")
+                           #  			media=sum((x)*y*100)/sum(y*100)
+                           lattice::panel.grid(-1,0,lty=3,col=gray(.2))
+                           #  			lattice::panel.abline(v=media,lty=1)
+                           lattice::panel.barchart(x,y,col=colbars,...)
+                           #lattice::panel.axis(side="bottom",
+                           # at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
+                           # labels=round(a$talla/10,1),
+                           # outside=T,
+                           # draw.labels = T)
+                           #	lattice::ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
+                         }
+  )
+  names(dtall)<-c("talla",dtalln[which(!is.na(match(sexn,names(dtall)[2:ncol(dtall)])))])
+if (plot) {
+  if (bw) {
+    colbars<-c(gray(.2),gray(.5),"white")
+    lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
+  }
+  else {
+    colbars<-c("lightyellow", "steelblue", "yellow1")
+    lattice::trellis.par.set(lattice::col.whitebg())
+  }
+  print(foo)
+}
+if (out.dat) {
+  if (years) {
+    a<-acamp
+    a$n<-as.numeric(as.character(a$n))
+    a$talla<-as.numeric(as.character(a$talla))
+    camp<-acamps
+  }
+  #    browser()
+  tapply0<-tapply(a$n,a[,1:2],sum,na.rm=T)
+  tapply0[is.na(tapply0)]<-0
+  print(tapply0)
+  #    print(tapply(a$n,a[,1:2],sum,na.rm=T)[which(rowSums(tapply(a$n,a[,1:2],sum),na.rm=T)>0),camp])
+}
+else {
+  if (!plot) foo
+}
+}
+
+# a<-dtall
+#   names(a)<-c("talla","n")
+#   foo<-lattice::barchart(n~talla,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,box.width=increm,ylim=ylim,xlim=xlimi,
+#                          scales=list(alternating=F,tck=c(1,1),
+#                                      x=list(at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
+#                                             rot=45)),
+#                          stack=T,h=F,main=tit,par.strip.text=list(cex=cexleg*.8,font=2),
+#                          xlab=list(label=ax[1],cex=cexleg*1.2),ylab=list(label=ax[2],cex=cexleg*1.2),sub=sub,strip=TRUE,
+#                          panel=function(x,y,...) {lattice::panel.fill(col="white")
+#                            #  			media=sum((x)*y*100)/sum(y*100)
+#                            lattice::panel.grid(-1,0,lty=3,col=gray(.2))
+#                            #  			lattice::panel.abline(v=media,lty=1)
+#                            lattice::panel.barchart(x,y,col=colbars,...)
+#                            #lattice::panel.axis(side="bottom",
+#                            # at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
+#                            # labels=round(a$talla/10,1),
+#                            # outside=T,
+#                            # draw.labels = T)
+#                            #	lattice::ltext(60,3.5,paste("avg=",round(media,1)),cex=.6)
+#                          }
+#                          # barplot(t(as.matrix(dtall[,-1])),names.arg=as.character(dtall[,1]),space=0,beside=FALSE,
+#   #         legend.text=leg,col=colbars,main=tit,ylim=c(0,ymax),ylab=ax[2],xlab=ax[1],
+#   #         cex.lab=.9,cex.axis=.8,cex.names=.8,axis.lty=1)
+#   # box()
+#   )
+#   print(dtall)
+# }

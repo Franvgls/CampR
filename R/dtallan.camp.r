@@ -51,7 +51,14 @@ dtallan.camp<- function(gr,esp,camp,dns,lances=NA,cor.time=TRUE,depth_range=NA,s
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   if (!muestr) ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
   lan<-datlan.camp(camp,dns,redux=TRUE,incl2=TRUE)[,c("lance","sector","weight.time","prof")]
-  lan<-lan[,c("lance","sector","weight.time")]
+  lan<-lan[,c("lance","sector","weight.time","prof")]
+  if (any(!is.na(depth_range) & is.na(lances) & cor.time)) {
+    lan<-subset(lan,prof>depth_range[1] & prof<depth_range[2])
+    #print(length(lan))
+  }
+  if (any(!is.na(lances))) {
+    ntalls<-ntalls[ntalls$lance %in% lances,]
+  }
   if (any(cor.time,camp=="N83",camp=="N84")) {
     ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
     if (any(ntalls$weight.time==0)) {
@@ -60,13 +67,6 @@ dtallan.camp<- function(gr,esp,camp,dns,lances=NA,cor.time=TRUE,depth_range=NA,s
     }
     ntalls$numer<-ntalls$numer/ntalls$weight.time
     ntalls<-ntalls[,1:6]
-  }
-  if (any(!is.na(depth_range) & is.na(lances) & cor.time)) {
-    lan<-subset(lan,prof>depth_range[1] & prof<depth_range[2])$lance
-    print(length(lan))
-  }
-  if (any(!is.na(lances))) {
-    ntalls<-ntalls[ntalls$lance %in% lances,]
   }
   if (nrow(ntalls)==0) ntalls<-data.frame(lance=0,peso.gr=0,peso.m=0,talla=0,sexo=3,numer=0)
   dtalln<-c("machos","hembras","indet")
