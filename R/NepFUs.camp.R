@@ -68,8 +68,8 @@ NepFUs.camp<-function(camp=Nsh[length(Nsh)],dns="Cant",plot=T,plotnep=TRUE,es=FA
     points(lat~long,Nep,pch=21,cex=1.1,bg="red")
   }
   }
-  if (out.dat) {
-  FU31.B<-mean(Nep_31$peso.gr/1000)
+  if (out.dat & substr(dns,1,4)=="Cant") {
+  FU31.B<-mean((Nep_31$peso.gr+0)/1000)
   FU31.Bsd<-sd(Nep_31$peso.gr/1000)
   FU31.BS<-sum(Nep_31$peso.gr/1000)
   FU31.N<-mean(Nep_31$numero)

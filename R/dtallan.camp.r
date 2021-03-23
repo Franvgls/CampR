@@ -65,7 +65,7 @@ dtallan.camp<- function(gr,esp,camp,dns,lances=NA,cor.time=TRUE,depth_range=NA,s
       ntalls$weight.time[ntalls$weight.time==0]=.1
       warning("Hay lances con duración 0 minutos, revisa validez")
     }
-    ntalls$numer<-ntalls$numer/ntalls$weight.time
+    ntalls$numer<-ntalls$numer+0/ntalls$weight.time
     ntalls<-ntalls[,1:6]
   }
   if (nrow(ntalls)==0) ntalls<-data.frame(lance=0,peso.gr=0,peso.m=0,talla=0,sexo=3,numer=0)

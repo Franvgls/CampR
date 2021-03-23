@@ -12,6 +12,7 @@ MapArsa(
   cuadr = FALSE,
   cuadrMSFD = FALSE,
   ICESrect = FALSE,
+  ICESrectcol = 2,
   ICESlab = FALSE,
   ICESlabcex = 0.5,
   ax = TRUE,
@@ -35,6 +36,8 @@ MapArsa(
 \item{cuadrMSFD}{Si T dibuja cuadrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
+
+\item{ICESrectcol}{color de las líneas de los rectangulos}
 
 \item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
 
