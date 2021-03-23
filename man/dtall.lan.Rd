@@ -14,11 +14,14 @@ dtall.lan(
   depth_range = c(NA),
   ti = FALSE,
   legend = TRUE,
+  cexleg = 1,
   bw = TRUE,
   es = TRUE,
   sex = TRUE,
+  plot = TRUE,
   idi = "l",
-  ymax = NA
+  ymax = NA,
+  out.dat = FALSE
 )
 }
 \arguments{
@@ -40,15 +43,21 @@ dtall.lan(
 
 \item{legend}{Si T (por defecto) añade la leyenda, si no se saca por sexos no añade información}
 
+\item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
+
 \item{bw}{Gráfico en blanco en negro si T o en color si F.}
 
 \item{es}{Si T gráfico en castellano, si F gráfico en inglés.}
 
 \item{sex}{por defecto (T) da valores por sexos si los hay, si solo hay indeterminados funciona igual.}
 
+\item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
+
 \item{idi}{Nombre científico de la especie ("l") o nombre común ("e").}
 
 \item{ymax}{permite establecer el valor máximo de las ordenadas en el gráfico.Por defecto (NA) se ajusta al valor máximo del número de individuos.}
+
+\item{out.dat}{Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto}
 }
 \value{
 Saca el gráfico en pantalla, para sacar datos utilizar {\link{dattal.camp}}

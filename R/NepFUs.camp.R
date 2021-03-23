@@ -31,10 +31,11 @@
 #' @export
 NepFUs.camp<-function(camp=Nsh[length(Nsh)],dns="Cant",plot=T,plotnep=TRUE,es=FALSE,ti=TRUE,ICESlab=TRUE,
                       ICESrectcol=2,ICESrect=TRUE,places=TRUE,country=TRUE,out.dat=TRUE) {
-  if (substr(dns,1,4)!="Cant") {stop("Esta función sólo permite sacar resultados DEMERSALES y *dns* debe ser Cant o Cantred")}
+  if (!substr(dns,1,4) %in% c("Cant","Arsa")) {stop("Esta función sólo permite sacar resultados DEMERSALES o ARSA *dns* debe ser Xxxx o Xxxxred")}
   if (length(camp)>1) {warning("Si escoge mas de una camp los resultados son para el total de campañas, para ver resultados último año coja sólo ese año")}
   Nep<-maphist(2,19,camp,dns,plot=F,out.dat=T)
   Nep$year<-camptoyear(Nep$camp)
+  if (substr(dns,1,4)=="Cant") {
   Nep_17E1<-subset(Nep,c(long<c(-7.9) &lat>c(44)))
   Nep_31<-subset(Nep,c(c(long>c(-6) & long<c(-3) & lat>43.5 &  lat <c(44) & prof<650) | c(c(long>c(-3) & long<c(-2) & lat> 43.5 & lat<43.7))))
   Nep_25<-subset(Nep,c(long<c(-7.99) & lat>c(43) & lat<(44.5) & prof<600))
@@ -53,6 +54,19 @@ NepFUs.camp<-function(camp=Nsh[length(Nsh)],dns="Cant",plot=T,plotnep=TRUE,es=FA
   else legend("bottomright",legend=c("FU26","FU25","FU31"),pch=21,
               pt.bg=c("grey","red","green","blue"),inset=c(.02,.02),bg="white",
               ncol =3)
+  }
+  }
+  if (substr(dns,1,4)=="Arsa") {
+  if (plot) {
+    MapArsa(places=places,ICESlab = ICESlab,ICESrect = ICESrect,ICESrectcol = ICESrectcol)
+    if (ti) {title(main=paste0("ARSA",ifelse(substr(camp[1],1,1)==1,"Q1 ","Q4 "),
+                  ifelse(length(camp)==1,camptoyear(camp),
+                  paste(range(camptoyear(camp))[1],range(camptoyear(camp))[2],sep="-"))),line=1.3)}
+    if (plotnep) {points(lat~long,Nep,subset=numero>0,pch=21,bg="grey",cex=1.8)
+    legend("bottomleft",legend=c("Nep+","FU30"),pch=21,
+           pt.bg=c("grey","red"),pt.cex=c(1.8,1.1),inset=c(.13,.2),bg="white",ncol = 2)}
+    points(lat~long,Nep,pch=21,cex=1.1,bg="red")
+  }
   }
   if (out.dat) {
   FU31.B<-mean(Nep_31$peso.gr/1000)
