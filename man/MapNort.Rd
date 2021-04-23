@@ -19,6 +19,7 @@ MapNort(
   ax = TRUE,
   strat = FALSE,
   places = FALSE,
+  FU = NA,
   country = F,
   xlims = c(-10.25, -1.4),
   ylims = c(41.82, 44.48)
@@ -50,6 +51,8 @@ MapNort(
 \item{strat}{Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)}
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
+
+\item{FU}{pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo}
 
 \item{country}{si T saca el país}
 

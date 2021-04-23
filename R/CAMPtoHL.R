@@ -161,7 +161,6 @@ CAMPtoHL <-
           DevStage=-9,
           LenMeasType=-9,
           DateofCalculation=-9,
-          DateofCalculation=-9,
           Valid_Aphia=-9
           )
     }

@@ -14,6 +14,7 @@ NepFUs.camp(
   ICESlab = TRUE,
   ICESrectcol = 2,
   ICESrect = TRUE,
+  FU = NA,
   places = TRUE,
   country = TRUE,
   out.dat = TRUE
@@ -33,6 +34,8 @@ NepFUs.camp(
 \item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
+
+\item{FU}{pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo}
 
 \item{places}{Si T saca etiquetas de principales ciudades en el mapa, si F se omiten los letreros}
 
