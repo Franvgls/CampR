@@ -23,10 +23,10 @@ CAMPtoHL <-
     DBI::dbDisconnect(ch1)
     names(ntalls) <- tolower(names(ntalls))
     if (dns=="Arsa") {
-      ch2<-DBI::dbConnect(odbc::odbc(),dns="Arsa")
+      ch2<-DBI::dbConnect(odbc::odbc(),dsn="Arsa")
     }
-    if (dsn=="Cant" |dsn=="Porc"){
-      ch2 <- DBI::dbConnect(odbc::odbc(), dns = "Camp")
+    if (dns=="Cant" |dns=="Porc"){
+      ch2 <- DBI::dbConnect(odbc::odbc(), dsn= "Camp")
       }
     especies <-data.table::as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
     DBI::dbDisconnect(ch2)
@@ -58,9 +58,10 @@ CAMPtoHL <-
       write.csv(especies, "c:/camp/peces.csv", row.names = F)
     }
     if (substr(dns, 1, 4) == "Cant" | substr(dns, 1, 4) == "Cnew") {
+      DB$Survey = "SP-NORTH"
       DB$Gear = "BAK"
       if (any(DB$barco !="29MO")) {DB$barco = ifelse(DB$barco == "MOL", "29MO", ifelse(DB$barco == "CDS", "29CS"))}
-      DB$GearExp = -9
+      DB$GearEx = -9
       DB$DoorType = ifelse(DB$barco == "29CS", "W", "P")
       if (quart)
         DB$quarter <- "4"
@@ -69,9 +70,10 @@ CAMPtoHL <-
       DB$StNo = DB$lance
     }
     if (substr(dns, 1, 4) == "Pnew" | substr(dns, 1, 4) == "Porc") {
+      DB$Survey = "SP-PORC"
       DB$barco = "29EZ"
       DB$Gear = "PORB"
-      DB$GearExp = -9
+      DB$GearEx = -9
       DB$DoorType = "P"
       if (quart)
         DB$quarter <- "3"
@@ -80,11 +82,12 @@ CAMPtoHL <-
       DB$StNo <- format(as.integer(DB$cuadricula),width = 3,justify="r")
       }
     if (substr(dns, 1, 4) == "Arsa") {
+      DB$Survey = "SP-ARSA"
       if (any(DB$barco !="29MO")) {DB$barco = ifelse(substr(DB$barco, 1, 3) == "COR",
                         "CDS",
                         ifelse(DB$barco == "MOL", "29MO"))}
       DB$Gear = "BAK"
-      DB$GearExp = -9
+      DB$GearEx = -9
       DB$DoorType = ifelse(substr(DB$barco, 1, 3) == "COR", "W", "P")
       if (quart)
         DB$quarter <- ifelse(substr(camp, 1, 1) == "1", "1", "4")
@@ -92,7 +95,7 @@ CAMPtoHL <-
       ntalls$lance <- format(ntalls$lance, width = 2,justify="r")
       DB$StNo = DB$lance
     }
-    DB <-DB[, c("year","barco","quarter","Gear","malletas","GearExp","DoorType","lance","StNo","validez","prof_l","prof_v")]
+    DB <-DB[, c("Survey","year","barco","quarter","Gear","malletas","GearEx","DoorType","lance","StNo","validez","prof_l","prof_v")]
     ntalls <- ntalls[lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
@@ -130,12 +133,13 @@ CAMPtoHL <-
       HL_north <-
         data.table::data.table(
           RecordType = "HL",
+          Survey=DB1$Survey,
           Quarter = DB1$quarter,
           Country = "ES",
           Ship = DB1$barco,
           Gear = DB1$Gear,
           SweepLngt = DB1$malletas,
-          GearExp = DB1$GearExp,
+          GearEx = DB1$GearEx,
           DoorType = DB1$DoorType,
           StNo = DB1$StNo,
           HaulNo = DB1$lance,
@@ -155,19 +159,23 @@ CAMPtoHL <-
           LngtClass = DB1$talla,
           HLNoAtLngt = DB1$numer,
           DevStage=-9,
-          LenMeasType=-9
-        )
+          LenMeasType=-9,
+          DateofCalculation=-9,
+          DateofCalculation=-9,
+          Valid_Aphia=-9
+          )
     }
     else
       HL_north <-
       data.table::data.table(
         RecordType = "HL",
+        Survey = DB1$Survey,
         Quarter = DB1$quarter,
         Country = "ES",
         Ship = DB1$barco,
         Gear = DB1$Gear,
         SweepLngt = DB1$malletas,
-        GearExp = DB1$GearExp,
+        GearEx = DB1$GearEx,
         DoorType = DB1$DoorType,
         StNo = DB1$StNo,
         HaulNo = DB1$lance,
@@ -186,7 +194,9 @@ CAMPtoHL <-
         LngtClass = DB1$talla,
         HLNoAtLngt = DB1$numer,
         DevStage=-9,
-        LenMeasType=-9
+        LenMeasType=-9,
+        DateofCalculation=-9,
+        Valid_Aphia=-9
       )
     if (any(is.na(HL_north$SpecCode))) {
       HL_north[is.na(HL_north$SpecCode), ]

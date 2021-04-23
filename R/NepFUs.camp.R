@@ -22,6 +22,7 @@
 #' @param country si T saca el país
 #' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
 #' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
+#' @param FU pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos de abundancia de cigala en cada FU con datos de biomasa, numero, desviaciones estándar y número de lances en cada FU.
 #' @return Produce un gráfico con los lances en los que ha habido cigala en el lance y especialmente lo lances en cada FU dentro de Demersales FU25,FU26 y FU31
 #' @seealso {\link{MapLansGPS}}
@@ -30,7 +31,7 @@
 #'   print(datlan.camp("P16","Porc",bio=T))
 #' @export
 NepFUs.camp<-function(camp=Nsh[length(Nsh)],dns="Cant",plot=T,plotnep=TRUE,es=FALSE,ti=TRUE,ICESlab=TRUE,
-                      ICESrectcol=2,ICESrect=TRUE,places=TRUE,country=TRUE,out.dat=TRUE) {
+                      ICESrectcol=2,ICESrect=TRUE,FU=NA,places=TRUE,country=TRUE,out.dat=TRUE) {
   if (!substr(dns,1,4) %in% c("Cant","Arsa")) {stop("Esta función sólo permite sacar resultados DEMERSALES o ARSA *dns* debe ser Xxxx o Xxxxred")}
   if (length(camp)>1) {warning("Si escoge mas de una camp los resultados son para el total de campañas, para ver resultados último año coja sólo ese año")}
   Nep<-maphist(2,19,camp,dns,plot=F,out.dat=T)
@@ -41,7 +42,7 @@ NepFUs.camp<-function(camp=Nsh[length(Nsh)],dns="Cant",plot=T,plotnep=TRUE,es=FA
   Nep_25<-subset(Nep,c(long<c(-7.99) & lat>c(43) & lat<(44.5) & prof<600))
   Nep_26<-subset(Nep,c(long>c(-10) & long<c(-8.5) & lat<c(43.005) & lat>42.005))
   if (plot) {
-    MapNort(places=places,country=country,ICESlab = ICESlab,ICESrect = ICESrect,ICESrectcol = ICESrectcol)
+    MapNort(places=places,country=country,ICESlab = ICESlab,ICESrect = ICESrect,ICESrectcol = ICESrectcol,FU=FU)
     if (ti) {title(main=paste0("Demersales ",ifelse(length(camp)==1,camptoyear(camp),paste0(range(camptoyear(camp))[1],"-",range(camptoyear(camp))[2]))))}
   if (plotnep) {points(lat~long,Nep,subset=numero>0,pch=21,bg="grey",cex=1.5)}
   points(lat~long,Nep_26,pch=21,bg="red")

@@ -17,6 +17,7 @@
 #' @param es si T saca textos en español, si F en inglés
 #' @param ax Si T saca los ejes x e y
 #' @param strat Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)
+#' @param FU pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo
 #' @param places Si T saca ciudades y puntos geográficos de referencia
 #' @param country si T saca el país
 #' @param xlims Define los limites longitudinales del mapa, por defecto -10.25 y -1.4 oeste
@@ -26,7 +27,7 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
+MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,FU=NA,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (ax) {
      degs = seq(-10,-2,ifelse(abs(diff(xlims))>1,1,.5))
@@ -54,6 +55,9 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,ICESrec
   if (strat) {
     abline(h=43,v=c(-7.66,-6,-3.5),lty=1,col=gray(.0),lwd=2)
     text(c(-10,-9.7,-6.83,-4.75,-2.7),c(42.4,44.3,44.3,44.3,44.3),c("MF","FE","EP","PA","AB"),font=2)
+  }
+  if (any(!is.na(FU))) {
+    for (i in 1:length(FU)) lines(FU[i],col=2,lwd=2)
   }
   maps::map(Nort.str,add=TRUE,fill=TRUE,col=c(rep(NA,16),ifelse(bw,"light gray","wheat")),lwd=lwdl)
   maps::map(Nort.map,Nort.map$names[1:16],add=TRUE,col=c("gray"),lwd=lwdl)
