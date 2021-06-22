@@ -14,7 +14,8 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     DB<-datlan.camp(camp,dns,redux=F,incl0 = T,incl2=incl2)
     if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
-       DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-10,to=-1,by=1),labels=rev(c("E8","E7","E6","E5","E4","E3","E2","E1","E0"))) # ,"D9","D8"
+      DB$survey="SP-NORTH"
+      DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-10,to=-1,by=1),labels=rev(c("E8","E7","E6","E5","E4","E3","E2","E1","E0"))) # ,"D9","D8"
        DB$rectlat<-cut(DB$latitud_l,breaks=seq(from=41.5,to=44.5,by=.5),labels=c(12:17))
        #Crea la columna del rectangulo ICES
        DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
@@ -29,7 +30,8 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        DB$StNo=DB$lance
     }
     if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
-       DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-15,to=-11,by=1),labels=rev(c("D8","D7","D6","D5"))) # ,"D9","D8"
+      DB$survey="SP-PORC"
+      DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-15,to=-11,by=1),labels=rev(c("D8","D7","D6","D5"))) # ,"D9","D8"
        DB$rectlat<-cut(DB$latitud_l,breaks=seq(from=50.5,to=54,by=.5),labels=c(30:36))
        DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
        DB$barco="29VE"
@@ -45,6 +47,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
        DB$estrato<-cut(DB$prof_l,breaks=c(120,300,450,800),labels=c("E","F","G"))
     }
     if (substr(dns,1,4)=="Arsa") {
+      DB$survey="SP-ARSA"
       DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-9,to=-6,by=1),labels=rev(c("E1","E2","E3"))) # ,"D9","D8"
       DB$rectlat<-paste0("0",cut(DB$latitud_l,breaks=seq(from=36.0,to=37.5,by=.5),labels=as.character(c(1:3))))
       DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
@@ -62,7 +65,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
     }
     DB$TimeShot<-paste0(formatC(as.numeric(substr(DB$hora_l,1,2)),flag=0,width=2),sprintf("%02s",substr(DB$hora_l,4,5)))
     DB$estn<-as.numeric(as.character(DB$estn))
-    HH_north<-data.table::data.table(RecordType="HH",Quarter=DB$quarter,Country="ES",Ship=DB$barco,Gear=DB$Gear,
+    HH_north<-data.table::data.table(RecordType="HH",Survey=DB$survey,Quarter=DB$quarter,Country="ES",Ship=DB$barco,Gear=DB$Gear,
                                      SweepLngt=DB$malletas,GearExp=-9,DoorType=DB$DoorType,StNo=DB$StNo,
                                      HaulNo=DB$lance,Year=DB$year,Month=substr(DB$fecha,4,5),
                                      Day=substr(DB$fecha,1,2),TimeShot=DB$TimeShot,Stratum=DB$estrato,

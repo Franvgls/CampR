@@ -5,8 +5,8 @@
 \title{Mapa del Golfo de Cádiz}
 \usage{
 MapArsa(
-  xlims = c(-8.1711, -5.5),
-  ylims = c(35.95, 37.35),
+  xlims = c(-8.15, -5.5215),
+  ylims = c(35.8, 37.335),
   lwdl = 1,
   leg = F,
   cuadr = FALSE,
