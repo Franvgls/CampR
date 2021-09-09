@@ -1,12 +1,15 @@
 #' Mapa del Mediterráneo Ibérico completo
-#' 
+#'
 #' Función auxiliar para sacar mapas de la campaña MEDITS
-#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña 
-#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña 
+#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña
+#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param lwdl Ancho de las líneas del mapa
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
-#' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD) 
+#' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
+#' @param ICESrectcol Color para los rectángulos ICES
+#' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
+#' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
 #' @param bw si T mapa con tierra en gris, si F tierra en color
 #' @param ax Si T saca los ejes x e y
 #' @param es Si T saca titulos y ejes en español
@@ -17,7 +20,7 @@
 #' @family mapas base
 #' @family Medits
 #' @export
-MapMedit<-function(xlims=c(-5.7,5),ylims=c(35,43),lwdl=1,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE) {
+MapMedit<-function(xlims=c(-5.7,5),ylims=c(35,43),lwdl=1,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.5,bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE) {
   asp<-diff(c(35,43))/(diff(c(-5.7,5))*cos(mean(c(35,43))*pi/180))
   if (wmf) win.metafile(filename = "Meditconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3)
@@ -27,9 +30,10 @@ MapMedit<-function(xlims=c(-5.7,5),ylims=c(35,43),lwdl=1,cuadr=FALSE,cuadrMSFD=F
     abline(h=seq(35,43,by=1/12),col=gray(.6),lwd=.6)
     abline(v=seq(-6,5,by=0.089),col=gray(.6),lwd=.6)
   }
+  if (ICESlab) text(c(stat_y+.22)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
   if (ICESrect) {
-    abline(h=seq(35,43,by=.5),col=gray(.2),lwd=.6)
-    abline(v=seq(-6,5,by=1),col=gray(.2),lwd=.6)
+    abline(h=seq(35,43,by=.5),col=ICESrectcol,lwd=.6)
+    abline(v=seq(-6,5,by=1),col=ICESrectcol,lwd=.6)
   }
   if (cuadrMSFD) {
     abline(h=seq(35,43,by=1/6),col=gray(.4),lwd=.5)

@@ -6,8 +6,10 @@
 #'@export
 camptoyear<- function(x) {
   x<-sub("X","",x)
-  if (any(nchar(as.character(x))!=3)) stop("Los valores a transformar no son nombres de campaña formato Camp, revise la entrada")
-  if (is.numeric(as.numeric(substr(x,2,3)))) {
-  as.numeric(paste0(ifelse(as.numeric(substr(x,2,3)>50),19,20),substr(x,2,3)))}
+  if (any(nchar(as.character(x))!=3)) stop("Los valores a transformar no responden a nombres de campaña formato Camp, revise la entrada")
+  if (!suppressWarnings({is.na(as.numeric(substr(x,2,3)))})) {
+    m<-as.numeric(substr(x,2,3))
+    ifelse(m<70,2000+m,1900+m)
+    }
   else 0
   }

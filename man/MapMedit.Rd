@@ -11,6 +11,9 @@ MapMedit(
   cuadr = FALSE,
   cuadrMSFD = FALSE,
   ICESrect = FALSE,
+  ICESrectcol = gray(0.2),
+  ICESlab = FALSE,
+  ICESlabcex = 0.5,
   bw = F,
   ax = TRUE,
   wmf = FALSE,
@@ -30,6 +33,12 @@ MapMedit(
 \item{cuadrMSFD}{Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
+
+\item{ICESrectcol}{Color para los rectángulos ICES}
+
+\item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
+
+\item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 
 \item{bw}{si T mapa con tierra en gris, si F tierra en color}
 

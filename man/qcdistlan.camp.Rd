@@ -4,7 +4,7 @@
 \alias{qcdistlan.camp}
 \title{Comprueba la distancia recorrida en los lances y la consistencia con recorrido y la velocidad en los datos del CAMP}
 \usage{
-qcdistlan.camp(camp, dns = "Cant", todos = FALSE, pc.error = 2)
+qcdistlan.camp(camp, dns = "Cant", todos = FALSE, pc.error = 2, plots = T)
 }
 \arguments{
 \item{camp}{campaña a revisar los datos en formato Camp Xyy}
@@ -14,6 +14,8 @@ qcdistlan.camp(camp, dns = "Cant", todos = FALSE, pc.error = 2)
 \item{todos}{Por defecto F. Si T lista todos los lances con valores, si no sólo los que pc.error>error}
 
 \item{pc.error}{porcentaje de error aceptable para no mostrar los lances como erróneos}
+
+\item{plots}{si T abre una pantalla con tres gráficos de los errores detectados en error.dist, error.vel y error.rumb}
 }
 \value{
 Devuelve un data.frame con campaña, lance, recorrido, recorrido según la fórmula de Haversine, recorrido según la velocidad x el tiempo, velocidad, tiempo, rumbo, rumbo estimado según posiciones,velocidad calculada a partir de la distancia y el tiempo, y los porcentajes de errores de distancia, velocidad y rumbo.

@@ -15,7 +15,7 @@ ListFauna.lans<- function(camp,dns="Porc",gr=NA,excl.sect=NA,incl2=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   lans<-datlan.camp(camp=camp,dns=dns,excl.sect = excl.sect,redux=T,incl2=incl2)
   datos<-ListFauna.lan(camp,dns,lans$lance[1],gr=gr,out=FALSE)
-  for (i in lans$lance[2:length(lans)]) {
+  for (i in lans$lance[2:nrow(lans)]) {
     datos<-rbind(datos,ListFauna.lan(camp,dns,i,gr=gr,out=FALSE))
   }
   print(setorder(datos,lance,grupo,-peso))

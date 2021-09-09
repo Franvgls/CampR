@@ -36,6 +36,8 @@ MapNort(
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 
+\item{ICESrectcol}{Color para los rectángulos ICES}
+
 \item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
 
 \item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
@@ -59,8 +61,6 @@ MapNort(
 \item{xlims}{Define los limites longitudinales del mapa, por defecto -10.25 y -1.4 oeste}
 
 \item{ylims}{Define los limites longitudinales del mapa, por defecto 41.82 y 44.48 norte}
-
-\item{icesrectcol}{Color para los rectángulos ICES}
 
 \item{dens}{si mayor de 0 las superficies de los estratos tienen patrones de líneas}
 }

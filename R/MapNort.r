@@ -8,7 +8,7 @@
 #' @param cuadrcol Color para los recuadros de muestreo
 #' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
-#' @param icesrectcol Color para los rectángulos ICES
+#' @param ICESrectcol Color para los rectángulos ICES
 #' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
 #' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
 #' @param leg Si T saca una leyenda con los estratos batimétricos que salen de color o con grises en bw

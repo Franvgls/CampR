@@ -41,6 +41,7 @@ ListFauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA)
 }
 \seealso{
 Other ListadosFauna: 
+\code{\link{Fauna.camp}()},
 \code{\link{ListFauna.groups}()},
 \code{\link{ListFauna.lans}()},
 \code{\link{ListFauna.lan}()},

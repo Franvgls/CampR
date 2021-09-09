@@ -32,7 +32,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
     lan<-DBI::dbGetQuery(ch1,paste0("select lance,validez,latitud_l,latitud_v,longitud_l,longitud_v,prof_l,prof_v,velocidad,
-                            sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,cuadricula,hora_l,hora_v,rumbo                                   ,dir_viento,vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp))
+                            sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,cuadricula,hora_l,hora_v,rumbo,dir_viento,vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp))
     lan$lance<-as.integer(lan$lance)
     lan$validez<-as.integer(lan$validez)
     lan$sector<-as.integer(lan$sector)
@@ -51,7 +51,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     lan$longitud_l<-round(sapply(lan$longitud_l,gradec)*ifelse(lan$ewl=="E",1,-1),4)
     lan$latitud_v<-round(sapply(lan$latitud_v,gradec),4)
     lan$longitud_v<-round(sapply(lan$longitud_v,gradec)*ifelse(lan$ewv=="E",1,-1),4)
-    if (any(redux | bio)) {
+    if (any(redux | bio )) {
       lan$lat<-round((lan$latitud_l+lan$latitud_v)/2,4)
       lan$long<-round((lan$longitud_l+lan$longitud_v)/2,4)
       lan$prof<-(lan$prof_l+lan$prof_v)/2
@@ -65,6 +65,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
         if (lan$lat[i]>43 & lan$lat[i]<44.5 & lan$long[i] > c(-11) & lan$long[i] < c(-2)) {lan$zona[i]<- "8c"}
         if (lan$lat[i]>35.95 & lan$lat[i]<43 & lan$long[i] > c(-11) & lan$long[i] < c(-8.75)) {lan$zona[i]<- "9a"}
         if (lan$lat[i]>35.95 & lan$lat[i]<37.75 & lan$long[i] > c(-7.5) & lan$long[i] < c(-5.50)) {lan$zona[i]<- "9a"}
+        if (dns=="Medi" & lan$lat[i]>35.9 & lan$long[i]>c(-5.6556)) {lan$zona[i]<-"wm.37.1"}
       }
       if (any(is.na(lan$zona))) {warning(paste0("Al menos un lance: ",lan$lance[is.na(lan$zona)],
                                                 " sin Zona ICES asignada, revise resultados",lan$camp[is.na(lan$zona)]))}

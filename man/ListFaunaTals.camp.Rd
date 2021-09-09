@@ -36,6 +36,7 @@ ListFaunaTals.camp(gr="1",camp="N90",dns="Cant",excl.sect=NA,profrange=c(400,500
 }
 \seealso{
 Other ListadosFauna: 
+\code{\link{Fauna.camp}()},
 \code{\link{ListFauna.camp}()},
 \code{\link{ListFauna.groups}()},
 \code{\link{ListFauna.lans}()},
