@@ -21,8 +21,8 @@
 arMapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,
                        rumbo=F,es=T,bw=FALSE,layout=NA) {
   opar<-par(no.readonly=TRUE)
-  if (c(dns=="Porc" | dns=="Arsa") & any(is.na(layout))) par(mfrow=c(1,2))
   if (dns=="Cant" & any(is.na(layout))) par(mfrow=c(2,1))
+  if (c(dns=="Porc" | dns=="Arsa") & any(is.na(layout))) par(mfrow=c(1,2))
   # if (any(!is.na(layout))) par(mfrow=layout)
   armap.camp(camp=camp,dns=dns,xlims=xlims,ylims=ylims,col=col,lwd=lwd,places=places,Nlans=TRUE,es=es,bw=bw)
   MapLansGPS(camp=camp,dns=dns,incl0=incl0,xlims=xlims,ylims=ylims,col=col,lwd=lwd,places=places,Nlans = F,es=es,bw=bw,rumbo=rumbo)
