@@ -1,6 +1,6 @@
 #' Capturas medias estratificadas por lance de cada especie de gr (grupo) en una campaña
 #'
-#' @details Muestra un listado de la biomasa y número estratificados medios de todas las especies capturadas del grupo gr. *Es importante tener en cuenta que sólo sirve para los lances estándares* y no tiene en cuenta los datos de los lances especiales. *Para sacar resultados con lances especiales y fuera de estratos de profundidad utilizar ListFaunaTals.camp*.
+#' @details Muestra un listado de la biomasa y número estratificados medios de todas las especies capturadas del grupo gr. *Es importante tener en cuenta que sólo sirve para los lances estándares* y no tiene en cuenta los datos de los lances especiales. *Para sacar resultados con lances especiales y fuera de estratos de profundidad utilizar ListFaunaTals.camp o Fauna.camp para tener solo el listado de especies*.
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros.
 #' @param camp Campaña de la que se extrae el listado de especies capturadas: un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", Medits "Medi"
