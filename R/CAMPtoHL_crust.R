@@ -60,7 +60,7 @@ CAMPtoHLcrust<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
     especies %>% dplyr::mutate_if(is.factor,as.character) -> especies
     especies$especie[1]<-buscaesp(especies$grupo[1],especies$esp[1])
     if (substr(x=especies$especie[1],start=nchar(especies$especie[1])-3,stop=nchar(especies$especie[1]))==" sp.") {
-      especies$especie[1]<-sub(" sp.","",buscaesp(especies$grupo[1],especies$esp[1]),perl=T,useBytes = T)
+      especies$especie[1]<-sub(" sp.","",buscaesp(especies$grupo[1],especies$esp[1]),fixed=T)
     }
     if (is.na(especies$aphia[1])) especies$aphia[1]<-worrms::wm_name2id(as.character(especies$especie[1]))
     if (nrow(especies)>1) {
@@ -68,7 +68,7 @@ CAMPtoHLcrust<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
       if (is.na(especies$aphia[i1])) {
         especies$especie[i1]<-buscaesp(especies$grupo[i1],especies$esp[i1])
         if (substr(x=especies$especie[i1],start=nchar(especies$especie[i1])-3,stop=nchar(especies$especie[i1]))==" sp.") {
-          especies$especie[i1]<-sub(" sp.","",buscaesp(especies$grupo[i1],especies$esp[i1]),perl=T,useBytes = T)
+          especies$especie[i1]<-sub(" sp.","",buscaesp(especies$grupo[i1],especies$esp[i1]),fixed=T)
         }
         especies$aphia[i1]<-worrms::wm_name2id(especies$especie[i1])
       }

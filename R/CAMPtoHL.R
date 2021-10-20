@@ -38,8 +38,7 @@ CAMPtoHL <-
     especies$especie[1] <- buscaesp(especies$grupo[1], especies$esp[1])
     if (substr(x = especies$especie[1],start = nchar(especies$especie[1]) - 3,
                stop = nchar(especies$especie[1])) == " sp.") {
-      especies$especie[1] <-sub(" sp.","",buscaesp(especies$grupo[1], especies$esp[1]),
-          perl = T,useBytes = T)
+      especies$especie[1] <-sub(" sp.","",buscaesp(especies$grupo[1], especies$esp[1]),fixed = TRUE)
       }
     if (is.na(especies$aphia[1])) especies$aphia[1] <-worrms::wm_name2id(as.character(especies$especie[1]))
     if (export) {
@@ -49,7 +48,7 @@ CAMPtoHL <-
           if (substr(x = especies$especie[i1],start = nchar(especies$especie[i1]) - 3,
             stop = nchar(especies$especie[i1])) == " sp.") {
             especies$especie[i1] <-sub(" sp.","",buscaesp(especies$grupo[i1], especies$esp[i1]),
-                perl = T,useBytes = T)
+                perl = T)
           }
           especies$aphia[i1] <- worrms::wm_name2id(especies$especie[i1])
           write.csv(especies[,c("especie","aphia")], "c:/camp/peces.csv", row.names = F)

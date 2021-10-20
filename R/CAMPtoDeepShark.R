@@ -35,7 +35,7 @@ CAMPtoDeepShark <-
     if (substr(x = especies$especie[1],start = nchar(especies$especie[1]) - 3,
                stop = nchar(especies$especie[1])) == " sp.") {
       especies$especie[1] <-sub(" sp.","",buscaesp(especies$grupo[1], especies$esp[1]),
-          perl = T,useBytes = T)
+          perl = TRUE,fixed = TRUE)
       }
     if (is.na(especies$aphia[1])) especies$aphia[1] <-worrms::wm_name2id(as.character(especies$especie[1]))
     if (export) {
@@ -45,7 +45,7 @@ CAMPtoDeepShark <-
           if (substr(x = especies$especie[i1],start = nchar(especies$especie[i1]) - 3,
             stop = nchar(especies$especie[i1])) == " sp.") {
             especies$especie[i1] <-sub(" sp.","",buscaesp(especies$grupo[i1], especies$esp[i1]),
-                perl = T,useBytes = T)
+                perl = TRUE,useBytes = TRUE,fixed = TRUE)
           }
           especies$aphia[i1] <- worrms::wm_name2id(especies$especie[i1])
         }

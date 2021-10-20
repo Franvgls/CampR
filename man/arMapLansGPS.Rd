@@ -12,9 +12,9 @@ arMapLansGPS(
   ylims = NA,
   col = 2,
   lwd = 2,
+  cexlab = 0.6,
   places = TRUE,
   Nlans = FALSE,
-  rumbo = F,
   es = T,
   bw = FALSE,
   layout = NA
@@ -35,13 +35,15 @@ arMapLansGPS(
 
 \item{lwd}{Define el ancho de los segmentos}
 
+\item{cexlab}{Tamaño de los números de lance utilizados en el gráfico de armap.lan parte del gráfico}
+
 \item{places}{si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine}
 
 \item{Nlans}{se T incluye los números de lance por encima de los segmentos}
 
-\item{rumbo}{si T incluye un punto al final del lance, en el punto de la virada, sólo en el segundo mapa}
-
 \item{bw}{Si T gráfico en blanco y negro por default, si F gráfico en color}
+
+\item{rumbo}{si T incluye un punto al final del lance, en el punto de la virada, sólo en el segundo mapa}
 }
 \value{
 Devuelve un mapa, pero no objetos de datos.
@@ -50,7 +52,7 @@ Devuelve un mapa, pero no objetos de datos.
 Muestra un mapa con el número de lance en el punto del lance y debajo o al lado mapa de los lances en segmentos
 }
 \examples{
-arMapLansGPS("N20","Cant",xlims=c(-9.8,-7.8),ylims=c(43.5,44.2),layout=c(1,2),rumbo=T)
+arMapLansGPS("N20","Cant",xlims=c(-9.8,-7.8),ylims=c(43.5,44.2))
 }
 \seealso{
 {\link{datlan.camp}}, {\link{qcdistlan.camp}}

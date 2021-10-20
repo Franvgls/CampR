@@ -34,7 +34,7 @@ Devuelve un data.frame con las capturas medias por lance de cada especie captura
 Capturas medias estratificadas por lance de cada especie de gr (grupo) en una campaña
 }
 \details{
-Muestra un listado de la biomasa y número estratificados medios de todas las especies capturadas del grupo gr. \emph{Es importante tener en cuenta que sólo sirve para los lances estándares} y no tiene en cuenta los datos de los lances especiales. \emph{Para sacar resultados con lances especiales y fuera de estratos de profundidad utilizar ListFaunaTals.camp}.
+Muestra un listado de la biomasa y número estratificados medios de todas las especies capturadas del grupo gr. \emph{Es importante tener en cuenta que sólo sirve para los lances estándares} y no tiene en cuenta los datos de los lances especiales. \emph{Para sacar resultados con lances especiales y fuera de estratos de profundidad utilizar ListFaunaTals.camp o Fauna.camp para tener solo el listado de especies}.
 }
 \examples{
 ListFauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA)

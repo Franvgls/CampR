@@ -27,7 +27,7 @@ BuscaAphia <-function(gr = 1,export = TRUE) {
     #       perl = T,useBytes = T)
     # }
     # # especies<-especies[is.na(especies$aphia) | especies$especie==0,]
-    especies$especie<-sub(" sp.","",especies$especie)
+    especies$especie<-sub(" sp.","",especies$especie,fixed = TRUE)
     if (any(is.na(especies$aphia[1])|especies$aphia==0)) especies$aphia[1] <-worrms::wm_name2id(as.character(especies$especie[1]))
       for (i1 in 2:nrow(especies)) {
         if (any(is.na(especies$aphia[i1]) | especies$aphia[i1]==0)) {
@@ -35,7 +35,7 @@ BuscaAphia <-function(gr = 1,export = TRUE) {
           if (substr(x = especies$especie[i1],start = nchar(especies$especie[i1]) - 3,
             stop = nchar(especies$especie[i1])) == " sp.") {
             especies$especie[i1] <-sub(" sp.","",buscaesp(especies$grupo[i1], especies$esp[i1]),
-                perl = T,useBytes = T)
+                perl = TRUE,useBytes = TRUE,fixed = TRUE)
           }
           especies$aphia[i1] <- worms::wormsbynames(especies$especie[i1],verbose = F)$valid_AphiaID
           print(especies[i1,c("especie","aphia")])

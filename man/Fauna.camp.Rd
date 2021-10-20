@@ -15,8 +15,6 @@ Fauna.camp(
 )
 }
 \arguments{
-\item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros.}
-
 \item{camp}{Campaña de la que se extrae el listado de especies capturadas: un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa", Medits "Medi"}
@@ -30,16 +28,16 @@ Fauna.camp(
 \item{getaphia}{si T busca en internet (debe estar disponible) los códigos AphiaID de las especies en cuestión}
 }
 \value{
-Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr. Columnas: gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp) Los valores NaN en las abundancias corresponden a especies que sólo han aparecido en los lances especiales, y que no puede calcularse la abundancia estratificada al no contar con áreas para los estratos en que aparecen
+Devuelve un data.frame con el listado de taxones (especies) del grupo gr encontradas en la campaña
 }
 \description{
 Listado de especies por campaña sin  datos de las especies del grupo, sólo nombres
 }
 \details{
-Muestra un listado de todas las especies capturadas del grupo gr. \emph{Es importante tener en cuenta que sólo sirve para los lances estándares} y no tiene en cuenta los datos de los lances especiales. \emph{Para sacar resultados con lances especiales y fuera de estratos de profundidad utilizar ListFaunaTals.camp}.
+Muestra un listado de todas las especies capturadas del grupo gr. se puede utilizar para sacar listado de todos los lances o sólo de los estándares. Si hay especies con código desonocido aparecen al final del listado#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros.
 }
 \examples{
-ListFauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA)
+Fauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA)
 }
 \seealso{
 Other ListadosFauna: 
