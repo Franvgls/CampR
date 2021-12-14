@@ -2,6 +2,7 @@
 #'
 #'Transforma series de nombres de campañas en formato Camp XYY a años, si se incluyen códigos de 3 caracteres que no corresponden a caracter número número, devuelve 0, si es
 #'@param x Vector con la serie de nombres de campaña a transformar a años
+#'@family especies_&_codes
 #'@examples camptoyear(Nsh)
 #'@export
 camptoyear<- function(x) {

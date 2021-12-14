@@ -4,7 +4,14 @@
 \alias{qcdistlan.camp}
 \title{Comprueba la distancia recorrida en los lances y la consistencia con recorrido y la velocidad en los datos del CAMP}
 \usage{
-qcdistlan.camp(camp, dns = "Cant", todos = FALSE, pc.error = 2, plots = T)
+qcdistlan.camp(
+  camp,
+  dns = "Cant",
+  todos = FALSE,
+  pc.error = 2,
+  error.rb = TRUE,
+  plots = TRUE
+)
 }
 \arguments{
 \item{camp}{campaña a revisar los datos en formato Camp Xyy}
@@ -14,6 +21,8 @@ qcdistlan.camp(camp, dns = "Cant", todos = FALSE, pc.error = 2, plots = T)
 \item{todos}{Por defecto F. Si T lista todos los lances con valores, si no sólo los que pc.error>error}
 
 \item{pc.error}{porcentaje de error aceptable para no mostrar los lances como erróneos}
+
+\item{error.rb}{si F no tiene en cuenta los errores de rumbo que tampoco tiene mucho peso}
 
 \item{plots}{si T abre una pantalla con tres gráficos de los errores detectados en error.dist, error.vel y error.rumb}
 }
@@ -39,6 +48,7 @@ Other Control de calidad:
 \code{\link{qcTalPez.camp}()},
 \code{\link{qcTalPez.lan}()},
 \code{\link{qcdtall.camp}()},
-\code{\link{qcdtallrev.camp}()}
+\code{\link{qcdtallrev.camp}()},
+\code{\link{qclandata.camp}()}
 }
 \concept{Control de calidad}

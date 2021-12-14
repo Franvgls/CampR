@@ -39,10 +39,10 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     lan$estn<-as.integer(lan$estn)
     lan$arte<-as.integer(lan$arte)
     if (hidro) {
-      if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {warning(paste0("No existe fichero de CTDs para ",camp));hidro=FALSE}
+      if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {message(paste0("No existe fichero de CTDs para ",camp));hidro=FALSE}
       else
         {dathidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
-        if(nrow(dathidro)==0) warning("Fichero de CTDs sin datos")
+        if(nrow(dathidro)==0) message("Fichero de CTDs sin datos")
         }}
     #if (hidro) {dumbdathidro<-ifelse(outhidro,dathidro,dathidro[,c(11:13,17:23)]) }
     dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
@@ -67,7 +67,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
         if (lan$lat[i]>35.95 & lan$lat[i]<37.75 & lan$long[i] > c(-7.5) & lan$long[i] < c(-5.50)) {lan$zona[i]<- "9a"}
         if (dns=="Medi" & lan$lat[i]>35.9 & lan$long[i]>c(-5.6556)) {lan$zona[i]<-"wm.37.1"}
       }
-      if (any(is.na(lan$zona))) {warning(paste0("Al menos un lance: ",lan$lance[is.na(lan$zona)],
+      if (any(is.na(lan$zona))) {message(paste0("Al menos un lance: ",lan$lance[is.na(lan$zona)],
                                                 " sin Zona ICES asignada, revise resultados",lan$camp[is.na(lan$zona)]))}
     }
     lan$dista_p[lan$dista_p==0]<-NA
@@ -107,7 +107,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
   if (length(camp)>1) {
     for (i in camp[2:length(camp)]) datos<-rbind(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0,hidro=hidro),camp=i))
   }
-  if (any(is.na(datos$zona))) {warning(paste0("Al menos un lance: ",datos$lance[is.na(datos$zona)],
+  if (any(is.na(datos$zona))) {message(paste0("Al menos un lance: ",datos$lance[is.na(datos$zona)],
                                             " sin Zona ICES asignada, revise resultados"))}
   if (any(!is.na(excl.sect))) {
     datos$sector<-gsub("NA","N",datos$sector) # print(datos)

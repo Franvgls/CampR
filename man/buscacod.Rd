@@ -21,6 +21,8 @@ buscacod("sph")
 }
 \seealso{
 Other datos_especies: 
+\code{\link{AbrvEsp}()},
+\code{\link{BuscaAphia}()},
 \code{\link{buscaesp}()},
 \code{\link{talpes.camp}()}
 }

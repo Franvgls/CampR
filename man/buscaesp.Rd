@@ -21,6 +21,8 @@ buscaesp(1,50)
 }
 \seealso{
 Other datos_especies: 
+\code{\link{AbrvEsp}()},
+\code{\link{BuscaAphia}()},
 \code{\link{buscacod}()},
 \code{\link{talpes.camp}()}
 }

@@ -33,10 +33,10 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FAL
 	  hidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
 	  names(hidro)<-tolower(names(hidro))
 	  hidro<-dplyr::select(hidro,estn,latitud,longitud,eswe)
-	  if(nrow(hidro)==0) warning("Fichero de CTDs sin datos")
+	  if(nrow(hidro)==0) message("Fichero de CTDs sin datos")
 	}
 	else {
-	  if (CTDs | NCTDs) warning(paste0("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS"))
+	  if (CTDs | NCTDs) message(paste0("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS"))
 	  CTDs=F
 	}
 	DBI::dbDisconnect(ch1)

@@ -56,7 +56,7 @@ dattalmean.camp<- function(gr,esp,camp,dns="Porc",quant=.5,cor.time=TRUE,incl2=T
     if (any(cor.time,camp=="N83",camp=="N84",na.rm=TRUE)) {
       if (any(mm$weight.time==0)) {
         mm$weight.time[mm$weight.time==0]<-c(.1)
-        warning("Hay lances con duración 0 minutos, revisa validez")
+        message("Hay lances con duración 0 minutos, revisa validez")
       }
       mm$numero<-round(mm$numero/mm$weight.time,1)
     }

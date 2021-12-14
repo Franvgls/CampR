@@ -35,7 +35,7 @@ arMapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2
   }
   if (c(dns=="Porc" | dns=="Arsa")) {
   par(mfrow=c(1,2)) # if (any(!is.na(layout))) par(mfrow=layout)
-  armap.camp(camp=camp,dns=dns,xlims=xlims,ylims=ylims,cex=cexlab,col=col,lwd=lwd,places=places,Nlans=TRUE,es=es,bw=bw)
+  armap.camp(camp=camp,dns=dns,xlims=xlims,ylims=ylims,col=col,lwd=lwd,places=places,Nlans=TRUE,es=es,bw=bw)
   MapLansGPS(camp=camp,dns=dns,incl0=incl0,xlims=xlims,ylims=ylims,col=col,lwd=lwd,places=places,Nlans = FALSE,es=es,bw=bw,rumbo=FALSE)
   }
   par(opar)

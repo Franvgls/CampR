@@ -63,7 +63,7 @@ dtallan.camp<- function(gr,esp,camp,dns,lances=NA,cor.time=TRUE,depth_range=NA,s
     ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
     if (any(ntalls$weight.time==0)) {
       ntalls$weight.time[ntalls$weight.time==0]=.1
-      warning("Hay lances con duración 0 minutos, revisa validez")
+      message("Hay lances con duración 0 minutos, revisa validez")
     }
     ntalls$numer<-ntalls$numer+0/ntalls$weight.time
     ntalls<-ntalls[,1:6]

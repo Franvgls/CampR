@@ -81,7 +81,7 @@ dattalgr.camp<- function(gr,esp,camp,dns="Porc",tmin=1,tmax=999,cor.time=TRUE,in
     if (any(cor.time,camp=="N83",camp=="N84",na.rm=TRUE)) {
       if (any(mm$weight.time==0)) {
         mm$weight.time[mm$weight.time==0]=.1
-        warning("Hay lances con duración 0 minutos, revisa validez")
+        message("Hay lances con duración 0 minutos, revisa validez")
       }
       if(ind=="n") mm$numero<-round(mm$numero/mm$weight.time,1)
       if(ind=="p") mm$peso<-round(mm$peso/mm$weight.time,3)

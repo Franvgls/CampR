@@ -164,7 +164,7 @@ CAMPtoDeepShark <-
 
     if (any(is.na(HL_north$SpecCode))) {
       HL_north[is.na(HL_north$SpecCode), ]
-      warning(
+      message(
         "Algunas especies no tienen código AphiaID, conversión incompleta, revise especies.dbf"
       )
     }

@@ -34,7 +34,7 @@ edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,excl.sect=NA,cor.time=TRUE
     ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
     if (any(ntalls$weight.time==0)) {
       ntalls$weight.time[ntalls$weight.time==0]=.1
-      warning("Hay lances con duración 0 minutos, revisa validez")
+      message("Hay lances con duración 0 minutos, revisa validez")
     }
     ntalls$numer<-ntalls$numer/ntalls$weight.time
     ntalls<-ntalls[,1:6]

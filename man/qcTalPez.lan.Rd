@@ -31,6 +31,7 @@ Other Control de calidad:
 \code{\link{qcTalPez.camp}()},
 \code{\link{qcdistlan.camp}()},
 \code{\link{qcdtall.camp}()},
-\code{\link{qcdtallrev.camp}()}
+\code{\link{qcdtallrev.camp}()},
+\code{\link{qclandata.camp}()}
 }
 \concept{Control de calidad}

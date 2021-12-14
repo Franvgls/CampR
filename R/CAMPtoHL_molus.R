@@ -89,10 +89,10 @@ CAMPtoHLmolus<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
       HL_north<-data.table::data.table(RecordType="HL",Quarter=DB1$quarter,Country="SPA",Ship=DB1$barco,Gear=DB1$Gear,SweepLngt=DB1$malletas,GearExp=DB1$GearExp,DoorType=DB1$DoorType,StNo=DB1$StNo,HaulNo=DB1$lance,Year=DB1$year,SpecCodeType="W",SpecCode=DB1$SpecCode,specie=DB1$Specie,SpecVal=1,Sex=DB1$Sex,TotalNo=round(DB1$NoMeas*DB1$SubFact,2),CatIdentifier=DB1$cate,NoMeas=DB1$NoMeas,SubFact=DB1$SubFact,SubWgt=DB1$peso_m,CatCatchWgt=DB1$peso_gr,LngtCode=DB1$LngtCode,LngtClass=DB1$talla,HLNoAtLngt=DB1$numer)
       }
     else HL_north<-data.table::data.table(RecordType="HL",Quarter=DB1$quarter,Country="SPA",Ship=DB1$barco,Gear=DB1$Gear,SweepLngt=DB1$malletas,GearExp=DB1$GearExp,DoorType=DB1$DoorType,StNo=DB1$StNo,HaulNo=DB1$lance,Year=DB1$year,SpecCodeType="W",SpecCode=DB1$SpecCode,SpecVal=1,Sex=DB1$Sex,TotalNo=round(DB1$NoMeas*DB1$SubFact,2),CatIdentifier=DB1$cate,NoMeas=DB1$NoMeas,SubFact=DB1$SubFact,SubWgt=DB1$peso_m,CatCatchWgt=DB1$peso_gr,LngtCode=DB1$LngtCode,LngtClass=DB1$talla,HLNoAtLngt=DB1$numer)
-    if (any(is.na(HL_north$SpecCode))) {warning("Algunas especies no tienen código AphiaID, conversión incompleta, revise especies.dbf")}
+    if (any(is.na(HL_north$SpecCode))) {message("Algunas especies no tienen código AphiaID, conversión incompleta, revise especies.dbf")}
     if (any(HL_north$SpecCode==c(-999))) {
       HL_north[HL_north$SpecCode==c(-999),]
-      warning("Algunas especies tienen código AphiaID incorrecto especies.dbf")
+      message("Algunas especies tienen código AphiaID incorrecto especies.dbf")
     }
         HL_north[order(HL_north$HaulNo,HL_north$SpecCode,HL_north$LngtClass),]
   }

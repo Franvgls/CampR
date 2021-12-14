@@ -15,3 +15,4 @@ Transforma series de nombres de campañas en formato Camp XYY a años, si se inc
 \examples{
 camptoyear(Nsh)
 }
+\concept{especies_&_codes}

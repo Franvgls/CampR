@@ -16,6 +16,8 @@ Extrae los parámetros a y b de la relación talla-peso de una especie determina
 }
 \seealso{
 Other datos_especies: 
+\code{\link{AbrvEsp}()},
+\code{\link{BuscaAphia}()},
 \code{\link{buscacod}()},
 \code{\link{buscaesp}()}
 }

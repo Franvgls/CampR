@@ -21,3 +21,11 @@ Sirve para crear un fichero del que se pueden importar los códigos AphiaID al e
 \examples{
 # BuscaAphia(1,"P14","Porc")
 }
+\seealso{
+Other datos_especies: 
+\code{\link{AbrvEsp}()},
+\code{\link{buscacod}()},
+\code{\link{buscaesp}()},
+\code{\link{talpes.camp}()}
+}
+\concept{datos_especies}
