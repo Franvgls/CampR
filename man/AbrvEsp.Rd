@@ -14,6 +14,8 @@ AbrvEsp(x, nGen = 3, nEsp = 4, sep = "_", unique = TRUE)
 \item{nEsp}{número de catacteres del nombre de especie a utilizar}
 
 \item{sep}{Caracter para separar Género de especie}
+
+\item{unique}{Evitar duplicados en los códigos, no tiene mucho sentido pero se puede dejar como falso y tener repetidos los códigos con unique=FALSE}
 }
 \value{
 Devuelve un data.frame con dos columnas, nombres originales $names y los codigos $codes
@@ -22,7 +24,7 @@ Devuelve un data.frame con dos columnas, nombres originales $names y los codigos
 Transforma series de nombres científicos de especies en abreviaturas de 9 caracteres, se puede elegir el número de
 caracteres y el caracter de separación. Ignora borrando el sp. los nombres genéricos de especies con sp., no evita
 los spp. cuidado.
-Avisa si hay códigos duplicados en el resultado de los códigos solicitados, para evitar crear códigos repetidos para distinas especies
+Avisa si hay códigos duplicados en el resultado de los códigos solicitados, para evitar crear códigos repetidos para distintas especies haciend uso de base::make.unique
 }
 \examples{
 AbrvEsp(c("Merluccius merluccius","Merlangius merlangus"))

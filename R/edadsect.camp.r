@@ -9,6 +9,7 @@
 #' @param excl.sect excluye sectores para calcular el resultado por lo sectores individualmente o en conjunto.
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @param AltAlk ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf sin ruta ni extensión
+#' @return Devuelve una matriz con una columna por estrato y otra con el total y la abundancia estratficada de los individuos de la talla en cada sector en las filas
 #' @examples edadsect.camp("1"," 45","P01","Porc",8)
 #' @family edades
 #' @export

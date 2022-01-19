@@ -11,6 +11,7 @@
 #' @param incl2 Si F no tiene en cuenta los lances especiales, si T si los tiene en cuenta, pero da problemas por que no puede calcular las abundancias estratificadas
 #' @param sex Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo
 #' @param ind Parámetro a representar saca los datos en "p"eso o "n"úmero
+#' @return Devuelve un data.frame con columnas lan,lat,long,prof,weight.time,peso
 #' @seealso {\link{datgr.camp}}
 #' @examples dattalgr.camp("1",c(44),"N94","Cant",0,45,ind="p")
 #' @export

@@ -35,6 +35,9 @@ dtallan.camp(
 
 \item{muestr}{Por defecto (F) no pondera los datos por el peso total en la captura del lance, si T coge los medidos realmente}
 }
+\value{
+Devuelve un data frame con dos campos, $talla con las tallas de la especie en la campaña y número con el número de ejemplares de cada una de las tallas
+}
 \description{
 Da Valores absolutos (totales por lance o grupos de lances) en número por talla y sexo (si lo hay)
 }

@@ -10,6 +10,7 @@
 #' @param depth_range NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances.
 #' @param sex Por defecto (F) suma todos los individuos como indet. T saca los datos por sexo si los hay, no afecta si sólo hay indeterminados (3)
 #' @param muestr Por defecto (F) no pondera los datos por el peso total en la captura del lance, si T coge los medidos realmente
+#' @return Devuelve un data frame con dos campos, $talla con las tallas de la especie en la campaña y número con el número de ejemplares de cada una de las tallas
 #' @family Distribuciones de tallas
 #' @examples
 #' dtallan.camp(gr=1,esp=10,camp="N14",dns="Cant",lances=108,muestr=T)

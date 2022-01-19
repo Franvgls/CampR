@@ -24,13 +24,12 @@
 #' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
 #' @param FU pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos de abundancia de cigala en cada FU con datos de biomasa, numero, desviaciones estándar y número de lances en cada FU.
-#' @return Produce un gráfico con los lances en los que ha habido cigala en el lance y especialmente lo lances en cada FU dentro de Demersales FU25,FU26 y FU31
-#' @seealso {\link{MapLansGPS}}
+#' @return Produce un gráfico con los lances en los que ha habido cigala en el lance y especialmente los lances en cada FU dentro de Demersales FU25,FU26 y FU31
+#' @family mapas
 #' @examples
-#'   print(datlan.camp(Nsh[24:28],"Cant",hidro=FALSE,excl.sect=c("A")))
-#'   print(datlan.camp("P16","Porc",bio=T))
+#'   NepFUs.camp(camp="N20",dns="Cant",plot=T,plotnep=T)
 #' @export
-NepFUs.camp<-function(camp=Nsh[length(Nsh)],dns="Cant",plot=T,plotnep=TRUE,es=FALSE,ti=TRUE,ICESlab=TRUE,
+NepFUs.camp<-function(camp=Nsh[length(Nsh)],dns="Cant",plot=TRUE,plotnep=TRUE,es=FALSE,ti=TRUE,ICESlab=TRUE,
                       ICESrectcol=2,ICESrect=TRUE,FU=NA,places=TRUE,country=TRUE,out.dat=TRUE) {
   if (!substr(dns,1,4) %in% c("Cant","Arsa")) {stop("Esta función sólo permite sacar resultados DEMERSALES o ARSA *dns* debe ser Xxxx o Xxxxred")}
   if (length(camp)>1) {warning("Si escoge mas de una camp los resultados son para el total de campañas, para ver resultados último año coja sólo ese año")}

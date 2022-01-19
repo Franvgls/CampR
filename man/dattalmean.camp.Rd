@@ -32,11 +32,14 @@ dattalmean.camp(
 
 \item{sex}{Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo}
 }
+\value{
+Devuelve un data.frame con campos: lan, lat, long, prof, weight.time, numero, tallamed, qtile
+}
 \description{
-Muestra la talla media, el percentil \strong{quant} de la distribuicón de tallas de las espcie \emph{esp} en cada lance en la campaña seleccionada
+Muestra la talla media, el percentil \strong{quant} de la distribución de tallas de las especie \emph{esp} en cada lance en la campaña seleccionada
 }
 \examples{
-dattalmean.camp(gr=1,esp=44,camp="N94",dns="Cant",quant=0.85)
+db<-dattalmean.camp(gr=1,esp=50,camp="N94",dns="Cant",quant=0.85);MapNort(places=T);points(lat~long,db,pch=21,cex=sqrt(tallamed),bg="blue")
 }
 \seealso{
 {\link{dattalgr.camp}}

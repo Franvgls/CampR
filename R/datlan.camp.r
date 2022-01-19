@@ -32,7 +32,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
     lan<-DBI::dbGetQuery(ch1,paste0("select lance,validez,latitud_l,latitud_v,longitud_l,longitud_v,prof_l,prof_v,velocidad,
-                            sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,cuadricula,hora_l,hora_v,rumbo,dir_viento,vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp))
+                            sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,nsl,nsv,cuadricula,hora_l,hora_v,rumbo,dir_viento,vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp))
     lan$lance<-as.integer(lan$lance)
     lan$validez<-as.integer(lan$validez)
     lan$sector<-as.integer(lan$sector)
@@ -47,9 +47,17 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     #if (hidro) {dumbdathidro<-ifelse(outhidro,dathidro,dathidro[,c(11:13,17:23)]) }
     dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
     DBI::dbDisconnect(ch1)
-    lan$latitud_l<-round(sapply(lan$latitud_l,gradec),4)
+    if (any(!lan$nsl %in% c("N","S"))) message(paste("En el lance",lan[!lan$nsl %in% c("N","S"),"lance"],
+                                                           "el campo nsl que debe ser N o S y es",lan[!lan$nsl %in% c("N","S"),"nsl"]))
+    if (any(!lan$ewl %in% c("W","E"))) message(paste("En la estación",lan[!lan$ewl %in% c("E","W"),"ewl"],
+                                                           "el campo ewl que debe ser E o W y es",lan[!lan$ewl %in% c("N","S"),"ewl"]))
+    if (any(!lan$nsv %in% c("N","S"))) message(paste("En el lance",lan[!lan$nsv %in% c("N","S"),"lance"],
+                                                     "el campo nsv que debe ser N o S y es",lan[!lan$nsv %in% c("N","S"),"nsv"]))
+    if (any(!lan$ewv %in% c("W","E"))) message(paste("En la estación",lan[!lan$ewv %in% c("E","W"),"ewv"],
+                                                     "el campo ewv que debe ser E o W y es",lan[!lan$ewv %in% c("N","S"),"ewv"]))
+    lan$latitud_l<-round(sapply(lan$latitud_l,gradec)*ifelse(lan$nsl=="N",1,-1),4)
     lan$longitud_l<-round(sapply(lan$longitud_l,gradec)*ifelse(lan$ewl=="E",1,-1),4)
-    lan$latitud_v<-round(sapply(lan$latitud_v,gradec),4)
+    lan$latitud_v<-round(sapply(lan$latitud_v,gradec)*ifelse(lan$nsv=="N",1,-1),4)
     lan$longitud_v<-round(sapply(lan$longitud_v,gradec)*ifelse(lan$ewv=="E",1,-1),4)
     if (any(redux | bio )) {
       lan$lat<-round((lan$latitud_l+lan$latitud_v)/2,4)
@@ -93,7 +101,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     if (!incl0) {lan<-lan[c(lan$validez!=0),]}
     if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
     datos<-merge(lan,area,by.x="sector",by.y="sector",all.x=TRUE)
-    if (hidro) datos<-merge(datos,dathidro[,c(11:13,17:23)],by.x="lance",by.y="LANCE",all.x=TRUE)
+    if (hidro) datos<-merge(datos,dathidro[,c(11:13,17:19,23)],by.x="lance",by.y="LANCE",all.x=TRUE)
     datos$arsect<-as.numeric(as.character(datos$arsect))
     datos$barco<-barco
     #browser()

@@ -10,7 +10,7 @@
 #' @references \code{\link[suncalc]{getSunlightTimes}}
 #' @family Control de calidad
 #' @export
-qclandata.camp<-function(camp,dns="Cant") {
+qclandata.camp<-function(camp,dns="Cant",out.dat=FALSE) {
   if (length(camp)>1) {
     hhlan<-CAMPtoHH(camp[1],dns,incl2 = T)
     for (i in camp[2:length(camp)]) hhlan<-rbind(hhlan,CAMPtoHH(i,dns,incl2 = T))
@@ -20,9 +20,19 @@ qclandata.camp<-function(camp,dns="Cant") {
   hhlan$time<-as.ITime(paste0(substr(hhlan$TimeShot,1,2),":",substr(hhlan$TimeShot,3,4)))
   hhlan$lon<-hhlan$ShootLong
   hhlan$lat<-hhlan$ShootLat
-  hhlan<-as.data.frame(cbind(hhlan,suncalc::getSunlightTimes(data = hhlan[,c("date","lat","lon")],tz="GMT",keep=c("sunrise","sunset"))[,c("sunrise","sunset")]))
+  hhlan<-as.data.frame(cbind(hhlan,suncalc::getSunlightTimes(data = hhlan[,c("date","lat","lon")],tz="GMT",keep=c("dawn","sunrise","solarNoon","sunset","dusk"))[,c("dawn","sunrise","solarNoon","sunset","dusk")]))
   hhlan$daynight<-ifelse(as.ITime(hhlan$sunrise)<hhlan$time & hhlan$time<as.ITime(hhlan$sunset),"D","N")
+  hhlan$dawn<-as.ITime(hhlan$dawn)
   hhlan$sunrise<-as.ITime(hhlan$sunrise)
+  hhlan$solarNoon<-as.ITime(hhlan$solarNoon)
   hhlan$sunset<-as.ITime(hhlan$sunset)
-  filter(hhlan,daynight=="N")[,c("date","HaulNo","DayNight","daynight","sunrise","time","sunset")]
+  hhlan$dusk<-as.ITime(hhlan$dusk)
+  hhlan$dayhour<-NA
+  for (i in 1:nrow(hhlan)) { if (hhlan$time[i]<hhlan$dawn[i] | hhlan$time[i]>hhlan$dusk[i]) hhlan$dayhour[i]<-"N" }
+  for (i in 1:nrow(hhlan)) { if (hhlan$time[i]>hhlan$dawn[i] & hhlan$time[i]<hhlan$sunrise[i]) hhlan$dayhour[i]<-"S" }
+  for (i in 1:nrow(hhlan)) { if (hhlan$time[i]>hhlan$sunrise[i] & hhlan$time[i]<hhlan$solarNoon[i]) hhlan$dayhour[i]<-"M" }
+  for (i in 1:nrow(hhlan)) { if (hhlan$time[i]>hhlan$solarNoon[i] & hhlan$time[i]<hhlan$sunset[i]) hhlan$dayhour[i]<-"T" }
+  for (i in 1:nrow(hhlan)) { if (hhlan$time[i]>hhlan$sunset[i] & hhlan$time[i]<hhlan$dusk[i]) hhlan$dayhour[i]<-"A" }
+  if (out.dat) return(hhlan)
+  else filter(hhlan,daynight=="N")[,c("date","HaulNo","DayNight","daynight","sunrise","time","sunset")]
   }

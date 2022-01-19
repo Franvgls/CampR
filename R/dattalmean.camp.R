@@ -1,6 +1,6 @@
 #' **Talla media** y **percentil** de la distribución de tallas por lance en la campaña **Xxx**
 #'
-#' Muestra la talla media, el percentil **quant** de la distribuicón de tallas de las espcie *esp* en cada lance en la campaña seleccionada
+#' Muestra la talla media, el percentil **quant** de la distribución de tallas de las especie *esp* en cada lance en la campaña seleccionada
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña a representar en el mapa de un año comcreto (xx): Demersales "Nxx", Porcupine "Pxx", Arsa primavera "1XX", Arsa otoño "2xx" Medits "Mxx"
@@ -8,9 +8,10 @@
 #' @param quant elije el percentil deseado, 0.5 para la mediana
 #' @param cor.time Si T corrige abundancias con la duración del lance para llevarlo a 30 minutos
 #' @param incl2 Si F no tiene en cuenta los lances especiales, si T si los tiene en cuenta, pero da problemas por que no puede calcular las abundancias estratificadas
-#' @param sex Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo
+#' @param sex Permite elegir entre machos(1), hembras(2) o indeterminados (3), NA escoge sin tener en cuenta el sexo
+#' @return Devuelve un data.frame con campos: lan, lat, long, prof, weight.time, numero, tallamed, qtile
 #' @seealso {\link{dattalgr.camp}}
-#' @examples dattalmean.camp(gr=1,esp=44,camp="N94",dns="Cant",quant=0.85)
+#' @examples db<-dattalmean.camp(gr=1,esp=50,camp="N94",dns="Cant",quant=0.85);MapNort(places=T);points(lat~long,db,pch="_",cex=(tallamed/hablar::max_(tallamed))*10,bg="blue");title("Talla media ejemplares capturados en lance");print(db)
 #' @export
 dattalmean.camp<- function(gr,esp,camp,dns="Porc",quant=.5,cor.time=TRUE,incl2=TRUE,sex=NA) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
