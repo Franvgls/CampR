@@ -33,6 +33,7 @@ Other mapas:
 \code{\link{MapGaltal}()},
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
+\code{\link{NepFUs.camp}()},
 \code{\link{VedaCigala}},
 \code{\link{arMapLansGPS}()},
 \code{\link{armap.camp}()},

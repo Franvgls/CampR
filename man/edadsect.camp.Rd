@@ -32,6 +32,9 @@ edadsect.camp(
 
 \item{AltAlk}{ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf sin ruta ni extensión}
 }
+\value{
+Devuelve una matriz con una columna por estrato y otra con el total y la abundancia estratficada de los individuos de la talla en cada sector en las filas
+}
 \description{
 Función de resultados: abundancias estratificadas por edad para cada sector geográfico a partir de los datos del camp.
 }

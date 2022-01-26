@@ -7,7 +7,7 @@
 NepFUs.camp(
   camp = Nsh[length(Nsh)],
   dns = "Cant",
-  plot = T,
+  plot = TRUE,
   plotnep = TRUE,
   es = FALSE,
   ti = TRUE,
@@ -50,7 +50,7 @@ NepFUs.camp(
 \item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 }
 \value{
-Produce un gráfico con los lances en los que ha habido cigala en el lance y especialmente lo lances en cada FU dentro de Demersales FU25,FU26 y FU31
+Produce un gráfico con los lances en los que ha habido cigala en el lance y especialmente los lances en cada FU dentro de Demersales FU25,FU26 y FU31
 }
 \description{
 Función de acceso a datos:
@@ -65,9 +65,25 @@ Si se detecta este error revisar la estructura de lanceXXX.dbf con la de
 otros ficheros de lances de los últimos años
 }
 \examples{
-  print(datlan.camp(Nsh[24:28],"Cant",hidro=FALSE,excl.sect=c("A")))
-  print(datlan.camp("P16","Porc",bio=T))
+  NepFUs.camp(camp="N20",dns="Cant",plot=T,plotnep=T)
 }
 \seealso{
-{\link{MapLansGPS}}
+Other mapas: 
+\code{\link{GrafMarksGPS_2}()},
+\code{\link{GrafMarksGPS}()},
+\code{\link{MapEcol.camp}()},
+\code{\link{MapGaltal}()},
+\code{\link{MapLansGPS}()},
+\code{\link{MapLansHH}()},
+\code{\link{VedaCigala.out}},
+\code{\link{VedaCigala}},
+\code{\link{arMapLansGPS}()},
+\code{\link{armap.camp}()},
+\code{\link{armap.tot}()},
+\code{\link{map.check}()},
+\code{\link{maparea}()},
+\code{\link{maphistage}()},
+\code{\link{maphistal}()},
+\code{\link{maphist}()}
 }
+\concept{mapas}

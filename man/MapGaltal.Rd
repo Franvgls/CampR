@@ -85,6 +85,7 @@ Other mapas:
 \code{\link{MapEcol.camp}()},
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
+\code{\link{NepFUs.camp}()},
 \code{\link{VedaCigala.out}},
 \code{\link{VedaCigala}},
 \code{\link{arMapLansGPS}()},

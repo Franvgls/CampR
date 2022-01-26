@@ -38,6 +38,9 @@ dattalgr.camp(
 
 \item{ind}{Parámetro a representar saca los datos en "p"eso o "n"úmero}
 }
+\value{
+Devuelve un data.frame con columnas lan,lat,long,prof,weight.time,peso
+}
 \description{
 Muestra los datos de abundancia de una especie o conjunto de especies de un rango de tallas determinado a partir de las distribuciones de tallas. También puede mostrar los datos de biomasa a partir de la relación talla-peso
 }

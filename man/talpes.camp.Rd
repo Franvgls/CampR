@@ -19,6 +19,8 @@ Other datos_especies:
 \code{\link{AbrvEsp}()},
 \code{\link{BuscaAphia}()},
 \code{\link{buscacod}()},
-\code{\link{buscaesp}()}
+\code{\link{buscaesp}()},
+\code{\link{camptoyear}()},
+\code{\link{hidrotodec}()}
 }
 \concept{datos_especies}

@@ -4,7 +4,7 @@
 \alias{qclandata.camp}
 \title{A partir de los HH de DATRAS con CAMPtoHH comprueba que los lances son de día y avisa si son de noche}
 \usage{
-qclandata.camp(camp, dns = "Cant")
+qclandata.camp(camp, dns = "Cant", out.dat = FALSE)
 }
 \arguments{
 \item{camp}{campaña a revisar los datos en formato Camp Xyy}

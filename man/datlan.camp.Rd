@@ -9,7 +9,6 @@ datlan.camp(
   dns,
   incl2 = TRUE,
   incl0 = FALSE,
-  hidro = FALSE,
   outhidro = FALSE,
   excl.sect = NA,
   redux = FALSE,
@@ -26,8 +25,6 @@ datlan.camp(
 \item{incl2}{Si T se incluyen los lances extra no incluidos para las abundancias o biomasas estratificadas}
 
 \item{incl0}{Si T se incluyen los lances nulos}
-
-\item{hidro}{Si T muestra datos de hidrografía. Necesita que exista fichero base de datos de hidro: HIDROXYY.dbf}
 
 \item{outhidro}{si T saca los datos del fichero hidro al final de todo el proceso como salida}
 

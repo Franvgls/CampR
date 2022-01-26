@@ -30,7 +30,7 @@ dattalmean.camp(
 
 \item{incl2}{Si F no tiene en cuenta los lances especiales, si T si los tiene en cuenta, pero da problemas por que no puede calcular las abundancias estratificadas}
 
-\item{sex}{Permite elegir entre machos(1), hembras(2) o indeterminados(3), NA escoge sin tener en cuenta el sexo}
+\item{sex}{Permite elegir entre machos(1), hembras(2) o indeterminados (3), NA escoge sin tener en cuenta el sexo}
 }
 \value{
 Devuelve un data.frame con campos: lan, lat, long, prof, weight.time, numero, tallamed, qtile
@@ -39,7 +39,7 @@ Devuelve un data.frame con campos: lan, lat, long, prof, weight.time, numero, ta
 Muestra la talla media, el percentil \strong{quant} de la distribución de tallas de las especie \emph{esp} en cada lance en la campaña seleccionada
 }
 \examples{
-db<-dattalmean.camp(gr=1,esp=50,camp="N94",dns="Cant",quant=0.85);MapNort(places=T);points(lat~long,db,pch=21,cex=sqrt(tallamed),bg="blue")
+db<-dattalmean.camp(gr=1,esp=50,camp="N94",dns="Cant",quant=0.85);MapNort(places=T);points(lat~long,db,pch="_",cex=(tallamed/hablar::max_(tallamed))*10,bg="blue");title("Talla media ejemplares capturados en lance");print(db)
 }
 \seealso{
 {\link{dattalgr.camp}}

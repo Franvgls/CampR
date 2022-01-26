@@ -26,6 +26,8 @@ Other datos_especies:
 \code{\link{AbrvEsp}()},
 \code{\link{buscacod}()},
 \code{\link{buscaesp}()},
+\code{\link{camptoyear}()},
+\code{\link{hidrotodec}()},
 \code{\link{talpes.camp}()}
 }
 \concept{datos_especies}

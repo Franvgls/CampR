@@ -77,7 +77,7 @@ denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,ti=FALSE,bw=
   if (ylim[2]<20) ylim[1]<-10
   if (ylim[2]<100 & ylim[2]>20) ylim[1]<-1
   if (length(camp)==1) {
-    foo<-lattice::densityplot(~rep(talla,a$n*ylim[1]),a,plot.points=FALSE,lwd=2,xlim=xlimi,nint=40,
+     foo<-lattice::densityplot(~rep(talla,a$n*ylim[1]),a,plot.points=FALSE,lwd=2,xlim=xlimi,nint=40,
                      scales=list(alternating=FALSE,tck=c(1,0),x=list(tick.number=10)),main=tit,
                      xlab=list(label=ax[1],cex=1.2),ylab=list(label="density",cex=1.2),
                      panel=function(x,subscripts,...) {lattice::panel.fill(col="white")

@@ -14,7 +14,6 @@
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las RODBCs
 #' @param incl2 Si T se incluyen los lances extra no incluidos para las abundancias o biomasas estratificadas
 #' @param incl0 Si T se incluyen los lances nulos
-#' @param hidro Si T muestra datos de hidrografía. Necesita que exista fichero base de datos de hidro: HIDROXYY.dbf
 #' @param outhidro si T saca los datos del fichero hidro al final de todo el proceso como salida
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
 #' @param redux Si T elimina datos de longitud y latitud de virada y muestra la media de las profundidades de largada y virada
@@ -27,7 +26,7 @@
 #'   print(datlan.camp(Nsh[24:28],"Cant",hidro=FALSE,excl.sect=c("A")))
 #'   print(datlan.camp("P16","Porc",bio=T))
 #' @export
-datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE,excl.sect=NA,redux=FALSE,year=TRUE,quarter=TRUE,bio=FALSE) {
+datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=NA,redux=FALSE,year=TRUE,quarter=TRUE,bio=FALSE) {
   foop<-function(camp,dns,incl2=incl2,incl0=incl0,hidro=hidro,outhidro=outhidro) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -38,13 +37,12 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     lan$sector<-as.integer(lan$sector)
     lan$estn<-as.integer(lan$estn)
     lan$arte<-as.integer(lan$arte)
-    if (hidro) {
-      if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {message(paste0("No existe fichero de CTDs para ",camp));hidro=FALSE}
+    if (outhidro) {
+      if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {message(paste0("No existe fichero de CTDs para ",camp));outhidro=FALSE}
       else
         {dathidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
         if(nrow(dathidro)==0) message("Fichero de CTDs sin datos")
         }}
-    #if (hidro) {dumbdathidro<-ifelse(outhidro,dathidro,dathidro[,c(11:13,17:23)]) }
     dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
     DBI::dbDisconnect(ch1)
     if (any(!lan$nsl %in% c("N","S"))) message(paste("En el lance",lan[!lan$nsl %in% c("N","S"),"lance"],
@@ -59,25 +57,25 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     lan$longitud_l<-round(sapply(lan$longitud_l,gradec)*ifelse(lan$ewl=="E",1,-1),4)
     lan$latitud_v<-round(sapply(lan$latitud_v,gradec)*ifelse(lan$nsv=="N",1,-1),4)
     lan$longitud_v<-round(sapply(lan$longitud_v,gradec)*ifelse(lan$ewv=="E",1,-1),4)
-    if (any(redux | bio )) {
-      lan$lat<-round((lan$latitud_l+lan$latitud_v)/2,4)
-      lan$long<-round((lan$longitud_l+lan$longitud_v)/2,4)
-      lan$prof<-(lan$prof_l+lan$prof_v)/2
-      lan$zona<-NA
-      for (i in c(1:nrow(lan))) {
-        if (lan$lat[i]>48 & lan$lat[i]<52.5 & lan$long[i]>c(-18) & lan$long[i]<c(-12)) {lan$zona[i]<- "7k"}
-        if (lan$lat[i]>52.5 & lan$lat[i]<54.5 & lan$long[i] > c(-18) & lan$long[i] < c(-12)) {lan$zona[i]<- "7c"}
-        if (lan$lat[i]>52.5 & lan$lat[i]<54.5 & lan$long[i] > c(-12)) {lan$zona[i]<- "7b"}
-        if (lan$lat[i]>43 & lan$lat[i]<44.5 & lan$long[i] > c(-2)) {lan$zona[i]<- "8b"}
-        if (lan$lat[i]>44.5 & lan$lat[i]<46 & lan$long[i] > c(-4)) {lan$zona[i]<- "8b"}
-        if (lan$lat[i]>43 & lan$lat[i]<44.5 & lan$long[i] > c(-11) & lan$long[i] < c(-2)) {lan$zona[i]<- "8c"}
-        if (lan$lat[i]>35.95 & lan$lat[i]<43 & lan$long[i] > c(-11) & lan$long[i] < c(-8.75)) {lan$zona[i]<- "9a"}
-        if (lan$lat[i]>35.95 & lan$lat[i]<37.75 & lan$long[i] > c(-7.5) & lan$long[i] < c(-5.50)) {lan$zona[i]<- "9a"}
-        if (dns=="Medi" & lan$lat[i]>35.9 & lan$long[i]>c(-5.6556)) {lan$zona[i]<-"wm.37.1"}
-      }
-      if (any(is.na(lan$zona))) {message(paste0("Al menos un lance: ",lan$lance[is.na(lan$zona)],
-                                                " sin Zona ICES asignada, revise resultados",lan$camp[is.na(lan$zona)]))}
+    lan$lat<-round((lan$latitud_l+lan$latitud_v)/2,4)
+    lan$long<-round((lan$longitud_l+lan$longitud_v)/2,4)
+    lan$prof<-(lan$prof_l+lan$prof_v)/2
+    lan<-lan[,-c(22:19)]
+    lan$zona<-NA
+    for (i in c(1:nrow(lan))) {
+      if (lan$lat[i]>48 & lan$lat[i]<52.5 & lan$long[i]>c(-18) & lan$long[i]<c(-12)) {lan$zona[i]<- "7k"}
+      if (lan$lat[i]>52.5 & lan$lat[i]<54.5 & lan$long[i] > c(-18) & lan$long[i] < c(-12)) {lan$zona[i]<- "7c"}
+      if (lan$lat[i]>52.5 & lan$lat[i]<54.5 & lan$long[i] > c(-12)) {lan$zona[i]<- "7b"}
+      if (lan$lat[i]>43 & lan$lat[i]<44.5 & lan$long[i] > c(-2)) {lan$zona[i]<- "8b"}
+      if (lan$lat[i]>44.5 & lan$lat[i]<46 & lan$long[i] > c(-4)) {lan$zona[i]<- "8b"}
+      if (lan$lat[i]>43 & lan$lat[i]<44.5 & lan$long[i] > c(-11) & lan$long[i] < c(-2)) {lan$zona[i]<- "8c"}
+      if (lan$lat[i]>35.95 & lan$lat[i]<43 & lan$long[i] > c(-11) & lan$long[i] < c(-8.75)) {lan$zona[i]<- "9a"}
+      if (lan$lat[i]>35.95 & lan$lat[i]<37.75 & lan$long[i] > c(-7.5) & lan$long[i] < c(-5.50)) {lan$zona[i]<- "9a"}
+      if (dns=="Medi" & lan$lat[i]>35.9 & lan$long[i]>c(-5.6556)) {lan$zona[i]<-"wm.37.1"}
     }
+    if (any(is.na(lan$zona))) {message(paste0("Al menos un lance: ",lan$lance[is.na(lan$zona)],
+                                                " sin Zona ICES asignada, revise resultados",lan$camp[is.na(lan$zona)]))}
+    #lan<-lan[,c(1:18,23:ncol(lan))]
     lan$dista_p[lan$dista_p==0]<-NA
     lan$abert_v[lan$abert_v==0]<-NA
     lan$abert_h[lan$abert_h==0]<-NA
@@ -91,8 +89,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     lan$Haul.mins<-durlan
     lan$hora_l<-format(lan$hora_l,format="%H")
     lan$hora_v<-format(lan$hora_v,format="%H")
-    if (!any(redux | bio)) lan<-lan[,c(1:33)]
-    else lan<-lan[,c(1:2,32:34,9:31,35:36)]
+    #if (!any(redux | bio)) lan<-lan[,c(1:29,33:35)]
+    #else lan<-lan[,c(1:2,30:32,9:29,33:35)]
     #print(names(lan))
     barco<-dumb$BARCO
     area<-as.data.frame(cbind(sector=
@@ -101,19 +99,19 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     if (!incl0) {lan<-lan[c(lan$validez!=0),]}
     if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
     datos<-merge(lan,area,by.x="sector",by.y="sector",all.x=TRUE)
-    if (hidro) datos<-merge(datos,dathidro[,c(11:13,17:19,23)],by.x="lance",by.y="LANCE",all.x=TRUE)
+    if (outhidro) datos<-merge(datos,dathidro[,c(11:13,17:19,23)],by.x="lance",by.y="LANCE",all.x=TRUE)
     datos$arsect<-as.numeric(as.character(datos$arsect))
     datos$barco<-barco
     #browser()
-    datos<-datos[,c(2,1,3:ncol(datos))]
+    #datos<-datos[,c(2,1,3:ncol(datos))]
     names(datos)<-tolower(names(datos))
     if(quarter==T) datos$quarter=as.character(cut(as.numeric(substr(datos$fecha,4,5)),c(0,3,6,9,12),labels=c(1:4)))
     if(year==T) datos$year=as.numeric(paste0(ifelse(as.numeric(substr(camp,2,3)>50),19,20),substr(camp,2,3)))
     datos[order(datos$lance),]
     }
-  datos<-data.frame(foop(camp[1],dns=dns,incl2=incl2,incl0=incl0,hidro=hidro),camp=camp[1])
+  datos<-data.frame(foop(camp[1],dns=dns,incl2=incl2,incl0=incl0,outhidro=outhidro),camp=camp[1])
   if (length(camp)>1) {
-    for (i in camp[2:length(camp)]) datos<-rbind(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0,hidro=hidro),camp=i))
+    for (i in camp[2:length(camp)]) datos<-rbind(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0,outhidro=outhidro),camp=i))
   }
   if (any(is.na(datos$zona))) {message(paste0("Al menos un lance: ",datos$lance[is.na(datos$zona)],
                                             " sin Zona ICES asignada, revise resultados"))}
@@ -123,7 +121,10 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,hidro=FALSE,outhidro=FALSE
     #		  datos$sector<-factor(as.character(datos$sector))
   }
   datos$sector<-factor(as.character(datos$sector))
-  if (!outhidro & !bio) datos
-  if (bio) datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")] else datos
+  if (redux) {datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l")); datos<-dplyr::relocate(datos,c("camp","lance","validez","lat","long","prof"))}
+  if (!redux & !bio) {datos<-dplyr::select(datos,-c("long","lat","prof")); datos<-dplyr::relocate(datos,c("camp","lance","validez"))}
+  if (outhidro & redux) datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l"))
+  if (bio) datos<-datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")]
+  return(datos)
   }
 
