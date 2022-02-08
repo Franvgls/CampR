@@ -119,7 +119,9 @@ sexr.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,verbose=TRUE,plo
   # if (!sex & ncol(dtall)>2) { dtall<-data.frame(talla=dtall[,1],numero=rowSums(dtall[,2:ncol(dtall)])) }
   # if (!sex & ncol(dtall)==2) names(dtall)<-c("talla","numero")
   #browser()
-  dtall<-cbind(talla=dtall$talla,apply(dtall[2:ncol(dtall)],2,'/',rowSums(dtall[2:ncol(dtall)])))
+  dtall<-cbind(talla=dtall$talla,apply(dtall[2:ncol(dtall)],2,'/',
+                                       rowSums(dtall[2:ncol(dtall)])),sr=dtall$hembras/rowSums(dtall[,c("hembras","machos")]))
+#  dtall<-cbind($sr<-dtall$hembras/rowSums(dtall[,c("hembras","machos")])
   dtall[is.nan(dtall)]<-0
   if (plot) {par(mfrow=c(1,1),mar=c(10,5,4,4));barplot(t(dtall[,2:4]),ylab="Sex-Ratio",ylim=c(0,1),xlab="Size",names=dtall[,1],main=camptoyear(camp),legend.text = T,args.legend = list(x="bottom",horiz=T,bty="n",inset=c(0,-.2)));box()}
   as.data.frame(dtall)
