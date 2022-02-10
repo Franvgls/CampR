@@ -12,7 +12,10 @@ sexr.camp(
   cor.time = TRUE,
   excl.sect = NA,
   verbose = TRUE,
-  plot = T
+  plot = TRUE,
+  sex.ratio = TRUE,
+  sex.prop = FALSE,
+  out.dat = FALSE
 )
 }
 \arguments{
@@ -29,6 +32,12 @@ sexr.camp(
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 
 \item{verbose}{Si T muestra avisos problemas de tallas entre distintas especies}
+
+\item{sex.ratio}{Si plot=T el gráfico será del sex ratio}
+
+\item{sex.prop}{si plot=T el gráfico será de las proporciones por sexos}
+
+\item{out.dat}{si T saca los datos de tallas por sexo}
 }
 \value{
 Devuelve un data.frame con variables: talla, machos, hembras e indet(erminados) si existen todos y si sex=TRUE

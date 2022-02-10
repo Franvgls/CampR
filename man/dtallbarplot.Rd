@@ -23,11 +23,11 @@ dtallbarplot(
 
 \item{esp}{Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo}
 
-\item{camps}{serie histórica de campañas para comparar entre la primera y el total, o entre camps y camp: Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
+\item{camps}{serie histórica de campañas para comparar con los de la campaña especificada en camp, o entre camps y camp: Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
-\item{camp}{campaña para comparar con las serie historica camps, debe ser una de las campañas dentro de la serie. Si NA (por defecto) compara la primera con el conjunto de la serie histórica incluida la primera}
+\item{camp}{campaña para comparar con las de la serie historica camps. Si NA (por defecto) compara la primera con el conjunto de la serie histórica incluida la primera}
 
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 
