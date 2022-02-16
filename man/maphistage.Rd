@@ -85,7 +85,8 @@ Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,0,1,2,...,Age+
 Mapa de la distribución geográfica por edad de la especie en las campañas solicitadas
 }
 \examples{
-maphistage("1"," 42","N05","Cant",2,ceros=TRUE,out.dat=TRUE)
+maphistage(1,42,"N05","Cant",2,ceros=TRUE,out.dat=TRUE)
+maphistage(1,73,"111","Arsa",2,bw=F)
 }
 \seealso{
 Other mapas: 

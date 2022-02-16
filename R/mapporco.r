@@ -10,6 +10,7 @@
 #' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
 #' @param label Si T saca las etiquetas de cada una de las cuadriculas numeradas consecutivamente por estratos 1A,1B,2B,3A,3B
 #' @param colo Color de las etiquetas, por defecto rojas
+#' @param bw Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE
 #' @param ax Si T saca los ejes x e y
 #' @param wmf Si T saca a fichero metafile porconc.emf
 #' @param corners Si T coloca dos puntos rojos en los extremos nordeste y suroeste para ajustar mapas al PescaWin con ax=F
@@ -18,12 +19,13 @@
 #' @family mapas base
 #' @family Porcupine
 #' @export
-mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,cuadr=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,label=FALSE,colo=2,ax=TRUE,wmf=FALSE,corners=FALSE) {
+mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,cuadr=FALSE,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,label=FALSE,colo=2,bw=F,ax=TRUE,wmf=FALSE,corners=FALSE) {
   asp<-diff(c(50.5,54.5))/(diff(range(-15.5,-10.5))*cos(mean(50.5,54.5)*pi/180))
   if (wmf) win.metafile(filename = "porconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3, mgp=c(2,.5,0))
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
   maps::map(Porc.map,xlim=xlims,ylim=ylims,type="n")
+  if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
   nstrat<-length(which(!is.na(Porc.map$names)))
   nland<-length(Porc.map$names)-nstrat
   if (ax) {

@@ -14,6 +14,7 @@ mapporco(
   ICESlabcex = 0.7,
   label = FALSE,
   colo = 2,
+  bw = F,
   ax = TRUE,
   wmf = FALSE,
   corners = FALSE
@@ -37,6 +38,8 @@ mapporco(
 \item{label}{Si T saca las etiquetas de cada una de las cuadriculas numeradas consecutivamente por estratos 1A,1B,2B,3A,3B}
 
 \item{colo}{Color de las etiquetas, por defecto rojas}
+
+\item{bw}{Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE}
 
 \item{ax}{Si T saca los ejes x e y}
 

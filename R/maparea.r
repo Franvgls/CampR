@@ -14,22 +14,23 @@
 maparea<-function(es=TRUE,leg=TRUE,bw=FALSE,dens=0,ICESrect=F,sectcol=F) {
   library(mapdata)
   maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
-		fill=TRUE,col="saddlebrown",type="n")
-	box()
-	rect(-16,50.,-8.,55)
+		fill=TRUE,col=ifelse(bw,gray(.7),"saddlebrown"),type="n")
+  if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
+  #box()
+	#rect(-16,50.,-8.,55)
 	abline(v=c(-15:-6),h=c(51:54),lty=3,col=gray(.2))
 	if (ICESrect) {
 	  abline(h=seq(50,55,by=.5),col=gray(.2),lwd=.6)
 	  abline(v=seq(-18,-10,by=1),col=gray(.2),lwd=.6)
 	  }
-	maps::map("worldHires",c("ireland","UK:Northern Ireland"),fill=TRUE,col=ifelse(!bw,"wheat","gray95"),add=TRUE)
+	maps::map("worldHires",c("ireland","UK:Northern Ireland"),fill=TRUE,col=ifelse(!bw,"bisque","gray85"),add=TRUE)
 	detach("package:mapdata")
 	points(-(9+.0303/.6),(53+.1623/.6),pch=16,col=1)
 	text(-(9+.0303/.6),(53+.1623/.6),label="Galway",pos=3,cex=.7,font=2)
 	text(-(8.95),(52.2),label=ifelse(es,"IRLANDA","IRELAND"),cex=1.3,font=2)
 	if (sectcol) colrs=c("Steelblue2","Steelblue2","Steelblue","blue4","green","darkgreen",gray(.7))
 	else {
-		colrs=c("white","white","white","white","white","white",gray(.7))
+		if (bw) {colrs=c(rep("white",6),gray(.7))} else {colrs=c(rep("lightblue1",6),"antiquewhite")}
 		#dens=0
 		}
 	maps::map(Porc.map,add=TRUE,fill=TRUE,col=colrs)

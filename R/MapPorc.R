@@ -7,7 +7,6 @@
 #' @param esp Código de la especie númerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campañas a representar en el mapa, con MapCant1 se puede sacar más de  un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: solo para Porcupine "Porc"
-#' @param color Color de los puntos que representan las abundancias
 #' @param puntos si TRUE en el mapa muestra sólo los puntos en los que aparece la especie, si false son puntos proporcionales al tamaño de la abundancia
 #' @param bw si T los colores salen en blanco, si F en lightblue
 #' @param add Si T añade los puntos al gráfico actual, si F dibuja uno nuevo
@@ -19,12 +18,13 @@
 #' @family mapas base
 #' @family Porcupine
 #' @export
-MapPorc<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FALSE,esc.mult=1,ti=FALSE,ind="p",ceros=F,es=T,places=T){
+MapPorc<- function(gr,esp,camps,dns="Porc",puntos=FALSE,bw=FALSE,add=FALSE,esc.mult=1,ti=FALSE,ind="p",ceros=F,es=T,places=T){
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
   ndat<-length(camps)
   absp<-NULL
+  color<-ifelse(bw,"black","blue")
   for (i in 1:ndat) {
     tempdumb<-DBI::dbReadTable(ch1, paste0("FAUNA",camps[i]))
     tempdumb<-tempdumb[tempdumb$GRUPO==gr & tempdumb$ESP==esp,]
@@ -60,23 +60,23 @@ MapPorc<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FAL
 		else {maxml<-10^(nchar(maxmm)-1)}
 		}
 	if (!add) {
-	  mapporco(lwdl=1)
+	  mapporco(lwdl=1,bw=bw)
 	}
 	if (ti) {
 	  especie<-buscaesp(gr,esp)
 	}
 	else {especie=NULL}
 	if (puntos) {
-	  mapporco()
-	  points(lat~long,mm,subset=peso>0,cex=1,pch=21,bg="red")
+	  mapporco(bw=bw)
+	  points(lat~long,mm,subset=peso>0,cex=1,pch=21,bg=ifelse(bw,gray(.8),"blue"))
 	  #legend("bottomleft",legend = paste0("Presencia en campañas ",camptoyear(camps[1]),"-",camptoyear(camps[length(camps)])),inset=c(.22,.05),bg="white",box.col = "white",text.font=2,cex=.8)
 	  title(buscaesp(gr,esp,"e"),font.main=2,line=1.5)
 	  mtext(buscaesp(gr,esp,"l"),font=4,cex=.8,line=1.5,adj=0)
 	  mtext(paste0("Años: ",camptoyear(camps[1]),"-",camptoyear(camps[length(camps)])),3,cex=.8,font=2,line=1.5,adj=1)
 	  }
 	else {
-		points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm)/esc.mult,lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
-		if (ceros) {points(lat~long,mm,subset=peso==0,cex=0.8,pch="+",col=color)}
+		points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm)/esc.mult,lwd=1,col=ifelse(bw,1,"darkblue"),pch=21,bg=ifelse(bw,"darkgrey","blue"))
+		if (ceros) {points(lat~long,mm,subset=peso==0,cex=0.8,pch="+",col=ifelse(bw,"black","blue"))}
 		if (!add) {
 		  #-13,51.2,
 		  leyenda<-cbind(rep(-13,3),seq(51.2,51.6,by=.2),maxml*c(.25,.5,1))
@@ -84,7 +84,7 @@ MapPorc<- function(gr,esp,camps,dns="Porc",color=1,puntos=FALSE,bw=FALSE,add=FAL
 		  polygon(c(-13.2,-13.2,-12.3,-12.3,-13.2),c(51,51.7,51.7,51,51),col="white")
 		  text(leyenda[,1]+.4,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
 		  text(-12.75,51.09,milab,font=2)
-		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
+		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","blue"))
 		  }
 		}
 	if (ti) {

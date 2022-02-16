@@ -11,7 +11,6 @@ MapPorc(
   esp,
   camps,
   dns = "Porc",
-  color = 1,
   puntos = FALSE,
   bw = FALSE,
   add = FALSE,
@@ -31,8 +30,6 @@ MapPorc(
 \item{camps}{Campañas a representar en el mapa, con MapCant1 se puede sacar más de  un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
 \item{dns}{Elige el origen de las bases de datos: solo para Porcupine "Porc"}
-
-\item{color}{Color de los puntos que representan las abundancias}
 
 \item{puntos}{si TRUE en el mapa muestra sólo los puntos en los que aparece la especie, si false son puntos proporcionales al tamaño de la abundancia}
 

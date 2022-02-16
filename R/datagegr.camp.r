@@ -78,7 +78,7 @@ datagegr.camp<- function(gr,esp,camp,dns="Porc",plus=8,excl.sect=NA,cor.time=TRU
   else {
     sonedad<-which(substr(names(edad),1,1)=="E",T)
     for (i in sonedad) {edad[,i]<-edad[,i]/rowSums(edad[,sonedad])}
-    lan<-datlan.camp(camp,dns,incl2=incl2,redux=FALSE)[,c("lance","latitud_l","latitud_v","longitud_l","longitud_v","sector","estrato","ewl","ewv","weight.time")]
+    lan<-datlan.camp(camp,dns,incl2=incl2,redux=FALSE)[,c("lance","latitud_l","latitud_v","longitud_l","longitud_v","sector","estrato","weight.time")]
     if (all(lan==-1)) {
       lanedad<-data.frame(lan=0,lat=0,long=0,weight.time=0,numero=0,peso.gr=0)
     }

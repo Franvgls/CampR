@@ -25,7 +25,8 @@
 #' @param years Si T permite sacar los años como nombre de campaña en los paneles lattice de campañas
 #' @param mediahora Valor para obtener abundancias por hora si media hora es mayor
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,0,1,2,...,Age+ (número de individuos edad 0,1,2...),camp. Si out.dat=F saca el Gráfico en pantalla o como objeto para combinar con otros Gráficos con print.trellis
-#' @examples maphistage("1"," 42","N05","Cant",2,ceros=TRUE,out.dat=TRUE)
+#' @examples maphistage(1,42,"N05","Cant",2,ceros=TRUE,out.dat=TRUE)
+#' @examples maphistage(1,73,"111","Arsa",2,bw=F)
 #' @family mapas
 #' @family edades
 #' @export
@@ -39,7 +40,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRU
       colo=gray(.1)
     }
     else {
-      lattice::trellis.par.set(lattice::col.whitebg())
+      lattice::trellis.par.set("strip.background",list(col="ivory2"))
       colo=4
     }
   }
@@ -79,6 +80,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRU
 			ylim=c(50.5,54.5),aspect=asp,par.strip.text=list(cex=cexleg,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,
 			x=list(at=c(-15:-11),labels=as.character(abs(-15:11))),y=list(at=(51:54),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
+			  lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
 			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
 			  lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
 				grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
@@ -100,10 +102,11 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRU
 			ylim=Nort.map$range[c(3,4)],aspect=asp,par.strip.text=list(cex=cexleg,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,
 			x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),y=list(at=seq(42,44,by=1),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
+			  lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
 			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
 			  lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
 				grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
-					default.units = "native",gp=grid::gpar(fill=gray(.8)))
+					default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
 					if (max(dumb$numero[subscripts],na.rm=TRUE)>0) {
 						lattice::panel.xyplot(rep(-7,3),c(43.,42.60,42.20),cex=sqrt((leyenda)/escala),pch=16,col=colo)
 						lattice::ltext(rep(-7,3),c(43.,42.60,42.20),labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=1.1,cex=cexleg)
@@ -121,10 +124,11 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRU
 	    ylim=c(35.95,37.30),aspect=asp,par.strip.text=list(cex=cexleg,font=2),par.strip.background=list(col=c(gray(.8))),
       scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-10:-5),labels=as.character(abs(-10:-5))),y=list(at=seq(35,36,by=1),rot=90)),
       as.table=TRUE,panel=function(x,y,subscripts=subscripts) {
-      if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
-      lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
-	    grid::grid.polygon(maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[1]],maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[2]],default.units = "native",gp=grid::gpar(fill=gray(.8)))
-				if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
+        lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
+        if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+        lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
+	      grid::grid.polygon(maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[1]],maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[2]],default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
+				if (max(dumb$numero[subscripts],na.rm=TRUE)>0) {
           #lrect(-5.98,36.25, -5.54, 36.54,col="white")
 					lattice::panel.xyplot(rep(-6,3),c(36.3,36.4,36.5),cex=sqrt((leyenda)/escala),pch=16,col=colo)
 					lattice::ltext(rep(-6,3),c(36.3,36.4,36.5),labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=.8,cex=cexleg-.1)
@@ -143,9 +147,10 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRU
 	                           scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-5:4),labels=c(paste(as.character(abs(-5:-1)),
 	                                                                                                                "W",sep=""),0,paste(1:4,"E",sep=""))),y=list(at=seq(36,42,by=1),rot=90)),as.table=TRUE,
 	                           panel=function(x,y,subscripts=subscripts) {
+	                             lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
 	                             lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
 	                             grid::grid.polygon(maps::map(Medits.tot,Medits.tot$names[],plot=FALSE)[[1]],maps::map(Medits.tot,Medits.tot$names[],plot=FALSE)[[2]],
-	                                                default.units = "native",gp=grid::gpar(fill=gray(.8)))
+	                                                default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
 	                             if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
 	                               #lrect(-5.98,36.25, -5.54, 36.54,col="white")
 	                               lattice::panel.xyplot(rep(-4,3),c(39.1,39.6,40.),cex=sqrt((leyenda)/escala),pch=16,col=colo)
