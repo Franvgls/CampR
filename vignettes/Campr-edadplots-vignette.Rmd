@@ -2,10 +2,8 @@
 title: "Gráficos y datos de edades"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
-vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteINdexEntry{Gráficos y datos de edades} 
-  %\VignetteEncoding{UTF-8}
+vignette: |
+  %\VignetteEngine{knitr::rmarkdown} %\VignetteINdexEntry{Gráficos y datos de edades}  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, echo=FALSE, results='hide',include=FALSE}

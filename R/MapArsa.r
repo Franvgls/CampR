@@ -22,12 +22,13 @@
 #' @family mapas base
 #' @family ARSA
 #' @export
-MapArsa<-function(xlims=c(-8.15,-5.5215),ylims=c(35.8,37.335),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=2,ICESlab=FALSE,ICESlabcex=.5,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
+MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=2,ICESlab=FALSE,ICESlabcex=.5,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
   asp<-diff(c(35.95,37.33))/(diff(c(-8.1711,-5.5))*cos(mean(c(35.95,37.35))*pi/180))
   if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
   maps::map(Arsa.str,xlim=xlims,ylim=ylims,type="n",xaxs="i",yaxs="i")
+  if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
   if (cuadr) {
     abline(h=seq(31,45,by=1/12),col=gray(.6),lwd=.6)
     abline(v=seq(-12,0,by=0.089),col=gray(.6),lwd=.6)
@@ -41,8 +42,8 @@ MapArsa<-function(xlims=c(-8.15,-5.5215),ylims=c(35.8,37.335),lwdl=1,leg=F,cuadr
     abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
     abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
   }
-  maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,5),ifelse(bw,"light gray","wheat")),lwd=lwdl,xaxs="i",yaxs="i")
-  maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,6),ifelse(bw,"light gray","wheat")),lwd=lwdl,xaxs="i",yaxs="i")
+  maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,5),ifelse(bw,"light gray","bisque")),lwd=lwdl,xaxs="i",yaxs="i")
+  maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,6),ifelse(bw,"light gray","bisque")),lwd=lwdl,xaxs="i",yaxs="i")
   if (leg) {
     if (!bw) {
       maps::map(Arsa.map,Arsa.map$names[grep("StrA",Arsa.map$names,fixed=T)],add=TRUE,fill=TRUE,col="lightblue1")
@@ -70,12 +71,12 @@ MapArsa<-function(xlims=c(-8.15,-5.5215),ylims=c(35.8,37.335),lwdl=1,leg=F,cuadr
   if (ax) {
      degs = seq(-8,-5,ifelse(abs(diff(xlims))>1,1,.5))
      alg = sapply(degs,function(x) bquote(.(abs(x))*degree ~ W))
-     axis(1, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
-     axis(3, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
+     axis(1, at=degs, lab=do.call(expression,alg),font.axis=2,pos=par("usr")[3],cex.axis=.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
+     axis(3, at=degs, lab=do.call(expression,alg),font.axis=2,pos=par("usr")[4],cex.axis=.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
      degs = seq(35,38,ifelse(abs(diff(ylims))>1,1,.5))
      alt = sapply(degs,function(x) bquote(.(x)*degree ~ N))
-     axis(2, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
-     axis(4, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
+     axis(2, at=degs, lab=do.call(expression,alt),font.axis=2,pos=par("usr")[1],cex.axis=.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
+     axis(4, at=degs, lab=do.call(expression,alt),font.axis=2,pos=par("usr")[2],cex.axis=.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
   }
   #rect(xlims[1],ylims[1],xlims[2],ylims[2],lwd=lwdl);
   box(lwd=lwdl,which = "plot")

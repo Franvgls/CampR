@@ -35,11 +35,11 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
     mtext(paste("Campaña",camp),outer =T,cex=1.1,font=2)
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
     title(main="Error distancia-puntos")
-    ylims<-max(abs(temp$error.vel))*1.1
+    ylims<-hablar::max_(abs(temp$error.vel))*1.1
     plot(error.vel~lance,temp,cex=sqrt(abs(error.vel)),pch=21,bg=if_else(error.vel<0,"red","blue"),type="o",ylim=c(-ylims,ylims))
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
     title(main="Error distancia-velocidad")
-    ylims<-max(abs(temp$error.rumb))*1.1
+    ylims<-hablar::max_(abs(temp$error.rumb))*1.1
     plot(error.rumb~lance,temp,cex=sqrt(abs(error.rumb)),pch=21,bg=if_else(error.rumb<0,"red","blue"),type="o",ylim=c(-ylims,ylims))
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
     title(main="Error rumbo puntos")
