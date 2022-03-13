@@ -77,7 +77,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
     if (ti) {title(camp.name,line=2)}
   }
   if (substr(dns,1,4)=="Cant"| dns=="Cnew"){
-    MapNort(strat=strat,bw=bw,es=es,places=places,cuadr=cuadr,cuadrMSFD=cuadrMSFD,bw=bw,ICESrect = ICESrect,xlims=xlims,ylims=ylims) #,places=places
+    MapNort(strat=strat,bw=bw,es=es,places=places,cuadr=cuadr,cuadrMSFD=cuadrMSFD,ICESrect = ICESrect,xlims=xlims,ylims=ylims) #,places=places
     if (ti) {title(camp.name,line=2)}
   }
 	if (arrow & !Nlans) {

@@ -73,13 +73,13 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,cor.time=TRUE,depth_range=
   sxs<- match(tolower(as.character(sxn)),names(dtall)[2:length(names(dtall))])
   if (sex) {
     ard<-c(NULL,NULL,NULL,NULL)
-    if (!is.na(sxs[2])) a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,match(names(dtall)[2])],rep(2,nrow(dtall)))
+    if (!is.na(sxs[2])) a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,"hembras"],rep(2,nrow(dtall)))
     else a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),rep(0,nrow(dtall)),rep(2,nrow(dtall)))
     ard<-rbind(ard,a1)
-    if (!is.na(sxs[3])) a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,match("indet",names(dtall)[3])],rep(3,nrow(dtall)))
+    if (!is.na(sxs[3])) a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,"indet"],rep(3,nrow(dtall)))
     else a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),rep(0,nrow(dtall)),rep(3,nrow(dtall)))
     ard<-rbind(ard,a1)
-    if (!is.na(sxs[1])) a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,match("machos",names(dtall)[1])],rep(1,nrow(dtall)))
+    if (!is.na(sxs[1])) a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,"machos"],rep(1,nrow(dtall)))
     else a1<-cbind(dtall[,1],rep(camp,nrow(dtall)),rep(0,nrow(dtall)),rep(1,nrow(dtall)))
     ard<-rbind(ard,a1)
   }
