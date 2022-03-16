@@ -1,5 +1,5 @@
-#'  Histograma de distribución de tallas con edades 
-#'  
+#'  Histograma de distribución de tallas con edades
+#'
 #'  Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad
 #' @param gr Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?
 #' @param esp Código de la especie numérico o carácter con tres espacios. Sólo admite una especie por gráfica
@@ -12,6 +12,7 @@
 #' @param ti Si T añade título al gráfico, el nombre de la especie en latín
 #' @param leg Si T añade leyenda
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
+#' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param ymax Valor máximo del eje y
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
@@ -20,13 +21,13 @@
 #' @examples grafedtal.camp(1,43,"P09","Porc",es=FALSE,out.dat=TRUE)
 #' @family edades
 #' @export
-grafedtal.camp <- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,excl.sect=NA,AltAlk=NA,ti=FALSE,leg=TRUE,cexleg=1,es=TRUE,plot=TRUE,ymax=NA,out.dat=FALSE) {
+grafedtal.camp <- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,excl.sect=NA,AltAlk=NA,ti=FALSE,leg=TRUE,cexleg=1,es=TRUE,idi="l",plot=TRUE,ymax=NA,out.dat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
   }
   esp<-format(esp,width=3,justify="r")
-  edad<-GetAlk.camp(gr,esp,camp,dns,plus,n.ots=FALSE,AltAlk=AltAlk)          
+  edad<-GetAlk.camp(gr,esp,camp,dns,plus,n.ots=FALSE,AltAlk=AltAlk)
   if (nrow(edad)==0) stop(paste("no existe clave talla edad para la especie",buscaesp(gr,esp),"en la campaña",camp))
   if (is.logical(ti)) {
     if (ti) {tit<-list(label=buscaesp(gr,esp,id=idi),font=ifelse(idi=="l",4,2),cex=1*cexleg)}
@@ -64,7 +65,7 @@ grafedtal.camp <- function(gr,esp,camp,dns="Porc",plus=8,cor.time=TRUE,excl.sect
     if (length(b)>0) tedad<-tedad[! tedad$talla %in% b,]
     tedad[,2:ncol(tedad)]<-tedad[,2:ncol(tedad)]*dtall[,2]
     edadtal<-data.frame(n=tedad[,2])
-    for (i in 3:ncol(tedad)) {edadtal<-rbind(edadtal,data.frame(n=tedad[,i]))}	
+    for (i in 3:ncol(tedad)) {edadtal<-rbind(edadtal,data.frame(n=tedad[,i]))}
     edadtal$talla<-rep(tedad$talla,ncol(tedad)-1)
     edadtal$edad<-rep(names(tedad)[-1],rep(nrow(tedad),ncol(tedad)-1))
     edadtal$n[which(is.na(edadtal$n))]<-0
