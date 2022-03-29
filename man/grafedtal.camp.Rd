@@ -2,9 +2,7 @@
 % Please edit documentation in R/grafedtal.camp.R
 \name{grafedtal.camp}
 \alias{grafedtal.camp}
-\title{Histograma de distribución de tallas con edades
-
-Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad}
+\title{Histograma de distribución de tallas con edades}
 \usage{
 grafedtal.camp(
   gr,
@@ -19,6 +17,7 @@ grafedtal.camp(
   leg = TRUE,
   cexleg = 1,
   es = TRUE,
+  idi = "l",
   plot = TRUE,
   ymax = NA,
   out.dat = FALSE
@@ -47,6 +46,8 @@ grafedtal.camp(
 
 \item{es}{Si T gráfico en castellano, si F gráfico en inglés}
 
+\item{idi}{Nombre científico de la especie ("l") o nombre común ("e")}
+
 \item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
 
 \item{ymax}{Valor máximo del eje y}
@@ -57,8 +58,6 @@ grafedtal.camp(
 Saca gráfica con distribución de tallas y la distribución de las edades en cada talla. Si out.dat=TRUE saca un data.frame con columnas n(valor del número de la distribución estratifcada para la talla y la edad),talla,edad,camp. Da error si no existe ALK para la especie en la campaña
 }
 \description{
-Histograma de distribución de tallas con edades
-
 Función gráfica a partir de los ficheros del camp. Histograma distribución de tallas estratificada por edad
 }
 \examples{

@@ -1,7 +1,7 @@
-#' Información anual sobre cigala FUs en el cantábrico y galicia
+#' Información anual sobre cigala por FUs en el Cantábrico y Galicia
 #'
 #' Función de acceso a datos:
-#' Extrae las características de los lances para una campaña determinada
+#' Extrae las características de los lances para una campaña determinada y las capturas de cigala por unidad funcional
 #'
 #' Un problema que ocurre al utilizar el CampR con ficheros dbf de las primeras campañas
 #' puede ser que al fichero lanceXXX.dbf le falte algún campo, habitualmente
@@ -90,7 +90,7 @@ NepFUs.camp<-function(camp=Nsh[length(Nsh)],dns="Cant",plot=TRUE,plotnep=TRUE,es
   FU25.Nsd<-sd(Nep_25$numero)
   FU25.NS<-sum(Nep_25$numero)
   FU25.L<-length(Nep_25$lan)
-  data.frame(FU31=c(B=FU31.B,Bsd=FU31.Bsd,BS=FU31.BS,N=FU31.N,Nsd=FU31.Nsd,NS=FU31.BS,L=FU31.L),
+  data.frame(FU31=c(B=FU31.B,Bsd=FU31.Bsd,BS=FU31.BS,N=FU31.N,Nsd=FU31.Nsd,NS=FU31.NS,L=FU31.L),
              FU25=c(B=FU25.B,Bsd=FU25.Bsd,BS=FU25.BS,N=FU25.N,Nsd=FU25.Nsd,NS=FU25.NS,L=FU25.L),
              FU26=c(B=FU26.B,Bsd=FU26.Bsd,BS=FU26.BS,N=FU26.N,Nsd=FU26.Nsd,NS=FU26.NS,L=FU26.L))
   }}

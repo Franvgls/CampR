@@ -2,7 +2,7 @@
 % Please edit documentation in R/NepFUs.camp.R
 \name{NepFUs.camp}
 \alias{NepFUs.camp}
-\title{Información anual sobre cigala FUs en el cantábrico y galicia}
+\title{Información anual sobre cigala por FUs en el Cantábrico y Galicia}
 \usage{
 NepFUs.camp(
   camp = Nsh[length(Nsh)],
@@ -54,7 +54,7 @@ Produce un gráfico con los lances en los que ha habido cigala en el lance y esp
 }
 \description{
 Función de acceso a datos:
-Extrae las características de los lances para una campaña determinada
+Extrae las características de los lances para una campaña determinada y las capturas de cigala por unidad funcional
 }
 \details{
 Un problema que ocurre al utilizar el CampR con ficheros dbf de las primeras campañas
