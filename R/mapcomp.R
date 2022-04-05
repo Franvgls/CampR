@@ -36,12 +36,13 @@ mapcomp<-function(gr,esp,camp="N21",dns="Cant",lance=66,bw=T,ti=T,plot=T,out.dat
   # leyenda<-signif(max(dat$peso.gr)*10^c(-3)*.9,1)
   # leyenda<-signif(c(1,.5,.25)*leyenda,1)
   # escala<-signif(max(dat$peso.gr*10^c(-3)),1)*escmult
-  par(mar=c(5, 4, 4, 2) + 0.1)
-  nf <- layout( matrix(c(1,2), nrow=2)) #,heights=c(2.5,1)
-  #nf <- layout( matrix(c(1,2), ncol=2),widths = c(3,1),heights = c(1) )
-  #layout(nf)
-  #layout.show()
-  #windows()
+  par(mar=c(1, 4,3, 2) + 0.1,oma=c(1,1,1,1))
+  # nf <- layout( matrix(c(1,2), ncol =2),widths = c(3,1),heights = c(1)) #,heights=c(2.5,1)
+  nf <- layout(
+    matrix(c(1,2), nrow=2, byrow=TRUE),
+    widths=c(1),
+    heights=c(1,1)
+  )
   MapNort(places=T,bw=F)
   if (ind=="p") {
     leyenda<-signif(c(1,.5,.25)*leyenda,1)
@@ -60,8 +61,8 @@ mapcomp<-function(gr,esp,camp="N21",dns="Cant",lance=66,bw=T,ti=T,plot=T,out.dat
   if (leg) legend("bottomright",c("B/O Miguel Oliver","B/O Vizconde de eza"),pch=21,pt.bg=c("blue","green"),inset = c(.02,.03),bg="white")
   if (ti) title(main=buscaesp(gr,esp),cex=1,font.main=4)
   #par(mar=c(5, 4, 4, 2) + 0.1)
-  if(ind=="p") {boxplot(peso~barco,dat,notch=T,outline=F,col=c("green","blue"),varwidth=F,xlab=NA,ylab="kg");title("Biomass")}
-  else {boxplot(numero~barco,dat,notch=T,outline=F,col=c("green","blue"),varwidth=F,xlab=NA,ylab="Number");title("Nb. inds")}
+  if(ind=="p") {boxplot(peso~barco,dat,notch=T,outline=F,col=c("green","blue"),varwidth=T,xlab=NA,ylab="kg");title("Biomass")}
+  else {boxplot(numero~barco,dat,notch=T,outline=F,col=c("green","blue"),varwidth=T,xlab=NA,ylab="Number");title("Nb. inds")}
   }
 
 # layout(matrix(c(0,0,0,0,

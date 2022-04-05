@@ -14,10 +14,10 @@
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
 #' @return Devuelve un vector con nombre con el número estratificado del rango de tallas deseados por campaña/año. Si se solicita plot=TRUE saca un gráfico de barras que muestra la abundancia por año. En peso sólo saca los resultados para una especie.
-#' @examples dattal.camps(2,19,Psh,"Porc",1,15,ind="n",plot=TRUE)
+#' @examples talbox.camps(2,19,Psh,"Porc",varwidth=T,notch=T)
 #' @seealso {\link{dattal.camp}}
 #' @export
-talbox.camps<- function(gr,esp,camps,dns,cor.time=TRUE,boxplot=T,excl.sect=NA,years=TRUE,mult=100,ti=TRUE,las=NA,es=FALSE,bw=TRUE) {
+talbox.camps<- function(gr,esp,camps,dns="Cant",notch=TRUE,outline=FALSE,varwidth=T,cor.time=TRUE,boxplot=T,excl.sect=NA,years=TRUE,mult=100,ti=TRUE,las=2,es=FALSE,bw=TRUE,idi="l",cexleg=1) {
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1) warning("Seguro que tiene sentido mezclar más de una especie para sacar el rango de talla")
@@ -27,8 +27,26 @@ talbox.camps<- function(gr,esp,camps,dns,cor.time=TRUE,boxplot=T,excl.sect=NA,ye
       dumb<-rbind(dumb,data.frame(dattal.camp(gr,esp,i,dns,cor.time=cor.time,excl.sect=excl.sect,sex=FALSE),camp=i))
     }
   }
-  if (boxplot) boxplot(rep(dumb$talla+.5,dumb$numero*mult)~rep(dumb$camp,dumb$numero*mult),na.rm=T,
-                       xlab=ifelse(years,ifelse(es,"Año","Year"),ifelse(es,"Campaña","Survey")),
-                       ylab=ifelse(es,"Talla (cm)","Length (cm)"),names=ifelse(years,camptoyear(camps),camps),las=ifelse(is.na(las),ifelse(length(camps)>7,2,1),las))
-  else vioplot::vioplot(rep(dumb$talla+.5,dumb$numero)~rep(dumb$camp,dumb$numero))
+  if (years) dumb$camp<-camptoyear(dumb$camp)
+  increm<-unid.camp(gr,esp)["INCREM"]
+  medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
+  if (es) {ax<-c(paste0("Talla (",medida,")"),expression("Ind"%*%"lan"^-1))}
+  else {ax<-c(paste0("Length (",medida,")"),expression("Ind"%*%"haul"^-1))}
+  if (is.logical(ti)) {
+    if (ti) {tit<-list(label=buscaesp(gr,esp,id=idi),font=ifelse(idi=="l",4,2),cex=1*cexleg)}
+    else {tit<-NULL}
+  }
+  else {
+    if(is.list(ti)) tit<-ti
+    else tit<-list(label=ti)
+  }
+  if (boxplot) {boxplot(rep(dumb$talla+.5,dumb$numero*mult)~rep(dumb$camp,dumb$numero*mult),na.rm=T,
+                       main=tit$label,font.main=tit$font.main,xlab=ifelse(years,ifelse(es,"Año","Year"),ifelse(es,"Campaña","Survey")),
+                       ylab=ax,notch=notch,outline=outline,varwidth=varwidth,col=ifelse(bw,"white","lightblue"),
+                       las=las)
+                if (ti) title(main=tit$label,font=tit$font,cex=tit$cex)
+                }
+  else vioplot::vioplot(rep(dumb$talla+.5,dumb$numero*mult)~rep(dumb$camp,dumb$numero*mult),main=tit$label,
+                        xlab=ifelse(years,ifelse(es,"Año","Year"),ifelse(es,"Campaña","Survey")),
+                        ylab=ifelse(es,"Talla (cm)","Length (cm)"),las=las)
 }

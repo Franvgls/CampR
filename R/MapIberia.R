@@ -25,7 +25,7 @@
 #' @family Medits
 #' @export
 MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,
-                   ICESlab=FALSE,ICESlabcex=.6,nepFU=F,FUs=c(NULL),bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE,
+                    ICESlab=FALSE,ICESlabcex=.6,nepFU=F,FUs=c(NULL),bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE,
                     escmult=1,add=FALSE) {
   asp<-diff(c(35,43))/(diff(c(-10.2,5))*cos(mean(c(35,43))*pi/180))
   if (!add) {
@@ -52,9 +52,10 @@ MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
     for (i in FUs)  {
       lines(i,col=2,lty=1,lwd=2)
     }
-    }
+  }
   if (bw) {colo="lightgray"}
-  else colo="bisque"
+  else colo="wheat"
+  #else colo="bisque"
   maps::map(Iberiamap,add=TRUE,fill=TRUE,col=colo,lwd=lwdl)
   if (places) {
     points(c(-6.299667,-6.950833),c(36.53433,37.25833),pch=1,lwd=2,cex=.9)
@@ -84,22 +85,22 @@ MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
     text(3.042048,36.5,ifelse(es,"ARGELIA","ALGERIA"),cex=escmult*1.3,font=2,pos=1)
   }
   if (ax) {
-     degs = seq(-10,-1,ifelse(abs(diff(xlims))>1,1,.5))
-     alg = sapply(degs,function(x) bquote(.(abs(x))*degree ~ W))
-     axis(1, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
-     axis(3, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
-     degs = seq(1,5,ifelse(abs(diff(xlims))>1,1,.5))
-     alg = sapply(degs,function(x) bquote(.(abs(x))*degree ~ E))
-     axis(1, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
-     axis(3, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
-     degs = c(0)
-     alg = sapply(degs,function(x) bquote(.(abs(x))*degree ~ ""))
-     axis(1, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
-     axis(3, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
-     degs = seq(35,44,ifelse(abs(diff(ylims))>1,1,.5))
-     alt = sapply(degs,function(x) bquote(.(x)*degree ~ N))
-     axis(2, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
-     axis(4, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
+    degs = seq(-10,-1,ifelse(abs(diff(xlims))>1,1,.5))
+    alg = sapply(degs,function(x) bquote(.(abs(x))*degree ~ W))
+    axis(1, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
+    axis(3, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
+    degs = seq(1,5,ifelse(abs(diff(xlims))>1,1,.5))
+    alg = sapply(degs,function(x) bquote(.(abs(x))*degree ~ E))
+    axis(1, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
+    axis(3, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
+    degs = c(0)
+    alg = sapply(degs,function(x) bquote(.(abs(x))*degree ~ ""))
+    axis(1, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
+    axis(3, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
+    degs = seq(35,44,ifelse(abs(diff(ylims))>1,1,.5))
+    alt = sapply(degs,function(x) bquote(.(x)*degree ~ N))
+    axis(2, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
+    axis(4, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=escmult*.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
     rug(seq(34.5,44.5,by=1),.005,side=2,lwd=lwdl,quiet=TRUE)
     rug(seq(-9.5,5.5,by=1),.005,side=1,lwd=lwdl,quiet=TRUE)
     rug(seq(-9.5,5.5,by=1),.005,side=3,lwd=lwdl,quiet=TRUE)

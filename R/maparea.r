@@ -30,7 +30,7 @@ maparea<-function(es=TRUE,leg=TRUE,bw=FALSE,dens=0,ICESrect=F,sectcol=F) {
 	text(-(8.95),(52.2),label=ifelse(es,"IRLANDA","IRELAND"),cex=1.3,font=2)
 	if (sectcol) colrs=c("Steelblue2","Steelblue2","Steelblue","blue4","green","darkgreen",gray(.7))
 	else {
-		if (bw) {colrs=c(rep("white",6),gray(.7))} else {colrs=c(rep("lightblue1",6),"antiquewhite")}
+		if (bw) {colrs=c(rep(ifelse(bw,"white","lightblue"),6),gray(.7))} else {colrs=c(rep("lightblue1",6),"antiquewhite")}
 		#dens=0
 		}
 	maps::map(Porc.map,add=TRUE,fill=TRUE,col=colrs)
