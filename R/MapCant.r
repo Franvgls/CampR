@@ -20,10 +20,11 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,DpthStr=TRUE,bw=FALSE,add=FALSE,esc.mult=1,ti=FALSE,ind="p",ceros=F,es=T,places=T){
+MapCant<- function(gr,esp,camps,dns="Cant",puntos=FALSE,DpthStr=TRUE,bw=FALSE,add=FALSE,esc.mult=1,ti=FALSE,ind="p",ceros=F,es=T,places=T){
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  color<-ifelse(bw,"gray70","blue3")
   ndat<-length(camps)
   absp<-NULL
   for (i in 1:ndat) {
@@ -69,7 +70,7 @@ MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,DpthStr=TRUE,bw=
 	else {especie=NULL}
 	if (puntos) {
 	  #MapNort(lwdl=1)
-	  points(lat~long,mm,subset=peso>0,cex=1,pch=21,bg=ifelse(bw,"gray","red"))
+	  points(lat~long,mm,subset=peso>0,cex=1,pch=21,bg=color)
     if (DpthStr) {
       points(lat~long,mm,subset=peso>0,cex=1,pch=21,bg=ifelse(mm$estrato=="A","lightblue",ifelse(mm$estrato=="B","blue",ifelse(mm$estrato=="C","navyblue","yellow"))))
       legend("bottomright",c("70-120","121-200","201-500","Extra"),pch=21,col=1,pt.bg=c("lightblue","blue","navyblue","yellow"),title=ifelse(es,"Estrato prof.","Depth strata"),inset=.02,bg="white")
@@ -79,15 +80,15 @@ MapCant<- function(gr,esp,camps,dns="Cant",color=1,puntos=FALSE,DpthStr=TRUE,bw=
 	  mtext(paste0("Años: ",camptoyear(camps[1]),"-",camptoyear(camps[length(camps)])),3,cex=.8,font=2,line=1.5,adj=1)
 	  }
 	else {
-			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm)/esc.mult,lwd=1,col=color,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
-			if (ceros) {points(lat~long,mm,subset=peso==0,cex=0.8,pch="+",col=color)}
+			points(lat~long,mm,subset=peso>0,cex=sqrt(mm[,mi]*7/maxmm)/esc.mult,lwd=1,col=1,pch=21,bg=color)
+			if (ceros) {points(lat~long,mm,subset=peso==0,cex=0.8,pch="+",col=1)}
 		if (!add) {
 		  leyenda<-cbind(rep(-4,55),seq(42.2,43,by=.2),maxml*c(.05,.1,.25,.5,1))
-		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,bg=ifelse(bw,"darkgrey","lightblue"))
+		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,bg=color)
 		  polygon(c(-4.3,-4.3,-3.3,-3.3,-4.3),c(41.9,43.15,43.15,41.9,41.9),col="white")
 		  text(leyenda[,1]+.4,leyenda[,2]+.02,labels=round(leyenda[,3]/1000,2),cex=.9,adj=c(.5,.5))
 		  text(-3.8,42.05,milab,font=2)
-		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,pch=21,bg=ifelse(bw,"darkgrey","lightblue"))
+		  points(leyenda[,1],leyenda[,2],cex=sqrt(leyenda[,3]*7/maxmm)/esc.mult,lwd=1,col=1,pch=21,bg=color)
 		  }
 		}
 	if (ti) {

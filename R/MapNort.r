@@ -27,7 +27,7 @@
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=TRUE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,FU=NA,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
+MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=FALSE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,FU=NA,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
   if (ax) {
