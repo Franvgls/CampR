@@ -30,7 +30,7 @@
 #' @family tallas
 #' @export
 maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",ICESrect=FALSE,
-                    sex=NA,bw=TRUE,ti=TRUE,subti=TRUE,plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,
+                    sex=NA,bw=FALSE,ti=TRUE,subti=TRUE,plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,
                     escmult=.25,cexleg=1,years=TRUE) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)

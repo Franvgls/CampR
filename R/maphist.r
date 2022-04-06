@@ -28,7 +28,7 @@
 #' maphist(1,50,As2[15:18],"Arsa",layout=c(2,2),years=TRUE,sub="ARSA 2nd quarter")
 #' @family mapas
 #' @export
-maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TRUE,sub=NULL,plot=TRUE,out.dat=FALSE,ind="p",idi="l",
+maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=TRUE,sub=NULL,plot=TRUE,out.dat=FALSE,ind="p",idi="l",
   layout=NA,leg=TRUE,pts=FALSE,ceros=TRUE,ICESrect=FALSE,escmult=.25,cexleg=1,years=TRUE) {
   if (all(!pts & !leg & length(camps)>1)) {stop("Solo estaciones se usa para sólo una campaña, ha incluido más de una")}
   options(scipen=2)
@@ -85,6 +85,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
       scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-15:-11),labels=as.character(abs(-15:-11))),
 			y=list(at=(51:54),rot=90)),as.table=TRUE,
 			panel=function(x,y,subscripts=subscripts) {
+			  lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
 			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
 			  lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
 				grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
@@ -107,6 +108,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
       scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),
       y=list(at=seq(42,44,by=1),rot=90)),as.table=TRUE,
       panel=function(x,y,subscripts=subscripts) {
+        lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
         if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
         lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
 				grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
@@ -129,6 +131,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
       par.strip.background=list(col=c(gray(.8))),scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-8:-5),
       labels=as.character(abs(-8:-5))),y=list(at=seq(35,37,by=1),rot=90)),as.table=TRUE,
       panel=function(x,y,subscripts=subscripts) {
+        lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
         if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
         lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
 	       grid::grid.polygon(maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[1]],maps::map(Arsa.map,c("Portugal","Costa"),
@@ -152,7 +155,8 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=TRUE,ti=TR
        scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg,x=list(at=c(-5:4),labels=c(paste(as.character(abs(-5:-1)),
        "W",sep=""),0,paste(1:4,"E",sep=""))),y=list(at=seq(36,42,by=1),rot=90)),as.table=TRUE,
        panel=function(x,y,subscripts=subscripts) {
-          lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
+         lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
+         lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
           grid::grid.polygon(maps::map(Medits.tot,Medits.tot$names[],plot=FALSE)[[1]],maps::map(Medits.tot,Medits.tot$names[],
              plot=FALSE)[[2]],default.units = "native",gp=grid::gpar(fill=gray(.8)))
           if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {

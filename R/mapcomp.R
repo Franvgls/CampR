@@ -5,7 +5,7 @@
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @param camp Campaña a representar en el mapa de un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
-#' @param lance Lance a partir del cual se utiliza el otro barco
+#' @param lance Lance a partir del cual se utiliza el otro barco en principio solo para usar con la campaña de 2021
 #' @param bw Gráfico en blanco en negro si T o en color si F
 #' @param ti Añade el nombre de la especie en latín sin T, si F no añade titulo
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
@@ -18,10 +18,10 @@
 #' @param ceros Añade puntos para los datos igual a 0 si T, si F no incluye x en los valores 0
 #' @param escmult Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
-#' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
+#' @param years Si T saca los años como nombre de campaña
 #' @export
-mapcomp<-function(gr,esp,camp="N21",dns="Cant",lance=66,bw=T,ti=T,plot=T,out.dat=F,ind="p",idi="l",
-                  layout=NA,leg=T,pts=F,ceros=T,escmult=.25,cexleg=1,years=F) {
+mapcomp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,ind="p",idi="l",
+                  layout=NA,leg=T,pts=F,ceros=T,escmult=.25,cexleg=1,years=F,bw=FALSE) {
   dat<-maphist(gr,esp,camp,dns,plot=F,out.dat=T)
 #  dat$peso<-dat$peso.gr/1000
   dat$barco<-cut(dat$lan,c(0,66,150),c("29MO","29VE"))
@@ -43,11 +43,11 @@ mapcomp<-function(gr,esp,camp="N21",dns="Cant",lance=66,bw=T,ti=T,plot=T,out.dat
     widths=c(1),
     heights=c(1,1)
   )
-  MapNort(places=T,bw=F)
+  MapNort(places=T,bw=bw)
   if (ind=="p") {
     leyenda<-signif(c(1,.5,.25)*leyenda,1)
-    points(lat~long,dat,cex=sqrt(peso.gr*10^c(-3)/escala),subset=barco=="29VE",pch=21,bg="blue")
-    points(lat~long,dat,cex=sqrt(peso.gr*10^c(-3)/escala),subset=barco=="29MO",pch=21,bg="green")
+    points(lat~long,dat,cex=sqrt(peso.gr*10^c(-3)/escala),subset=barco=="29VE",pch=21,bg="green")
+    points(lat~long,dat,cex=sqrt(peso.gr*10^c(-3)/escala),subset=barco=="29MO",pch=21,bg="blue")
     points(rep(-7,3),c(43,42.6,42.2),cex=sqrt((leyenda)/escala),pch=21,col=1,bg="darkgrey")
     text(rep(-7,3),c(43,42.6,42.2),label=paste(leyenda,"kg"),pos=4,offset = 1.1,cex=1)
     }
