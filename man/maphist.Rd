@@ -11,7 +11,7 @@ maphist(
   dns = "Porc",
   cor.time = TRUE,
   incl2 = TRUE,
-  bw = TRUE,
+  bw = FALSE,
   ti = TRUE,
   sub = NULL,
   plot = TRUE,

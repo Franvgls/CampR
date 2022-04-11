@@ -14,7 +14,7 @@ MapNort(
   ICESlab = FALSE,
   ICESlabcex = 0.7,
   leg = F,
-  bw = TRUE,
+  bw = FALSE,
   es = FALSE,
   ax = TRUE,
   strat = FALSE,

@@ -8,16 +8,21 @@ talbox.camps(
   gr,
   esp,
   camps,
-  dns,
+  dns = "Cant",
+  notch = TRUE,
+  outline = FALSE,
+  varwidth = T,
   cor.time = TRUE,
   boxplot = T,
   excl.sect = NA,
   years = TRUE,
   mult = 100,
   ti = TRUE,
-  las = NA,
+  las = 2,
   es = FALSE,
-  bw = TRUE
+  bw = TRUE,
+  idi = "l",
+  cexleg = 1
 )
 }
 \arguments{
@@ -52,7 +57,7 @@ Devuelve un vector con nombre con el número estratificado del rango de tallas d
 Extrae los datos de abundancia de una especie o conjunto de especies con un rango de tallas determinado a partir de las distribuciones de talla.También puede mostrar los datos de biomasa a partir de la relación talla-peso
 }
 \examples{
-dattal.camps(2,19,Psh,"Porc",1,15,ind="n",plot=TRUE)
+talbox.camps(2,19,Psh,"Porc",varwidth=T,notch=T)
 }
 \seealso{
 {\link{dattal.camp}}

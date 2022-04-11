@@ -87,7 +87,7 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,cor.time=TRUE,depth_range=
     if (ncol(dtall)>2) {
       ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),rowSums(dtall[,c(2:ncol(dtall))]),rep(1,nrow(dtall))))
     }
-    else ard<-as.data.frame(cbind(dtall[,1],rep(camp[i],nrow(dtall)),dtall[,2],rep(1,nrow(dtall))))
+    else ard<-as.data.frame(cbind(dtall[,1],rep(camp,nrow(dtall)),dtall[,2],rep(1,nrow(dtall))))
   }
   a<-ard
   a<-as.data.frame(a)

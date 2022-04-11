@@ -16,7 +16,7 @@ maphistal(
   ind = "n",
   ICESrect = FALSE,
   sex = NA,
-  bw = TRUE,
+  bw = FALSE,
   ti = TRUE,
   subti = TRUE,
   plot = TRUE,

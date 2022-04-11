@@ -42,7 +42,7 @@ map.check<-function(gr,esp,camps,newcamp,dns="Porc",cor.time=TRUE,ind="p",bw=TRU
   if (bw) {colo=gray(.1)
            lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
   }
-  else colo=4
+  else colo="blue3"
   # print(dumb[dumb[,5]>0,])
   if (pts) dumb[dumb[,5]>0,8]<-0
   if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
@@ -51,12 +51,16 @@ map.check<-function(gr,esp,camps,newcamp,dns="Porc",cor.time=TRUE,ind="p",bw=TRU
     mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=c(-15.5,-10.5),main=titulo,xlab=NULL,ylab=NULL,
                 ylim=c(50.5,54.5),aspect=asp,par.strip.text=list(cex=cexleg*.8,font=2),scales=list(alternating=FALSE,
                 tck=c(1,0),cex=cexleg*.7,x=list(at=c(-15:-11),labels=as.character(abs(-15:11))),y=list(at=(51:54),rot=90)),
-                as.table=TRUE,panel=function(x,y,subscripts=subscripts) {
+                as.table=TRUE,
+                panel=function(x,y,subscripts=subscripts) {
+                  lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
                   lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
                   grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
                     default.units = "native",gp=grid::gpar(fill=gray(.8)))
-                  lattice::panel.xyplot(x[dumb$numero[subscripts]>0],y[dumb$numero[subscripts]>0],cex=cexleg*.6,
-                    pch=16,col=colo)
+                  lattice::panel.xyplot(x,y,cex=ifelse(dumb$numero[subscripts]>0,sqrt((dumb$numero[subscripts])/escala),.35),
+                                        pch=ifelse(dumb$numero[subscripts]>0,21,ifelse(ceros,4,NA)),col=1,bg=colo)
+                  #lattice::panel.xyplot(x[dumb$numero[subscripts]>0],y[dumb$numero[subscripts]>0],cex=sqrt((dumb$numero[subscripts])/escala),.35)),
+                    #pch=16,col=colo)
                   })
   }
   if (substr(dns,1,4)=="Cant") {
@@ -64,14 +68,15 @@ map.check<-function(gr,esp,camps,newcamp,dns="Porc",cor.time=TRUE,ind="p",bw=TRU
     asp<-diff(c(41.82,44.3))/(diff(c(-10.25,-1.4))*cos(mean(c(41.82,44.3))*pi/180))
     leyenda<-signif(c(1,.5,.25)*leyenda,1)
     mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=c(-10.25,-1.4),main=titulo,xlab=NULL,ylab=NULL,subscripts=TRUE,
-                    ylim=c(41.82,44.3),aspect=asp,par.strip.text=list(cex=cexleg*.8,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg*.7,
-                                                                                                        x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),y=list(at=seq(42,44,by=1),rot=90)),as.table=TRUE,
+                    ylim=c(41.82,44.3),aspect=asp,par.strip.text=list(cex=cexleg*.8,font=2),
+                    scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg*.7,                                                                                         x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),y=list(at=seq(42,44,by=1),rot=90)),as.table=TRUE,
                     panel=function(x,y,subscripts=subscripts) {
+                      lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
                       lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
                       grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
                                    default.units = "native",gp=grid::gpar(fill=gray(.8)))
-                      lattice::panel.xyplot(x[dumb$numero[subscripts]>0],y[dumb$numero[subscripts]>0],cex=cexleg*.6,
-                                   pch=16,col=colo)
+                      lattice::panel.xyplot(x,y,cex=ifelse(dumb$numero[subscripts]>0,sqrt((dumb$numero[subscripts])/escala),.35),
+                                            pch=ifelse(dumb$numero[subscripts]>0,21,ifelse(ceros,4,NA)),col=1,bg=colo)
                     })
   }
   if (substr(dns,1,4)=="Arsa") {
@@ -82,6 +87,7 @@ map.check<-function(gr,esp,camps,newcamp,dns="Porc",cor.time=TRUE,ind="p",bw=TRU
                     ylim=c(35.95,37.30),aspect=asp,par.strip.text=list(cex=cexleg*.8,font=2),par.strip.background=list(col=c(gray(.8))),
                     scales=list(alternating=FALSE,tck=c(1,0),cex=cexleg*.7,x=list(at=c(-10:-5),labels=as.character(abs(-10:-5))),y=list(at=seq(35,36,by=1),rot=90)),
                     as.table=TRUE,panel=function(x,y,subscripts=subscripts) {
+                      lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
                       lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
                       grid::grid.polygon(maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[1]],maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[2]],default.units = "native",gp=grid::gpar(fill=gray(.8)))
                       lattice::panel.xyplot(x[dumb$numero[subscripts]>0],y[dumb$numero[subscripts]>0],cex=cexleg*.6,

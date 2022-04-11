@@ -10,7 +10,6 @@ mapcomp(
   camp = "N21",
   dns = "Cant",
   lance = 66,
-  bw = T,
   ti = T,
   plot = T,
   out.dat = F,
@@ -22,7 +21,8 @@ mapcomp(
   ceros = T,
   escmult = 0.25,
   cexleg = 1,
-  years = F
+  years = F,
+  bw = FALSE
 )
 }
 \arguments{
@@ -34,9 +34,7 @@ mapcomp(
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)}
 
-\item{lance}{Lance a partir del cual se utiliza el otro barco}
-
-\item{bw}{Gráfico en blanco en negro si T o en color si F}
+\item{lance}{Lance a partir del cual se utiliza el otro barco en principio solo para usar con la campaña de 2021}
 
 \item{ti}{Añade el nombre de la especie en latín sin T, si F no añade titulo}
 
@@ -60,7 +58,9 @@ mapcomp(
 
 \item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
 
-\item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
+\item{years}{Si T saca los años como nombre de campaña}
+
+\item{bw}{Gráfico en blanco en negro si T o en color si F}
 }
 \description{
 Crea un mapa con la distribucion en biomasa o numero para distintas el Cantábrico (dns=Cant)

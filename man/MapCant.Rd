@@ -11,7 +11,6 @@ MapCant(
   esp,
   camps,
   dns = "Cant",
-  color = 1,
   puntos = FALSE,
   DpthStr = TRUE,
   bw = FALSE,
@@ -33,8 +32,6 @@ MapCant(
 
 \item{dns}{Elige el origen de las bases de datos: solo para el Cantábrico "Cant"}
 
-\item{color}{Color de los puntos que representan las abundancias}
-
 \item{puntos}{si TRUE en el mapa muestra sólo los puntos en los que aparece la especie opcionalmente con color por estratos de profundidad, si false son puntos proporcionales al tamaño de la abundancia}
 
 \item{DpthStr}{si TRUE los puntos salen por estrato de profundidad con legenda explicándolo}
@@ -50,6 +47,8 @@ MapCant(
 \item{ind}{Si "p" representa los datos de biomasa, si "n" representa los datos de abundancia}
 
 \item{ceros}{Si T representa los ceros con cruces +, si F no representa lances sin captura}
+
+\item{color}{Color de los puntos que representan las abundancias}
 }
 \description{
 Crea un mapa para la campaña Demersales con información para la especie solicitada en la campañas solicitadas, para varias campañas ver también {\link{maphist}}

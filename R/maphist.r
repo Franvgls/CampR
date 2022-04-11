@@ -95,9 +95,9 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=T
 					lattice::ltext(-13,51.2,labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=1.1,cex=cexleg)
 					}
 				if (ind=="p") {lattice::panel.xyplot(x,y,cex=ifelse(dumb$peso[subscripts]>0,sqrt((dumb$peso[subscripts])/escala),.35),
-					pch=ifelse(dumb$peso[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
+					pch=ifelse(dumb$peso[subscripts]>0,21,ifelse(ceros,4,NA)),col=1,bg=colo)}
 				else {lattice::panel.xyplot(x,y,cex=ifelse(dumb$numero[subscripts]>0,sqrt((dumb$numero[subscripts])/escala),.35),
-					pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
+					pch=ifelse(dumb$numero[subscripts]>0,21,ifelse(ceros,4,NA)),,col=1,bg=colo)}
 			})
 			}
 	if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {

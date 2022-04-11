@@ -36,7 +36,7 @@ mapcomp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,in
   # leyenda<-signif(max(dat$peso.gr)*10^c(-3)*.9,1)
   # leyenda<-signif(c(1,.5,.25)*leyenda,1)
   # escala<-signif(max(dat$peso.gr*10^c(-3)),1)*escmult
-  par(mar=c(1, 4,3, 2) + 0.1,oma=c(1,1,1,1))
+  par(mar=c(1,4,4, 2) + 0.1,oma=c(1,1,1,1))
   # nf <- layout( matrix(c(1,2), ncol =2),widths = c(3,1),heights = c(1)) #,heights=c(2.5,1)
   nf <- layout(
     matrix(c(1,2), nrow=2, byrow=TRUE),
@@ -62,7 +62,7 @@ mapcomp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,in
   if (ti) title(main=buscaesp(gr,esp),cex=1,font.main=4)
   #par(mar=c(5, 4, 4, 2) + 0.1)
   if(ind=="p") {boxplot(peso~barco,dat,notch=T,outline=F,col=c("green","blue"),varwidth=T,xlab=NA,ylab="kg");title("Biomass")}
-  else {boxplot(numero~barco,dat,notch=T,outline=F,col=c("green","blue"),varwidth=T,xlab=NA,ylab="Number");title("Nb. inds")}
+  else {boxplot(numero~barco,dat,notch=T,outline=F,col=c("green","blue"),varwidth=T,xlab=NA,ylab="Number");title("Abundance in number",line=1)}
   }
 
 # layout(matrix(c(0,0,0,0,
