@@ -13,19 +13,21 @@
 #' @param xmax Valor máximo del eje x
 #' @param nlans Si T añade el número de lances en cada rango de profundidad
 #' @param spl Si T incluye una curva spline en el gráfico
-#' @param brks Especifica los rangos de profundidad: "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, las opciones "FD", "Sturges" y "scott" también son válidas como están implenmentadas en {\link{hist}}
+#' @param brks Especifica los rangos de profundidad: "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, las opciones "FD", "Sturges" y "scott" también son válidas como están implenmentadas en {\link{hist}}. También se pueden fijar unos límites a voluntad, si da error de hay datos fuera de los rangos (de norte o porcupine, se cogen los límites de la campaña y se fija el último rango a la prof máxima)
+#' @param overdpth En el caso de que, con brks=norte o porcupine de un aviso de que hay profundidades fuera de la estratificación fija el límite del estrato máximo al de la profundidad máxima detectada más 10 m.
 #' @param tabres Muestra una tabla resumen del total de lances, media y total de biomasa o número y frecuencia de la especie por estrato según el brks especificado
 #' @examples DpthPrfl(1, 50, "N08", "Cant",brks = "norte",tabres=TRUE,ind="p")
 #' @examples DpthPrfl(1,50,"P08","Porc",brks="porcupine",ti=TRUE)
 #' @seealso {\link{DpthPrflTals}}
 #' @export
-DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,ind="p",es=TRUE,ti=TRUE,idi="l",xmax=NA,nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE) {
+DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,ind="p",es=TRUE,ti=TRUE,idi="l",xmax=NA,nlans=TRUE,spl=FALSE,brks="Sturges",overdpth=FALSE,tabres=TRUE) {
     esp<-format(esp,width=3,justify="r")
     if (length(gr)>1) stop("No se pueden mezclar datos de grupos distintos, se pueden mezclar todos menos 6, utilizando 9 como grupo")
     #  if (chpar)  opar<-par(no.readonly=TRUE)
     #  if (length(wghts)>1) par(mfrow=c(2,2))
     #  par(mar=c(3,3,3,1))
     options(scipen=2)
+    K=F
     values<-c("norte","porcupine","Sturges","scott","FD")
     #browser()
     if (!is.numeric(brks) & any(!brks %in% values)) stop("brks tiene que ser norte, porcupine, valores numéricos o Sturges como forma de determinar los rangos de profundidad")
@@ -44,11 +46,13 @@ DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,ind="p",es=T
     }
     if (any(brks=="porcupine")) {
       brks=c(0,150,300,450,800)
-      if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[5]) stop("Existen lances fuera de los rangos de la campa?a, revise los datos")
+      if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[5]) k=T
+      if (max(dumb$prof)>brks[5] & overdpth) brks[6]=max(dumb$prof)+10
     }
     if (any(brks=="norte")) {
-      brks=c(0,70,120,200,500,810)
-      if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[6]) stop("Existen lances fuera de los rangos de la campa?a, revise los datos")
+      brks=c(0,70,120,200,500,850)
+      if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[6]) message("Existen lances fuera de los rangos de la campa?a, revise los datos")
+      if (max(dumb$prof)>brks[6] & overdpth) brks[6]=max(dumb$prof)+10
     }
     dumbDpth<-hist(dumb$prof,plot=FALSE,breaks=brks)
     if (ind=="n") {dumbDatDpth<-hist(rep(dumb$prof,dumb$numero),plot=FALSE,breaks=dumbDpth$breaks)}
@@ -108,6 +112,7 @@ DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,ind="p",es=T
         avgstr<-tapply(dumb$peso,dumb$strat,mean,na.rm=TRUE)
       }
       #    par(opar)
+      if (K) message("Existen lances fuera de los rangos de la campaña, revise los datos")
       resumen<-data.frame(lans=nlans,totstr=totstr,meanstr=avgstr,frecuencia=dlans)
       resumen
     }
