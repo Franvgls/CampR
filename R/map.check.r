@@ -58,7 +58,7 @@ map.check<-function(gr,esp,camps,newcamp,dns="Porc",cor.time=TRUE,ind="p",bw=TRU
                   grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
                     default.units = "native",gp=grid::gpar(fill=gray(.8)))
                   lattice::panel.xyplot(x,y,cex=ifelse(dumb$numero[subscripts]>0,sqrt((dumb$numero[subscripts])/escala),.35),
-                                        pch=ifelse(dumb$numero[subscripts]>0,21,ifelse(ceros,4,NA)),col=1,bg=colo)
+                                        pch=ifelse(dumb$numero[subscripts]>0.16,ifelse(ceros,4,NA)),col=colo)
                   #lattice::panel.xyplot(x[dumb$numero[subscripts]>0],y[dumb$numero[subscripts]>0],cex=sqrt((dumb$numero[subscripts])/escala),.35)),
                     #pch=16,col=colo)
                   })
@@ -76,7 +76,7 @@ map.check<-function(gr,esp,camps,newcamp,dns="Porc",cor.time=TRUE,ind="p",bw=TRU
                       grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
                                    default.units = "native",gp=grid::gpar(fill=gray(.8)))
                       lattice::panel.xyplot(x,y,cex=ifelse(dumb$numero[subscripts]>0,sqrt((dumb$numero[subscripts])/escala),.35),
-                                            pch=ifelse(dumb$numero[subscripts]>0,21,ifelse(ceros,4,NA)),col=1,bg=colo)
+                                            pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)
                     })
   }
   if (substr(dns,1,4)=="Arsa") {

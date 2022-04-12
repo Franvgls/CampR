@@ -45,15 +45,21 @@ DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,ind="p",es=T
       ylims<-c(-800,0)
     }
     if (any(brks=="porcupine")) {
-      brks=c(0,150,300,450,800)
-      if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[5]) k=T
-      if (max(dumb$prof)>brks[5] & overdpth) brks[6]=max(dumb$prof)+10
+      brks=c(150,300,450,800)
+      if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[4]) k=T
+      if (max(dumb$prof)>brks[4] & overdpth) {
+        brks=c(brks,max(dumb$prof)+10)
+        ylims<-c(brks[length(brks)],brks[1])*c(-1)
+        }
     }
     if (any(brks=="norte")) {
       brks=c(0,70,120,200,500,850)
       if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[6]) message("Existen lances fuera de los rangos de la campa?a, revise los datos")
-      if (max(dumb$prof)>brks[6] & overdpth) brks[6]=max(dumb$prof)+10
-    }
+      if (max(dumb$prof)>brks[6] & overdpth) {
+        brks[6]=max(dumb$prof)+10
+        ylims<-c(brks[length(brks)],brks[1])*c(-1)
+      }
+      }
     dumbDpth<-hist(dumb$prof,plot=FALSE,breaks=brks)
     if (ind=="n") {dumbDatDpth<-hist(rep(dumb$prof,dumb$numero),plot=FALSE,breaks=dumbDpth$breaks)}
     else {dumbDatDpth<-hist(rep(dumb$prof,dumb$peso.gr/1000),plot=FALSE,breaks=dumbDpth$breaks)}
@@ -92,7 +98,7 @@ DpthPrfl<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,ind="p",es=T
            labels=dumbDpth$counts1,cex=.7,font=2,pos=4)
     }
     axis(1,cex.axis=cex.mn-.1)
-    if (any(brks %in% values)) axis(2,at=seq(0,-800,by=-100),seq(0,800,100),las=2,cex.axis=cex.mn-.1)
+    if (any(brks %in% values)) axis(2,at=seq(-min(brks),-max(brks),by=-100),seq(min(brks),max(brks),100),las=2,cex.axis=cex.mn-.1)
     else axis(2,at=-brks,labels=brks,las=2,cex.axis=cex.mn-.1)
     box()
     dumb<-cbind(dumb,strat=cut(dumb$prof,dumbDpth$breaks))
