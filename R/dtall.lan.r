@@ -6,7 +6,7 @@
 #' @param camp Campaña con el lance a representar en el histograma (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cadiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param lances Lance o lances de los que se quiere sacar la distribución de tallas. Si NA coge todos los lances de la campaña.
-#' @param depth_range NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances.
+#' @param depth_range NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances. Como subtítulo a pie de gráfica saca el rango de profundidades buscado.
 #' @param cor.time T por defecto, si T corrige los lances con tiempo distinto de 30'
 #' @param ti Si T añade título al gráfico, el nombre de la especie en latín.
 #' @param legend Si T (por defecto) añade la leyenda, si no se saca por sexos no añade información
@@ -132,18 +132,18 @@ else {leg<-NULL}
 xlimi<-c(min(a$talla)*(.95-1),max(a$talla)*1.05)
 if (!any(is.na(depth_range))) 	{
 #  tt="Depth"
-if (depth_range[1]==0) sub<-list(label=bquote("Depth " <=.(format(paste(depth_range[2],"m")))),font.sub=2,cex=cexleg*1.1)
-if (depth_range[2]==999) sub<-list(font.sub=2,label=bquote("Depth: " >=.(format(paste0(depth_range[1],"m")))),cex=cexleg*1.1)
-if (depth_range[1]!=0 & depth_range[2]!=999) sub<-list(font.sub=2,label=paste("Depth range: ",depth_range[1],"-",depth_range[2],"m"),cex=cexleg*1.1)
+if (depth_range[1]==0) sub<-list(font.sub=2,label=bquote("Depth range" <=.(format(paste(depth_range[2],"m")))),font.sub=2,cex=cexleg*1.1)
+if (depth_range[2]==999) sub<-list(font.sub=2,label=bquote("Depth range " >=.(format(paste0(depth_range[1],"m")))),cex=cexleg*1.1)
+if (depth_range[1]!=0 & depth_range[2]!=999) sub<-list(font.sub=2,label=paste("Depth range ",depth_range[1],"-",depth_range[2],"m"),cex=cexleg*1.1)
 if (depth_range[1]==0 & depth_range[2]==999) sub<-NA #list(font.sub=2,label=paste(depth_range[1],"-",depth_range[2],"m"),cex=cexleg*.9)
 }
-if (is.character(sub)) sub=list(label=sub,font=2,cex=cexleg*.9)
+#if (is.character(sub)) sub=list(label=sub,font.sub=2,cex=cexleg*.9)
   foo<-lattice::barchart(n~talla,a,groups=factor(a$sex),subscripts=T,key=leg,box.ratio=1000,box.width=increm,ylim=ylim,xlim=xlimi,
                          scales=list(alternating=F,tck=c(1,1),
                                      x=list(at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
                                             rot=45)),
                          stack=T,h=F,main=tit,par.strip.text=list(cex=cexleg*.8,font=2),
-                         xlab=list(label=ax[1],cex=cexleg*1.2),ylab=list(label=ax[2],cex=cexleg*1.2),sub=sub,strip=TRUE,
+                         xlab=list(label=ax[1],cex=cexleg),ylab=list(label=ax[2],cex=cexleg*1),sub=sub,strip=TRUE,
                          panel=function(x,y,...) {lattice::panel.fill(col="white")
                            #  			media=sum((x)*y*100)/sum(y*100)
                            lattice::panel.grid(-1,0,lty=3,col=gray(.2))
