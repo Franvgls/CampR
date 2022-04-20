@@ -23,7 +23,7 @@
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @param verbose Si T saca avisos de consistencia en tallas, sino los omite
 #' @return Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(filas)xCampañas(columnas)
-#' @family Distribuciones de tallas
+#' @seealso {\link{dtallbarplot}} {\link{dtall.lan}}
 #' @examples dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T)
 #' @examples dtall.camp(1,50,Nsh[c(length(Nsh)-9):length(Nsh)],"Cant",es=F,ti=T,years=T,out.dat=T)
 #' @export
@@ -67,6 +67,7 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
     if(is.list(ti)) tit<-ti
     else tit<-list(label=ti)
     }
+#	if (!plot & !is.na(titlab)) tit<-list(label=titlab,font=2,cex=.9)
 	ndat<-length(camp)
 	for (i in 1:ndat) {
     #browser()

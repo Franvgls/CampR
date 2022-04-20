@@ -166,7 +166,7 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	    grid::grid.polygon(maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[1]],maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[2]],
       default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
 				if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
-          #lrect(-5.98,36.25, -5.54, 36.54,col="white")
+				#lrect(-5.98,36.25, -5.54, 36.54,col="white")
 					lattice::panel.xyplot(rep(-6,3),c(36.3,36.4,36.5),cex=sqrt((leyenda)/escala),pch=16,col=colo)
 					lattice::ltext(rep(-6,3),c(36.3,36.4,36.5),labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=.8,cex=cexleg-.1)
 					}

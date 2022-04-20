@@ -39,37 +39,43 @@ dtall.lan<- function(gr,esp,camp,dns="Cant",lances=NA,cor.time=TRUE,depth_range=
     medida<-c(ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm")))
   }
   esp<-format(esp,width=3,justify="r")
+  sxn<-c("indet","machos","hembras")
   if (bw) {
     colbars<-c(gray(.2),gray(.6),"white")
   }
   else {
     colbars<-c("lightyellow","steelblue","yellow1")
   }
+  sexn<-c("2","3","1")
+	sixn<-c("1","2","3")
+	dtalln<-c("machos","hembras","indet")
   if (is.logical(ti)) {
-    if (ti) {tit<-list(buscaesp(gr,esp,id=idi),font=ifelse(idi=="l",4,2),cex=1)}
+    if (ti) {tit<-list(buscaesp(gr,esp,id=idi),font=ifelse(idi=="l",4,2),cex=1*cexleg)}
     else {tit<-NULL}
   }
   else {
     if(is.list(ti)) tit<-ti
     else tit<-list(label=ti)
   }
-  #medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm")
   dtall<-dtallan.camp(gr,esp,camp,dns,cor.time = cor.time,depth_range = depth_range,sex=sex,lances=lances)
   dtall<-cbind(talla=dtall[,1],dtall[,rev(2:length(dtall))]/length(lances))
   sexn<-c("2","3","1")
   sixn<-c("1","2","3")
   dtalln<-c("machos","hembras","indet")
-  sxn<-c("Machos","Hembras","Indet")
+  #sxn<-c("Machos","Hembras","Indet")
   sxs<-tolower(sxn) %in% colnames(dtall[,-1])
-  sxn<-as.character(factor(c("Machos","Hembras","Indet")[sxs],ordered=T))
-           ax<-c(paste0("Talla (",medida,")"),expression("Ind"%*%"lan"^-1))
+  #sxn<-as.character(factor(c("Machos","Hembras","Indet")[sxs],ordered=T))
   if(is.na(ymax)) {ymax<-ifelse(ncol(dtall)==2,max(dtall[,2]),max(rowSums(dtall[,-1])))*1.05}
   leg<-rev(sxn)
-  if (ncol(dtall)==4) colbars<-ifelse(bw,c(gray(.2),gray(.6),"white"),c("lightyellow","steelblue","yellow1"))
+  if (ncol(dtall)==4) {
+    if (bw) colbars<-c(gray(.2),gray(.6),"white")
+    else colbars<-c("lightyellow","steelblue","yellow1")
+    }
   if (ncol(dtall)==2) {
     colbars=colbars[2]
     leg=F
   }
+#  sxs<- match(sixn,names(dtall)[2:length(names(dtall))])
   sxs<- match(tolower(as.character(sxn)),names(dtall)[2:length(names(dtall))])
   if (sex) {
     ard<-c(NULL,NULL,NULL,NULL)
@@ -104,7 +110,7 @@ haysex<-sum(tapply(a$n,a$sex,sum)[c(2,3)])
 if (sex & (haysex != 0)) {
   #		if (length(camp)==1) {
   sxn<-sxn[(sxs)]          # sxn<-sxn[which(!is.na(sxs))]
-  colbars<-colbars[which(!is.na(sxs))]
+  #colbars<-colbars[which(!is.na(sxs))]
   a$sex<-factor((a$sex),exclude=sexn[which(is.na(sxs))])  # a$sex<-factor((a$sex),exclude=sixn[which(is.na(sxs))])
   #			}
 }
@@ -113,16 +119,26 @@ else {
   else colbars<-"olivedrab1"
   leg=F
 }
-#browser()
+if (es) {sxn<-c("Indet","Machos","Hembras")
+ax<-c(paste0("Talla (",medida,")"),expression("Ind"%*%"lan"^-1))}
+else {sxn<-c("Undet","Male","Female")
+ax<-c(paste0("Length (",medida,")"),expression("Ind"%*%"haul"^-1))}
 if (!is.logical(leg) & (haysex != 0)) {
   ddd<-tapply(a$n,a$sex,sum)
   leg<-list(columns=3,space="top",rectangles=list(T,size=5),
-            col=colbars[c(2,3,1)],text=list(labels=sxn[c(3,1,2)],col="black",
+            col=c(gray(.2),gray(.6),gray(.99)),text=list(labels=sxn[c(1:3)],col="black",
                                             cex=cexleg*ifelse(!plot,.7,.9)))}     #,col=colbars
 else {leg<-NULL}
 xlimi<-c(min(a$talla)*(.95-1),max(a$talla)*1.05)
+if (!any(is.na(depth_range))) 	{
+#  tt="Depth"
+if (depth_range[1]==0) sub<-list(label=bquote("Depth " <=.(format(paste(depth_range[2],"m")))),font.sub=2,cex=cexleg*1.1)
+if (depth_range[2]==999) sub<-list(font.sub=2,label=bquote("Depth: " >=.(format(paste0(depth_range[1],"m")))),cex=cexleg*1.1)
+if (depth_range[1]!=0 & depth_range[2]!=999) sub<-list(font.sub=2,label=paste("Depth range: ",depth_range[1],"-",depth_range[2],"m"),cex=cexleg*1.1)
+if (depth_range[1]==0 & depth_range[2]==999) sub<-NA #list(font.sub=2,label=paste(depth_range[1],"-",depth_range[2],"m"),cex=cexleg*.9)
+}
 if (is.character(sub)) sub=list(label=sub,font=2,cex=cexleg*.9)
-  foo<-lattice::barchart(n~talla,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,box.width=increm,ylim=ylim,xlim=xlimi,
+  foo<-lattice::barchart(n~talla,a,groups=factor(a$sex),subscripts=T,key=leg,box.ratio=1000,box.width=increm,ylim=ylim,xlim=xlimi,
                          scales=list(alternating=F,tck=c(1,1),
                                      x=list(at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
                                             rot=45)),
@@ -132,7 +148,7 @@ if (is.character(sub)) sub=list(label=sub,font=2,cex=cexleg*.9)
                            #  			media=sum((x)*y*100)/sum(y*100)
                            lattice::panel.grid(-1,0,lty=3,col=gray(.2))
                            #  			lattice::panel.abline(v=media,lty=1)
-                           lattice::panel.barchart(x,y,col=colbars,...)
+                           lattice::panel.barchart(x,y,col=colbars[c(2,3,1)],...)
                            #lattice::panel.axis(side="bottom",
                            # at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],
                            # labels=round(a$talla/10,1),

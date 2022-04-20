@@ -3,5 +3,6 @@
 .RData
 .CampR.Rproj
 *.csv
+*.bak
 inst/doc
 packrat/lib*/
