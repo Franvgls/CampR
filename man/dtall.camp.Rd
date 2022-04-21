@@ -82,5 +82,11 @@ dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T)
 dtall.camp(1,50,Nsh[c(length(Nsh)-9):length(Nsh)],"Cant",es=F,ti=T,years=T,out.dat=T)
 }
 \seealso{
-{\link{dtallbarplot}} {\link{dtall.lan}}
+Other Distribuciones de tallas: 
+\code{\link{denstall.camp}()},
+\code{\link{dtall.lan}()},
+\code{\link{dtallan.camp}()},
+\code{\link{dtallan.peso}()},
+\code{\link{dtallbarplot}()}
 }
+\concept{Distribuciones de tallas}

@@ -9,7 +9,8 @@
 #' @param cor.time Corrige el tiempo del lance a 30 minutos si está fuera del tiempo (especialmente importante para 1983 y 1984)
 #' @param depth_range NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances.
 #' @param sex Por defecto (F) suma todos los individuos como indet. T saca los datos por sexo si los hay, no afecta si sólo hay indeterminados (3)
-#' @param muestr Por defecto (F) no pondera los datos por el peso total en la captura del lance, si T coge los medidos realmente
+#' @param muestr Por defecto (T) no pondera los datos por el peso total en la captura del lance, si T coge los medidos realmente
+#' @param MeanLan por defecto (T) saca la media por lance, dividiendo por el número de lances utilizados
 #' @return Devuelve un data frame con dos campos, $talla con las tallas de la especie en la campaña y número con el número de ejemplares de cada una de las tallas
 #' @family Distribuciones de tallas
 #' @examples
@@ -17,7 +18,7 @@
 #' dtallan.camp(gr=1,esp=10,camp="N14",dns="Cant",lances=108,muestr=F)
 #' dtallan.camp(gr=1,esp=10,camp="N14",dns="Cant",lances=NA,muestr=F)
 #' @export
-dtallan.camp<- function(gr,esp,camp,dns,lances=NA,cor.time=TRUE,depth_range=NA,sex=FALSE,muestr=FALSE) {
+dtallan.camp<- function(gr,esp,camp,dns,lances=NA,cor.time=TRUE,depth_range=NA,sex=FALSE,muestr=TRUE,MeanLan=TRUE) {
   if (length(camp)>1) stop("Esta función sólo se puede utilizar para una sola campaña")
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -101,6 +102,12 @@ dtallan.camp<- function(gr,esp,camp,dns,lances=NA,cor.time=TRUE,depth_range=NA,s
   if (sum(dtall[,-1])==0) {
     dtall<-dtall[1,]
     print(paste("Sin captura de",buscaesp(gr,esp),ifelse(length(lances)>1,"en estos lances","en este lance")))
+  }
+  if (MeanLan & any(!is.na(depth_range))) {
+    dtall<-cbind(talla=dtall[,1],dtall[2:ncol(dtall)]/nrow(lan))
+  }
+  if (MeanLan & any(!is.na(lances))) {
+    dtall<-cbind(talla=dtall[,1],dtall[2:ncol(dtall)]/length(lances))
   }
   as.data.frame(dtall)
 }

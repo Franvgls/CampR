@@ -37,7 +37,7 @@ dtall.lan(
 
 \item{cor.time}{T por defecto, si T corrige los lances con tiempo distinto de 30'}
 
-\item{depth_range}{NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances.}
+\item{depth_range}{NA por defecto, si no poner dos valores, min y max para establecer los límites batimétricos de los lances. Como subtítulo a pie de gráfica saca el rango de profundidades buscado.}
 
 \item{ti}{Si T añade título al gráfico, el nombre de la especie en latín.}
 
@@ -71,6 +71,7 @@ dtall.lan(1,36,"P08","Porc",lances=c(10:15,17),ti=TRUE)
 \seealso{
 Other Distribuciones de tallas: 
 \code{\link{denstall.camp}()},
+\code{\link{dtall.camp}()},
 \code{\link{dtallan.camp}()},
 \code{\link{dtallan.peso}()},
 \code{\link{dtallbarplot}()}

@@ -50,6 +50,7 @@ dtallbarplot(1,34,Nsh[19:28],"Cnew",excl.sect=c(1),ymax=1.5)
 \seealso{
 Other Distribuciones de tallas: 
 \code{\link{denstall.camp}()},
+\code{\link{dtall.camp}()},
 \code{\link{dtall.lan}()},
 \code{\link{dtallan.camp}()},
 \code{\link{dtallan.peso}()}
