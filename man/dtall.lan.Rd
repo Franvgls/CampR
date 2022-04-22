@@ -18,6 +18,8 @@ dtall.lan(
   bw = TRUE,
   es = TRUE,
   sex = TRUE,
+  muestr = TRUE,
+  MeanLan = TRUE,
   plot = TRUE,
   idi = "l",
   ymax = NA,
@@ -50,6 +52,10 @@ dtall.lan(
 \item{es}{Si T gráfico en castellano, si F gráfico en inglés.}
 
 \item{sex}{por defecto (T) da valores por sexos si los hay, si solo hay indeterminados funciona igual.}
+
+\item{muestr}{Por defecto (T) no pondera los datos por el peso total en la captura del lance, si T coge los medidos realmente}
+
+\item{MeanLan}{por defecto (T) saca la media por lance, dividiendo por el número de lances utilizados}
 
 \item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
 

@@ -13,7 +13,8 @@ dtallan.camp(
   cor.time = TRUE,
   depth_range = NA,
   sex = FALSE,
-  muestr = FALSE
+  muestr = TRUE,
+  MeanLan = TRUE
 )
 }
 \arguments{
@@ -33,7 +34,9 @@ dtallan.camp(
 
 \item{sex}{Por defecto (F) suma todos los individuos como indet. T saca los datos por sexo si los hay, no afecta si sólo hay indeterminados (3)}
 
-\item{muestr}{Por defecto (F) no pondera los datos por el peso total en la captura del lance, si T coge los medidos realmente}
+\item{muestr}{Por defecto (T) no pondera los datos por el peso total en la captura del lance, si T coge los medidos realmente}
+
+\item{MeanLan}{por defecto (T) saca la media por lance, dividiendo por el número de lances utilizados}
 }
 \value{
 Devuelve un data frame con dos campos, $talla con las tallas de la especie en la campaña y número con el número de ejemplares de cada una de las tallas

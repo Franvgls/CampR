@@ -8,6 +8,7 @@
 #' @param lance Lance a partir del cual se utiliza el otro barco en principio solo para usar con la campaña de 2021
 #' @param bw Gráfico en blanco en negro si T o en color si F
 #' @param ti Añade el nombre de la especie en latín sin T, si F no añade titulo
+#' @param es if T usa español, si no etiquetas y textos en inglés
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
 #' @param ind Parámetro a representar saca los datos en "p"eso o "n"úmero
@@ -20,10 +21,11 @@
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param years Si T saca los años como nombre de campaña
 #' @export
-MapComp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,ind="p",idi="l",
-                  layout=NA,leg=T,pts=F,ceros=T,escmult=.25,cexleg=1,years=F,bw=FALSE) {
+MapComp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,ind="p",idi="l",es=F,
+                  layout=NA,leg=T,pts=F,ceros=TRUE,escmult=.25,cexleg=1,years=F,bw=FALSE,notch=TRUE) {
   dat<-maphist(gr,esp,camp,dns,plot=F,out.dat=T)
 #  dat$peso<-dat$peso.gr/1000
+  if (bw) {cols=c(gray(.2),gray(.7))} else cols=c("blue","green")
   dat$barco<-cut(dat$lan,c(0,66,150),c("29MO","29VE"))
   escmult<- .05
   if (ind=="p") {
@@ -46,23 +48,27 @@ MapComp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,in
   MapNort(places=T,bw=bw)
   if (ind=="p") {
     leyenda<-signif(c(1,.5,.25)*leyenda,1)
-    points(lat~long,dat,cex=sqrt(peso.gr*10^c(-3)/escala),subset=barco=="29MO",pch=21,bg="blue")
-    points(lat~long,dat,cex=sqrt(peso.gr*10^c(-3)/escala),subset=barco=="29VE",pch=21,bg="green")
+    points(lat~long,dat,cex=sqrt(peso.gr*10^c(-3)/escala),subset=barco=="29MO",pch=21,bg=cols[1])
+    points(lat~long,dat,cex=sqrt(peso.gr*10^c(-3)/escala),subset=barco=="29VE",pch=21,bg=cols[2])
     points(rep(-7,3),c(43,42.6,42.2),cex=sqrt((leyenda)/escala),pch=21,col=1,bg="darkgrey")
     text(rep(-7,3),c(43,42.6,42.2),label=paste(leyenda,"kg"),pos=4,offset = 1.1,cex=1)
     }
   else {
     leyenda<-signif(c(1,.5,.25)*leyenda,1)
-    points(lat~long,dat,cex=sqrt(numero/escala),subset=barco=="29MO",pch=21,bg="blue")
-    points(lat~long,dat,cex=sqrt(numero/escala),subset=barco=="29VE",pch=21,bg="green")
+    points(lat~long,dat,cex=sqrt(numero/escala),subset=barco=="29MO",pch=21,bg=cols[1])
+    points(lat~long,dat,cex=sqrt(numero/escala),subset=barco=="29VE",pch=21,bg=cols[2])
     points(rep(-7,3),c(43,42.6,42.2),cex=sqrt((leyenda)/escala),pch=21,col=1,bg="darkgrey")
     text(rep(-7,3),c(43,42.6,42.2),label=paste(leyenda,"ind"),pos=4,offset = 1.1,cex=1)
   }
-  if (leg) legend("bottomright",c("B/O Miguel Oliver","B/O Vizconde de eza"),pch=21,pt.bg=c("blue","green"),inset = c(.02,.03),bg="white")
+  if (leg) legend("bottomright",c("R/V Miguel Oliver","R/V Vizconde de eza"),pch=21,pt.bg=c(cols[1],cols[2]),inset = c(.02,.03),bg="white")
   if (ti) title(main=buscaesp(gr,esp),cex=1,font.main=4)
   #par(mar=c(5, 4, 4, 2) + 0.1)
-  if(ind=="p") {boxplot(peso~barco,dat,notch=T,outline=F,col=c("blue","green"),varwidth=T,xlab=NA,ylab="kg");title("Biomass")}
-  else {boxplot(numero~barco,dat,notch=T,outline=F,col=c("blue","green"),varwidth=T,xlab=NA,ylab="Number");title("Abundance in number",line=1)}
+  if (!ceros) dat<-subset(dat,dat$numero>0)
+  if(ind=="p") {dumb<-boxplot(peso~barco,dat,notch=notch,outline=F,col=c(cols[1],cols[2]),varwidth=T,xlab=NA,ylab="kg");title(ifelse(es,"Biomasa","Biomass"))}
+  else {dumb<-boxplot(numero~barco,dat,notch=notch,outline=F,col=c(cols[1],cols[2]),varwidth=T,xlab=NA,ylab=ifelse(es,"Número","Number"));title(ifelse(es,"Abundancia en número","Abundance in number"),line=1)}
+  if (!ceros) {mtext(ifelse(es,"Num lans +,","Nb. +hauls"),3,adj=0,cex=.8,font=2)
+  mtext(c(dumb$n[1],dumb$n[2]),side=3,at=c(1,2),cex=.8,font=2)
+  }
   }
 
 # layout(matrix(c(0,0,0,0,
