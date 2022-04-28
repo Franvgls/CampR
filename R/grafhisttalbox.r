@@ -27,8 +27,8 @@
 #' @param las Sirve para modificar la dirección de las etiquetas en el eje de las equis, por defecto F pero se cambia cuando se elige years=T, si no se cambia salen paralelas
 #' @return Crea una gráfica de evolución de las abundancias en biomasa o número y devuelve en consola un data.frame con columnas: avg,SE (error estándar),camp
 #' @seealso {\link{grafhistbox.comp}}
-#' @examples grafhistbox(1,45,Nsh[7:27],"Cant",es=FALSE,years=TRUE,tline=TRUE,DLS=FALSE,ti=TRUE,sub=TRUE)
-#' @examples grafhistbox(1,45,Nsh[1:31],"Cant",es=FALSE,years=TRUE,tline=FALSE,DLS=TRUE,ti=TRUE,sub=TRUE)
+#' @examples grafhisttalbox(1,42,Nsh[7:27],"Cant",0,10,es=FALSE,years=TRUE,tline=TRUE,DLS=FALSE,ti=TRUE,sub=TRUE)
+#' @examples grafhisttabox(1,45,Nsh[1:31],"Cant",0,20,es=FALSE,years=TRUE,tline=FALSE,DLS=TRUE,ti=TRUE,sub=TRUE)
 #' @family abunds
 #' @export
 grafhisttalbox<-function(gr,esp,camps,dns="Porc",tmin,tmax,cor.time=TRUE,ci.lev=.8,DLS=F,DLSrat=c(2,5),idi="l",SE=TRUE,

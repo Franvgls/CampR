@@ -15,14 +15,16 @@ MapComp(
   out.dat = F,
   ind = "p",
   idi = "l",
+  es = F,
   layout = NA,
   leg = T,
   pts = F,
-  ceros = T,
+  ceros = TRUE,
   escmult = 0.25,
   cexleg = 1,
   years = F,
-  bw = FALSE
+  bw = FALSE,
+  notch = TRUE
 )
 }
 \arguments{
@@ -45,6 +47,8 @@ MapComp(
 \item{ind}{Parámetro a representar saca los datos en "p"eso o "n"úmero}
 
 \item{idi}{Nombre científico de la especie ("l") o nombre común ("e")}
+
+\item{es}{if T usa español, si no etiquetas y textos en inglés}
 
 \item{layout}{Organización de gráficos en filas ó columnas c(r,c)}
 
