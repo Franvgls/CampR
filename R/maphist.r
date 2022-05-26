@@ -91,8 +91,8 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=T
 				grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
 					default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
 				if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
-					lattice::panel.xyplot(-12,51.2,cex=sqrt((leyenda)/escala),pch=16,col=colo)
-					lattice::ltext(-12,51.2,labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=1.1,cex=cexleg)
+					lattice::panel.xyplot(-13,51.2,cex=sqrt((leyenda)/escala),pch=16,col=colo)
+					lattice::ltext(-13,51.2,labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=.8,cex=cexleg)
 					}
 				if (ind=="p") {lattice::panel.xyplot(x,y,cex=ifelse(dumb$peso[subscripts]>0,sqrt((dumb$peso[subscripts])/escala),.35),
 					pch=ifelse(dumb$peso[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
@@ -112,7 +112,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=T
         if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
         lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
 				grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
-					default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
+					default.units = "native",gp=grid::gpar(fill=gray(.8)))
 				if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
 					lattice::panel.xyplot(rep(-7,3),c(43.,42.60,42.20),cex=sqrt((leyenda)/escala),pch=16,col=colo)
 					lattice::ltext(rep(-7,3),c(43.,42.60,42.20),labels=paste(leyenda,ifelse(ind=="p","kg","ind.")),pos=4,offset=1.1,cex=cexleg)
@@ -135,7 +135,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=T
         if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
         lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
 	       grid::grid.polygon(maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[1]],maps::map(Arsa.map,c("Portugal","Costa"),
-            plot=FALSE)[[2]],default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
+            plot=FALSE)[[2]],default.units = "native",gp=grid::gpar(fill=gray(.8)))
 				 if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
           #lrect(-5.98,36.25, -5.54, 36.54,col="white")
 					lattice::panel.xyplot(rep(-6,3),c(36.45,36.58,36.7),cex=sqrt((leyenda)/escala),pch=16,col=colo)

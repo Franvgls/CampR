@@ -47,7 +47,7 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,cuadr=FALSE,IC
     abline(v=seq(-18,-10,by=1),col=gray(.2),lwd=.6)
   }
   if (ICESlab) text(c(stat_y+.215)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
-  maps::map(Porc.map,add=TRUE,fill=TRUE,col=c(rep(NA,nstrat),rep("gray85",nland)),lwd=lwdl)
+  maps::map(Porc.map,add=TRUE,fill=TRUE,col=c(rep(NA,nstrat-1),ifelse(bw,"gray85","bisque")),lwd=lwdl)
   box(lwd=lwdl)
   if (label) {
     if (!exists("Porc.grid")) {

@@ -17,7 +17,7 @@ maphistage(
   ICESrect = F,
   AltAlk = NA,
   incl2 = TRUE,
-  bw = TRUE,
+  bw = FALSE,
   ti = TRUE,
   plot = TRUE,
   out.dat = FALSE,

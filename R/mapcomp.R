@@ -38,6 +38,14 @@ MapComp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,in
   # leyenda<-signif(max(dat$peso.gr)*10^c(-3)*.9,1)
   # leyenda<-signif(c(1,.5,.25)*leyenda,1)
   # escala<-signif(max(dat$peso.gr*10^c(-3)),1)*escmult
+  if (is.logical(ti)) {
+    if (ti) {titulo<-list(label=buscaesp(gr,esp,id=idi),font=ifelse((idi=="l" & gr!="9" & esp!="999"),4,2))}
+    else {titulo<-NULL}
+  }
+  else {
+    if(is.list(ti)) titulo<-ti
+    else titulo<-list(label=ti)
+  }
   par(mar=c(1,4,4, 2) + 0.1,oma=c(1,1,1,1))
   # nf <- layout( matrix(c(1,2), ncol =2),widths = c(3,1),heights = c(1)) #,heights=c(2.5,1)
   nf <- layout(
@@ -61,7 +69,7 @@ MapComp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,in
     text(rep(-7,3),c(43,42.6,42.2),label=paste(leyenda,"ind"),pos=4,offset = 1.1,cex=1)
   }
   if (leg) legend("bottomright",c("R/V Miguel Oliver","R/V Vizconde de eza"),pch=21,pt.bg=c(cols[1],cols[2]),inset = c(.02,.03),bg="white")
-  if (ti) title(main=buscaesp(gr,esp),cex=1,font.main=4)
+  if (!is.logical(ti)) title(main=ti,cex=1,font.main=4)
   #par(mar=c(5, 4, 4, 2) + 0.1)
   if (!ceros) dat<-subset(dat,dat$numero>0)
   if(ind=="p") {dumb<-boxplot(peso~barco,dat,notch=notch,outline=F,col=c(cols[1],cols[2]),varwidth=T,xlab=NA,ylab="kg");title(ifelse(es,"Biomasa","Biomass"))}
@@ -69,6 +77,7 @@ MapComp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,in
   if (!ceros) {mtext(ifelse(es,"Num lans +,","Nb. +hauls"),3,adj=0,cex=.8,font=2)
   mtext(c(dumb$n[1],dumb$n[2]),side=3,at=c(1,2),cex=.8,font=2)
   }
+  if (out.dat) dat
   }
 
 # layout(matrix(c(0,0,0,0,

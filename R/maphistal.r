@@ -104,7 +104,7 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
 			  lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
 				grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
-					default.units = "native",gp=grid::gpar(fill=gray(.7)))
+					default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
           if (ind=="n") {
     				if (leg & max(dumb$numero[subscripts],na.rm=TRUE)>0) {
 		  				lattice::panel.xyplot(-13,51.2,cex=sqrt((leyenda)/escala),pch=16,col=colo)

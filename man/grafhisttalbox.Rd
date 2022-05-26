@@ -86,8 +86,8 @@ Crea una gráfica de evolución de las abundancias en biomasa o número y devuel
 Gráfico de cajas con la evolución en biomasa o abundancia en la serie histórica
 }
 \examples{
-grafhistbox(1,45,Nsh[7:27],"Cant",es=FALSE,years=TRUE,tline=TRUE,DLS=FALSE,ti=TRUE,sub=TRUE)
-grafhistbox(1,45,Nsh[1:31],"Cant",es=FALSE,years=TRUE,tline=FALSE,DLS=TRUE,ti=TRUE,sub=TRUE)
+grafhisttalbox(1,42,Nsh[7:27],"Cant",0,10,es=FALSE,years=TRUE,tline=TRUE,DLS=FALSE,ti=TRUE,sub=TRUE)
+grafhisttabox(1,45,Nsh[1:31],"Cant",0,20,es=FALSE,years=TRUE,tline=FALSE,DLS=TRUE,ti=TRUE,sub=TRUE)
 }
 \seealso{
 {\link{grafhistbox.comp}}
