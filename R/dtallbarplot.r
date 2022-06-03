@@ -12,9 +12,9 @@
 #' @param horiz F por defecto saca el histograma en vertical, se puede poner horizontal haciendolo T
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @param es si T saca los títulos en castellano, si no en inglés
-#' @param ti por defecto NA si es = un texto p.ej. "8c Division"
+#' @param ti por defecto NA si es = un texto p.ej. "8c Division" sale como título general por encima de los dos gráficos
 #' @family Distribuciones de tallas
-#' @examples dtallbarplot(1,34,Nsh[19:28],"Cnew",excl.sect=c(1),ymax=1.5)
+#' @examples dtallbarplot(1,34,Nsh[19:28],"Cant",excl.sect=c(1),ymax=1.5)
 #' @examples dtallbarplot(1,c(34),camps=Nsh[27:37],"Cant",camp="N21",excl.sect=1,ymax=1.5,es=F,ti="8c Division")
 #' @export
 dtallbarplot<-function(gr, esp, camps, dns, camp = NA, excl.sect=NA, cor.time=TRUE, ymax = NA, horiz = T, years=TRUE,es=T,ti=NA)
@@ -23,9 +23,10 @@ dtallbarplot<-function(gr, esp, camps, dns, camp = NA, excl.sect=NA, cor.time=TR
   dumb <- dtall.camp(gr, esp, camps, dns, excl.sect=excl.sect,cor.time=cor.time,out.dat = T, plot = F,years=years)
   if(!is.na(camp)) dumbc <- dtall.camp(gr, esp, camp, dns, excl.sect=excl.sect,cor.time=cor.time,out.dat = T, plot = F,years=years)
   #if (years) {camps<-camptoyear(camps);if (!is.na(camp)) camp=camptoyear(camp)}
+  mx <- ceiling(hablar::max_(c(rowMeans(dumb), dumbc)))
   if (is.na(ymax))
     mx <- ceiling(hablar::max_(c(rowMeans(dumb), dumbc)))
-  else mx <- ymax
+  else {mx<-ifelse(c(mx>ymax*1.5),mx,ymax)}
   increm<-unid.camp(gr,esp)["INCREM"]
   medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
   op <- par(no.readonly = T)

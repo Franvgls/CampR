@@ -88,6 +88,7 @@ Gráfico de cajas con la evolución en biomasa o abundancia en la serie históri
 \examples{
 grafhistbox(1,45,Nsh[7:27],"Cant",es=FALSE,years=TRUE,tline=TRUE,DLS=FALSE,ti=TRUE,sub=TRUE)
 grafhistbox(1,45,Nsh[1:31],"Cant",es=FALSE,years=TRUE,tline=FALSE,DLS=TRUE,ti=TRUE,sub=TRUE)
+grafhistbox(1,79,Nsh[1:38],"Cant",years=T,ci.lev = 0,DLS=T,es=F,SE=F,excl.sect = 1,sub="8c division")
 }
 \seealso{
 {\link{grafhistbox.comp}}

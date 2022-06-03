@@ -15,7 +15,8 @@ dtallbarplot(
   ymax = NA,
   horiz = T,
   years = TRUE,
-  es = T
+  es = T,
+  ti = NA
 )
 }
 \arguments{
@@ -40,12 +41,15 @@ dtallbarplot(
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
 
 \item{es}{si T saca los títulos en castellano, si no en inglés}
+
+\item{ti}{por defecto NA si es = un texto p.ej. "8c Division"}
 }
 \description{
 Histograma de la distribución de tallas media estratificada por sexos a partir de ficheros del camp
 }
 \examples{
 dtallbarplot(1,34,Nsh[19:28],"Cnew",excl.sect=c(1),ymax=1.5)
+dtallbarplot(1,c(34),camps=Nsh[27:37],"Cant",camp="N21",excl.sect=1,ymax=1.5,es=F,ti="8c Division")
 }
 \seealso{
 Other Distribuciones de tallas: 

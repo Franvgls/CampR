@@ -24,14 +24,14 @@
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
 #' @param ind Parámetro a representar saca los datos en "p"eso o "n"úmero
 #' @param es Si T rotulos gráfico en español, si F en inglés
-#' @param profrange Si c(profmin,profmax) filtra por ese rango de profundidadm por defecto NA no filtra profundidades
+#' @param profrange Si c(profmin,profmax) filtra por ese rango de profundidad por defecto NA no filtra profundidades
 #' @param ceros por defecto incluye los valores de 0 al calcular los rangos y medianas, si T los quita, Es importante avisarlo en el la explicación de la gráfica
 #' @param nlans T por defecto presenta el número de lances en la campaña por encima del eje x
 #' @param lan.cex tamaño de las etiquetas del numero de lances por campaña
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param escmult Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos
-#' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
+#' @param cex.leg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,peso.gr,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
 #' @examples
 #' histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE)
@@ -58,7 +58,13 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	dumb$camp<-factor(dumb$camp)
 	if (out.dat) print(dumb[dumb[,5]>0,])
 	if (!ceros) dumb<-filter(dumb,numero>0)
-	if (any(!is.na(profrange))) dumb<-filter(dumb,prof>min(profrange) & prof<max(profrange))
+	if (any(!is.na(profrange))) {
+	  dumb<-filter(dumb,prof>min(profrange) & prof<max(profrange))
+	    if (min(profrange)==0) prang<-bquote("Depth range" <=.(format(paste0(max(profrange),"m")))) #list(label=bquote(" "<=.(format(paste0(max(profrange),"m")))),font.sub=2,cex=cex.leg*.9)
+	    if (max(profrange)==9999) prang<-bquote("Depth range">=.(format(paste0(min(profrange),"m"))))
+	    if (min(profrange)!=0 & max(profrange)!=9999) prang<-paste("Depth range:",min(profrange),"-",max(profrange),"m")
+	    if (min(profrange)==0 & max(profrange)==9999) prang<-paste("Depth range:",min(profrange),"-",max(profrange),"m")
+	}
 #  op<-par(no.readonly=T)
 #  par(mgp=c(2.5,.8,0))
 	if (ind=="p") {
@@ -72,18 +78,20 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
   }
 	if (!ceros) mtext(ifelse(es,"Lances sin captura excluidos","0 catches hauls excluded"),
 	                  side=3,0,font=2,cex=.8,adj=ifelse(ceros,0,1))
-  if (nlans) mtext(side=1,at=1:ndat,line=-1,text=tapply(dumb$numero,dumb$camp,length),cex=lan.cex,font=2)
-	if (is.logical(ti)) {
-	  if (ti) {title(main=especie,cex.main=1.1*cex.leg,
-	                 font.main=ifelse((idi!="l" | any(esp=="999")),2,4),line=ifelse(any(is.character(sub),sub),1.5,1))}
-	}
+	if (any(!is.na(profrange))) mtext(prang,   #paste(ifelse(es,"Rango prof: ","Depth range: "),expression(prang))
+	                  side=3,font=2,cex=.8,adj=0)
+	if (nlans) mtext(side=1,at=1:ndat,line=-1,text=tapply(dumb$numero,dumb$camp,length),cex=lan.cex,font=2)
+	# if (is.logical(ti)) {
+	#   if (ti) {title(main=especie,cex.main=1.1*cex.leg,
+	#                  font.main=ifelse((idi!="l" | any(esp=="999")),2,4),line=ifelse(any(is.character(sub),sub),1.5,1))}
+	# }
 	else {title(main=ti,font.main=2,line=1.3,cex.main=1.1*cex.leg)}
 	if (is.logical(sub)) {
 	  if (sub) {title(main=ifelse(ind=="p",ifelse(es,"Biomasa","Biomass"),ifelse(es,"Número","Number")),
 	                  font.main=2,line=.5,cex.main=cex.leg*.9)}
 	}
 	else title(main=sub,line=.3,font.main=2,cex.main=cex.leg*.9)
-	if(any(!is.na(profrange)) & proflab) mtext(paste(ifelse(es,"Rango prof:","Depth range:"),min(profrange),"-",max(profrange),"m",collapse=" "),side=3,cex=.7,font=2,adj=ifelse(ceros,1,0))
+	#if(any(!is.na(profrange)) & proflab) mtext(paste(ifelse(es,"Rango prof:","Depth range:"),min(profrange),"-",max(profrange),"m",collapse=" "),side=3,cex=.7,font=2,adj=ifelse(ceros,1,0))
 	if (out.dat) {
     dumb$peso<-round(dumb$peso,3)
     if (years) dumb<-dumbcamp

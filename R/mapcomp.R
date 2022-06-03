@@ -69,7 +69,7 @@ MapComp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,in
     text(rep(-7,3),c(43,42.6,42.2),label=paste(leyenda,"ind"),pos=4,offset = 1.1,cex=1)
   }
   if (leg) legend("bottomright",c("R/V Miguel Oliver","R/V Vizconde de eza"),pch=21,pt.bg=c(cols[1],cols[2]),inset = c(.02,.03),bg="white")
-  if (!is.logical(ti)) title(main=ti,cex=1,font.main=4)
+  if (is.logical(ti)) title(main=titulo$label,cex=1,font.main=4)
   #par(mar=c(5, 4, 4, 2) + 0.1)
   if (!ceros) dat<-subset(dat,dat$numero>0)
   if(ind=="p") {dumb<-boxplot(peso~barco,dat,notch=notch,outline=F,col=c(cols[1],cols[2]),varwidth=T,xlab=NA,ylab="kg");title(ifelse(es,"Biomasa","Biomass"))}

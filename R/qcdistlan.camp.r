@@ -25,9 +25,9 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
   dumblan$rumb<-round(geosphere::bearingRhumb(dumblan[,c("longitud_l","latitud_l")],dumblan[c("longitud_v","latitud_v")]),1)
   dumblan$error.rumb<-round(dumblan$rumb-dumblan$rumbo)
   dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error | abs(dumblan$error.rumb)>pc.error,c("camp","lance","recorrido","dist.hf","vel.dist","velocidad","error.dist","error.vel","error.rumb")]
+  op<-par(no.readonly = T)
   if (plots) {
     temp<-dumblan[order(dumblan$camp,dumblan$lance),c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","vel.dist","error.dist","error.vel","rumbo","error.rumb")]
-    op<-par(no.readonly = T)
     par(mfrow=c(1,3),oma=c(0,0,2,0))
     ylims<-max(abs(temp$error.dist))*1.1
     plot(error.dist~lance,temp,cex=sqrt(abs(error.dist)),pch=21,
