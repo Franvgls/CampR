@@ -30,7 +30,7 @@ MeanMaxL.camps<- function(gr=1,esps,camps,dns="Cant",lmax=NA,incl2=FALSE,excl.se
   }
   #  dumb$year<-camptoyear(dumb$camp)
   if (plot) {
-    plot(MeanLmax~year,dumbind,type="o",pch=21,bg="grey",ylim=c(0,ceiling(max(dumbind$MeanLmax,na.rm=TRUE)*1.1)),yaxs="i",
+    plot(MeanLmax~year,dumbind,type="o",pch=21,bg="grey",ylim=c(0,ceiling(hablar::max_(dumbind$MeanLmax)*1.1)),yaxs="i",
          ylab=paste(ifelse(es,"Talla máxima media","Mean maximum length")," (",dumbdatos$unid[1],")",sep=""),xlab=ifelse(es,"Año","Year"))
     if (is.logical(ti)) {
       if (ti) {title(main=ifelse(es,"Talla máxima media","Mean maximum length"),font=2)}

@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .CampR.Rproj
+*.rda
 *.png
 *.csv
 *.bak

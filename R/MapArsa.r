@@ -65,7 +65,7 @@ MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=
     if (places) {
     points(c(-6.299667,-6.950833,-7.93204),c(36.53433,37.25833,37.02573),pch=20)
     text(-6.950833,37.25833,"Huelva",cex=.85,font=2,pos=2)
-    text(-6.299667,36.53433,"Cádiz",cex=.85,font=2,pos=3)
+    text(-6.299667,36.53433,"CÃ¡diz",cex=.85,font=2,pos=3)
     text(-7.93204,37.02573,"Faro",cex=.85,font=2,pos=3)
     text(-8,37.25,"PORTUGAL",cex=1,font=2,pos=4)
   }

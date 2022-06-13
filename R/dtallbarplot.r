@@ -22,11 +22,11 @@ dtallbarplot<-function(gr, esp, camps, dns, camp = NA, excl.sect=NA, cor.time=TR
   if (length(camp)>1) stop("Camp contiene más de una campaña, se comparan una serie de campañas contra una, o una serie de campañas contra la última de camps")
   dumb <- dtall.camp(gr, esp, camps, dns, excl.sect=excl.sect,cor.time=cor.time,out.dat = T, plot = F,years=years)
   if(!is.na(camp)) dumbc <- dtall.camp(gr, esp, camp, dns, excl.sect=excl.sect,cor.time=cor.time,out.dat = T, plot = F,years=years)
+  else dumbc<-dtall.camp(gr,esp,camps[length(camps)],dns,excl.sect=excl.sect,cor.time=cor.time,out.dat=T,plot=F,years=years)
   #if (years) {camps<-camptoyear(camps);if (!is.na(camp)) camp=camptoyear(camp)}
   mx <- ceiling(hablar::max_(c(rowMeans(dumb), dumbc)))
-  if (is.na(ymax))
-    mx <- ceiling(hablar::max_(c(rowMeans(dumb), dumbc)))
-  else {mx<-ifelse(c(mx>ymax*1.5),mx,ymax)}
+  if (is.na(ymax)) mx <- ceiling(hablar::max_(c(rowMeans(dumb), dumbc)))
+  else mx<-ymax # ifelse(c(mx>ymax*1.8),mx,ymax)}
   increm<-unid.camp(gr,esp)["INCREM"]
   medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
   op <- par(no.readonly = T)

@@ -56,9 +56,11 @@ histboxplot(
 
 \item{ceros}{por defecto incluye los valores de 0 al calcular los rangos y medianas, si T los quita, Es importante avisarlo en el la explicación de la gráfica}
 
+\item{cex.leg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
+
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
 
-\item{profrange}{Si c(profmin,profmax) filtra por ese rango de profundidadm por defecto NA no filtra profundidades}
+\item{profrange}{Si c(profmin,profmax) filtra por ese rango de profundidad por defecto NA no filtra profundidades}
 
 \item{nlans}{T por defecto presenta el número de lances en la campaña por encima del eje x}
 
@@ -67,8 +69,6 @@ histboxplot(
 \item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
 
 \item{escmult}{Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos}
-
-\item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
 }
 \value{
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,peso.gr,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis

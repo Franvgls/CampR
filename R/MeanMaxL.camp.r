@@ -30,8 +30,8 @@ MeanMaxL.camp<- function(gr=1,esps,camp,dns="Cant",lmax=NA,cor.time=TRUE,incl2=F
                                                                   " where grupo='",dumbdat$gr[i],"' and esp='",as.character(dumbdat$esps[i]),"'"))
     DBI::dbDisconnect(ch1)
     names(ntalls)<-gsub("_", ".",names(ntalls))
-    if (any(c(!incl2,!is.na(excl.sect)))) ntalls<-ntalls[ntalls$lance %in% datlan$lance,]  # quita los lances especiales si se quiere, pero sólo para Lmax
-    dumbdat$lmax[i]<-ifelse(is.na(dumbdat$lmax[i]),ifelse(dumbdat$unid[i]=="cm",max(ntalls$talla),max(ntalls$talla)/10),dumbdat$lmax[i])
+    if (any(c(!incl2,!is.na(excl.sect)))) ntalls<-ntalls[ntalls$lance %in% formatC(datlan$lance,width = 3),]  # quita los lances especiales si se quiere, pero sólo para Lmax
+    dumbdat$lmax[i]<-ifelse(is.na(dumbdat$lmax[i]),ifelse(dumbdat$unid[i]=="cm",hablar::max_(ntalls$talla),hablar::max_(ntalls$talla)/10),dumbdat$lmax[i])
   }
   if (length(unique(dumbdat$unid))>1) { message("Las especies elegidas están en distintas unidades, los mm han se han convertido a cm, revisa que es correcto") }
   ind<-weighted.mean(dumbdat$lmax,dumbdat$n,na.rm=TRUE)
