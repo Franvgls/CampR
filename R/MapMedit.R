@@ -26,6 +26,7 @@ MapMedit<-function(xlims=c(-5.7,5),ylims=c(35,43),lwdl=1,cuadr=FALSE,cuadrMSFD=F
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3)
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
   maps::map(Medits.tot,xlim=xlims,ylim=ylims,type="n",yaxs="i",xaxs="i")
+  if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
   if (cuadr) {
     abline(h=seq(35,43,by=1/12),col=gray(.6),lwd=.6)
     abline(v=seq(-6,5,by=0.089),col=gray(.6),lwd=.6)

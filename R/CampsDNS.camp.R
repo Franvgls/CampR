@@ -16,11 +16,11 @@ CampsDNS.camp<- function(dns) {
   dumb<-dumb[nchar(dumb)<9 & grepl(c("FAUNA|CAMP|NTALL|LANCE|HIDRO"),dumb)]
   camps<-data.frame(tipo="CAMP",ident=substr(dumb[grepl("CAMP",dumb)],5,7))
   camps<-rbind(camps,data.frame(tipo=substr(dumb[!grepl("CAMP",dumb)],1,5),ident=substr(dumb[!grepl("CAMP",dumb)],6,8)))
-  # camps.c<-data.frame(tipo=dumb[grepl("CAMP",dumb)],ident=substr(dumb[grepl("CAMP",dumb)],5,7))
-  # camps.l<-data.frame(tipo=dumb[grepl("LANCE",dumb)],ident=substr(dumb[grepl("LANCE",dumb)],6,8))
-  # camps.f<-data.frame(tipo=dumb[grepl("FAUNA",dumb)],ident=substr(dumb[grepl("FAUNA"),dumb],6,8))
-  # camps.t<-data.frame(tipo=dumb[grepl("NTALL",dumb)],ident=substr(dumb[grepl("NTALL"),dumb],6,8))
-  # camps.h<-data.frame(tipo=dumb[grepl("HIDRO",dumb)],ident=substr(dumb[grepl("HIDRO"),dumb],6,8))
+  camps.c<-data_frame(tipo=dumb[grepl("CAMP",dumb)],ident=substr(dumb[grepl("CAMP",dumb)],5,7))
+  camps.l<-data_frame(tipo=dumb[grepl("LANCE",dumb)],ident=substr(dumb[grepl("LANCE",dumb)],6,8))
+  camps.f<-data_frame(tipo=dumb[grepl("FAUNA",dumb)],ident=substr(dumb[grepl("FAUNA",dumb)],6,8))
+  camps.t<-data_frame(tipo=dumb[grepl("NTALL",dumb)],ident=substr(dumb[grepl("NTALL",dumb)],6,8))
+  camps.h<-data_frame(tipo=dumb[grepl("HIDRO",dumb)],ident=substr(dumb[grepl("HIDRO",dumb)],6,8))
   if (length(DBI::dbGetQuery(ch1,paste0("select IDENT from ",paste0(camps$tipo[camps$tipo=="CAMP"],camps$ident[camps$tipo=="CAMP"])[1])))>0){
     NomCamp<-cbind(camp=paste0("CAMP",camps$ident[camps$tipo=="CAMP"][1]),DBI::dbGetQuery(ch1,paste0("select IDENT from ",paste0("CAMP",camps$ident[camps$tipo=="CAMP"][1]))[1]))
   }
@@ -45,19 +45,19 @@ CampsDNS.camp<- function(dns) {
     }
   DBI::dbDisconnect(ch1)
   nombres<-NomCamp$IDENT
-  anyos<-NomCamp$anyos
+  #anyos<-NomCamp$anyos
   anyos_lan<-as.data.frame(YeCamp)$year
-  Narchs<-max(length(camps.c),length(anyos),length(camps.l),length(camps.f),length(camps.t),length(camps.h),length(nombres))
-  cbind(camps.c[order(substr(camps.c,5,7))],camps.l[order(substr(camps.l,6,8))],camps.f[order(substr(camps.f,6,8))]
-        ,camps.t[order(substr(camps.t,6,8))],camps.h[order(substr(camps.h,6,8))])
+  Narchs<-max(nrow(camps.c),nrow(camps.l),nrow(camps.f),nrow(camps.t),nrow(camps.h),length(nombres))
+  #cbind(camps.c[order(substr(camps.c,5,7))],camps.l[order(substr(camps.l,6,8))],camps.f[order(substr(camps.f,6,8))]
+  #      ,camps.t[order(substr(camps.t,6,8))],camps.h[order(substr(camps.h,6,8))])
   if (length(nombres)<Narchs) nombres<-c(nombres,rep(".",Narchs-length(nombres)))
-  if (length(camps.c)<Narchs) camps.c<-c(camps.c,rep(".",Narchs-length(camps.c)))
-  if (length(anyos)<Narchs) anyos-c(anyos,rep(".",Narchs-length(anyos)))
-  if (length(camps.l)<Narchs) camps.l<-c(camps.l,rep(".",Narchs-length(camps.l)))
+  if (length(camps.c$tipo)<Narchs) camps.c<-c(as.character(camps.c$tipo),rep(".",Narchs-nrow(camps.c)))
+  #if (length(anyos)<Narchs) anyos-c(anyos,rep(".",Narchs-length(anyos)))
+  if (length(camps.l$tipo)<Narchs) camps.l<-c(as.character(camps.l$tipo),rep(".",Narchs-nrow(camps.l)))
   if (length(anyos_lan)<Narchs) anyos_lan<-c(anyos_lan,rep(".",Narchs-length(anyos_lan)))
-  if (length(camps.f)<Narchs) camps.f<-c(camps.f,rep(".",Narchs-length(camps.f)))
-  if (length(camps.t)<Narchs) camps.t<-c(camps.t,rep(".",Narchs-length(camps.t)))
-  if (length(camps.h)<Narchs) camps.h<-c(camps.h,rep(".",Narchs-length(camps.h)))
+  if (length(camps.f$tipo)<Narchs) camps.f<-c(as.character(camps.f$tipo),rep(".",Narchs-nrow(camps.f)))
+  if (length(camps.t$tipo)<Narchs) camps.t<-c(as.character(camps.t$tipo),rep(".",Narchs-nrow(camps.t)))
+  if (length(camps.h$tipo)<Narchs) camps.h<-c(as.character(camps.h$tipo),rep(".",Narchs-nrow(camps.h)))
   message(paste("Directorio:",dumbdir))
   DD<-data.frame(NomCamp=nombres,Year=anyos,Camp=camps.c,Lance=camps.l,years=anyos_lan,Fauna=camps.f,Tallas=camps.t,Hidro=camps.h)
   DD[order(as.character(DD$Year),DD$Camp),]

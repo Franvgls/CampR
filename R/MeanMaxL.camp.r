@@ -1,7 +1,7 @@
 #' Talla máxima media del grupo de especies elegidas
 #'
 #' Debería de usar especies de un ecotipo similar (mismo gr) y sobre todo medidas en la misma unidad, por defecto divide los datos que se en el fichero especies salen en mm por 10 y el valor es utilizado en la meida ponderada, revisar que efectivamente están en mm.
-#' Para cada especie calcula la abundancia estratificada y la talla máxima, con ello hace una media ponderada, la salida
+#' Para cada especie calcula la abundancia estratificada y la talla máxima, con ello hace una media ponderada, la salida es una lista con los datos
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos (4 equinodermos 5 invertebrados habitualmente no medidos)
 #' @param esps Código de las especies seleccionadas. Si se mezclan grupos hay que introducir el mismo numero de elementos en gr que en esps
 #' @param camp Campaña de la que se extraen los datos: Demersales NYY, Porcupine PYY, Arsa primavera 1YY y Arsa otoño 2YY, Medits MYY. Para sacar resultados de varias campañas {\link{MeanMaxL.camps}}

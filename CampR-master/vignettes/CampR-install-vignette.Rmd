@@ -8,6 +8,9 @@ output:
     toc_float: true
     theme: yeti
 ---
+```{r}
+
+```
 
  Instalación de los datos 
 ------------

@@ -1,0 +1,44 @@
+---
+title: "Otros tipos de gráficos"
+author: "Fran Velasco"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteINdexEntry{Otros tipos de gráficos} 
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo=FALSE, results='hide',include=FALSE}
+library(CampR)
+```
+
+ Distribuciones de tallas
+---------------
+
+### Serie histórica:
+
+```{r tallas, fig.width=6.5,fig.height=4}
+dtall.camp(2,19,Psh[15:16],"Porc",es=F,layout=c(2,1))
+```
+
+### Edades en las tallas si hay ALK
+
+```{r talla edad, fig.width=6.5,fig.height=4,results='hide'}
+grafedtal.camp(1,43,"P09","Porc",es=FALSE,out.dat=TRUE)
+```
+
+ Abundancias estratificadas serie histórica 
+----------------
+
+### Formato _tradicional_ con boxplots y bootstrap CI:
+ 
+```{r SE+bootstrap, fig.width=6.5,fig.height=4,results='hide'}
+grafhistbox(1,79,Psh[1:17],"Porc",ci.lev = .8,DLS = F,tline = F,SE=T,cex.leg = .8)
+```
+ 
+### Gráfico con el DLS 2/5 approach
+```{r DLS, fig.width=6.5,fig.height=4,results='hide'}
+grafhistbox(1,79,Psh[1:17],"Porc",ci.lev = 0,DLS = T,tline = F,SE=F,cex.leg = .8)
+```
+

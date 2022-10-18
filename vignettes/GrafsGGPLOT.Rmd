@@ -1,6 +1,14 @@
 ---
 title: "CampR con plotly y ggplot2"
-output: html_notebook
+author: "Fran Velasco"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+vignette: |
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteINdexEntry{CampR con plotly y ggplot2} 
+  %\VignetteEncoding{UTF-8}
 ---
 
 Crear mapas de CampR con ggplot2. 
@@ -17,13 +25,13 @@ La función ggplot2::map_data permite dar formato a Porc.map para pintarlo con g
 
 
 ```{r Data}
-Porc<-map_data(Porc.map)
+Porc<-ggplot2::map_data(Porc.map) 
 head(Porc)
-hake<-maphist(1,50,"P16","Porc",out.dat=T,plot=F)
+hake<-CampR::maphist(1,50,"P16","Porc",out.dat=T,plot=F)
 ```
 
 ```{r Graf Porcupine}
-p<-ggplot(hake)+
+p<-ggplot2::ggplot(hake)+
   geom_polygon(aes(long,lat,group=group),data=Porc,fill="white",color="darkgrey")+
   geom_point(aes(x=long,y=lat,size=sqrt(numero),text=lan),color="blue")+
   scale_size_continuous(name="No. ind.")+coord_fixed(1.3)
@@ -37,13 +45,13 @@ kable(databICES(1,50,"N16","Cant"),digits=2,caption="Merluza en 2016 Cantábrico
   kable_styling(bootstrap_options="condensed",full_width=F,position="center")
 ```
 
-Nort<-map_data(Nort.map)
 ```{r Demersales datos}
+Nort<-ggplot2::map_data(Nort.map)
 head(Nort)
 ```
 
 ```{r mapas Demersales}
-ggplot(data=Nort)+geom_polygon(aes(long,lat,fill=region,group=group),col="white")+
+ggplot2::ggplot(data=Nort)+geom_polygon(aes(long,lat,fill=region,group=group),col="white")+
   coord_fixed(1.3)
 ```
 

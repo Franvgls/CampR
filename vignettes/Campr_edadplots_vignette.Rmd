@@ -1,0 +1,45 @@
+---
+title: "Edades y gráficos"
+author: "Fran Velasco"
+date: "`r Sys.Date()`"
+vignette: |
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteINdexEntry{Edades y gráficos}  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo=FALSE, results='hide',include=FALSE}
+library(CampR)
+```
+
+Claves talla edad presentes:
+----------
+
+```{r, echo=FALSE, results='markup'}
+ALKs.dns.camp(dns="Porc",camp = "P")
+```
+
+```{r, echo=FALSE, results='markup'}
+GetAlk.camp(1,43,"P14",dns="Porc",plus=8,n.ots=T)
+```
+
+Graficas:
+----------
+
+### Claves por tallas
+
+```{r, echo=FALSE, results='hide'}
+grafedtal.camps(1,43,c("P14","P15"),dns="Porc")
+```
+
+
+### Cohortes
+
+```{r, echo=FALSE, results='hide'}
+bubbage.camp(1,43,Psh[1:17],dns="Porc",plus=8,recr = 1)
+```
+
+
+```{r, echo=FALSE, results='markup'}
+logabage.camp(1,43,Psh[1:17],dns="Porc",layout=c(6,4))
+```
+

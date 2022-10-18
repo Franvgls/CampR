@@ -44,25 +44,25 @@ dtallbarplot<-function(gr, esp, camps, dns, camp = NA, excl.sect=NA, cor.time=TR
   if (is.na(camp)) {
     barplot(dumb[, ncol(dumb)], ylim = c(0, mx * 1.1), main = ifelse(years,camptoyear(camps[length(camps)]),camps[length(camps)]),
             names.arg = tallas, xlab = ax[1], ylab = ax[2],
-            space = 0, las = 2, cex.names = 0.8)
+            space = 0, las = 1, cex.names = 0.8)
     grid(nx=NA,ny=NULL,col=gray(.4))
 
   }
   else barplot(dumbc[, camp], ylim = c(0, mx * 1.1), main = ifelse(years,camptoyear(camp),camp),
                xlab = ax[1], names.arg = tallas, ylab = ifelse(es,expression("Ind.  lance "^-1),expression("Ind. haul"^-1)),
-               space = 0, las = 2, cex.names = 0.8)
+               space = 0, las =1, cex.names = 0.8)
   grid(nx=NA,ny=NULL,col=gray(.4))
   box()
   if (!is.na(camp)) {
     barplot(rowMeans(dumb[,-ncol(dumb)]), ylim = c(0, mx * 1.1), main = paste(ifelse(es,"Media ","Mean "),
                                                               ifelse(years,camptoyear(camps[1]),camps[1]), "-", ifelse(years,camptoyear(camps[length(camps)]),camps[length(camps)]), sep = ""), names.arg = tallas1,
           xlab = ax[1], ylab = ifelse(es,expression("Ind.  lance "^-1),expression("Ind. haul"^-1)),
-          space = 0, las = 2, cex.names = 0.8)
+          space = 0, las = 1, cex.names = 0.8)
   }
   else barplot(rowMeans(dumb[,1:c(ncol(dumb)-1)]), ylim = c(0, mx * 1.1), main = paste(ifelse(es,"Media ","Mean "),
                                                                                      ifelse(years,camptoyear(camps[1]),camps[1]), "-", ifelse(years,camptoyear(camps[length(camps)-1]),camps[length(camps)-1]), sep = ""), names.arg = tallas1,
                    xlab = ax[1], ylab = ifelse(es,expression("Ind.  lance "^-1),expression("Ind. haul"^-1)),
-                   space = 0, las = 2, cex.names = 0.8)
+                   space = 0, las = 1, cex.names = 0.8)
   grid(nx=NA,ny=NULL,col=gray(.4))
   box()
   if (!is.na(ti)) mtext(ti, line=0, side=3, outer=TRUE, cex=1.5,font=2)

@@ -1,12 +1,12 @@
 ---
-title: "Campañas y zonas implementadas en CampR 0.6.2"
+title: "Campañas y zonas implementadas en CampR 0.8.8"
 author: "Fran Velasco"
 package: CampR
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteINdexEntry{Campañas y zonas implementadas en CampR 0.6.2} 
+  %\VignetteINdexEntry{Campañas y zonas implementadas en CampR 0.8.8} 
   %\VignetteEncoding{UTF-8}
 ---
 

@@ -60,7 +60,7 @@ Utiliza los datos del Camp representar la variación geográfica de los índices
 \examples{
 dumbecol<-MapEcol.camp(1,999,Nsh[25:30],"Cant",ind="n",bw=TRUE,indec="simp",out.dat=TRUE,layout=c(2,3))
 dumbecol$estrato<-cut(dumbecol$prof,c(0,70,120,200,500,900),c("A1","A","B","C","D"))
-lattice::bwplot(numbesp~estrato|camp,dumbecol,horizontal=FALSE,main="NÃºmero de especies",xlab="Estrato")
+lattice::bwplot(numbesp~estrato|camp,dumbecol,horizontal=FALSE,main="Número de especies",xlab="Estrato")
 lattice::bwplot(div~estrato|camp,dumbecol,horizontal=FALSE,main="Shannon Wiener",xlab="Estrato")
 }
 \seealso{
