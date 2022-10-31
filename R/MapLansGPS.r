@@ -9,7 +9,8 @@
 #' @param col Define el color de los segmentos
 #' @param lwd Define el ancho de los segmentos
 #' @param places si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine
-#' @param Nlans se T incluye los números de lance por encima de los segmentos
+#' @param Nlans si T incluye los números de lance por encima de los segmentos
+#' @param cexlans tamaño de las etiquetas de los lances si se incluyen
 #' @param rumbo si T incluye
 #' @param ax Si T saca los ejes x e y
 #' @param bw Si T gráfico en blanco y negro por default, si F gráfico en color
@@ -19,7 +20,7 @@
 #' @family mapas
 #' @family PescaWin
 #' @export
-MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,rumbo=FALSE,es=TRUE,bw=FALSE,ax=TRUE) {
+MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,cexlans=.8,rumbo=FALSE,es=TRUE,bw=FALSE,ax=TRUE) {
   #if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
   lan<-datlan.camp(camp,dns,redux=FALSE,incl2=TRUE,incl0=TRUE)
   lannul<-lan[lan$validez==0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
@@ -47,7 +48,7 @@ MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,p
   segments(lan$longitud_l,lan$latitud_l,lan$longitud_v,lan$latitud_v,col=col,lwd=lwd)
   if (rumbo) points(lan$longitud_v,lan$latitud_v,pch=21,bg=2,col=1,cex=.8)
   if (incl0) segments(lannul$longitud_l,lannul$latitud_l,lannul$longitud_v,lannul$latitud_l,col=2,lwd=2)
-  if (Nlans) text(latitud_v~longitud_v,lan,label=lan$lance,pos=1,cex=.8)
-  if (Nlans & incl0) text(latitud_v~longitud_v,lannul,label=lannul$lance,pos=1,cex=.8,col=2)
+  if (Nlans) text(latitud_v~longitud_v,lan,label=lan$lance,pos=1,cex=cexlans,font=2,offset=.05)
+  if (Nlans & incl0) text(latitud_v~longitud_v,lannul,label=lannul$lance,pos=1,cex=cexlans,col=2,font=2)
 }
 

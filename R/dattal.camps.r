@@ -14,12 +14,13 @@
 #' @param ti Si T en el gráfico muestra el nombre de la especie y el rango de tallas comprendido
 #' @param las Controla el sentido de las etiquetas del gráfico, 2 perpendicular al eje, mejor para etiquetas de años
 #' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
+#' @param grid Si plot=T incluye un grid horizontal para comparar mejor los límites de las barras.
 #' @param es Si T gráfico en castellano, si F gráfico en inglés
 #' @return Devuelve un vector con nombre con el número estratificado del rango de tallas deseados por campaña/año. Si se solicita plot=TRUE saca un gráfico de barras que muestra la abundancia por año. En peso sólo saca los resultados para una especie.
 #' @examples dattal.camps(2,19,Psh,"Porc",1,15,ind="n",plot=TRUE)
 #' @seealso {\link{dattal.camp}}
 #' @export
-dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect=NA,years=TRUE,ind="n",ti=TRUE,las=2,plot=FALSE,es=FALSE,bw=TRUE) {
+dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect=NA,years=TRUE,ind="n",ti=TRUE,las=2,plot=FALSE,grid=TRUE,es=FALSE,bw=TRUE) {
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   if (length(esp)>1 & ind=="p") stop("No se pueden calcular las regresiones talla peso de más de una especie, considera usar calculos espec?ficos y sumarlos")
@@ -57,6 +58,8 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
     yetiq<-ifelse(es,expression("Ind"%*%"lan"^-1),expression("Ind"%*%"haul"^-1))
     datos<-colSums(dumbtal[,2:ncol(dumbtal)],na.rm=TRUE)
     barplot(datos,ylim=c(0,max(datos)*1.1),names.arg=colnames(datos),col=ifelse(bw,"grey","steelblue"),space=0,ylab=yetiq,las=las)
+    if (grid) grid(NA,NULL,lty="dashed",col="gray")
+    barplot(datos,add=T,col=ifelse(bw,"grey","steelblue"),space=0,ylab=yetiq,las=las)
     box()
     if (ti) {
        title(main=buscaesp(gr,esp),font.main=4,line=2)
