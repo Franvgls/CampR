@@ -14,6 +14,7 @@ MapLansGPS(
   lwd = 2,
   places = TRUE,
   Nlans = FALSE,
+  cexlans = 0.8,
   rumbo = FALSE,
   es = TRUE,
   bw = FALSE,
@@ -37,7 +38,9 @@ MapLansGPS(
 
 \item{places}{si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine}
 
-\item{Nlans}{se T incluye los números de lance por encima de los segmentos}
+\item{Nlans}{si T incluye los números de lance por encima de los segmentos}
+
+\item{cexlans}{tamaño de las etiquetas de los lances si se incluyen}
 
 \item{rumbo}{si T incluye}
 

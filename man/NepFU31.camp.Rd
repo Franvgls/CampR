@@ -2,7 +2,7 @@
 % Please edit documentation in R/NepFU31.camp.R
 \name{NepFU31.camp}
 \alias{NepFU31.camp}
-\title{Información anual sobre cigala por FUs en el Cantábrico y Galicia}
+\title{Información anual sobre cigala en la FU31 en el Cantábrico}
 \usage{
 NepFU31.camp(
   camp = camp,
@@ -11,7 +11,7 @@ NepFU31.camp(
   es = FALSE,
   ti = TRUE,
   ICESlab = TRUE,
-  ICESrectcol = 2,
+  ICESrectcol = 1,
   ICESrect = TRUE,
   FU = 31,
   places = TRUE,
@@ -20,9 +20,9 @@ NepFU31.camp(
 )
 }
 \arguments{
-\item{camp}{Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
+\item{camp}{Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX"}
 
-\item{dns}{Sólo disponible para el Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las RODBCs}
+\item{dns}{Sólo disponible para el Cantábrico "Cant", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las RODBCs}
 
 \item{plot}{Saca el gráfico (T) o lo omite para dejar sólo los datos (F)}
 
@@ -62,10 +62,12 @@ Si se detecta este error revisar la estructura de lanceXXX.dbf con la de
 otros ficheros de lances de los últimos años
 }
 \examples{
-  NepFU30.camp("N21")
+  NepFU31.camp("N21")
 }
 \seealso{
 Other mapas, NEP: 
-\code{\link{NepFU25.camp}()}
+\code{\link{NepFU25.camp}()},
+\code{\link{NepFU26.camp}()},
+\code{\link{NepFU30.camp}()}
 }
 \concept{mapas, NEP}

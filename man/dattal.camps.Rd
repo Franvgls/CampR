@@ -18,6 +18,7 @@ dattal.camps(
   ti = TRUE,
   las = 2,
   plot = FALSE,
+  grid = TRUE,
   es = FALSE,
   bw = TRUE
 )
@@ -48,6 +49,8 @@ dattal.camps(
 \item{las}{Controla el sentido de las etiquetas del gráfico, 2 perpendicular al eje, mejor para etiquetas de años}
 
 \item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
+
+\item{grid}{Si plot=T incluye un grid horizontal para comparar mejor los límites de las barras.}
 
 \item{es}{Si T gráfico en castellano, si F gráfico en inglés}
 }

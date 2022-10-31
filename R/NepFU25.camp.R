@@ -28,7 +28,7 @@
 #' @examples
 #'   NepFU25.camp("N21")
 #' @export
-NepFU25.camp<-function(camp=camp,dns="Cant",plot=TRUE,es=FALSE,ti=TRUE,ICESlab=TRUE,
+NepFU25.camp<-function(camp=camp,dns="Cant",plot=TRUE,es=FALSE,ti=TRUE,ICESlab=FALSE,
                       ICESrectcol=1,ICESrect=TRUE,FU=25,places=TRUE,out.dat=TRUE) {
   Nep<-maphist(2,19,camp,"Cant",plot=F,out.dat=T)
   Nep_25<-subset(Nep,c(long<c(-7.9) &lat>c(43) & lat<(44.5)))

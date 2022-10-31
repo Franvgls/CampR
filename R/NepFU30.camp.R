@@ -28,14 +28,14 @@
 #' @examples
 #'   NepFU30.camp("N21")
 #' @export
-NepFU30.camp<-function(camp=camp,dns="Arsa",trimes=4,plot=TRUE,es=FALSE,ti=TRUE,ICESlab=TRUE,
+NepFU30.camp<-function(camp=camp,dns="Arsa",trimes=4,plot=TRUE,es=FALSE,ti=TRUE,ICESlab=FALSE,
                       ICESrectcol=1,ICESrect=TRUE,FU=30,places=TRUE,out.dat=TRUE,bw=FALSE) {
   Nep<-maphist(2,19,camp,"Arsa",plot=F,out.dat=T)
   Nep_30<-subset(Nep,c(long>c(-10) & long<c(-8.5) & lat<c(43.005) & lat>42.005))
   lans_FU30<-datlan.camp(camp,"Arsa",redux=T,incl2=T)
   #lans_FU30<-rbind(lans_FU30,dplyr::filter(datlan.camp(Nsh,"Arsa",redux=T,incl2=T),c(long>c(-3) & long<c(-2) & lat >c(43) & lat<(44))))
   MapArsa(ICESrect = ICESrect,bw=bw,ICESlab = ICESlab,ICESrectcol = ICESrectcol,xlims = c(-7.7,-6),ylims = c(36,37.3))
-  title(main=camptoyear(camp),line=1.5,sub=paste("FU 30 Nep Catch (n)= ",
+  title(main=paste(camptoyear(camp),ifelse(substr(camp,1,1)==1,"Q1","Q4")),line=1.5,sub=paste("FU 30 Nep Catch (n)= ",
                                                    sum(Nep_30[Nep_30$camp==camp,"numero"])),cex.sub=1.2,cex.main=2)
   points(lat~long,Nep,subset=c(peso.gr>0 & camp==camp),cex=sqrt(Nep$numero/5),pch=21,col=2,bg=2)
   points(lat~long,Nep,subset=c(peso.gr==0 & camp==camp),cex=.7,pch=21,col=1,bg=1)

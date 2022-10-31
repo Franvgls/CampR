@@ -26,9 +26,9 @@
 #' @return Produce un gráfico con los lances en los que ha habido cigala en el lance y especialmente los lances en cada FU dentro de Demersales FU25,FU26 y FU31
 #' @family mapas, NEP
 #' @examples
-#'   NepFU30.camp("N21")
+#'   NepFU31.camp("N21")
 #' @export
-NepFU31.camp<-function(camp=camp,dns="Cant",plot=TRUE,es=FALSE,ti=TRUE,ICESlab=TRUE,
+NepFU31.camp<-function(camp=camp,dns="Cant",plot=TRUE,es=FALSE,ti=TRUE,ICESlab=FALSE,
                       ICESrectcol=1,ICESrect=TRUE,FU=31,places=TRUE,out.dat=TRUE,bw=FALSE) {
   Nep<-maphist(2,19,camp,"Cant",plot=F,out.dat=T)
   Nep_31<-rbind(subset(Nep,c(long>c(-7) & long<c(-3) & lat <c(44) & lat>43.5)),subset(Nep,c(long>c(-3) & long<c(-2) & lat <c(44) & lat>43)))
