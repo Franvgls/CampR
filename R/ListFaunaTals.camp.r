@@ -1,4 +1,4 @@
-#' Capturas y tallas mínima y máxima de grupos de especies para todos los lances de una campaña
+#' Capturas y tallas mínima y máxima de grupos de especies para todos los lances de una campaña **permite incluir lances especiales**
 #'
 #' @description Muestras las abundancias totales **sin estratificar**, en número y peso y las tallas mínima y máxima de un grupo taxonómico de especies para todos los lances de una campaña. Hay que tener en cuenta que en numerosas especies de invertebrados no se toman datos de tallas, sobre todo históricamente, por lo que para estos taxones Lmin y Lmax resultan NA
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados. 6 desechos y no orgánicos no se puede incluir.

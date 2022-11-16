@@ -1,4 +1,4 @@
-#' Listado de especies por campaña sin  datos de las especies del grupo, sólo nombres
+#' Listado de especies por campaña sin  datos de las especies del grupo, sólo nombres permite añadir los lances especiales
 #'
 #' @details Muestra un listado de todas las especies capturadas del grupo gr. se puede utilizar para sacar listado de todos los lances o sólo de los estándares. Si hay especies con código desonocido aparecen al final del listado#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros.
 #' @param camp Campaña de la que se extrae el listado de especies capturadas: un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
@@ -8,7 +8,7 @@
 #' @param getaphia si T busca en internet (debe estar disponible) los códigos AphiaID de las especies en cuestión
 #' @param verbose si T saca en pantalla, si F no salen en pantalla
 #' @return Devuelve un data.frame con el listado de taxones (especies) del grupo gr encontradas en la campaña
-#' @examples Fauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA)
+#' @examples Fauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA,getaphia=TRUE)
 #' @family ListadosFauna
 #' @export
 Fauna.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE,verbose=FALSE,getaphia=FALSE) {
@@ -40,7 +40,7 @@ Fauna.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE,verbose=FALSE,geta
     dumbresa<-filter(dumbres,especie=="ERROR CODIGO DESCONOCIDO")
     dumbres<-filter(dumbres,especie!="ERROR CODIGO DESCONOCIDO")
     for (i in 1:nrow(dumbres)) dumbres$AphiaID[i]<-worms::wormsbynames(dumbres$especie[i],verbose=verbose)$AphiaID
-  }
-  #dumbres<-rbind(dumbres,dumbresa)
-  rbind(dumbres[order(as.character(dumbres$especie,decreasing=FALSE)),],dumbresa)
+    rbind(dumbres[order(as.character(dumbres$especie,decreasing=FALSE)),],dumbresa)
+    }
+  else dumbres[order(as.character(dumbres$especie,decreasing=F)),c("gr","esp","especie")]#dumbres<-rbind(dumbres,dumbresa)
   }

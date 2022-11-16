@@ -1,4 +1,4 @@
-#' Capturas medias por lance de cada especie de gr (grupo) de varias campañas
+#' Capturas medias por lance de cada especie de gr (grupo) de varias campañas *Solo lances estándar, para incluir especiales utilizar fauna.camp o ListFauna.lans*
 #'
 #' Ver documentación ListFauna.camp
 #' @details Por defecto extrae los datos de todos los grupos taxonómicos menos el 6 (deshechos y no orgánicos), sólo se puede utilizar para los lances estándares y los resultados responden a las abundancias estandarizadas, sólo incluyen los lances estándare, ni extras  ni fuera de estatos áreas de la campaña. Para incluir estos lances utilizar las funciones de ListFaunaTals

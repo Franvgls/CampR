@@ -5,11 +5,13 @@
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 desechos y otros
 #' @param esp Código de la especie numérico o carácter con tres espacios. Función para una sola especie
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
-#' @param tablas Si T muestra al final de los resultados una lista con todos los ficheros de definición (CAMP), fauna y tallas presentes en el directorio.
+#' @param tablas Si T muestra al final de los resultados una lista con todos los ficheros de definición (CAMP con su identificador de campaña), fauna y tallas presentes en el directorio.
+#' @param redux si T no incluye los datos de las campañas en las que no aparece la especie, sólo los positivos, para ver todas las campañas en directorio mejor {\link\{ListCamps}}
 #' @return Devuelve dos vectores con las campañas con presencia de la especie, y con las campañas con datos de talla de la especie. Tb incluye información sobre campañas que no tienen datos en el fichero FAUNAXXX.dbf y/o NTALLXXX.dbf
 #' @examples PresenciaEsp.camp(1,220,"Porc")
+#' @family Series datos
 #' @export
-PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
+PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE,redux=TRUE) {
    if (any(length(esp)>1 | esp=="999" | gr=="9")) stop("Seleccionadas mas de una especie, función para sólo una especie")
    esp<-format(esp,width=3,justify="r")
    ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -20,6 +22,12 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
    camps.f<-substr(dumb[grepl("FAUNA",dumb)],6,8)
    camps.t<-substr(dumb[grepl("NTALL",dumb)],6,8)
    camps.c<-substr(dumb[grepl("CAMP",dumb)],5,7)
+   if (nrow(DBI::dbGetQuery(ch1,paste0("select IDENT from CAMP",camps.c[1])))>0){
+      idCamp<-as.character(DBI::dbGetQuery(ch1,paste0("select IDENT from CAMP",camps.c[1])))
+   }
+   for (i in 2:length(camps.c)) {
+      idCamp<-c(idCamp,as.character(DBI::dbGetQuery(ch1,paste0("select IDENT from CAMP",camps.c[i]))))
+   }
    if (nrow(DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[1]," where grupo='",gr,"' and esp='",esp,"'")))>0){
      fauna<-cbind(camp=camps.f[1],DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camps.f[1]," where grupo='",gr,"' and esp='",esp,"'")))
    }
@@ -50,7 +58,7 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
    }
    else {
    absp<-fauna[fauna$GRUPO==as.integer(gr) & fauna$ESP==as.integer(esp),c(1:2,4:5)]
-   if (nrow(tallas)==0) {
+   if (nrow(tallas)==0 & !redux) {
      message(paste("No hay datos de tallas",buscaesp(gr,esp),"en ninguna campaña del directorio",dumbdir))
      ntalls<-tallas
         }
@@ -63,14 +71,14 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE) {
    message(paste0("En el directorio ",dumbdir,": "))
    if (length(levels(absp$camp))>0) {
       message(paste0(buscaesp(gr,esp)," aparece en las campañas: ",paste(levels(absp$camp),sep=", ",collapse=", ")))
-      if(sum(!camps.t %in% levels(absp$camp))>0) message(paste0("no aparece en las campañas ",paste(camps.f[!camps.t %in% levels(absp$camp)],collapse=", ")))
+      if(sum(!camps.t %in% levels(absp$camp))>0 & !redux) message(paste0("no aparece en las campañas ",paste(camps.f[!camps.t %in% levels(absp$camp)],collapse=", ")))
       if (length(levels(ntalls$camp))>0) {
         message(paste0("Hay datos de tallas de ",buscaesp(gr,esp)," en las campañas: ",paste(levels(ntalls$camp),collapse=", ")))
-        if(sum(!camps.t %in% levels(ntalls$camp))>0) message(paste0("no hay datos de tallas en las campañas ",paste(camps.t[!camps.t %in% levels(ntalls$camp)],collapse=", ")))
+        if(sum(!camps.t %in% levels(ntalls$camp))>0 & !redux) message(paste0("no hay datos de tallas en las campañas ",paste(camps.t[!camps.t %in% levels(ntalls$camp)],collapse=", ")))
       }
       else message(paste("No hay información de tallas para",buscaesp(gr,esp)))
    }
-   if (tablas) data.table(campanas=dumb[grepl("CAMP",dumb)],faunas=dumb[grepl("FAUNA",dumb)],tallas=dumb[grepl("NTALL",dumb)])
+   if (tablas) data.table(campanas=dumb[grepl("CAMP",dumb)],idCamps=idCamp,faunas=dumb[grepl("FAUNA",dumb)],tallas=dumb[grepl("NTALL",dumb)])
    }
    }
 
