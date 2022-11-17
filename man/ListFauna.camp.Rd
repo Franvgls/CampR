@@ -2,7 +2,7 @@
 % Please edit documentation in R/ListFauna.camp.r
 \name{ListFauna.camp}
 \alias{ListFauna.camp}
-\title{Capturas medias estratificadas por lance de cada especie de gr (grupo) en una campaña}
+\title{Capturas medias estratificadas por lance de cada especie de gr (grupo) en una campaña \emph{No saca datos de los lance especiales}}
 \usage{
 ListFauna.camp(
   gr = "1",
@@ -31,7 +31,7 @@ ListFauna.camp(
 Devuelve un data.frame con las capturas medias por lance de cada especie capturada del grupo gr. Columnas: gr,esp,especie,peso(kg),número,nlan (nº de lances en que ha aparecido esp) Los valores NaN en las abundancias corresponden a especies que sólo han aparecido en los lances especiales, y que no puede calcularse la abundancia estratificada al no contar con áreas para los estratos en que aparecen
 }
 \description{
-Capturas medias estratificadas por lance de cada especie de gr (grupo) en una campaña
+Capturas medias estratificadas por lance de cada especie de gr (grupo) en una campaña \emph{No saca datos de los lance especiales}
 }
 \details{
 Muestra un listado de la biomasa y número estratificados medios de todas las especies capturadas del grupo gr. \emph{Es importante tener en cuenta que sólo sirve para los lances estándares} y no tiene en cuenta los datos de los lances especiales. \emph{Para sacar resultados con lances especiales y fuera de estratos de profundidad utilizar ListFaunaTals.camp o Fauna.camp para tener solo el listado de especies}.
@@ -42,6 +42,7 @@ ListFauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA)
 \seealso{
 Other ListadosFauna: 
 \code{\link{Fauna.camp}()},
+\code{\link{ListFauna.camps}()},
 \code{\link{ListFauna.groups}()},
 \code{\link{ListFauna.lans}()},
 \code{\link{ListFauna.lan}()},

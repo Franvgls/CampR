@@ -1,6 +1,6 @@
 #' Mapa del Golfo de Cádiz
 #'
-#' Funci�n auxiliar para sacar mapas de la campaña ARSA
+#' Funci?n auxiliar para sacar mapas de la campaña ARSA
 #' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param lwdl Ancho de las líneas del mapa

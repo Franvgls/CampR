@@ -10,7 +10,7 @@ NepFU25.camp(
   plot = TRUE,
   es = FALSE,
   ti = TRUE,
-  ICESlab = TRUE,
+  ICESlab = FALSE,
   ICESrectcol = 1,
   ICESrect = TRUE,
   FU = 25,

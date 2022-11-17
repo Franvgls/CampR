@@ -2,7 +2,7 @@
 % Please edit documentation in R/ListFauna.groups.R
 \name{ListFauna.groups}
 \alias{ListFauna.groups}
-\title{Capturas medias por lance de cada especie de gr (grupo) de varias campañas}
+\title{Capturas medias por lance de cada especie de gr (grupo) de varias campañas \emph{Solo lances estándar, para incluir especiales utilizar fauna.camp o ListFauna.lans}}
 \usage{
 ListFauna.groups(
   camp,
@@ -37,6 +37,7 @@ ListFauna.groups(Nsh[length(Nsh)],"Cant",excl.sect=NA,incl2=TRUE)
 \seealso{
 Other ListadosFauna: 
 \code{\link{Fauna.camp}()},
+\code{\link{ListFauna.camps}()},
 \code{\link{ListFauna.camp}()},
 \code{\link{ListFauna.lans}()},
 \code{\link{ListFauna.lan}()},

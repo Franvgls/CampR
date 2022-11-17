@@ -2,7 +2,7 @@
 % Please edit documentation in R/ListFaunaTals.camp.r
 \name{ListFaunaTals.camp}
 \alias{ListFaunaTals.camp}
-\title{Capturas y tallas mínima y máxima de grupos de especies para todos los lances de una campaña}
+\title{Capturas y tallas mínima y máxima de grupos de especies para todos los lances de una campaña \strong{permite incluir lances especiales}}
 \usage{
 ListFaunaTals.camp(
   gr = "1",
@@ -37,6 +37,7 @@ ListFaunaTals.camp(gr="1",camp="N90",dns="Cant",excl.sect=NA,profrange=c(400,500
 \seealso{
 Other ListadosFauna: 
 \code{\link{Fauna.camp}()},
+\code{\link{ListFauna.camps}()},
 \code{\link{ListFauna.camp}()},
 \code{\link{ListFauna.groups}()},
 \code{\link{ListFauna.lans}()},

@@ -57,7 +57,7 @@ MapArsa(
 Saca en pantalla el mapa y es utilizada por otras funciones
 }
 \description{
-Función auxiliar para sacar mapas de la campaña ARSA
+Funci?n auxiliar para sacar mapas de la campaña ARSA
 }
 \examples{
 MapArsa()

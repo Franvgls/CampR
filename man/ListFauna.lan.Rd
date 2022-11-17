@@ -29,6 +29,7 @@ ListFauna.lan("12C","Cant",1,gr=c(1,2))
 \seealso{
 Other ListadosFauna: 
 \code{\link{Fauna.camp}()},
+\code{\link{ListFauna.camps}()},
 \code{\link{ListFauna.camp}()},
 \code{\link{ListFauna.groups}()},
 \code{\link{ListFauna.lans}()},

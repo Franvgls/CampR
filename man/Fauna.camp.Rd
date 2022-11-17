@@ -2,7 +2,7 @@
 % Please edit documentation in R/Fauna.camp.r
 \name{Fauna.camp}
 \alias{Fauna.camp}
-\title{Listado de especies por campaña sin  datos de las especies del grupo, sólo nombres}
+\title{Listado de especies por campaña sin  datos de las especies del grupo, sólo nombres permite añadir los lances especiales}
 \usage{
 Fauna.camp(
   gr = "1",
@@ -31,16 +31,17 @@ Fauna.camp(
 Devuelve un data.frame con el listado de taxones (especies) del grupo gr encontradas en la campaña
 }
 \description{
-Listado de especies por campaña sin  datos de las especies del grupo, sólo nombres
+Listado de especies por campaña sin  datos de las especies del grupo, sólo nombres permite añadir los lances especiales
 }
 \details{
 Muestra un listado de todas las especies capturadas del grupo gr. se puede utilizar para sacar listado de todos los lances o sólo de los estándares. Si hay especies con código desonocido aparecen al final del listado#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros.
 }
 \examples{
-Fauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA)
+Fauna.camp(gr=1,camp="N12",dns="Cant",excl.sect=NA,getaphia=TRUE)
 }
 \seealso{
 Other ListadosFauna: 
+\code{\link{ListFauna.camps}()},
 \code{\link{ListFauna.camp}()},
 \code{\link{ListFauna.groups}()},
 \code{\link{ListFauna.lans}()},

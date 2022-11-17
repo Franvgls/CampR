@@ -2,7 +2,7 @@
 % Please edit documentation in R/ListFauna.camps.R
 \name{ListFauna.camps}
 \alias{ListFauna.camps}
-\title{Capturas medias por lance de cada especie de gr (grupo) de varias campañas}
+\title{Capturas medias por lance de cada especie de gr (grupo) de varias campañas \emph{Solo lances estándar, para incluir lances especiales utilizar Fauna.camp o ListFauna.lans}}
 \usage{
 ListFauna.camps(gr = "1", camps, dns, cor.time = TRUE, excl.sect = NA)
 }
@@ -28,5 +28,14 @@ ListFauna.camps(gr="1",Nsh[25:27],"Cant",excl.sect=NA)
 ListFauna.camps(gr="1",Nsh[25:26],"Cant",excl.sect="A")
 }
 \seealso{
-{\link{ListFauna.camp}}
+Other ListadosFauna: 
+\code{\link{Fauna.camp}()},
+\code{\link{ListFauna.camp}()},
+\code{\link{ListFauna.groups}()},
+\code{\link{ListFauna.lans}()},
+\code{\link{ListFauna.lan}()},
+\code{\link{ListFaunaTals.camps}()},
+\code{\link{ListFaunaTals.camp}()},
+\code{\link{ListFaunaTals.groups}()}
 }
+\concept{ListadosFauna}

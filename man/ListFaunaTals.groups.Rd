@@ -34,6 +34,7 @@ ListFauna.groups(Nsh[length(Nsh)],"Cant",excl.sect=NA,incl2=TRUE)
 \seealso{
 Other ListadosFauna: 
 \code{\link{Fauna.camp}()},
+\code{\link{ListFauna.camps}()},
 \code{\link{ListFauna.camp}()},
 \code{\link{ListFauna.groups}()},
 \code{\link{ListFauna.lans}()},

@@ -20,8 +20,11 @@ Serie completa con las campañas realizadas en Porcupine Bank
 Other Series datos: 
 \code{\link{As1}},
 \code{\link{As2}},
+\code{\link{ListCamps_b}()},
+\code{\link{ListCamps}()},
 \code{\link{Msh}},
-\code{\link{Nsh}}
+\code{\link{Nsh}},
+\code{\link{PresenciaEsp.camp}()}
 
 Other Porcupine: 
 \code{\link{MapPorc}()},
