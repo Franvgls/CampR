@@ -11,7 +11,7 @@
 
 <meta name="author" content="Fran Velasco" />
 
-<meta name="date" content="2022-08-05" />
+<meta name="date" content="2022-11-22" />
 
 <title>Instalación de datos para CampR</title>
 
@@ -171,7 +171,7 @@ pre code {
 
 <h1 class="title toc-ignore">Instalación de datos para CampR</h1>
 <h4 class="author">Fran Velasco</h4>
-<h4 class="date">2022-08-05</h4>
+<h4 class="date">2022-11-22</h4>
 
 </div>
 
@@ -209,6 +209,155 @@ pre code {
 </ul>
 <p>Cada DSN debera redirigirse al directorio con los datos respectivos y utilizar un controlador que acepte la versión Dbase III, es decir odbcad32.exe</p>
 <p><img src="data:image/png;base64,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" /></p>
+</div>
+<div id="campañas-y-ficheros-de-ellas-presentes-en-el-dns" class="section level2">
+<h2>Campañas y ficheros de ellas presentes en el DNS:</h2>
+<p>En CampR existen algunas funciones para explorar los datos disponibles en cada dirección o DNS:</p>
+<ul>
+<li><B> ListCamps(dns=“Xxxx”,tablas=TRUE)</B>: en este caso ficheros de la campaña “Porcupine”</li>
+</ul>
+<pre><code>## Directorio: C:\CAMP\PORC</code></pre>
+<pre><code>##                 NomCamp Year    Camp Lance.tipo Fauna.tipo   Tallas    Edad
+## 1      PORCUPINE 01 new 2001 CAMPP01   LANCEP01   FAUNAP01 NTALLP01 EDADP01
+## 2    Porcupine 2002 new 2002 CAMPP02   LANCEP02   FAUNAP02 NTALLP02 EDADP02
+## 25                    . 2003       .   LANCEPI3   FAUNAPI3        .       .
+## 3        Porcupine 2003 2003 CAMPP03   LANCEP03   FAUNAP03 NTALLP03 EDADP03
+## 23 Porcupine Red Irland 2003 CAMPPI3   LANCEPE3   FAUNAPE3 NTALLPE3 EDADPI3
+## 4        Porcupine 2004 2004 CAMPP04   LANCEP04   FAUNAP04 NTALLP04 EDADP04
+## 24                    . 2005       .   LANCEPE5   FAUNAPE5 NTALLPI3       .
+## 5        Porcupine 2005 2005 CAMPP05   LANCEP05   FAUNAP05 NTALLP05 EDADP05
+## 6        Porcupine 2006 2006 CAMPP06   LANCEP06   FAUNAP06 NTALLP06 EDADP06
+## 7        Porcupine 2007 2007 CAMPP07   LANCEP07   FAUNAP07 NTALLP07 EDADP07
+## 8        Porcupine 2008 2008 CAMPP08   LANCEP08   FAUNAP08 NTALLP08 EDADP08
+## 9        Porcupine 2009 2009 CAMPP09   LANCEP09   FAUNAP09 NTALLP09 EDADP09
+## 10       Porcupine 2010 2010 CAMPP10   LANCEP10   FAUNAP10 NTALLP10 EDADP10
+## 11       Porcupine 2011 2011 CAMPP11   LANCEP11   FAUNAP11 NTALLP11 EDADP11
+## 12       Porcupine 2012 2012 CAMPP12   LANCEP12   FAUNAP12 NTALLP12 EDADP12
+## 13       Porcupine 2013 2013 CAMPP13   LANCEP13   FAUNAP13 NTALLP13 EDADP13
+## 14       Porcupine 2014 2014 CAMPP14   LANCEP14   FAUNAP14 NTALLP14 EDADP14
+## 15       Porcupine 2015 2015 CAMPP15   LANCEP15   FAUNAP15 NTALLP15 EDADP15
+## 16       Porcupine 2016 2016 CAMPP16   LANCEP16   FAUNAP16 NTALLP16 EDADP16
+## 17       Porcupine 2017 2017 CAMPP17   LANCEP17   FAUNAP17 NTALLP17 EDADP17
+## 18       Porcupine 2018 2018 CAMPP18   LANCEP18   FAUNAP18 NTALLP18 EDADP18
+## 19       Porcupine 2019 2019 CAMPP19   LANCEP19   FAUNAP19 NTALLP19 EDADP19
+## 20       Porcupine 2020 2020 CAMPP20   LANCEP20   FAUNAP20 NTALLP20 EDADP20
+## 21       Porcupine 2021 2021 CAMPP21   LANCEP21   FAUNAP21 NTALLP21 EDADP21
+## 22       Porcupine 2022 2022 CAMPP22   LANCEP22   FAUNAP22 NTALLP22 EDADP22
+##       Hidro
+## 1  HIDROP01
+## 2  HIDROP02
+## 25        .
+## 3  HIDROP03
+## 23 HIDROPI3
+## 4  HIDROP04
+## 24        .
+## 5  HIDROP05
+## 6  HIDROP06
+## 7  HIDROP07
+## 8  HIDROP08
+## 9  HIDROP09
+## 10 HIDROP10
+## 11 HIDROP11
+## 12 HIDROP12
+## 13 HIDROP13
+## 14 HIDROP14
+## 15 HIDROP15
+## 16 HIDROP16
+## 17 HIDROP17
+## 18 HIDROP18
+## 19 HIDROP19
+## 20 HIDROP20
+## 21 HIDROP21
+## 22 HIDROP22</code></pre>
+<ul>
+<li><B> ListCamps(dns=“Xxxx”,tablas=TRUE)</B>: en este caso ficheros de la campaña “Demersales”</li>
+</ul>
+<pre><code>## [1] &quot;12C&quot;      &quot;EDAD12C&quot;  &quot;CAMP12C&quot;  &quot;LANCE12C&quot; &quot;FAUNA12C&quot; &quot;NTALL12C&quot;
+## [1] &quot;201&quot;      &quot;EDAD201&quot;  &quot;CAMP201&quot;  &quot;LANCE201&quot; &quot;FAUNA201&quot; &quot;NTALL201&quot;
+## [1] &quot;B97&quot;      &quot;EDADB97&quot;  &quot;CAMPB97&quot;  &quot;LANCEB97&quot; &quot;FAUNAB97&quot; &quot;NTALLB97&quot;
+## [1] &quot;C02&quot;      &quot;EDADC02&quot;  &quot;CAMPC02&quot;  &quot;LANCEC02&quot; &quot;FAUNAC02&quot; &quot;NTALLC02&quot;
+## [1] &quot;C12&quot;      &quot;EDADC12&quot;  &quot;CAMPC12&quot;  &quot;LANCEC12&quot; &quot;FAUNAC12&quot; &quot;NTALLC12&quot;
+## [1] &quot;C13&quot;      &quot;EDADC13&quot;  &quot;CAMPC13&quot;  &quot;LANCEC13&quot; &quot;FAUNAC13&quot; &quot;NTALLC13&quot;
+## [1] &quot;C14&quot;      &quot;EDADC14&quot;  &quot;CAMPC14&quot;  &quot;LANCEC14&quot; &quot;FAUNAC14&quot; &quot;NTALLC14&quot;
+## [1] &quot;C97&quot;      &quot;EDADC97&quot;  &quot;CAMPC97&quot;  &quot;LANCEC97&quot; &quot;FAUNAC97&quot; &quot;NTALLC97&quot;
+## [1] &quot;C98&quot;      &quot;EDADC98&quot;  &quot;CAMPC98&quot;  &quot;LANCEC98&quot; &quot;FAUNAC98&quot; &quot;NTALLC98&quot;
+## [1] &quot;D84&quot;      &quot;EDADD84&quot;  &quot;CAMPD84&quot;  &quot;LANCED84&quot; &quot;FAUNAD84&quot; &quot;NTALLD84&quot;
+## [1] &quot;D87&quot;     &quot;EDADD87&quot;
+## [1] &quot;D88&quot;      &quot;EDADD88&quot;  &quot;CAMPD88&quot;  &quot;LANCED88&quot; &quot;FAUNAD88&quot; &quot;NTALLD88&quot;
+## [1] &quot;F97&quot;      &quot;EDADF97&quot;  &quot;CAMPF97&quot;  &quot;LANCEF97&quot; &quot;FAUNAF97&quot; &quot;NTALLF97&quot;
+## [1] &quot;F98&quot;      &quot;EDADF98&quot;  &quot;CAMPF98&quot;  &quot;LANCEF98&quot; &quot;FAUNAF98&quot; &quot;NTALLF98&quot;
+## [1] &quot;G97&quot;      &quot;EDADG97&quot;  &quot;CAMPG97&quot;  &quot;LANCEG97&quot; &quot;FAUNAG97&quot; &quot;NTALLG97&quot;
+## [1] &quot;M97&quot;      &quot;EDADM97&quot;  &quot;CAMPM97&quot;  &quot;LANCEM97&quot; &quot;FAUNAM97&quot; &quot;NTALLM97&quot;
+## [1] &quot;MER&quot;     &quot;EDADMER&quot;
+## [1] &quot;N00&quot;      &quot;EDADN00&quot;  &quot;CAMPN00&quot;  &quot;LANCEN00&quot; &quot;FAUNAN00&quot; &quot;NTALLN00&quot;
+## [1] &quot;N01&quot;      &quot;EDADN01&quot;  &quot;CAMPN01&quot;  &quot;LANCEN01&quot; &quot;FAUNAN01&quot; &quot;NTALLN01&quot;
+## [1] &quot;N02&quot;      &quot;EDADN02&quot;  &quot;CAMPN02&quot;  &quot;LANCEN02&quot; &quot;FAUNAN02&quot; &quot;NTALLN02&quot;
+## [1] &quot;N03&quot;      &quot;EDADN03&quot;  &quot;CAMPN03&quot;  &quot;LANCEN03&quot; &quot;FAUNAN03&quot; &quot;NTALLN03&quot;
+## [1] &quot;N04&quot;      &quot;EDADN04&quot;  &quot;CAMPN04&quot;  &quot;LANCEN04&quot; &quot;FAUNAN04&quot; &quot;NTALLN04&quot;
+## [1] &quot;N05&quot;      &quot;EDADN05&quot;  &quot;CAMPN05&quot;  &quot;LANCEN05&quot; &quot;FAUNAN05&quot; &quot;NTALLN05&quot;
+## [1] &quot;N06&quot;      &quot;EDADN06&quot;  &quot;CAMPN06&quot;  &quot;LANCEN06&quot; &quot;FAUNAN06&quot; &quot;NTALLN06&quot;
+## [1] &quot;N07&quot;      &quot;EDADN07&quot;  &quot;CAMPN07&quot;  &quot;LANCEN07&quot; &quot;FAUNAN07&quot; &quot;NTALLN07&quot;
+## [1] &quot;N08&quot;      &quot;EDADN08&quot;  &quot;CAMPN08&quot;  &quot;LANCEN08&quot; &quot;FAUNAN08&quot; &quot;NTALLN08&quot;
+## [1] &quot;N09&quot;      &quot;EDADN09&quot;  &quot;CAMPN09&quot;  &quot;LANCEN09&quot; &quot;FAUNAN09&quot; &quot;NTALLN09&quot;
+## [1] &quot;N10&quot;      &quot;EDADN10&quot;  &quot;CAMPN10&quot;  &quot;LANCEN10&quot; &quot;FAUNAN10&quot; &quot;NTALLN10&quot;
+## [1] &quot;N11&quot;      &quot;EDADN11&quot;  &quot;CAMPN11&quot;  &quot;LANCEN11&quot; &quot;FAUNAN11&quot; &quot;NTALLN11&quot;
+## [1] &quot;N12&quot;      &quot;EDADN12&quot;  &quot;CAMPN12&quot;  &quot;LANCEN12&quot; &quot;FAUNAN12&quot; &quot;NTALLN12&quot;
+## [1] &quot;N13&quot;      &quot;EDADN13&quot;  &quot;CAMPN13&quot;  &quot;LANCEN13&quot; &quot;FAUNAN13&quot; &quot;NTALLN13&quot;
+## [1] &quot;N14&quot;      &quot;EDADN14&quot;  &quot;CAMPN14&quot;  &quot;LANCEN14&quot; &quot;FAUNAN14&quot; &quot;NTALLN14&quot;
+## [1] &quot;N15&quot;      &quot;EDADN15&quot;  &quot;CAMPN15&quot;  &quot;LANCEN15&quot; &quot;FAUNAN15&quot; &quot;NTALLN15&quot;
+## [1] &quot;N16&quot;      &quot;EDADN16&quot;  &quot;CAMPN16&quot;  &quot;LANCEN16&quot; &quot;FAUNAN16&quot; &quot;NTALLN16&quot;
+## [1] &quot;N17&quot;      &quot;EDADN17&quot;  &quot;CAMPN17&quot;  &quot;LANCEN17&quot; &quot;FAUNAN17&quot; &quot;NTALLN17&quot;
+## [1] &quot;N18&quot;      &quot;EDADN18&quot;  &quot;CAMPN18&quot;  &quot;LANCEN18&quot; &quot;FAUNAN18&quot; &quot;NTALLN18&quot;
+## [1] &quot;N19&quot;      &quot;EDADN19&quot;  &quot;CAMPN19&quot;  &quot;LANCEN19&quot; &quot;FAUNAN19&quot; &quot;NTALLN19&quot;
+## [1] &quot;N20&quot;      &quot;EDADN20&quot;  &quot;CAMPN20&quot;  &quot;LANCEN20&quot; &quot;FAUNAN20&quot; &quot;NTALLN20&quot;
+## [1] &quot;N21&quot;      &quot;EDADN21&quot;  &quot;CAMPN21&quot;  &quot;LANCEN21&quot; &quot;FAUNAN21&quot; &quot;NTALLN21&quot;
+## [1] &quot;N22&quot;      &quot;EDADN22&quot;  &quot;CAMPN22&quot;  &quot;LANCEN22&quot; &quot;FAUNAN22&quot; &quot;NTALLN22&quot;
+## [1] &quot;N83&quot;      &quot;EDADN83&quot;  &quot;CAMPN83&quot;  &quot;LANCEN83&quot; &quot;FAUNAN83&quot; &quot;NTALLN83&quot;
+## [1] &quot;N84&quot;      &quot;EDADN84&quot;  &quot;CAMPN84&quot;  &quot;LANCEN84&quot; &quot;FAUNAN84&quot; &quot;NTALLN84&quot;
+## [1] &quot;N85&quot;      &quot;EDADN85&quot;  &quot;CAMPN85&quot;  &quot;LANCEN85&quot; &quot;FAUNAN85&quot; &quot;NTALLN85&quot;
+## [1] &quot;N86&quot;      &quot;EDADN86&quot;  &quot;CAMPN86&quot;  &quot;LANCEN86&quot; &quot;FAUNAN86&quot; &quot;NTALLN86&quot;
+## [1] &quot;N88&quot;      &quot;EDADN88&quot;  &quot;CAMPN88&quot;  &quot;LANCEN88&quot; &quot;FAUNAN88&quot; &quot;NTALLN88&quot;
+## [1] &quot;N89&quot;      &quot;EDADN89&quot;  &quot;CAMPN89&quot;  &quot;LANCEN89&quot; &quot;FAUNAN89&quot; &quot;NTALLN89&quot;
+## [1] &quot;N90&quot;      &quot;EDADN90&quot;  &quot;CAMPN90&quot;  &quot;LANCEN90&quot; &quot;FAUNAN90&quot; &quot;NTALLN90&quot;
+## [1] &quot;N91&quot;      &quot;EDADN91&quot;  &quot;CAMPN91&quot;  &quot;LANCEN91&quot; &quot;FAUNAN91&quot; &quot;NTALLN91&quot;
+## [1] &quot;N92&quot;      &quot;EDADN92&quot;  &quot;CAMPN92&quot;  &quot;LANCEN92&quot; &quot;FAUNAN92&quot; &quot;NTALLN92&quot;
+## [1] &quot;N93&quot;      &quot;EDADN93&quot;  &quot;CAMPN93&quot;  &quot;LANCEN93&quot; &quot;FAUNAN93&quot; &quot;NTALLN93&quot;
+## [1] &quot;N94&quot;      &quot;EDADN94&quot;  &quot;CAMPN94&quot;  &quot;LANCEN94&quot; &quot;FAUNAN94&quot; &quot;NTALLN94&quot;
+## [1] &quot;N95&quot;      &quot;EDADN95&quot;  &quot;CAMPN95&quot;  &quot;LANCEN95&quot; &quot;FAUNAN95&quot; &quot;NTALLN95&quot;
+## [1] &quot;N96&quot;      &quot;EDADN96&quot;  &quot;CAMPN96&quot;  &quot;LANCEN96&quot; &quot;FAUNAN96&quot; &quot;NTALLN96&quot;
+## [1] &quot;N97&quot;      &quot;EDADN97&quot;  &quot;CAMPN97&quot;  &quot;LANCEN97&quot; &quot;FAUNAN97&quot; &quot;NTALLN97&quot;
+## [1] &quot;N98&quot;      &quot;EDADN98&quot;  &quot;CAMPN98&quot;  &quot;LANCEN98&quot; &quot;FAUNAN98&quot; &quot;NTALLN98&quot;
+## [1] &quot;N99&quot;      &quot;EDADN99&quot;  &quot;CAMPN99&quot;  &quot;LANCEN99&quot; &quot;FAUNAN99&quot; &quot;NTALLN99&quot;
+## [1] &quot;NP2&quot;      &quot;EDADNP2&quot;  &quot;CAMPNP2&quot;  &quot;LANCENP2&quot; &quot;FAUNANP2&quot; &quot;NTALLNP2&quot;
+## [1] &quot;P86&quot;      &quot;EDADP86&quot;  &quot;CAMPP86&quot;  &quot;LANCEP86&quot; &quot;FAUNAP86&quot; &quot;NTALLP86&quot;
+## [1] &quot;P87&quot;      &quot;EDADP87&quot;  &quot;CAMPP87&quot;  &quot;LANCEP87&quot; &quot;FAUNAP87&quot; &quot;NTALLP87&quot;
+## [1] &quot;PB2&quot;      &quot;EDADPB2&quot;  &quot;CAMPPB2&quot;  &quot;LANCEPB2&quot; &quot;FAUNAPB2&quot; &quot;NTALLPB2&quot;
+## [1] &quot;PB3&quot;      &quot;EDADPB3&quot;  &quot;CAMPPB3&quot;  &quot;LANCEPB3&quot; &quot;FAUNAPB3&quot; &quot;NTALLPB3&quot;
+## [1] &quot;PB4&quot;      &quot;EDADPB4&quot;  &quot;CAMPPB4&quot;  &quot;LANCEPB4&quot; &quot;FAUNAPB4&quot; &quot;NTALLPB4&quot;
+## [1] &quot;PB5&quot;      &quot;EDADPB5&quot;  &quot;CAMPPB5&quot;  &quot;LANCEPB5&quot; &quot;FAUNAPB5&quot; &quot;NTALLPB5&quot;
+## [1] &quot;PIN&quot;     &quot;EDADPIN&quot;
+## [1] &quot;PV2&quot;      &quot;EDADPV2&quot;  &quot;CAMPPV2&quot;  &quot;LANCEPV2&quot; &quot;FAUNAPV2&quot; &quot;NTALLPV2&quot;
+## [1] &quot;PV3&quot;      &quot;EDADPV3&quot;  &quot;CAMPPV3&quot;  &quot;LANCEPV3&quot; &quot;FAUNAPV3&quot; &quot;NTALLPV3&quot;
+## [1] &quot;PV4&quot;      &quot;EDADPV4&quot;  &quot;CAMPPV4&quot;  &quot;LANCEPV4&quot; &quot;FAUNAPV4&quot; &quot;NTALLPV4&quot;
+## [1] &quot;PV5&quot;      &quot;EDADPV5&quot;  &quot;CAMPPV5&quot;  &quot;LANCEPV5&quot; &quot;FAUNAPV5&quot; &quot;NTALLPV5&quot;
+## [1] &quot;PV6&quot;      &quot;EDADPV6&quot;  &quot;CAMPPV6&quot;  &quot;LANCEPV6&quot; &quot;FAUNAPV6&quot; &quot;NTALLPV6&quot;
+## [1] &quot;PV9&quot;      &quot;EDADPV9&quot;  &quot;CAMPPV9&quot;  &quot;LANCEPV9&quot; &quot;FAUNAPV9&quot; &quot;NTALLPV9&quot;
+## [1] &quot;PVC&quot;      &quot;EDADPVC&quot;  &quot;CAMPPVC&quot;  &quot;LANCEPVC&quot; &quot;FAUNAPVC&quot; &quot;NTALLPVC&quot;
+## [1] &quot;S98&quot;      &quot;EDADS98&quot;  &quot;CAMPS98&quot;  &quot;LANCES98&quot; &quot;FAUNAS98&quot; &quot;NTALLS98&quot;
+## [1] &quot;V00&quot;      &quot;EDADV00&quot;  &quot;CAMPV00&quot;  &quot;LANCEV00&quot; &quot;FAUNAV00&quot; &quot;NTALLV00&quot;
+## [1] &quot;V01&quot;      &quot;EDADV01&quot;  &quot;CAMPV01&quot;  &quot;LANCEV01&quot; &quot;FAUNAV01&quot;
+## [1] &quot;V02&quot;      &quot;EDADV02&quot;  &quot;CAMPV02&quot;  &quot;LANCEV02&quot; &quot;FAUNAV02&quot; &quot;NTALLV02&quot;
+## [1] &quot;V97&quot;      &quot;EDADV97&quot;  &quot;CAMPV97&quot;  &quot;LANCEV97&quot; &quot;FAUNAV97&quot; &quot;NTALLV97&quot;
+## [1] &quot;G80&quot;      &quot;CAMPG80&quot;  &quot;LANCEG80&quot; &quot;FAUNAG80&quot; &quot;NTALLG80&quot;
+## [1] &quot;G81&quot;      &quot;CAMPG81&quot;  &quot;LANCEG81&quot; &quot;FAUNAG81&quot; &quot;NTALLG81&quot;
+## [1] &quot;G82&quot;      &quot;CAMPG82&quot;  &quot;LANCEG82&quot;
+## [1] &quot;N82&quot;      &quot;CAMPN82&quot;  &quot;LANCEN82&quot; &quot;FAUNAN82&quot; &quot;NTALLN82&quot;
+## [1] &quot;P97&quot;      &quot;CAMPP97&quot;  &quot;LANCEP97&quot; &quot;FAUNAP97&quot; &quot;NTALLP97&quot;
+## [1] &quot;PBT&quot;      &quot;CAMPPBT&quot;  &quot;LANCEPBT&quot; &quot;FAUNAPBT&quot; &quot;NTALLPBT&quot;
+## [1] &quot;PVP&quot;      &quot;CAMPPVP&quot;  &quot;LANCEPVP&quot; &quot;FAUNAPVP&quot; &quot;NTALLPVP&quot;
+## [1] &quot;PVT&quot;      &quot;CAMPPVT&quot;  &quot;LANCEPVT&quot; &quot;FAUNAPVT&quot; &quot;NTALLPVT&quot;
+## [1] &quot;RIF&quot;      &quot;CAMPRIF&quot;  &quot;LANCERIF&quot; &quot;FAUNARIF&quot; &quot;NTALLRIF&quot;
+## [1] &quot;S97&quot;      &quot;CAMPS97&quot;  &quot;LANCES97&quot; &quot;FAUNAS97&quot; &quot;NTALLS97&quot;</code></pre>
 </div>
 
 

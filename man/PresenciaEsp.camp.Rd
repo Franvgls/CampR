@@ -29,7 +29,7 @@ PresenciaEsp.camp(1,220,"Porc")
 Other Series datos: 
 \code{\link{As1}},
 \code{\link{As2}},
-\code{\link{ListCamps_b}()},
+\code{\link{CampsDNS.camp}()},
 \code{\link{ListCamps}()},
 \code{\link{Msh}},
 \code{\link{Nsh}},

@@ -2,10 +2,9 @@
 title: "Instalación de datos para CampR"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
-vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteINdexEntry{Instalación de datos para CampR} 
-  %\VignetteEncoding{UTF-8}
+output: html_document
+vignette: |
+  %\VignetteEngine{knitr::rmarkdown} %\VignetteINdexEntry{Instalación de datos para CampR}  %\VignetteEncoding{UTF-8}
 ---
 
  Instalación de los datos 
@@ -52,4 +51,26 @@ Estos DSN deberán ser:
 Cada DSN debera redirigirse al directorio con los datos respectivos y utilizar un controlador que acepte la versión Dbase III, es decir odbcad32.exe
 
 ![](ODBC_CampR_2.png) 
+
+
+Campañas y ficheros de ellas presentes en el DNS:
+----------
+
+En CampR existen algunas funciones para explorar los datos disponibles en cada dirección o DNS:
+
+```{r echo=FALSE, message=TRUE, warning=FALSE, include=FALSE, results='hide'}
+library(CampR)
+```
+
+- <B> ListCamps(dns="Xxxx",tablas=TRUE)</B>: en este caso ficheros de la campaña "Porcupine"
+
+```{r echo=FALSE, message=TRUE, warning=FALSE, paged.print=TRUE, results='markup'}
+CampR::CampsDNS.camp("Porc")
+```
+- <B> ListCamps(dns="Xxxx",tablas=TRUE)</B>: en este caso ficheros de la campaña "Demersales"
+
+```{r, echo=FALSE, results='markup'}
+ListCamps(dns="Cant",tablas=TRUE)
+```
+
 

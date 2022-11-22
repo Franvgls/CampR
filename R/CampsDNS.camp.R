@@ -5,15 +5,14 @@
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @return Un data.frame con columnas con la lista de archivos campXXX,lanceXXX,faunaXXX,ntallXXX e hidroXXX en el directorio, rellena los que falten con "."
 #' @examples CampsDNS.camp("Porc")
-#' @family datos
+#' @family Series datos
 #' @export
 CampsDNS.camp<- function(dns) {
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
   dumbdir<-DBI::dbConnect(odbc::odbc(), dns)@info$dbname
   dumb<-DBI::dbListTables(ch1)
-  f_names<-c("LANCE","GRUPO","ESP","PESO_GR","NUMERO")
   dumb<-unlist(dumb)
-  dumb<-dumb[nchar(dumb)<9 & grepl(c("FAUNA|CAMP|NTALL|LANCE|HIDRO"),dumb)]
+  dumb<-dumb[nchar(dumb)<9 & grepl(c("CAMP|LANCE|FAUNA|NTALL|EDAD|HIDRO"),dumb)]
   camps<-data.frame(tipo="CAMP",ident=substr(dumb[grepl("CAMP",dumb)],5,7))
   camps<-rbind(camps,data.frame(tipo=substr(dumb[!grepl("CAMP",dumb)],1,5),ident=substr(dumb[!grepl("CAMP",dumb)],6,8)))
   camps.c<-data_frame(tipo=dumb[grepl("CAMP",dumb)],ident=substr(dumb[grepl("CAMP",dumb)],5,7))
@@ -21,6 +20,8 @@ CampsDNS.camp<- function(dns) {
   camps.f<-data_frame(tipo=dumb[grepl("FAUNA",dumb)],ident=substr(dumb[grepl("FAUNA",dumb)],6,8))
   camps.t<-data_frame(tipo=dumb[grepl("NTALL",dumb)],ident=substr(dumb[grepl("NTALL",dumb)],6,8))
   camps.h<-data_frame(tipo=dumb[grepl("HIDRO",dumb)],ident=substr(dumb[grepl("HIDRO",dumb)],6,8))
+  camps.e<-data_frame(tipo=dumb[grepl("EDAD",dumb)],ident=substr(dumb[grepl("EDAD",dumb)],5,7))
+  camps.e<-camps.e[!nchar(camps.e$tipo)>7,]
   if (length(DBI::dbGetQuery(ch1,paste0("select IDENT from ",paste0(camps$tipo[camps$tipo=="CAMP"],camps$ident[camps$tipo=="CAMP"])[1])))>0){
     NomCamp<-cbind(camp=paste0("CAMP",camps$ident[camps$tipo=="CAMP"][1]),DBI::dbGetQuery(ch1,paste0("select IDENT from ",paste0("CAMP",camps$ident[camps$tipo=="CAMP"][1]))[1]))
   }
@@ -58,9 +59,11 @@ CampsDNS.camp<- function(dns) {
   if (length(camps.f$tipo)<Narchs) camps.f<-c(as.character(camps.f$tipo),rep(".",Narchs-nrow(camps.f)))
   if (length(camps.t$tipo)<Narchs) camps.t<-c(as.character(camps.t$tipo),rep(".",Narchs-nrow(camps.t)))
   if (length(camps.h$tipo)<Narchs) camps.h<-c(as.character(camps.h$tipo),rep(".",Narchs-nrow(camps.h)))
+  if (length(camps.e$tipo)<Narchs) camps.e<-c(as.character(camps.e$tipo),rep(".",Narchs-nrow(camps.e)))
   message(paste("Directorio:",dumbdir))
-  DD<-data.frame(NomCamp=nombres,Year=anyos,Camp=camps.c,Lance=camps.l,years=anyos_lan,Fauna=camps.f,Tallas=camps.t,Hidro=camps.h)
-  DD[order(as.character(DD$Year),DD$Camp),]
+  DD<-data.frame(NomCamp=nombres,Year=anyos_lan,Camp=camps.c,Lance=camps.l,years=anyos_lan,Fauna=camps.f,
+                 Tallas=camps.t,Edad=camps.e,Hidro=camps.h)
+  DD[order(as.character(DD$Year),DD$NomCamp),c(1:4,7,9:11)]
 }
 
 # cbind(camps.c[substr(camps.f,6,8) %in% substr(camps.c,5,7)],camps.l[substr(camps.c,5,7) %in% substr(camps.l,6,8)],camps.f[substr(camps.c,5,7) %in% substr(camps.f,6,8)])

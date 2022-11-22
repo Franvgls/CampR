@@ -19,7 +19,7 @@ Serie completa con las campañas de otoño realizadas en el Golfo de Cádiz (Arr
 \seealso{
 Other Series datos: 
 \code{\link{As2}},
-\code{\link{ListCamps_b}()},
+\code{\link{CampsDNS.camp}()},
 \code{\link{ListCamps}()},
 \code{\link{Msh}},
 \code{\link{Nsh}},

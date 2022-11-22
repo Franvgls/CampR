@@ -19,4 +19,14 @@ A partir de ficheros de fauna.dbf presentes en directorio comprueba presencia de
 \examples{
 CampsDNS.camp("Porc")
 }
-\concept{datos}
+\seealso{
+Other Series datos: 
+\code{\link{As1}},
+\code{\link{As2}},
+\code{\link{ListCamps}()},
+\code{\link{Msh}},
+\code{\link{Nsh}},
+\code{\link{PresenciaEsp.camp}()},
+\code{\link{Psh}}
+}
+\concept{Series datos}

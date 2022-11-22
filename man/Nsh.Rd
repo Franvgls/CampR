@@ -20,7 +20,7 @@ Serie completa con las campañas de cuarto trimestre realizadas en el Cantábric
 Other Series datos: 
 \code{\link{As1}},
 \code{\link{As2}},
-\code{\link{ListCamps_b}()},
+\code{\link{CampsDNS.camp}()},
 \code{\link{ListCamps}()},
 \code{\link{Msh}},
 \code{\link{PresenciaEsp.camp}()},

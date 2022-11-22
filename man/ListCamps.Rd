@@ -2,7 +2,7 @@
 % Please edit documentation in R/ListCamps.R
 \name{ListCamps}
 \alias{ListCamps}
-\title{Listado de campañas presentes en dns con ficheros que contienen cada una.}
+\title{Listado de campañas presentes en dns con ficheros que contienen cada una mejor utilizar {\link\{CampsDNS.camp}}}
 \usage{
 ListCamps(dns, tablas = TRUE)
 }
@@ -12,20 +12,20 @@ ListCamps(dns, tablas = TRUE)
 \item{tablas}{Si T muestra al final de los resultados una lista con todos los ficheros de definición (CAMP con su identificador de campaña), fauna y tallas presentes en el directorio.}
 }
 \value{
-Devuelve una tabla con el listado de campañas que hay en el directorio y con la lista de ficheros campXXX.dbf,faunaXXX.dbf y ntallXXX.dbf
+Devuelve el listado de ficheros dbf campañas que hay en el directorio; campXXX.dbf,faunaXXX.dbf, ntallXXX.dbf, edadXXX.dbf, hidroxxx.dbf
 }
 \description{
 Función de acceso a datos:
 A partir de ficheros de camp.dbf,fauna.dbf,ntall.dbf da un listado de campañas presentes en el directorio con sus ficheros
 }
 \examples{
-ListCamps(dns="Porc",tablas=T)
+ListCamps_b(dns="Porc",tablas=T)
 }
 \seealso{
 Other Series datos: 
 \code{\link{As1}},
 \code{\link{As2}},
-\code{\link{ListCamps_b}()},
+\code{\link{CampsDNS.camp}()},
 \code{\link{Msh}},
 \code{\link{Nsh}},
 \code{\link{PresenciaEsp.camp}()},

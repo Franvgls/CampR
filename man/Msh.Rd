@@ -20,7 +20,7 @@ Serie completa con las campañas realizadas en el Mediterraneo en la campaña ME
 Other Series datos: 
 \code{\link{As1}},
 \code{\link{As2}},
-\code{\link{ListCamps_b}()},
+\code{\link{CampsDNS.camp}()},
 \code{\link{ListCamps}()},
 \code{\link{Nsh}},
 \code{\link{PresenciaEsp.camp}()},
