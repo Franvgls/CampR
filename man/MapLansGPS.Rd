@@ -10,6 +10,7 @@ MapLansGPS(
   incl0 = FALSE,
   xlims = NA,
   ylims = NA,
+  ti = FALSE,
   col = 2,
   lwd = 2,
   places = TRUE,
@@ -31,6 +32,8 @@ MapLansGPS(
 \item{xlims}{Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña}
 
 \item{ylims}{Define los limites latitudinales del mapa, si se deja en NA toma los límites de lat del área definida en la campaña}
+
+\item{ti}{si TRUE inclye el nombre de la campaña en el gráfico}
 
 \item{col}{Define el color de los segmentos}
 
@@ -55,7 +58,7 @@ Devuelve un data.frame con datos de cada lance, las variables dependen de la sel
 gráfica todos los lances de una campaña con las distancias recorridas en cada uno de ellos
 }
 \examples{
-MapLansGPS("12C","Cant")
+MapLansGPS("12C","Cant",ti=TRUE)
 }
 \seealso{
 {\link{datlan.camp}}, {\link{qcdistlan.camp}}

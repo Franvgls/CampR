@@ -21,10 +21,11 @@
 #' @param Dates Si T saca las fechas en la que se han realizado los lances (dd-mm), no incluye información año.
 #' @param places Si T añade los nombres de las principales ciudades
 #' @param bw Gráfico en blanco y negro si T o en color si F
-#' @return Saca mapa con el desarrollo de la campaña con la zona y estratificación
+#' @param ti si TRUE incluye un título con el nombre de la campaña
 #' @param lans Si T marca las estaciones de muestreo con un punto (si Nlans=FALSE)
 #' @param xlims Delimita la longitud del mapa mediante un vector (ejem.c(-10.25,-1.4))
 #' @param ylims Delimita la latitud del mapa mediante un vector (ejem.c(41.82,44.48))
+#' @return Saca mapa con el desarrollo de la campaña con la zona y estratificación
 #' @examples
 #' op<-par(no.readonly = TRUE)
 #' par(mfrow=c(1,1))

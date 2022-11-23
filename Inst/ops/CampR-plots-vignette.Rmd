@@ -1,0 +1,70 @@
+---
+title: "Campañas y zonas implementadas en CampR 0.8.8"
+author: "Fran Velasco"
+package: CampR
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteINdexEntry{Campañas y zonas implementadas en CampR 0.8.8} 
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo=FALSE, results='hide',include=FALSE}
+library(CampR)
+```
+
+ Mapa Demersales 
+---------------
+
+
+```{r SP-NORT, fig.width=7.2,fig.height=3.8}
+MapNort()
+```
+
+### Resumen campaña Demersales
+
+```{r SP-NORT results, fig.width=7.2,fig.height=3.8}
+armap.camp("N07","Cant",ti=T,es=T)
+```
+
+ Mapa del Banco de Porcupine
+---------------
+
+
+```{r SP-PORC, fig.width=7.2,fig.height=3.8}
+mapporco()
+```
+
+### Resumen campaña Porcupine
+
+```{r Porcupine, fig.width=6,fig.height=4.7}
+par(mfrow=c(1,2))
+armap.camp("P07","Porc",ti=T)
+armap.camp("P07","Porc",ti=F,CTD=T,lans=F)
+```
+
+ Mapa Golfo de Cádiz 
+---------------
+
+```{r SP-ARSA, fig.width=7.2,fig.height=3.8}
+MapArsa()
+```
+
+### Resumen campaña Arsa
+```{r Arsa resultaos, fig.width=6.2,fig.height=5.1}
+armap.camp("207","Arsa",ti=T,es=T)
+```
+
+ Mapa del Mediterráneo
+---------------
+
+```{r Medits, fig.width=7.2,fig.height=6.4}
+MapMedit()
+```
+
+### Resumen campaña Medits
+```{r Medits-result, fig.width=6.4,fig.height=6.4}
+armap.camp("M07","Medi",ti=T,es=T)
+```
+

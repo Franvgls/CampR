@@ -6,6 +6,7 @@
 #' @param incl0 Si T se incluyen los lances nulos
 #' @param xlims Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña
 #' @param ylims Define los limites latitudinales del mapa, si se deja en NA toma los límites de lat del área definida en la campaña
+#' @param ti si TRUE inclye el nombre de la campaña en el gráfico
 #' @param col Define el color de los segmentos
 #' @param lwd Define el ancho de los segmentos
 #' @param places si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine
@@ -16,15 +17,18 @@
 #' @param bw Si T gráfico en blanco y negro por default, si F gráfico en color
 #' @return Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux
 #' @seealso {\link{datlan.camp}}, {\link{qcdistlan.camp}}
-#' @examples MapLansGPS("12C","Cant")
+#' @examples MapLansGPS("12C","Cant",ti=TRUE)
 #' @family mapas
 #' @family PescaWin
 #' @export
-MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,cexlans=.8,rumbo=FALSE,es=TRUE,bw=FALSE,ax=TRUE) {
+MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,ti=FALSE,col=2,lwd=2,places=TRUE,Nlans=FALSE,cexlans=.8,rumbo=FALSE,es=TRUE,bw=FALSE,ax=TRUE) {
   #if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
   lan<-datlan.camp(camp,dns,redux=FALSE,incl2=TRUE,incl0=TRUE)
   lannul<-lan[lan$validez==0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
   lan<-lan[lan$validez!=0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  camp.name<-DBI::dbReadTable(ch1, paste0("CAMP",camp[1]))$IDENT
+  DBI::dbDisconnect(ch1)
   if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
     if (any(!is.na(xlims))) {mapporco(xlims=xlims,ylims=ylims,ax=ax)} else mapporco()
     }
@@ -45,6 +49,7 @@ MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,col=2,lwd=2,p
     latrank<-c(floor(latrank[1]),ceiling(latrank[2]))
     maps::map("worldHires",xlim=longrank,ylim=latrank,fill=T,col="grey")
     }
+  if (ti) {title(camp.name,line=2)}
   segments(lan$longitud_l,lan$latitud_l,lan$longitud_v,lan$latitud_v,col=col,lwd=lwd)
   if (rumbo) points(lan$longitud_v,lan$latitud_v,pch=21,bg=2,col=1,cex=.8)
   if (incl0) segments(lannul$longitud_l,lannul$latitud_l,lannul$longitud_v,lannul$latitud_l,col=2,lwd=2)

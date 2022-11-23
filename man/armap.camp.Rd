@@ -37,6 +37,8 @@ armap.camp(
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa", Mediterráneo "Medi"}
 
+\item{ti}{si TRUE incluye un título con el nombre de la campaña}
+
 \item{lwdl}{Anchura de las líneas}
 
 \item{col}{Color de los puntos que representan estaciones}
