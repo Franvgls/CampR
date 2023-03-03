@@ -18,7 +18,7 @@ PresenciaEsp.camp<- function(gr,esp,dns,tablas=FALSE,redux=TRUE) {
    dumbdir<-DBI::dbConnect(odbc::odbc(), dns)@info$dbname
    dumb<-DBI::dbListTables(ch1)
    dumb<-unlist(dumb)
-   dumb<-dumb[nchar(dumb)<9]
+   dumb<-dumb[nchar(dumb)<9 & nchar(dumb)>6]
    camps.f<-substr(dumb[grepl("FAUNA",dumb)],6,8)
    camps.t<-substr(dumb[grepl("NTALL",dumb)],6,8)
    camps.c<-substr(dumb[grepl("CAMP",dumb)],5,7)

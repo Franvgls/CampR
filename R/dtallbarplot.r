@@ -30,9 +30,9 @@ dtallbarplot<-function(gr, esp, camps, dns, camp = NA, excl.sect=NA, cor.time=TR
   increm<-unid.camp(gr,esp)["INCREM"]
   medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
   op <- par(no.readonly = T)
-  tallas <- rep(NA, length(row.names(dumbc)))
+  tallas <- names(dumb[, ncol(dumb)])
   tallas[seq(0, length(row.names(dumbc)), by = 5)] <- row.names(dumbc)[seq(0,length(row.names(dumbc)), by = 5)]
-  tallas1 <- rep(NA, length(row.names(dumb)))
+  tallas1 <- seq(0, length(row.names(dumb)))
   tallas1[seq(0, length(row.names(dumb)), by = 5)] <- row.names(dumb)[seq(0,length(row.names(dumb)), by = 5)]
   if (horiz & !is.na(ti)) {
     par(mfrow = c(1, 2),oma=c(0,0,2,0))
@@ -49,18 +49,18 @@ dtallbarplot<-function(gr, esp, camps, dns, camp = NA, excl.sect=NA, cor.time=TR
 
   }
   else barplot(dumbc[, camp], ylim = c(0, mx * 1.1), main = ifelse(years,camptoyear(camp),camp),
-               xlab = ax[1], names.arg = tallas, ylab = ifelse(es,expression("Ind.  lance "^-1),expression("Ind. haul"^-1)),
+               xlab = ax[1], names.arg = row.names(dumbc), ylab = ifelse(es,expression("Ind.  lance "^-1),expression("Ind. haul"^-1)),
                space = 0, las =1, cex.names = 0.8)
   grid(nx=NA,ny=NULL,col=gray(.4))
   box()
   if (!is.na(camp)) {
     barplot(rowMeans(dumb[,-ncol(dumb)]), ylim = c(0, mx * 1.1), main = paste(ifelse(es,"Media ","Mean "),
-                                                              ifelse(years,camptoyear(camps[1]),camps[1]), "-", ifelse(years,camptoyear(camps[length(camps)]),camps[length(camps)]), sep = ""), names.arg = tallas1,
+                                                              ifelse(years,camptoyear(camps[1]),camps[1]), "-", ifelse(years,camptoyear(camps[length(camps)]),camps[length(camps)]), sep = ""), names.arg = tallas,
           xlab = ax[1], ylab = ifelse(es,expression("Ind.  lance "^-1),expression("Ind. haul"^-1)),
           space = 0, las = 1, cex.names = 0.8)
   }
   else barplot(rowMeans(dumb[,1:c(ncol(dumb)-1)]), ylim = c(0, mx * 1.1), main = paste(ifelse(es,"Media ","Mean "),
-                                                                                     ifelse(years,camptoyear(camps[1]),camps[1]), "-", ifelse(years,camptoyear(camps[length(camps)-1]),camps[length(camps)-1]), sep = ""), names.arg = tallas1,
+                                                                                     ifelse(years,camptoyear(camps[1]),camps[1]), "-", ifelse(years,camptoyear(camps[length(camps)-1]),camps[length(camps)-1]), sep = ""), names.arg = row.names(dumbc),
                    xlab = ax[1], ylab = ifelse(es,expression("Ind.  lance "^-1),expression("Ind. haul"^-1)),
                    space = 0, las = 1, cex.names = 0.8)
   grid(nx=NA,ny=NULL,col=gray(.4))

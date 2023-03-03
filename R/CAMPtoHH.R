@@ -52,7 +52,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
       DB$rectlat<-paste0("0",cut(DB$latitud_l,breaks=seq(from=36.0,to=37.5,by=.5),labels=as.character(c(1:3))))
       DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
       DB$Gear="BAK"
-      DB$barco=ifelse(substr(DB$barco,1,3)=="COR","29CS",ifelse(DB$barco=="MOL","29MO"))
+      DB$barco=ifelse(substr(DB$barco,1,3)=="COR","29CS",ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="VIZ","29VE","Vir")))
       DB$Warpdia=ifelse(DB$barco=="29CS",22,24)
       DB$DoorType=ifelse(DB$year<2008,"WR","T4")
       DB$DoorSurface=ifelse(DB$year<2008,3.6,1.8)

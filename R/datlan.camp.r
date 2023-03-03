@@ -71,7 +71,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
       if (lan$lat[i]>43 & lan$lat[i]<44.5 & lan$long[i] > c(-11) & lan$long[i] < c(-2)) {lan$zona[i]<- "8c"}
       if (lan$lat[i]>35.95 & lan$lat[i]<43 & lan$long[i] > c(-11) & lan$long[i] < c(-8.75)) {lan$zona[i]<- "9a"}
       if (lan$lat[i]>35.95 & lan$lat[i]<37.75 & lan$long[i] > c(-7.5) & lan$long[i] < c(-5.50)) {lan$zona[i]<- "9a"}
-      if (dns=="Medi" & lan$lat[i]>35.9 & lan$long[i]>c(-5.6556)) {lan$zona[i]<-"wm.37.1"}
+      if (dns=="Medi" & lan$lat[i]>35.8 & lan$long[i]>c(-5.6556)) {lan$zona[i]<-"wm.37.1"}
     }
     if (any(is.na(lan$zona))) {message(paste0("Al menos un lance: ",lan$lance[is.na(lan$zona)],
                                                 " sin Zona ICES asignada, revise resultados",lan$camp[is.na(lan$zona)]))}

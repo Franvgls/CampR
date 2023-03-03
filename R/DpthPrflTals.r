@@ -19,12 +19,13 @@
 #' @param brks Especifica los rangos de profundidad: "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, las opciones "FD", "Sturges" y "scott" también son válidas como están implenmentadas en {\link{hist}}
 #' @param tabres Muestra una tabla resumen de la media, total de biomasa o número y frecuencia de la especie por estación según el brks especificado
 #' @param tit2 Añade un segundo título al gráfico especificando el rango de tallas
+#' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @seealso {\link{DpthPrfl}}
 #' @examples DpthPrflTals(1, 50, "N08", "Cant",10,20,brks = "norte",tabres=TRUE,ind="p")
 #' @examples DpthPrflTals(1,50,"P08","Porc",brks="porcupine")
 #' @export
 DpthPrflTals<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=T,ind="n",sex=NA,es=TRUE,ti=TRUE,idi="l",xmax=NA,
-                       nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE,tit2=TRUE) {
+                       nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE,tit2=TRUE,cexleg=1) {
   esp<-format(esp,width=3,justify="r")
   if (length(gr)>1 | any(gr==9)) stop("No se pueden mezclar datos de grupos distintos, solo distintas especies del mismo grupo")
   #  if (chpar)  opar<-par(no.readonly=TRUE)
@@ -76,14 +77,27 @@ DpthPrflTals<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,inc
   if (is.logical(ti)) {
     if (ti) {
       titulo1<-list(buscaesp(gr,esp,id=idi),font=ifelse(idi==idi,4,2),cex=cex.mn)
-      titulo2<-list(paste(tmin,"-",tmax,medida,ifelse(!is.na(sex),sex,"")),font=2,cex=c(cex.mn-.1))
+      if (tmin==0) titulo2<-list(label=bquote(" "<=.(format(paste0(tmax,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),font.sub=2,cex=cexleg*.9)
+      if (tmax==999) titulo2<-list(font.sub=2,label=bquote(" ">=.(format(paste0(tmin,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),cex=cexleg*.9)
+      if (tmin!=0 & tmax!=999) titulo2<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
+      if (tmin==0 & tmax==999) titulo2<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
+
+      #     titulo2<-list(paste(tmin,"-",tmax,medida,ifelse(!is.na(sex),sex,"")),font=2,cex=c(cex.mn-.1))
     }
     else {titulo1<-NULL
           titulo2<-NULL}
   }
   else {
     titulo1=ti
-    titulo2<-list(paste(tmin,"-",tmax,medida),font=2,cex=cex.mn)
+    # if (tmin==0) titulo2<-list(label=bquote(" "<=.(format(paste0(tmax,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),font.sub=2,cex=cexleg*.9)
+    # if (tmax==999) titulo2<-list(font.sub=2,label=bquote(" ">=.(format(paste0(tmin,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),cex=cexleg*.9)
+    # if (tmin!=0 & tmax!=999) titulo2<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
+    # if (tmin==0 & tmax==999) titulo2<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
+    if (tmin==0) titulo2<-list(label=bquote(" "<=.(format(paste0(tmax,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),font.sub=2,cex=cexleg*.9)
+    if (tmax==999) titulo2<-list(font.sub=2,label=bquote(" ">=.(format(paste0(tmin,ifelse(unid.camp(gr,esp)$MED==2," mm"," cm"))))),cex=cexleg*.9)
+    if (tmin!=0 & tmax!=999) titulo2<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
+    if (tmin==0 & tmax==999) titulo2<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
+    #    titulo2<-list(paste(tmin,"-",tmax,medida),font=2,cex=cex.mn)
   }
   # browser()
   dumbDpth$counts1<-dumbDpth$counts
@@ -96,7 +110,7 @@ DpthPrflTals<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,inc
        ylim=ylims,xlab=NA,ylab=ifelse(es,"Prof (m)","Depth (m)"),axes=FALSE,
        pch=21,bg="white",cex.lab=cex.mn)
   if (ti) title(main=titulo1,line=1.8)
-  if (tit2) title(main=titulo2,cex.main=.9,line=.8)
+  if (tit2) title(main=titulo2$label,cex.main=.9,line=.8)
   points(c(-dumbDpth$mids)~c(dumbDatDpth$counts/dumbDpth$counts),type="p",pch=21)
   ceros<-rep(0,length(dumbDpth$mids)+1)
   segments(ceros,c(-dumbDpth$breaks,-ylims[2]),c(0,c(dumbDatDpth$counts/dumbDpth$counts),0),c(-dumbDpth$breaks,-ylims[2]))
