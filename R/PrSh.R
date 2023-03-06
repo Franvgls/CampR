@@ -6,6 +6,7 @@
 #' @title Serie histórica de la campaña Demersales Norte
 #' @usage PrSh
 #' @format A vector with codes for the surveys between 1984 to 1988 (not in 1985)
+#' @examples windows();maphist(2,19,PrSh,"Cant",layout=c(2,2))
 #' @family Series datos
 #' @family Cant
 PrSh<-c("D84","P86","P87","D88")    # Demersales Primavera
