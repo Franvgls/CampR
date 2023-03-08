@@ -16,6 +16,7 @@
 #' @param es Si T saca titulos y ejes en español
 #' @param wmf Si T saca a fichero metafile Iberia.emf
 #' @param places Si T saca ciudades y puntos geográficos de referencia
+#' @param pais si T incluye los carteles de los países represntados
 #' @param escmult =1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, más de uno lo aumenta
 #' @param add si T se añade al mapa si no saca la pantalla nueva
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones
@@ -25,7 +26,7 @@
 #' @family Medits
 #' @export
 MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,
-                    ICESlab=FALSE,ICESlabcex=.6,nepFU=F,FUs=c(NULL),bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE,
+                    ICESlab=FALSE,ICESlabcex=.6,nepFU=F,FUs=c(NULL),bw=F,ax=TRUE,wmf=FALSE,es=TRUE,places=TRUE,pais=TRUE,
                     escmult=1,add=FALSE) {
   asp<-diff(c(35,43))/(diff(c(-10.2,5))*cos(mean(c(35,43))*pi/180))
   if (!add) {
@@ -61,10 +62,8 @@ MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
     points(c(-6.299667,-6.950833),c(36.53433,37.25833),pch=1,lwd=2,cex=.9)
     text(-6.950833,37.25833,"Huelva",cex=escmult*0.7,font=2,pos=4)
     text(-6.299667,36.53433,"Cádiz",cex=escmult*0.7,font=2,pos=4)
-    text(-8.25,39.5,"PORTUGAL",cex=escmult*1.3,font=2,pos=4,srt=90)
     points(-9.1427,38.737,pch=1,lwd=2,cex=.9)
     text(-9.1427,38.737,ifelse(es,"Lisboa","Lisbon"),cex=escmult*0.7,font=2,pos=4,offset=.7)
-    legend(-7,mean(par("usr")[3:4]),ifelse(es,"ESPAÑA","SPAIN"),text.font=2,cex=escmult*2,inset=.15,bty="n")
     text(-8.383,43.367,"A Coruña",cex=escmult*0.7,font=2,pos=1)
     points(-8.383,43.367,pch=1,lwd=2,cex=.9)
     text(-8.7167,42.233,"Vigo",cex=escmult*0.7,font=2,pos=4)
@@ -77,12 +76,17 @@ MapIberia<-function(xlims=c(-10.2,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
     points(-1.9884,43.3205,pch=1,lwd=2,cex=.9)
     points(-5.663,43.56,pch=1,lwd=2,cex=.9)
     text(-5.663,43.56,"Gijón",cex=escmult*0.7,font=2,pos=1)
-    points(c(-0.3762881,-4.4212655,2.1734035),c(39.4699075,36.721261,41.3850639),cex=.9,pch=1,lwd=2)
+    points(c(-0.3762881,-4.4212655,2.1734035,-.7916),c(39.4699075,36.721261,41.3850639,37.835),cex=.9,pch=1,lwd=2)
+    text(-.7916,37.835,"San Pedro\nPinatar",cex=escmult*.7,font=2,pos=2,offset=.3)
     text(-0.3762881,39.4699075,"Valencia",cex=escmult*.7,font=2,pos=2,offset=.3)
     text(-4.4212655,36.721261,"Málaga",cex=escmult*.7,font=2,pos=3,offset=.4)
     text(2.1734035,41.3850639,"Barcelona",cex=escmult*.7,font=2,pos=2,offset=.3)
     text(2.9,39.7,"Mallorca",cex=escmult*.7,font=2)
+    if (pais) {
+    text(-8.25,39.5,"PORTUGAL",cex=escmult*1.3,font=2,pos=4,srt=90)
+    legend(-7,mean(par("usr")[3:4]),ifelse(es,"ESPAÑA","SPAIN"),text.font=2,cex=escmult*2,inset=.15,bty="n")
     text(3.042048,36.5,ifelse(es,"ARGELIA","ALGERIA"),cex=escmult*1.3,font=2,pos=1)
+    }
   }
   if (ax) {
     degs = seq(-10,-1,ifelse(abs(diff(xlims))>1,1,.5))
