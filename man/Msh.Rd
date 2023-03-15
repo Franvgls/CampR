@@ -21,7 +21,6 @@ Other Series datos:
 \code{\link{As1}},
 \code{\link{As2}},
 \code{\link{CampsDNS.camp}()},
-\code{\link{ListCamps}()},
 \code{\link{Nsh}},
 \code{\link{PresenciaEsp.camp}()},
 \code{\link{Psh}}

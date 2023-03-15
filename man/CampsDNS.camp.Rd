@@ -23,7 +23,6 @@ CampsDNS.camp("Porc")
 Other Series datos: 
 \code{\link{As1}},
 \code{\link{As2}},
-\code{\link{ListCamps}()},
 \code{\link{Msh}},
 \code{\link{Nsh}},
 \code{\link{PresenciaEsp.camp}()},
