@@ -62,15 +62,10 @@ En CampR existen algunas funciones para explorar los datos disponibles en cada d
 library(CampR)
 ```
 
-- <B> ListCamps(dns="Xxxx",tablas=TRUE)</B>: en este caso ficheros de la campaña "Porcupine"
 
 ```{r echo=FALSE, message=TRUE, warning=FALSE, paged.print=TRUE, results='markup'}
 CampR::CampsDNS.camp("Porc")
 ```
-- <B> ListCamps(dns="Xxxx",tablas=TRUE)</B>: en este caso ficheros de la campaña "Demersales"
 
-```{r, echo=FALSE, results='markup'}
-ListCamps(dns="Cant",tablas=TRUE)
-```
 
 
