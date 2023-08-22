@@ -23,7 +23,8 @@ DpthPrflTals(
   spl = FALSE,
   brks = "Sturges",
   tabres = TRUE,
-  tit2 = TRUE
+  tit2 = TRUE,
+  cexleg = 1
 )
 }
 \arguments{
@@ -62,6 +63,8 @@ DpthPrflTals(
 \item{tabres}{Muestra una tabla resumen de la media, total de biomasa o número y frecuencia de la especie por estación según el brks especificado}
 
 \item{tit2}{Añade un segundo título al gráfico especificando el rango de tallas}
+
+\item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
 }
 \description{
 Crea un gráfico de perfil de distribución por profundidad de la abundancia de una especie o grupo de especies en un rango de tallas específico a partir de los datos de distribución de tallas tomados en una campaña. También puede sacar los datos en peso pero a partir de las relaciones talla-peso, en vez de a partir de las faunísticas como en DpthPrfl

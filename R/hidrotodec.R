@@ -26,6 +26,7 @@ hidrotodec<- function(camp,dns,year=T) {
   dathidro$camp<-camp
   dathidro<-dathidro[,c(1,25,5,26,3,6:23,27)]
   names(dathidro)<-tolower(names(dathidro))
+  dathidro$fecha<-as.Date(ifelse(dathidro$fecha < "1980-12-31", format(dathidro$fecha, "20%y-%m-%d"), format(dathidro$fecha)))
   if (year) dathidro$year<-camptoyear(camp)
   dathidro
   }

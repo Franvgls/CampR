@@ -4,25 +4,25 @@
 \alias{datmuest.camp}
 \title{Datos del muestreo de la especie esp en la campaña}
 \usage{
-datmuest.camp(gr, esp, camp, dns = "Cant", excl.sect = NA)
+datmuest.camp(gr, esp, camps, dns = "Cant", excl.sect = NA)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
 
 \item{esp}{Código de la especie numérico o carácter con tres espacios. Utilizar buscacod(gr,esp) para ver codigos}
 
-\item{camp}{Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
+\item{camps}{Campañas de las que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 }
 \value{
-Devuelve un list con nombre de la especie, número total medido (sexado si se sexa) del fichero de tallas,  peso total capturado (del fichero de capturas en kg), peso total muestreado del fichero de tallas y rango de tallas.
+Devuelve un data.frame con datos del muestreo e los años elegidos y contendio: nombre especie,campaña,y pesos y número totales muestreados y el rango de tallas, talla mínima, talla máxima.
 }
 \description{
 Saca un resumen de los ejemplares y peso muestreados de la especie esp en la campaña camp
 }
 \examples{
- datmuest.camp(2,19,"P16","Porc")
+ datmuest.camps(2,19,c("P16","P17"),"Porc")
 }

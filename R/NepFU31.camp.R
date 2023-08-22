@@ -29,16 +29,23 @@
 #'   NepFU31.camp("N21")
 #' @export
 NepFU31.camp<-function(camp=camp,dns="Cant",plot=TRUE,es=FALSE,ti=TRUE,ICESlab=FALSE,
-                      ICESrectcol=1,ICESrect=TRUE,FU=31,places=TRUE,out.dat=TRUE,bw=FALSE) {
-  Nep<-maphist(2,19,camp,"Cant",plot=F,out.dat=T)
-  Nep_31<-rbind(subset(Nep,c(long>c(-7) & long<c(-3) & lat <c(44) & lat>43.5)),subset(Nep,c(long>c(-3) & long<c(-2) & lat <c(44) & lat>43)))
-  lans_FU31<-dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long>c(-7) & long<c(-2) & lat >c(43.5) & lat<(44)))
-  lans_FU31<-rbind(lans_FU31,dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long>c(-3) & long<c(-2) & lat >c(43) & lat<(44))))
-  MapNort(ICESrect = ICESrect,ICESlab = ICESlab,ICESrectcol = ICESrectcol,ylims=c(42.5,44.5),xlims=c(-6.5,-1.5),bw=bw)
+                      ICESrectcol=1,ICESrect=TRUE,FU=31,places=TRUE,out.dat=TRUE,bw=FALSE,escmult=.25,leg=TRUE,cexleg=.9,cor.time=TRUE) {
+  Nep<-maphist(2,19,camp,"Cant",plot=F,cor.time=cor.time,out.dat=T)
+  Nep_31<-rbind(subset(Nep,c(long>c(-8) & long<c(-2) & lat <c(44) & lat>43.5)),subset(Nep,c(long>c(-8) & long<c(-2) & lat <c(44) & lat>43)))
+  lans_FU31<-dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long>c(-8) & long<c(-2) & lat >c(43.5) & lat<(44)))
+  lans_FU31<-rbind(lans_FU31,dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long>c(-8) & long<c(-2) & lat >c(43) & lat<(44))))
+  leyenda<-signif(max(Nep$numero)*.9,1)
+  leyenda<-signif(c(1,.5,.25)*leyenda,1)
+  escala<-signif(max(Nep$numero),1)*escmult
+  MapNort(ICESrect = ICESrect,ICESlab = ICESlab,ICESrectcol = ICESrectcol,ylims=c(42.5,44.5),xlims=c(-8.2,-1.8),bw=bw)
   title(main=camptoyear(camp),line=1.5,sub=paste("FU 31 Nep Catch (n)= ",
                                                    sum(Nep_31[Nep_31$camp==camp,"numero"])),cex.sub=1.2,cex.main=2)
-  points(lat~long,Nep,subset=c(peso.gr>0 & camp==camp),cex=sqrt(Nep$numero/5),pch=21,col=2,bg=2)
+  points(lat~long,Nep,subset=c(peso.gr>0 & camp==camp),cex=sqrt(Nep$numero/escala),pch=21,col=2,bg=2)
   points(lat~long,Nep,subset=c(peso.gr==0 & camp==camp),cex=.7,pch=21,col=1,bg=1)
   legend("bottomright",legend=c("0 catch hauls"),pch=21,pt.bg=1,pt.cex=.7,inset=.01,bty="n")
-}
+  if (leg & max(Nep$numero,na.rm=TRUE)>0) {
+    points(rep(-7,3),c(43.2,42.85,42.60),cex=sqrt(leyenda/escala),pch=21,bg="grey")
+    text(rep(-7,3),c(43.2,42.85,42.60),labels=paste(leyenda,"ind."),pos=4,offset=3,cex=cexleg)
+    }
+  }
 

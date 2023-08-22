@@ -66,11 +66,11 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
 	lan<-lan[,c("lance","lat","long","validez","fecha")]
 	names(lan)<-c("lan","lat","long","val","fecha")
 	if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
-    mapporco(lwdl=lwdl,cuadr=cuadr,ICESrect = ICESrect,bw=bw)
+    mapporco(lwdl=lwdl,cuadr=cuadr,ICESrect = ICESrect,ICESlab = ICESlab,bw=bw)
     if (ti) {title(camp.name,line=2)}
 	}
   if (dns=="Arsa") {
-    MapArsa(xlims=c(-8.14,-5.54),ylims=c(35.95,37.33),lwdl=lwdl,cuadr=cuadr,ICESrect = ICESrect,bw=bw)
+    MapArsa(xlims=c(-8.14,-5.54),ylims=c(35.95,37.33),lwdl=lwdl,cuadr=cuadr,ICESrect = ICESrect,ICESlab = ICESlab,bw=bw)
     if (ti) {title(camp.name,line=2)}
   }
   if (dns=="Medi") {
@@ -78,7 +78,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
     if (ti) {title(camp.name,line=2)}
   }
   if (substr(dns,1,4)=="Cant"| dns=="Cnew"){
-    MapNort(strat=strat,bw=bw,es=es,places=places,cuadr=cuadr,cuadrMSFD=cuadrMSFD,ICESrect = ICESrect,xlims=xlims,ylims=ylims) #,places=places
+    MapNort(strat=strat,bw=bw,es=es,places=places,cuadr=cuadr,cuadrMSFD=cuadrMSFD,ICESrect = ICESrect,ICESlab = ICESlab,xlims=xlims,ylims=ylims) #,places=places
     if (ti) {title(camp.name,line=2)}
   }
 	if (arrow & !Nlans) {

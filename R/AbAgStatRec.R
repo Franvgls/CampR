@@ -1,0 +1,48 @@
+#' Calcula las abundancias estratificadas por edad y hora en cada rectángulo ICES de la zona considerada
+#'
+#' Función de resultados: abundancias estratificadas por edad en cada rectángulo ICES dentro del área de la cqampaña a partir de los datos del camp.
+#' @param gr Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?
+#' @param esp Código de la especie numérico o carácter con tres espacios. Sólo admite una especie por gráfica
+#' @param camp Campaña de la que se extraen los datos un año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
+#' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
+#' @param mediahora Pondera a una hora si se solicita por defecto en 2 suponiendo lances de media hora
+#' @param cor.time Si T corrige las abundancias en función de la duración del lance
+#' @param AltAlk ALK alternativa tomada de un fichero de edad del Camp edadXYY.dbf sin ruta ni extensión
+#' @param incl2 Si T incluye los datos de los lances extra, tener en cuenta que no son lances oficiales para calcular los índices de abundancia
+#' @param DatGraf Si F saca tabla con abundancias en cada rectángulo ICES muestreado en la campaña, si T saca los datos para sacar gráfica con MapIStatRec
+#' @param es si T saca para etiquetas en español (Ed para edad), si F en inglés (Ag para edad)
+#' @examples AbAgStatRec.camp(1,74,"N21","Cant",plus=3,DatGraf = F)
+#' @examples AbAgStatRec.camp(1,43,"P10","Porc",DatGraf = T)
+#' @family edades
+#' @export
+AbAgStatRec.camp<-function(gr,esp,camp,dns="Cant",plus=8,mediahora=2,cor.time=TRUE,AltAlk=NA,incl2=FALSE,DatGraf=FALSE,es=T) {
+  if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
+  if (length(esp)>1) {stop("Sólo se puede incluir una especie en esta función")}
+  esp<-format(esp,width=3,justify="r")
+  AbAgeHaul<-maphistage(gr=gr,esp=esp,camp=camp,dns=dns,age=0,plus = plus,cor.time = cor.time,out.dat = TRUE,AltAlk = AltAlk,incl2 = incl2,plot = FALSE,mediahora = mediahora)
+  datlanICES<-CAMPtoHH(camp = camp,dns = dns,incl2 = incl2)[,c("HaulNo","StatRec")]
+  datlanICES$HaulNo<-as.numeric(datlanICES$HaulNo)
+  AbAgeHaulICES<-merge(AbAgeHaul,datlanICES,by.x="lan",by.y = "HaulNo")
+  Results<-tapply(AbAgeHaulICES[,5],AbAgeHaulICES$StatRec,mean)
+  for (i in 1:plus) {
+    Results<-rbind(Results,tapply(AbAgeHaulICES[,5+i],AbAgeHaulICES$StatRec,mean))
+  }
+  row.names(Results)<-c(paste0(ifelse(es,"Ed","Ag"),0:c(plus-1)),paste0(ifelse(es,"Ed","Ag"),plus,"+"))
+  colnames(Results)<-paste0("#",colnames(Results),"#")
+  if(!DatGraf) return(t(Results))
+  if (DatGraf) {
+    Results1<-data.frame(ICESrect=gsub("#","",colnames(Results)),t(Results))
+    Result3<-tidyr::pivot_longer(Results1,cols=colnames(Results1[2:ncol(Results1)]),values_to="numero")
+    Result3$name<-gsub("\\.","+",Result3$name)
+    Result3$long<-NA
+    Result3$lat<-NA
+    Result3$ICESrect<-as.character(Result3$ICESrect)
+    #Area$ICESNAME<-as.character(Area$ICESNAME)
+    for (i in 1:nrow(Result3)) {
+      Result3$long[i]<-Area[Area$ICESNAME==Result3$ICESrect[i],"stat_x"]
+      Result3$lat[i]<-Area[Area$ICESNAME==Result3$ICESrect[i],"stat_y"]
+    }
+    Result3}
+  }
+

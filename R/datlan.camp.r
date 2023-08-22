@@ -81,7 +81,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     lan$abert_h[lan$abert_h==0]<-NA
     lan$sali[lan$sali==0]<-NA
     lan$temp[lan$temp==0]<-NA
-    lan$fecha<-format(lan$fecha,"%d-%m-%y")
+    lan$fecha<-as.Date(ifelse(lan$fecha < "1980-12-31", format(lan$fecha, "20%y-%m-%d"), format(lan$fecha)))
+      #format(lan$fecha,"%d-%m-%y")
     durlan<-dumb$DURLAN
     lan$sector<-paste0(lan$sector,lan$estrato)
     lan$weight.time<-ifelse(durlan==60,1,2)*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6)))
@@ -99,14 +100,14 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     if (!incl0) {lan<-lan[c(lan$validez!=0),]}
     if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
     datos<-merge(lan,area,by.x="sector",by.y="sector",all.x=TRUE)
-    if (outhidro) datos<-merge(datos,dathidro[,c(11:13,17:19,23)],by.x="lance",by.y="LANCE",all.x=TRUE)
+    if (outhidro) datos<-merge(datos,lan[,c(11:13,17:19,23)],by.x="lance",by.y="LANCE",all.x=TRUE)
     datos$arsect<-as.numeric(as.character(datos$arsect))
     datos$barco<-barco
     #browser()
     #datos<-datos[,c(2,1,3:ncol(datos))]
     names(datos)<-tolower(names(datos))
-    if(quarter==T) datos$quarter=as.character(cut(as.numeric(substr(datos$fecha,4,5)),c(0,3,6,9,12),labels=c(1:4)))
-    if(year==T) datos$year=as.numeric(paste0(ifelse(as.numeric(substr(camp,2,3)>50),19,20),substr(camp,2,3)))
+    if(quarter==T) datos$quarter=substr(quarters(as.Date(datos$fecha)),2,2)
+    if(year==T) datos$year=year(datos$fecha)
     datos[order(datos$lance),]
     }
   datos<-data.frame(foop(camp[1],dns=dns,incl2=incl2,incl0=incl0,outhidro=outhidro),camp=camp[1])

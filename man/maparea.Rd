@@ -4,9 +4,24 @@
 \alias{maparea}
 \title{Mapa general del banco de Porcupine}
 \usage{
-maparea(es = TRUE, leg = TRUE, bw = FALSE, dens = 0, ICESrect = F, sectcol = F)
+maparea(
+  ICESrect = FALSE,
+  ICESlab = FALSE,
+  ICESlabcex = 0.7,
+  es = TRUE,
+  leg = TRUE,
+  bw = FALSE,
+  dens = 0,
+  sectcol = F
+)
 }
 \arguments{
+\item{ICESrect}{Si T incluye los los rectángulos ICES}
+
+\item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
+
+\item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
+
 \item{es}{Textos en español, si F en inglés}
 
 \item{leg}{incluye la leyenda con los colores/patrones de los estratos}

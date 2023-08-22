@@ -4,10 +4,12 @@
 \alias{BuscaAphia}
 \title{Recupera los AphiaId de las especies sin Aphiaid en el fichero especies.dbf}
 \usage{
-BuscaAphia(gr = 1, export = TRUE)
+BuscaAphia(gr = 1, dns = "Camp", export = TRUE)
 }
 \arguments{
 \item{gr}{Grupo del que se desea buscar el AphiaID: 1 peces, 2 crustáceos, 3 moluscos, 4 equinodermos, 5 otros invertebrados}
+
+\item{dns}{Directorio en el que buscar el especies.dbf según se haya definido con los ODBC}
 
 \item{export}{Si T crea un fichero especies.csv con todos los datos corregidos (APHIAs) en el directorio CAMP donde está el especies.dbf este es importable al especies.dbf con un append from deli with, quitando todos los peces grupo="1"}
 }

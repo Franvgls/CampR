@@ -168,7 +168,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRU
     if (years) dumb<-dumbcamp
 #    browser()
     if (!ceros) dumb<-dumb[any(colSums(dumb[,4:c(ncol(dumb)-2)])>0),]
-    print(dumb[,1:c(ncol(dumb)-1)])
+    dumb[,1:c(ncol(dumb)-1)]  #print()
     }
 	else {
     if (!plot) mapdist

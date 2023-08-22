@@ -87,6 +87,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=T
 			panel=function(x,y,subscripts=subscripts) {
 			  lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
 			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+#			  if (ICESlab) lattice::ltext(c(stat_y+.22)~stat_x,Area,label=ICESNAME,cex=.2,font=2)
 			  lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
 				grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
 					default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
@@ -110,6 +111,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=T
       panel=function(x,y,subscripts=subscripts) {
         lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
         if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+#        if (ICESlab) lattice::panel.text(c(stat_y+.22)~stat_x,Area,label=ICESNAME,cex=.2,font=2)
         lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
 				grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
 					default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))

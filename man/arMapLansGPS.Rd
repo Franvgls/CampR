@@ -80,6 +80,7 @@ Other PescaWin:
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
+\code{\link{pasa.arte}()},
 \code{\link{pasa.lan}()}
 }
 \concept{PescaWin}

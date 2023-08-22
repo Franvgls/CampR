@@ -23,6 +23,7 @@ Other Series datos:
 \code{\link{CampsDNS.camp}()},
 \code{\link{Msh}},
 \code{\link{Nsh}},
+\code{\link{PrSh}},
 \code{\link{PresenciaEsp.camp}()}
 
 Other Porcupine: 

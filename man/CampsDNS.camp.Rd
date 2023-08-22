@@ -25,6 +25,7 @@ Other Series datos:
 \code{\link{As2}},
 \code{\link{Msh}},
 \code{\link{Nsh}},
+\code{\link{PrSh}},
 \code{\link{PresenciaEsp.camp}()},
 \code{\link{Psh}}
 }

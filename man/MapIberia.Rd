@@ -20,6 +20,7 @@ MapIberia(
   wmf = FALSE,
   es = TRUE,
   places = TRUE,
+  pais = TRUE,
   escmult = 1,
   add = FALSE
 )
@@ -52,6 +53,8 @@ MapIberia(
 \item{es}{Si T saca titulos y ejes en español}
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
+
+\item{pais}{si T incluye los carteles de los países represntados}
 
 \item{escmult}{=1 aumenta o disminuye el tamaño de las etiquetas y textos menos de 1 lo disminuye, más de uno lo aumenta}
 
