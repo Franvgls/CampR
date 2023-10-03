@@ -68,6 +68,7 @@ grafedtal.camp(1,43,"P09","Porc",es=FALSE,out.dat=TRUE)
 
 Other edades: 
 \code{\link{ALKs.dns.camp}()},
+\code{\link{AbAgStatRec.camp}()},
 \code{\link{GetAlk.camp}()},
 \code{\link{bubbage.camp}()},
 \code{\link{datagegr.camp}()},
@@ -76,6 +77,7 @@ Other edades:
 \code{\link{grafedtal.camps}()},
 \code{\link{logabage.camp}()},
 \code{\link{logabage2.camp}()},
+\code{\link{mapICESStatRec}()},
 \code{\link{maphistage}()}
 }
 \concept{edades}

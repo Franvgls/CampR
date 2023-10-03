@@ -48,7 +48,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
 	ch1<-DBI::dbConnect(odbc::odbc(), dns)
 	if (DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {
 	  hidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
-  	names(hidro)<-tolower(names(hidro))
+    hidro<-dplyr::rename_with(hidro,tolower)
 	  hidro<-dplyr::select(hidro,estn,latitud,longitud,eswe)
 	  if(nrow(hidro)==0) message("Fichero de CTDs sin datos")
 	  }

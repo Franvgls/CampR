@@ -81,6 +81,7 @@ Other mapas:
 \code{\link{arMapLansGPS}()},
 \code{\link{armap.camp}()},
 \code{\link{map.check}()},
+\code{\link{mapICESStatRec}()},
 \code{\link{maparea}()},
 \code{\link{maphistage}()},
 \code{\link{maphistal}()},

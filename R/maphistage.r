@@ -30,7 +30,7 @@
 #' @family mapas
 #' @family edades
 #' @export
-maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRUE,n.ots=FALSE,ICESrect=F,AltAlk=NA,incl2=TRUE,bw=FALSE,ti=TRUE,plot=TRUE,
+maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRUE,n.ots=FALSE,ICESrect=FALSE,ICESlab=FALSE,AltAlk=NA,incl2=TRUE,bw=FALSE,ti=TRUE,plot=TRUE,
   out.dat=FALSE,ind="n",cexleg=1,idi="l",es=TRUE,layout=NA,ceros=FALSE,years=TRUE,mediahora=1) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)
@@ -82,6 +82,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRU
 			panel=function(x,y,subscripts=subscripts) {
 			  lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
 			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+			  if (ICESlab) lattice::ltext(x=Area$stat_x,y=Area$stat_y+.22,label=Area$ICESNAME,cex=.7,font=2)
 			  lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
 				grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
 					default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
@@ -104,6 +105,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRU
 			panel=function(x,y,subscripts=subscripts) {
 			  lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
 			  if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+			  if (ICESlab) lattice::ltext(x=Area$stat_x,y=Area$stat_y+.22,label=Area$ICESNAME,cex=.7,font=2)
 			  lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.4))
 				grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
 					default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))
@@ -126,6 +128,7 @@ maphistage<-function(gr,esp,camp,dns="Porc",age,plus=8,excl.sect=NA,cor.time=TRU
       as.table=TRUE,panel=function(x,y,subscripts=subscripts) {
         lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
         if (ICESrect) lattice::panel.abline(h=seq(10,60,by=.5),v=seq(-20,10),col=gray(.2),lwd=.5)
+        if (ICESlab) lattice::ltext(x=Area$stat_x,y=Area$stat_y-.22,label=Area$ICESNAME,cex=.7,font=2)
         lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.4))
 	      grid::grid.polygon(maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[1]],maps::map(Arsa.map,c("Portugal","Costa"),plot=FALSE)[[2]],
 	                         default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.8),"bisque")))

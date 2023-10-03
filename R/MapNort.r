@@ -4,6 +4,7 @@
 #' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param lwdl Ancho de las líneas del mapa
+#' @param latlonglin si T saca líneas longi y latitudinales muy claritas
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
 #' @param cuadrcol Color para los recuadros de muestreo
 #' @param cuadrMSFD Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)
@@ -17,17 +18,21 @@
 #' @param es si T saca textos en español, si F en inglés
 #' @param ax Si T saca los ejes x e y
 #' @param strat Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)
-#' @param FU pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo
+#' @param FU Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)
+#' @param FUsLab Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs
 #' @param places Si T saca ciudades y puntos geográficos de referencia
 #' @param country si T saca el país
 #' @param xlims Define los limites longitudinales del mapa, por defecto -10.25 y -1.4 oeste
 #' @param ylims Define los limites longitudinales del mapa, por defecto 41.82 y 44.48 norte
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones
 #' @seealso {\link{MapCant}}, {\link{mapporco}}
+#' @examples MapNort(ICESrect = T,FU = c("FU25"))
 #' @family mapas base
 #' @family Galicia Cantabrico
 #' @export
-MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=FALSE,es=FALSE,ax=TRUE,strat=FALSE,places=FALSE,FU=NA,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
+MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,latlonglin=TRUE,ICESrect=FALSE,
+                   ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=FALSE,es=FALSE,ax=TRUE,strat=FALSE,
+                   places=FALSE,FU=NA,FUsLab=FALSE,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.6)) {
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
   if (ax) {
@@ -35,30 +40,24 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,ICESrec
      alg = sapply(degs,function(x) bquote(.(abs(x))*degree ~ W))
      axis(1, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
      axis(3, at=degs, lab=do.call(expression,alg),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),mgp=c(1,.2,0))
-     degs = seq(42,44,ifelse(abs(diff(ylims))>1,1,.5))
+     degs = seq(ceiling(ylims[1]),ceiling(ylims[2]),ifelse(abs(diff(ylims))>1,1,.5))
      alt = sapply(degs,function(x) bquote(.(x)*degree ~ N))
      axis(2, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
      axis(4, at=degs, lab=do.call(expression,alt),font.axis=2,cex.axis=.8,tick=T,tck=c(-.01),las=2,mgp=c(1,.5,0))
   }
-  if (cuadr) {
-    abline(h=seq(41,45,by=1/12),col=cuadrcol,lwd=.5)
-    abline(v=seq(-12,0,by=3/26),col=cuadrcol,lwd=.5)
-  }
-  if (cuadrMSFD) {
-    abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
-    abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
-  }
+  if (latlonglin) abline(v=c(-20:2),h=c(40:60),lty=3,col=gray(.7))
+  if (cuadr) abline(h=seq(41,45,by=1/12),v=seq(-12,0,by=3/26),col=cuadrcol,lwd=.5)
+  if (cuadrMSFD) abline(h=seq(31,45,by=1/6),v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
   if (ICESlab) text(c(stat_y+.22)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
-  if (ICESrect) {
-    abline(h=seq(41,45,by=.5),col=ICESrectcol,lwd=2)
-    abline(v=seq(-12,-1),col=ICESrectcol,lwd=2)
-  }
+  if (ICESrect) abline(h=seq(41,45,by=.5),v=seq(-12,-1),col=ICESrectcol,lwd=2)
   if (strat) {
     abline(h=43,v=c(-7.66,-6,-3.5),lty=1,col=gray(.0),lwd=2)
     text(c(-10,-9.7,-6.83,-4.75,-2.7),c(42.4,44.3,44.3,44.3,44.3),c("MF","FE","EP","PA","AB"),font=2)
   }
   if (any(!is.na(FU))) {
-    for (i in 1:length(FU)) lines(FU[i],col=2,lwd=2)
+    if (any(stringr::str_detect(FU,"FU26"))) {polygon(FU26[,c("long")],FU26[,c("lat")],density = NULL,col="white",border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU26),lat==max(FU26[,"lat"])),lab="FU26",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU25"))) {polygon(FU25[,c("long")],FU25[,c("lat")],density = NULL,col="white",border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU25),long==max(FU25[,"long"])),lab="FU25",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU31"))) {polygon(FU31[,c("long")],FU31[,c("lat")],density = NULL,col="white",border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),filter(as.data.frame(FU31),long==min(FU31[,"long"])),lab="FU31",cex=.8,font=2,pos=1,col=2)}
   }
   maps::map(Nort.str,add=TRUE,fill=TRUE,col=c(rep(NA,16),ifelse(bw,"light gray","wheat")),lwd=lwdl)
   maps::map(Nort.map,Nort.map$names[1:16],add=TRUE,col=c("gray"),lwd=lwdl)

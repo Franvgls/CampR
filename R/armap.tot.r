@@ -6,6 +6,7 @@
 #' @param lwdl Anchura de las líneas
 #' @param col Color de los puntos que representan estaciones
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
+#' @param ICESlab si T incluye el rectángulo ICES en los rectángulos (arriba porcupine y norte, abajo en ARSA)
 #' @param argr Grosor de las flechas de recorrido
 #' @param arrow Si T añade flechas de reccorrido
 #' @param leg Si T añade leyenda
@@ -23,8 +24,8 @@
 #' @family mapas
 #' @family resumen general
 #' @export
-armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,
-                    es=FALSE,bw=TRUE,noval=FALSE,Nlans=FALSE,CTDs=FALSE,NCTDs=FALSE,Dates=FALSE,lans=TRUE,strat=FALSE) {
+armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,ICESlab=FALSE,lwdl=1,col=2,argr=2,arrow=FALSE,leg=FALSE,
+                    es=FALSE,bw=FALSE,noval=FALSE,Nlans=FALSE,CTDs=FALSE,NCTDs=FALSE,Dates=FALSE,lans=TRUE,strat=FALSE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
 	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE)
   if (CTDs |NCTDs) {
@@ -49,11 +50,11 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,lwdl=1,col=2,argr=2,arrow=FAL
     }
 	lan<-lan[,c("lance","lat","long","validez")]
 	names(lan)<-c("lan","lat","long","val")
-	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=FALSE,sectcol = F,bw=bw,ICESrect=ICESrect)
+	if (dns=="Pnew" | dns=="Porc") maparea(es=es,leg=FALSE,sectcol = F,bw=bw,ICESrect=ICESrect,ICESlab = ICESlab)
   else {
-	  if (dns=="Cant" | dns=="Cnew") MapNort(strat=strat,bw=bw,es=es,ICESrect = ICESrect)
+	  if (dns=="Cant" | dns=="Cnew") MapNort(strat=strat,bw=bw,es=es,ICESrect = ICESrect,ICESlab = ICESlab)
     else {
-      if (dns=="Arsa") MapArsa(es=es,ICESrect = ICESrect)
+      if (dns=="Arsa") MapArsa(es=es,ICESrect = ICESrect,ICESlab = ICESlab)
       }
     }
 	if (arrow) {

@@ -7,12 +7,13 @@
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" (proporciona los datos para Medits pero no saca mapas)
 #' @param plus Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +
 #' @param recr edad de reclutamiento para especies con reclutamiento en edad 1 o mayor
+#' @param excl.sect Sirve para excluir sectores y quedarse sólo con uno de los sectores NA estan todos por defecto c(2:5) excluye tods menos el sector 1 de Demerseles
 #' @param cor.time Si T corrige las abundancias en función de la duración del lance
 #' @examples bubbage.camp(1,43,Nsh[1:29],"Cant",8,0)
 #' @return Saca un lattice de descenso de abundancia logarítmica con la edad con dato de la pendiente para cada año. También saca una matriz de abundancias por años x edad columnas x filas
 #' @family edades
 #' @export
-bubbage.camp <-function(gr,esp,camps,dns="Porc",plus=8,recr=0,cor.time=TRUE) {
+bubbage.camp <-function(gr,esp,camps,dns="Porc",plus=8,recr=0,excl.sect=NA,cor.time=TRUE) {
   if (length(esp)>1) {
     stop("Sólo se puede incluir una especie en esta función")
   }
@@ -23,7 +24,7 @@ bubbage.camp <-function(gr,esp,camps,dns="Porc",plus=8,recr=0,cor.time=TRUE) {
     if (camps[i]=="N87") dumb<-rbind(dumb,data.frame(n=rep(NA,plus+1),age=0:plus,year=1987,camp="N87"))
     else {
       anyo<-ifelse(as.numeric(substr(camps[i],2,3))>50,1900,2000)+as.numeric(substr(camps[i],2,3))
-      dumb<-rbind(dumb,data.frame(n=edadstr.camp(gr,esp,camps[i],dns,plus,cor.time=cor.time)$total,age=0:plus,year=anyo,camp=camps[i]))
+      dumb<-rbind(dumb,data.frame(n=edadstr.camp(gr,esp,camps[i],dns,plus,excl.sect = excl.sect,cor.time=cor.time)$total,age=0:plus,year=anyo,camp=camps[i]))
     }
   }
   # Totals by age, median of time series by age, mad time series by age, median proportion by age...

@@ -41,6 +41,11 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
       if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {message(paste0("No existe fichero de CTDs para ",camp));outhidro=FALSE}
       else
         {dathidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
+        names(dathidro)<-tolower(names(dathidro))
+        dathidro<-dplyr::rename(dathidro,prof.ctd=prof) #dathidro$prof.ctd<-dathidro$prof
+        dathidro<-dplyr::rename(dathidro,cable.ctd=cable) #dathidro$prof.ctd<-dathidro$prof
+        dathidro$fecha<-as.Date(ifelse(dathidro$fecha < "1980-12-31", format(dathidro$fecha, "20%y-%m-%d"), format(dathidro$fecha)))
+        dathidro$lance<-as.numeric(dathidro$lance)
         if(nrow(dathidro)==0) message("Fichero de CTDs sin datos")
         }}
     dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
@@ -100,8 +105,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     if (!incl0) {lan<-lan[c(lan$validez!=0),]}
     if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
     datos<-merge(lan,area,by.x="sector",by.y="sector",all.x=TRUE)
-    if (outhidro) datos<-merge(datos,lan[,c(11:13,17:19,23)],by.x="lance",by.y="LANCE",all.x=TRUE)
-    datos$arsect<-as.numeric(as.character(datos$arsect))
+    if (outhidro) datos<-merge(lan,dathidro,by=c("lance","fecha","temp","sali","estn"),all.x = T)
+    #datos$arsect<-as.numeric(as.character(datos$arsect))
     datos$barco<-barco
     #browser()
     #datos<-datos[,c(2,1,3:ncol(datos))]

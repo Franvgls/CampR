@@ -46,6 +46,7 @@ logabage2.camp("1"," 43",Nsh,"Cant",8)
 
 Other edades: 
 \code{\link{ALKs.dns.camp}()},
+\code{\link{AbAgStatRec.camp}()},
 \code{\link{GetAlk.camp}()},
 \code{\link{bubbage.camp}()},
 \code{\link{datagegr.camp}()},
@@ -54,6 +55,7 @@ Other edades:
 \code{\link{grafedtal.camps}()},
 \code{\link{grafedtal.camp}()},
 \code{\link{logabage.camp}()},
+\code{\link{mapICESStatRec}()},
 \code{\link{maphistage}()}
 }
 \concept{edades}

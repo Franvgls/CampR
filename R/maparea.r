@@ -22,13 +22,10 @@ maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw
   #box()
 	#rect(-16,50.,-8.,55)
 	abline(v=c(-15:-6),h=c(51:54),lty=3,col=gray(.2))
-	if (ICESrect) {
-	  abline(h=seq(50,55,by=.5),col=gray(.2),lwd=.6)
-	  abline(v=seq(-18,-10,by=1),col=gray(.2),lwd=.6)
-	  }
+	if (ICESrect) abline(h=seq(50,55,by=.5),v=seq(-18,-10,by=1),col=gray(.2),lwd=.6)
+	if (ICESlab) text(c(stat_y+.215)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
 	maps::map("worldHires",c("ireland","UK:Northern Ireland"),fill=TRUE,col=ifelse(!bw,"bisque","gray85"),add=TRUE)
 	detach("package:mapdata")
-	if (ICESlab) text(c(stat_y+.215)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
 	points(-(9+.0303/.6),(53+.1623/.6),pch=16,col=1)
 	text(-(9+.0303/.6),(53+.1623/.6),label="Galway",pos=3,cex=.7,font=2)
 	text(-(8.95),(52.2),label=ifelse(es,"IRLANDA","IRELAND"),cex=1.3,font=2)

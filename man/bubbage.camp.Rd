@@ -33,6 +33,7 @@ bubbage.camp(1,43,Nsh[1:29],"Cant",8,0)
 \seealso{
 Other edades: 
 \code{\link{ALKs.dns.camp}()},
+\code{\link{AbAgStatRec.camp}()},
 \code{\link{GetAlk.camp}()},
 \code{\link{datagegr.camp}()},
 \code{\link{edadsect.camp}()},
@@ -41,6 +42,7 @@ Other edades:
 \code{\link{grafedtal.camp}()},
 \code{\link{logabage.camp}()},
 \code{\link{logabage2.camp}()},
+\code{\link{mapICESStatRec}()},
 \code{\link{maphistage}()}
 }
 \concept{edades}

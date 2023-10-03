@@ -1,6 +1,6 @@
 #' Datos de tallas y sexo con geografía (para uso en especies a evaluar con datos de tallas: L. circularis, Phycis...)
 #'
-#' Función de salida de datos:
+#' Función de transformación de datos:
 #' Extrae los datos de abundancia por talla y sexo de una especie y les añade los datos de su ubicación geográfica y profundidad
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
@@ -12,7 +12,7 @@
 #' @param verbose Si T muestra avisos problemas de tallas entre distintas especies
 #' @return Devuelve un data.frame con variables: Species,	year,	survey,	station,	length,	sex,	number,	latitude,	longitude,	depth,
 #' @seealso {\link{datos.camp}}
-#' @examples dattal.camp("1"," 50",paste0("P0",7),"Porc",excl.sect=c("B","C"))
+#' @examples datTalaGeo.camp(1,87,Nsh[10:38],"Cant")
 #' @export
 datTalaGeo.camp<- function(gr,esp,camps,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbose=TRUE) {
   #if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}

@@ -16,7 +16,11 @@ NepFU31.camp(
   FU = 31,
   places = TRUE,
   out.dat = TRUE,
-  bw = FALSE
+  bw = FALSE,
+  escmult = 0.25,
+  leg = TRUE,
+  cexleg = 0.9,
+  cor.time = TRUE
 )
 }
 \arguments{

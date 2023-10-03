@@ -1,11 +1,11 @@
 #' Mapa del Golfo de Cádiz
-#' 
+#'
 #' Función auxiliar para sacar mapas de la campaña ARSA
-#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña 
-#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña 
+#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del área de la campaña
+#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña
 #' @param lwdl Ancho de las líneas del mapa
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
-#' @param cuadrMSFD Si T dibuja cuadrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD) 
+#' @param cuadrMSFD Si T dibuja cuadrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
 #' @param leg si T incluye una legenda con los estratos de profundidad y los estratos se colorean respectivamente
 #' @param ax Si T saca los ejes x e y
@@ -19,24 +19,16 @@
 #' @family mapas base
 #' @family ARSA
 #' @export
-MapArsa<-function(xlims=c(-8.172,-5.50),ylims=c(35.95,37.35),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
+MapArsa<-function(xlims=c(-8.149,-5.52),ylims=c(35.95,37.3337),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ax=TRUE,bw=FALSE,wmf=FALSE,es=TRUE,places=TRUE) {
   asp<-diff(c(35.95,37.33))/(diff(c(-8,-5.55))*cos(mean(c(35.95,37.33))*pi/180))
   if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
   maps::map(Arsa.str,xlim=xlims,ylim=ylims,type="n",xaxs="i",yaxs="i")
-  if (cuadr) {
-    abline(h=seq(31,45,by=1/12),col=gray(.6),lwd=.6)
-    abline(v=seq(-12,0,by=0.089),col=gray(.6),lwd=.6)
-  }
-  if (ICESrect) {
-    abline(h=seq(31,45,by=.5),col=gray(.2),lwd=.6)
-    abline(v=seq(-12,0,by=1),col=gray(.2),lwd=.6)
-  }
-  if (cuadrMSFD) {
-    abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
-    abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
-  }
+  if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
+  if (cuadr) abline(h=seq(31,45,by=1/12),v=seq(-12,0,by=0.089),col=gray(.6),lwd=.6)
+  if (ICESrect) abline(h=seq(36,37,by=.5),v=seq(-8,-5,by=1),col=gray(.2),lwd=.6)
+  if (cuadrMSFD) abline(h=seq(31,45,by=1/6),v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
   maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,5),ifelse(bw,"light gray","wheat")),lwd=lwdl,xaxs="i",yaxs="i")
   maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,6),ifelse(bw,"light gray","wheat")),lwd=lwdl,xaxs="i",yaxs="i")
   if (leg) {

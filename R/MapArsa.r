@@ -34,10 +34,7 @@ MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=
     abline(v=seq(-12,0,by=0.089),col=gray(.6),lwd=.6)
   }
   if (ICESlab) text(c(stat_y-.22)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,col=1,font=2)
-  if (ICESrect) {
-    abline(h=seq(31,45,by=.5),col=ICESrectcol,lwd=.6)
-    abline(v=seq(-12,0,by=1),col=ICESrectcol,lwd=.6)
-  }
+  if (ICESrect) abline(h=seq(31,45,by=.5),v=seq(-12,0,by=1),col=ICESrectcol,lwd=.6)
   if (cuadrMSFD) {
     abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
     abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)

@@ -25,6 +25,7 @@ edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,excl.sect=NA,cor.time=TRUE
   ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
                              " where grupo='",gr,"' and esp='",esp,"'",sep=""))
   RODBC::odbcCloseAll()
+  #on.exit(RODBC::odbcClose(ch1))
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m

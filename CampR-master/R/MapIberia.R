@@ -1,11 +1,11 @@
 #' Mapa de la Península Ibérica completo
-#' 
+#'
 #' Función auxiliar para sacar mapas de la campaña MEDITS
-#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del ?rea de la campaña 
-#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del ?rea de la campaña 
+#' @param xlims Define los limites longitudinales del mapa, los valores por defecto son los del total del ?rea de la campaña
+#' @param ylims Define los limites latitudinales del mapa, los valores por defecto son los del total del ?rea de la campaña
 #' @param lwdl Ancho de las líneas del mapa
 #' @param cuadr Si T saca las cuadrículas de 5x5 millas naúticas
-#' @param cuadrMSFD Si T dibuja caudr?cula de 10 millas naúticas utilizada para la evaluaci?n de la estrategia marina (MSFD) 
+#' @param cuadrMSFD Si T dibuja caudr?cula de 10 millas naúticas utilizada para la evaluaci?n de la estrategia marina (MSFD)
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
 #' @param bw si T mapa con tierra en gris, si F tierra en color
 #' @param ax Si T saca los ejes x e y
@@ -24,18 +24,9 @@ MapIberia<-function(xlims=c(-9.72,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3)
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
   maps::map(Iberiamap,xlim=xlims,ylim=ylims,type="n",yaxs="i",xaxs="i")
-  if (cuadr) {
-    abline(h=seq(35,45,by=1/12),col=gray(.6),lwd=.6)
-    abline(v=seq(-10,5,by=0.089),col=gray(.6),lwd=.6)
-  }
-  if (ICESrect) {
-    abline(h=seq(35,45,by=.5),col=gray(.2),lwd=.6)
-    abline(v=seq(-10,5,by=1),col=gray(.2),lwd=.6)
-  }
-  if (cuadrMSFD) {
-    abline(h=seq(35,45,by=1/6),col=gray(.4),lwd=.5)
-    abline(v=seq(-10,5,by=0.2174213),col=gray(.4),lwd=.5)
-  }
+  abline(h=seq(35,45,by=1/12),v=seq(-10,5,by=0.089),col=gray(.6),lwd=.6)
+  if (ICESrect) abline(h=seq(35,45,by=.5),v=seq(-10,5,by=1),col=gray(.2),lwd=.6)
+  if (cuadrMSFD) abline(h=seq(35,45,by=1/6),v=seq(-10,5,by=0.2174213),col=gray(.4),lwd=.5)
   if (bw) {colo="lightgray"}
   else colo="wheat"
   maps::map(Iberiamap,add=TRUE,fill=TRUE,col=colo,lwd=lwdl)

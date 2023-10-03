@@ -30,23 +30,12 @@
 #' @family mapas
 #' @family edades
 #' @export
-mapICESStatRec<-function(gr,esp,camp,dns="Cant",age=0,plus=3,cor.time=TRUE,ICESrect=TRUE,ICESlab=FALSE,AltAlk=NA,incl2=FALSE,bw=FALSE,ti=TRUE,plot=T,
-  out.dat=FALSE,ind="n",cexleg=1,idi="l",es=TRUE,years=TRUE,escmult=.1,layout=NA,ceros=FALSE,mediahora=2,lattice=TRUE,plotrix=FALSE) {
+mapICESStatRec.plotrix<-function(gr,esp,camp,dns="Cant",age=0,plus=3,cor.time=TRUE,ICESrect=TRUE,ICESlab=FALSE,AltAlk=NA,incl2=FALSE,bw=FALSE,ti=TRUE,plot=T,
+  out.dat=FALSE,ind="n",cexleg=1,idi="l",es=TRUE,years=TRUE,escmult=.1,layout=NA,ceros=FALSE,mediahora=2) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)
-  if (plot) {
-    if (bw) {
-      lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
-      colo=gray(.1)
-    }
-    else {
-      lattice::trellis.par.set("strip.background",list(col="ivory2"))
-      colo=4
-    }
-  }
-  if (length(esp)>1) {
-    stop("Esta función sólo admite una especie")
-    }
+  if (bw) {colo=gray(.1)} else {colo=4}
+  if (length(esp)>1) {stop("Esta función sólo admite una especie")}
   esp<-format(esp,width=3,justify="r")
   # function(gr,esp,camp,dns="Cant",plus=8,mediahora=2,cor.time=TRUE,AltAlk=NA,incl2=FALSE,DatGraf=FALSE,es=T)
   Result3<-AbAgStatRec.camp(gr=gr,esp = esp,camp = camp,dns = dns,plus = plus,cor.time = cor.time,AltAlk = AltAlk,incl2 = incl2,DatGraf = T)

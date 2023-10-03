@@ -78,6 +78,7 @@ grafedtal.camps(1,43,Nsh[22:31],"Cant",plus=7,years=T,es=FALSE)
 
 Other edades: 
 \code{\link{ALKs.dns.camp}()},
+\code{\link{AbAgStatRec.camp}()},
 \code{\link{GetAlk.camp}()},
 \code{\link{bubbage.camp}()},
 \code{\link{datagegr.camp}()},
@@ -86,6 +87,7 @@ Other edades:
 \code{\link{grafedtal.camp}()},
 \code{\link{logabage.camp}()},
 \code{\link{logabage2.camp}()},
+\code{\link{mapICESStatRec}()},
 \code{\link{maphistage}()}
 }
 \concept{edades}

@@ -39,6 +39,7 @@ GetAlk.camp(1,45,"P03","Porc",AltAlk="edadXYY")
 \seealso{
 Other edades: 
 \code{\link{ALKs.dns.camp}()},
+\code{\link{AbAgStatRec.camp}()},
 \code{\link{bubbage.camp}()},
 \code{\link{datagegr.camp}()},
 \code{\link{edadsect.camp}()},
@@ -47,6 +48,7 @@ Other edades:
 \code{\link{grafedtal.camp}()},
 \code{\link{logabage.camp}()},
 \code{\link{logabage2.camp}()},
+\code{\link{mapICESStatRec}()},
 \code{\link{maphistage}()}
 }
 \concept{edades}

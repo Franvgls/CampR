@@ -31,9 +31,9 @@
 NepFU31.camp<-function(camp=camp,dns="Cant",plot=TRUE,es=FALSE,ti=TRUE,ICESlab=FALSE,
                       ICESrectcol=1,ICESrect=TRUE,FU=31,places=TRUE,out.dat=TRUE,bw=FALSE,escmult=.25,leg=TRUE,cexleg=.9,cor.time=TRUE) {
   Nep<-maphist(2,19,camp,"Cant",plot=F,cor.time=cor.time,out.dat=T)
-  Nep_31<-rbind(subset(Nep,c(long>c(-8) & long<c(-2) & lat <c(44) & lat>43.5)),subset(Nep,c(long>c(-8) & long<c(-2) & lat <c(44) & lat>43)))
-  lans_FU31<-dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long>c(-8) & long<c(-2) & lat >c(43.5) & lat<(44)))
-  lans_FU31<-rbind(lans_FU31,dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long>c(-8) & long<c(-2) & lat >c(43) & lat<(44))))
+  Nep_31<-rbind(subset(Nep,c(long>c(-8) & long<c(-2) & lat <c(44.5) & lat>43)),subset(Nep,c(long>c(-8) & long<c(-2) & lat <c(44) & lat>43)))
+  lans_FU31<-dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long>c(-8) & long<c(-2) & lat >c(43) & lat<(44.5)))
+  lans_FU31<-rbind(lans_FU31,dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long>c(-8) & long<c(-2) & lat >c(43) & lat<(44.5))))
   leyenda<-signif(max(Nep$numero)*.9,1)
   leyenda<-signif(c(1,.5,.25)*leyenda,1)
   escala<-signif(max(Nep$numero),1)*escmult
