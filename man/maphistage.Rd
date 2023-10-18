@@ -14,7 +14,8 @@ maphistage(
   excl.sect = NA,
   cor.time = TRUE,
   n.ots = FALSE,
-  ICESrect = F,
+  ICESrect = FALSE,
+  ICESlab = FALSE,
   AltAlk = NA,
   incl2 = TRUE,
   bw = FALSE,
@@ -103,6 +104,7 @@ Other mapas:
 \code{\link{armap.camp}()},
 \code{\link{armap.tot}()},
 \code{\link{map.check}()},
+\code{\link{mapICESStatRec.plotrix}()},
 \code{\link{mapICESStatRec}()},
 \code{\link{maparea}()},
 \code{\link{maphistal}()},
@@ -120,6 +122,7 @@ Other edades:
 \code{\link{grafedtal.camp}()},
 \code{\link{logabage.camp}()},
 \code{\link{logabage2.camp}()},
+\code{\link{mapICESStatRec.plotrix}()},
 \code{\link{mapICESStatRec}()}
 }
 \concept{edades}

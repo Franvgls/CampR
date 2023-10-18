@@ -88,7 +88,7 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
     polygon(maps::map(Porc.map,"1C",plot=FALSE)$x,maps::map(Porc.map,"1C",plot=FALSE)$y,density=dens,angle=135)
   }
   if (any(!is.na(FU))) {
-    if (any(stringr::str_detect(FU,"FU16"))) {polygon(FU16[,c("long")],FU16[,c("lat")],density = NULL,col=NULL,border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU16),lat==max(FU16[,"lat"])),lab="FU16",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU16"))) {polygon(FU16[,c("long")],FU16[,c("lat")],density = 20,col="chartreuse",border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU16),lat==max(FU16[,"lat"])),lab="FU16",cex=.8,font=2,pos=4,col=2)}
   }
   if (leg) {
     rect(-13.2,50.7,-10.3,51.3,col="white")

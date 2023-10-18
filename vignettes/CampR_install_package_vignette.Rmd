@@ -1,0 +1,62 @@
+---
+title: "Instalación de librerías para CampR"
+author: "Fran Velasco"
+date: "`r Sys.Date()`"
+output: html_document
+vignette: |
+  %\VignetteEngine{knitr::rmarkdown} %\VignetteINdexEntry{Instalación de datos para CampR}  %\VignetteEncoding{UTF-8}
+---
+
+ CampR: Instalación de R, Rstudio y librerías de R necesarias
+------------
+
+La librería CampR importa funciones de muchas otras librerías, pero dadas las limitaciones de tener que trabajar en 32bits en lugar de 64bits hay que tener en cuenta que la librería CampR funciona con R en 32bits, no con R en 64bits, con lo que:
+
+- [R tiene que ser R 3.6.3](https://cran.r-project.org/bin/windows/base/old/3.6.3/) y escoger la versión de 32 bits en el Rstudio
+- [RStudio 1.1.463.exe](https://s3.amazonaws.com/rstudio-dailybuilds/RStudio-1.1.463.exe)
+- [Rtools35.exe](https://cran.r-project.org/bin/windows/Rtools/Rtools35.exe) o [Rtools40-x86_64.exe](https://cran.r-project.org/bin/windows/Rtools/rtools40-x86_64.exe) 
+
+Además hay algunas librerías que han pasado a versiones modernas que no son compatibles con 32bits, por ello hay que instalar algunas librerías en versiones antiguas, entre ellas están:
+
+* cli 2.5.0
+* data.table 1.14.8
+* dplyr 1.0.6
+* glue 1.4.2
+* hms 1.1.2
+* lattice 0.20-38
+* magrittr 2.0.1
+* pillar 1.6.4
+* rlang 0.4.11
+* tibble 3.1.1
+* vctrs 0.3.8
+
+Para instalar estas librerías en la versión adecuada se puede utilizar el comando remotes::install_version("librería","versión")
+
+#### Otras librerías utilizadas en CampR
+
+Hay otras librerías de las que se utilizan funciones en CampR:
+
+- Manejo de datos y bases de datos:
+  - DBI
+  - odbc
+  - foreign
+  - tidyverse
+
+- mapas y fechas:
+  - maps
+  - mapdata
+  - suncalc
+  - hms
+  - geosphere
+
+- graficos:
+  - lattice
+  - grid
+  - gstat
+
+- estadística mates y otras:
+    - boot
+    - worrms
+    - vegan
+    - icesDatras
+    - hablar

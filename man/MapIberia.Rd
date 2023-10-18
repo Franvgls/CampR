@@ -5,7 +5,7 @@
 \title{Mapa de la Península Ibérica completo}
 \usage{
 MapIberia(
-  xlims = c(-10.2, 5),
+  xlims = c(-10.7, 5),
   ylims = c(35.9, 44.5),
   lwdl = 1,
   cuadr = FALSE,
@@ -13,8 +13,9 @@ MapIberia(
   ICESrect = FALSE,
   ICESlab = FALSE,
   ICESlabcex = 0.6,
-  nepFU = F,
-  FUs = c(NULL),
+  FU = NULL,
+  ColFU = "chartreuse",
+  FUsLab = FALSE,
   bw = F,
   ax = TRUE,
   wmf = FALSE,
@@ -22,6 +23,7 @@ MapIberia(
   places = TRUE,
   pais = TRUE,
   escmult = 1,
+  dens = 20,
   add = FALSE
 )
 }
@@ -42,7 +44,9 @@ MapIberia(
 
 \item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 
-\item{FUs}{Por defecto NULL pero si se incluye un vector con la lista de las unidades funcionales las pinta}
+\item{ColFU}{Por defecto chartreuse, color para las zonas de las FU de cigalas}
+
+\item{FUsLab}{Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs}
 
 \item{bw}{si T mapa con tierra en gris, si F tierra en color}
 
@@ -60,7 +64,7 @@ MapIberia(
 
 \item{add}{si T se añade al mapa si no saca la pantalla nueva}
 
-\item{NepFU}{Si T saca recuadros marcando los rectángulos de las unidades funcionales de cigala}
+\item{FUs}{Por defecto NULL pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapIberia son FU31, FU25, FU26, FU27, FU28, FU29 y FU30)}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones
@@ -70,7 +74,7 @@ Función auxiliar para sacar mapas de la campaña MEDITS
 }
 \examples{
 MapIberia()
-MapIberia(nepFU=T,FUs=list(FU25,FU31),ICESrect=TRUE,ICESlab=T)
+MapIberia(FU=c("FU25","FU31"),ICESrect=TRUE,ICESlab=T)
 }
 \seealso{
 Other mapas base: 

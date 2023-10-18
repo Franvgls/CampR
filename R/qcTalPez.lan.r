@@ -57,7 +57,7 @@ qcTalPez.lan<-function (camp, dns = "Cant", lan, gr = 1) {
   }
   if (length(sincapt) == 0 & length(nomed) == 0) {}
 #    print("No hay especies sin medir")
-  listspsmed <- listsps[!listsps$esp %in% as.numeric(nomed),]
+  listspsmed <- listsps[!listsps$esp %in% nomed,]
   errpesos <- listspsmed[, c("peso_gr")] - talspes[as.character(listspsmed$esp)]
   errnumer <- listspsmed[, c("numero")] - talsnum[as.character(listspsmed$esp)]
   if (any(abs(errpesos) > 1)) {

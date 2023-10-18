@@ -67,8 +67,8 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
     DB$estn<-as.numeric(as.character(DB$estn))
     HH_north<-data.table::data.table(RecordType="HH",Survey=DB$survey,Quarter=DB$quarter,Country="ES",Ship=DB$barco,Gear=DB$Gear,
                                      SweepLngt=DB$malletas,GearExp=-9,DoorType=DB$DoorType,StNo=DB$StNo,
-                                     HaulNo=DB$lance,Year=DB$year,Month=substr(DB$fecha,4,5),
-                                     Day=substr(DB$fecha,1,2),TimeShot=DB$TimeShot,Stratum=DB$estrato,
+                                     HaulNo=DB$lance,Year=DB$year,Month=substr(DB$fecha,6,7),
+                                     Day=substr(DB$fecha,9,10),TimeShot=DB$TimeShot,Stratum=DB$estrato,
                                      HaulDur=round(DB$haul.mins*DB$weight.time),DayNight="D",ShootLat=DB$latitud_l,
                                      ShootLong=DB$longitud_l,HaulLat=DB$latitud_v,HaulLong=DB$longitud_v,StatRec=DB$icesrect,
                                      Depth=DB$prof_l,HaulVal=ifelse(DB$validez==1,"V",ifelse(DB$validez==2 | DB$validez==3,"A","I")),

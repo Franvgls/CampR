@@ -2,9 +2,8 @@
 title: "CampR control de calidad en campañas de arrastre"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
-vignette: |
-  %\VignetteEngine{knitr::rmarkdown} 
-  %\VignetteINdexEntry{CampR control de calidad en campañas de arrastre}     %\VignetteEncoding{UTF-8}
+vignette: "%\\VignetteEngine{knitr::rmarkdown} \n%\\VignetteINdexEntry{CampR control
+  de calidad en campañas de arrastre}     %\\VignetteEncoding{UTF-8}\n"
 ---
 
 ```{r, echo=FALSE, results='hide', include=FALSE}
@@ -15,31 +14,54 @@ Este documento R Markdown. resume y propone un protolo para realiar la comprobac
 
 El protocolo debe incluir la revisión de:
 
-### Pescas: datos en el fichero `lancesXXX.dbf` 
+### Pescas: datos en el fichero **lancesXXX.dbf** 
 
-La revisión puede incluir un mapa con la distribución de los lances que permite encontrar errores de bulto rápidamente. La función `armap.camp(camp="N12",dns="Cant")` permite incluir el número del lance con `Nlans=TRUE` que también puede ayudar a localizar errores
+La revisión puede incluir un mapa con la distribución de los lances que permite encontrar errores de bulto rápidamente. La función `armap.camp(camp="N12",dns="Cant")` permite incluir el número del lance con `Nlans=TRUE` que también puede ayudar a localizar errores.
 
 ```{r armap.camp,fig.width=18,fig.height=8,fig.align='center'} 
 armap.camp("N12","Cant") 
 ```
 
-La función `qcdistlan.camp` permite ver errores en la distancia recorrida y la velocidad incluida en los datos y su relación, además de la duración del lance y el rumbo.
+Así mismo la función `MapLansGPS(camp="N22",dns="Cant")` permite tener una primera visión de los recorridos y por tanto las distancias en cada lance de la campaña.
+
+```{r MaplansGPS,fig.width=16,fig.height=8,fig.align='center'} 
+MapLansGPS("N22","Cant") 
+```
+
+La función `qcdistlan.camp` permite ver errores en la distancia recorrida y la velocidad incluida en los datos y su relación, además de la duración del lance y el rumbo. Además incorpora una revisión de las horas de largada y virada comprobando que no existen lances fuera de las horas de día y que no hay años mal tecleados avisando si se encuentran lances asignados a varios años
 
 ```{r qcdistlan.camp}
-qcdistlan.camp("N12","Cant",todos=FALSE,pc.error=2)
+head(qcdistlan.camp("N22","Cant",todos=FALSE,pc.error=2))
 ```
 
 ### Funcionamiento del arte (análisis del `log` del ITI, MARPORT, SCANMAR...)
 
 Los datos se pueden tomar directamente del equipo a través de los telegramas que se pasan al `PescaWin` y procesarlo: preparar ejemplos a partir de un archivo de `log` del MARPORT u otro monitor de funcionamiento del aparejo.
 
-### Revisión de capturas - pesos según relación LW 
+### Revisión de capturas I - se han medido todos los peces y están todos los medidos en el fauna?
 
-La función `qcLW.camp(1,51,"N12","Cant")` produce un gráfico con los pesos por lance en función de la captura y el peso estimado para esa captura a partir de la distribución de tallas medidas. El error respecto a la mediana permite también ver qué lances dan error por categoría. `qcLWbucl.camp` permite revisar todas las especies de la campaña sucesivamente, y con `out.dat=TRUE` produce una tabla con todos los errores de todas las especies de peces sin necesidad de revisar todos los gráficos.
+Es importante revisar que los datos en el **faunaXXX.dbf** y en el **ntallXXX.dbf** coinciden, que se han medido todos los peces incluidos en el fauna y que todos los datos en el **ntallXXX** tienen sus datos en el **faunaXXX** para ello hay dos funciones:
+
+- `qcTalPez.camp(camp,dns,gr=1)` en principio sólo se utiliza con los peces puesto que en el resto de grupos no se miden por defecto.
+- `qcTalPez.lan(camp,dns,lan,gr=1)` para comprobar los datos de un sólo lance
+
+```{r qcTalPez.lan}
+qcTalPez.lan("N22","Cant",lan=61,gr=1)
+```
+Por ejemplo en el lance 61 de N22 quedó sin medir el fodón *Trisopterus luscus*. Lo bueno es hacer esta comprobación durante la campaña una vez tecleados los datos en el CAMP, ya que *a posteriori* **normalmente no se pueden recuperar los datos**
+
+
+### Revisión de capturas II - pesos según relación LW 
+
+La función `qcLW.camp(1,51,"N12","Cant")` produce un gráfico con los pesos por lance en función de la captura y el peso estimado para esa captura a partir de la distribución de tallas medidas. El error respecto a la mediana permite también ver qué lances dan error por categoría. `qcLWbucl.camp` permite revisar todas las especies de la campaña sucesivamente, y con `out.dat=TRUE` produce una tabla con todos los errores de todas las especies de peces sin necesidad de revisar todos los gráficos. 
+
+Es importante revisar y corregir el dato del peso en el **faunaXXX** y el **ntallXXX** en casos de errores de asignación de pesos mayores de un 10%, especialmente cuando el número de individuos medidos sea mayor de 5.
 
 ```{r qcLW.camp, echo=FALSE}
 qcLW.camp(1,51,"N12","Cant",margerr=14)
 ```
+
+En el gráfico se muestran los números de los lances con pesos fuera de los rangos de error permitidos, los datos del **faunaXXX** y del **ntallXXX** de esos lances deberían revisarse con más atención y pensar su revisión y corrección del peso.
 
 ### Revisión de tallas y sexos 
 
@@ -51,17 +73,16 @@ qcdtall.camp(1,51,"N12","Cant",107)
 
 La función `qcdtallrev.camp` permite sacar las distribuciones de todas las especies y lances, se puede cortar pulsando `ESCAPE` en cualquier momento, y resulta muy útil para revisar posibles datos de especies con identificación de sexos en **especies que habitualmente no se miden por sexos**.    
 
-### Revisión de medición de tallas para todos los peces
+### Revisión de edades (post campaña con otolitos leídos y **claves talla-edad cargadas**)
 
-La función `qcTalPez.lan(camp,dns="Cant",lan,gr=1)` revisa que haya datos de tallas en el fichero de tallas `NTALLxxx.DBF` para todas las especies registradas en el fichero `FAUNAXXX.DBF` y viceversa, localizando especies que no se han medido en un lance, o especies que se han medido pero no se ha registrado el peso de captura y discordancias entre inviduos medidos en `NTALLxxx.DBF` y los registrados para el lance correspondiente en `FAUNAxxx.DBF`.
+La función `ALKS.dns.camp` permite ver las claves talla-edad disponibles en los ficheros **edadxxx.dbf** en `dns`
 
-```{r qcTalPez.lan, echo=TRUE}
-qcTalPez.lan("P18",dns="Porc",16,gr=1)
+```{r ALK.dns.camp, echo=FALSE}
+ALKs.dns.camp(dns="Cant",camp="N21")
 ```
 
-Provisionalmente existe una función `qcTalPez.camp(camp,dns,gr)` que recorre todos los lances de la campaña buscando errores, habrá que mejorarla, porque va haciendo pausas entre lances y no es una salida muy _amigable_
+Si no se incluye la campaña saca un listado con todas las claves en los ficheros *edadXXX.dbf*
 
-### Revisión de edades (post campaña y con otolitos leídos)
 
 La función `grafedtal.camp` permite ver la composción por edades de cada talla, identificando posibles errores de tecleo y dando una imágen de la composición por edades de la captura en el lance.  
 

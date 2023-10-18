@@ -27,10 +27,10 @@ qcdistlan.camp(
 \item{plots}{si T abre una pantalla con tres gráficos de los errores detectados en error.dist, error.vel y error.rumb}
 }
 \value{
-Devuelve un data.frame con campaña, lance, recorrido, recorrido según la fórmula de Haversine, recorrido según la velocidad x el tiempo, velocidad, tiempo, rumbo, rumbo estimado según posiciones,velocidad calculada a partir de la distancia y el tiempo, y los porcentajes de errores de distancia, velocidad y rumbo.
+Devuelve un data.frame con campaña, lance, recorrido, recorrido según la fórmula de Haversine, recorrido según la velocidad x el tiempo, velocidad, tiempo, rumbo, rumbo estimado según posiciones,velocidad calculada a partir de la distancia y el tiempo, y los porcentajes de errores de distancia, velocidad y rumbo, horas de amanecer, salida del sol, mediodía, puesta del sol y noche.
 }
 \description{
-Sirve para control de calidad y asegurarse que los datos de distancias y posiciones son correctos
+Sirve para control de calidad y asegurarse que los datos de distancias, posiciones, y las horas de largada y virada son correctos y no salen del estándar de largar y virar de día
 }
 \examples{
 qcdistlan.camp("C14","Cant",pc.error=.01)
@@ -48,7 +48,6 @@ Other Control de calidad:
 \code{\link{qcTalPez.camp}()},
 \code{\link{qcTalPez.lan}()},
 \code{\link{qcdtall.camp}()},
-\code{\link{qcdtallrev.camp}()},
-\code{\link{qclandata.camp}()}
+\code{\link{qcdtallrev.camp}()}
 }
 \concept{Control de calidad}

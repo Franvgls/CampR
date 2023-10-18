@@ -54,6 +54,7 @@ Other mapas:
 \code{\link{armap.camp}()},
 \code{\link{armap.tot}()},
 \code{\link{map.check}()},
+\code{\link{mapICESStatRec.plotrix}()},
 \code{\link{mapICESStatRec}()},
 \code{\link{maphistage}()},
 \code{\link{maphistal}()},

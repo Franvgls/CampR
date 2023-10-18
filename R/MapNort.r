@@ -19,6 +19,7 @@
 #' @param ax Si T saca los ejes x e y
 #' @param strat Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)
 #' @param FU Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)
+#' @param ColFU por defecto "chartreuse" o "white" selecciona el color de las unidades funcionales de cigala
 #' @param FUsLab Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs
 #' @param places Si T saca ciudades y puntos geográficos de referencia
 #' @param country si T saca el país
@@ -32,7 +33,7 @@
 #' @export
 MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,latlonglin=TRUE,ICESrect=FALSE,
                    ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=FALSE,es=FALSE,ax=TRUE,strat=FALSE,
-                   places=FALSE,FU=NA,FUsLab=FALSE,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.6)) {
+                   places=FALSE,FU=NA,ColFU="chartreuse",FUsLab=FALSE,dens=20,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.6)) {
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
   if (ax) {
@@ -55,9 +56,9 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,latlong
     text(c(-10,-9.7,-6.83,-4.75,-2.7),c(42.4,44.3,44.3,44.3,44.3),c("MF","FE","EP","PA","AB"),font=2)
   }
   if (any(!is.na(FU))) {
-    if (any(stringr::str_detect(FU,"FU26"))) {polygon(FU26[,c("long")],FU26[,c("lat")],density = NULL,col="white",border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU26),lat==max(FU26[,"lat"])),lab="FU26",cex=.8,font=2,pos=4,col=2)}
-    if (any(stringr::str_detect(FU,"FU25"))) {polygon(FU25[,c("long")],FU25[,c("lat")],density = NULL,col="white",border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU25),long==max(FU25[,"long"])),lab="FU25",cex=.8,font=2,pos=4,col=2)}
-    if (any(stringr::str_detect(FU,"FU31"))) {polygon(FU31[,c("long")],FU31[,c("lat")],density = NULL,col="white",border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),filter(as.data.frame(FU31),long==min(FU31[,"long"])),lab="FU31",cex=.8,font=2,pos=1,col=2)}
+    if (any(stringr::str_detect(FU,"FU26"))) {polygon(FU26[,c("long")],FU26[,c("lat")],density = dens,col=ColFU,border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU26),lat==max(FU26[,"lat"])),lab="FU26",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU25"))) {polygon(FU25[,c("long")],FU25[,c("lat")],density = dens,col=ColFU,border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU25),long==max(FU25[,"long"])),lab="FU25",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU31"))) {polygon(FU31[,c("long")],FU31[,c("lat")],density = dens,col=ColFU,border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),filter(as.data.frame(FU31),long==min(FU31[,"long"])),lab="FU31",cex=.8,font=2,pos=1,col=2)}
   }
   maps::map(Nort.str,add=TRUE,fill=TRUE,col=c(rep(NA,16),ifelse(bw,"light gray","wheat")),lwd=lwdl)
   maps::map(Nort.map,Nort.map$names[1:16],add=TRUE,col=c("gray"),lwd=lwdl)

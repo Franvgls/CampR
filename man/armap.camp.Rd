@@ -114,6 +114,7 @@ Other mapas:
 \code{\link{arMapLansGPS}()},
 \code{\link{armap.tot}()},
 \code{\link{map.check}()},
+\code{\link{mapICESStatRec.plotrix}()},
 \code{\link{mapICESStatRec}()},
 \code{\link{maparea}()},
 \code{\link{maphistage}()},

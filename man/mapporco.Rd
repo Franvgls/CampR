@@ -8,16 +8,24 @@ mapporco(
   xlims = c(-15.5, -10.5),
   ylims = c(50.5, 54.5),
   lwdl = 1,
+  latlonglin = TRUE,
   cuadr = FALSE,
   ICESrect = FALSE,
   ICESlab = FALSE,
   ICESlabcex = 0.7,
   label = FALSE,
   colo = 2,
+  dens = 0,
   bw = F,
+  places = TRUE,
+  es = TRUE,
   ax = TRUE,
   wmf = FALSE,
-  corners = FALSE
+  corners = FALSE,
+  leg = FALSE,
+  sectcol = FALSE,
+  FU = NA,
+  FUsLab = FALSE
 )
 }
 \arguments{
@@ -26,6 +34,8 @@ mapporco(
 \item{ylims}{Define los limites latitudinales del mapa, los valores por defecto son los del total del área de la campaña}
 
 \item{lwdl}{Ancho de las líneas del mapa}
+
+\item{latlonglin}{si T saca líneas longi y latitudinales muy claritas}
 
 \item{cuadr}{Si T saca las cuadrículas de 5x5 millas naúticas}
 
@@ -39,19 +49,35 @@ mapporco(
 
 \item{colo}{Color de las etiquetas, por defecto rojas}
 
+\item{dens}{si mayor de 0 las superficies de los estratos tienen patrones de líneas}
+
 \item{bw}{Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE}
+
+\item{es}{Textos en español, si F en inglés}
 
 \item{ax}{Si T saca los ejes x e y}
 
 \item{wmf}{Si T saca a fichero metafile porconc.emf}
 
 \item{corners}{Si T coloca dos puntos rojos en los extremos nordeste y suroeste para ajustar mapas al PescaWin con ax=F}
+
+\item{leg}{incluye la leyenda con los colores/patrones de los estratos}
+
+\item{sectcol}{si T pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot}
+
+\item{FU}{Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en Porcupine sólo es FU16)}
+
+\item{FUsLab}{Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones, si wmf=TRUE lo saca a metafile para fondo del pescawin
 }
 \description{
 Función auxiliar para sacar el mapa de la campaña Porcupine
+}
+\examples{
+mapporco(xlims = c(-15.3,-8.10),corners = F,leg=T,sectcol=T,dens=10,es=F) para sustituir a maparea
+mapporco(corners = F,leg=F,sectcol=F,dens=0,es=F) # para sustituir a mapporco
 }
 \seealso{
 {\link{MapNort}}, {\link{MapCant}}

@@ -9,6 +9,7 @@ MapNort(
   cuadr = FALSE,
   cuadrcol = gray(0.4),
   cuadrMSFD = FALSE,
+  latlonglin = TRUE,
   ICESrect = FALSE,
   ICESrectcol = gray(0.2),
   ICESlab = FALSE,
@@ -20,9 +21,12 @@ MapNort(
   strat = FALSE,
   places = FALSE,
   FU = NA,
+  ColFU = "chartreuse",
+  FUsLab = FALSE,
+  dens = 20,
   country = F,
   xlims = c(-10.25, -1.4),
-  ylims = c(41.82, 44.48)
+  ylims = c(41.82, 44.6)
 )
 }
 \arguments{
@@ -33,6 +37,8 @@ MapNort(
 \item{cuadrcol}{Color para los recuadros de muestreo}
 
 \item{cuadrMSFD}{Si T dibuja caudrícula de 10 millas naúticas utilizada para la evaluación de la estrategia marina (MSFD)}
+
+\item{latlonglin}{si T saca líneas longi y latitudinales muy claritas}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 
@@ -54,21 +60,28 @@ MapNort(
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
 
-\item{FU}{pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo}
+\item{FU}{Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)}
+
+\item{ColFU}{por defecto "chartreuse" o "white" selecciona el color de las unidades funcionales de cigala}
+
+\item{FUsLab}{Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs}
+
+\item{dens}{si mayor de 0 las superficies de los estratos tienen patrones de líneas}
 
 \item{country}{si T saca el país}
 
 \item{xlims}{Define los limites longitudinales del mapa, por defecto -10.25 y -1.4 oeste}
 
 \item{ylims}{Define los limites longitudinales del mapa, por defecto 41.82 y 44.48 norte}
-
-\item{dens}{si mayor de 0 las superficies de los estratos tienen patrones de líneas}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones
 }
 \description{
 Función auxiliar para sacar el mapa de la campaña Demersales
+}
+\examples{
+MapNort(ICESrect = T,FU = c("FU25"))
 }
 \seealso{
 {\link{MapCant}}, {\link{mapporco}}

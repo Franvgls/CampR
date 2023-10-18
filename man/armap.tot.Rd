@@ -8,13 +8,14 @@ armap.tot(
   camp,
   dns = "Porc",
   ICESrect = FALSE,
+  ICESlab = FALSE,
   lwdl = 1,
   col = 2,
   argr = 2,
   arrow = FALSE,
   leg = FALSE,
   es = FALSE,
-  bw = TRUE,
+  bw = FALSE,
   noval = FALSE,
   Nlans = FALSE,
   CTDs = FALSE,
@@ -30,6 +31,8 @@ armap.tot(
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant" (ARSA para sacar datos al IBTS, no gráficos)}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
+
+\item{ICESlab}{si T incluye el rectángulo ICES en los rectángulos (arriba porcupine y norte, abajo en ARSA)}
 
 \item{lwdl}{Anchura de las líneas}
 
@@ -81,6 +84,7 @@ Other mapas:
 \code{\link{arMapLansGPS}()},
 \code{\link{armap.camp}()},
 \code{\link{map.check}()},
+\code{\link{mapICESStatRec.plotrix}()},
 \code{\link{mapICESStatRec}()},
 \code{\link{maparea}()},
 \code{\link{maphistage}()},

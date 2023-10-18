@@ -55,6 +55,7 @@ Other edades:
 \code{\link{grafedtal.camps}()},
 \code{\link{grafedtal.camp}()},
 \code{\link{logabage.camp}()},
+\code{\link{mapICESStatRec.plotrix}()},
 \code{\link{mapICESStatRec}()},
 \code{\link{maphistage}()}
 }

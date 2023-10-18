@@ -67,7 +67,6 @@ Other Control de calidad:
 \code{\link{qcTalPez.camp}()},
 \code{\link{qcTalPez.lan}()},
 \code{\link{qcdistlan.camp}()},
-\code{\link{qcdtallrev.camp}()},
-\code{\link{qclandata.camp}()}
+\code{\link{qcdtallrev.camp}()}
 }
 \concept{Control de calidad}

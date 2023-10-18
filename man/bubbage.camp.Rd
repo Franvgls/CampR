@@ -4,7 +4,16 @@
 \alias{bubbage.camp}
 \title{Crea gráficos de burbujas de la abundancia sqrt(num)}
 \usage{
-bubbage.camp(gr, esp, camps, dns = "Porc", plus = 8, recr = 0, cor.time = TRUE)
+bubbage.camp(
+  gr,
+  esp,
+  camps,
+  dns = "Porc",
+  plus = 8,
+  recr = 0,
+  excl.sect = NA,
+  cor.time = TRUE
+)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces sólo hay claves de talla para peces y cigala?}
@@ -18,6 +27,8 @@ bubbage.camp(gr, esp, camps, dns = "Porc", plus = 8, recr = 0, cor.time = TRUE)
 \item{plus}{Edad plus: Edad considerada como plus, todas las edades mayores se suman como edad +}
 
 \item{recr}{edad de reclutamiento para especies con reclutamiento en edad 1 o mayor}
+
+\item{excl.sect}{Sirve para excluir sectores y quedarse sólo con uno de los sectores NA estan todos por defecto c(2:5) excluye tods menos el sector 1 de Demerseles}
 
 \item{cor.time}{Si T corrige las abundancias en función de la duración del lance}
 }
@@ -42,6 +53,7 @@ Other edades:
 \code{\link{grafedtal.camp}()},
 \code{\link{logabage.camp}()},
 \code{\link{logabage2.camp}()},
+\code{\link{mapICESStatRec.plotrix}()},
 \code{\link{mapICESStatRec}()},
 \code{\link{maphistage}()}
 }
