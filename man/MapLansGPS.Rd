@@ -19,7 +19,11 @@ MapLansGPS(
   rumbo = FALSE,
   es = TRUE,
   bw = FALSE,
-  ax = TRUE
+  ax = TRUE,
+  ErrLans = NA,
+  ICESrect = FALSE,
+  ICESlab = FALSE,
+  ICESlabcex = 0.8
 )
 }
 \arguments{
@@ -50,6 +54,8 @@ MapLansGPS(
 \item{bw}{Si T gráfico en blanco y negro por default, si F gráfico en color}
 
 \item{ax}{Si T saca los ejes x e y}
+
+\item{ErrLans}{NA por defecto, pero si se da un vector con varios lances con errores que sale de qcdistlan.camp()$lances solo saca los lances con error}
 }
 \value{
 Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux
@@ -58,7 +64,8 @@ Devuelve un data.frame con datos de cada lance, las variables dependen de la sel
 gráfica todos los lances de una campaña con las distancias recorridas en cada uno de ellos
 }
 \examples{
-MapLansGPS("12C","Cant",ti=TRUE)
+MapLansGPS("12C","Cant",ti=TRUE,xlims=c(-10.4,-7.4),ylims=c(41.8,44.6))
+MapLansGPS(123,"Arsa",ti=TRUE,ErrLans=c(1,7,40),Nlans=T)
 }
 \seealso{
 {\link{datlan.camp}}, {\link{qcdistlan.camp}}

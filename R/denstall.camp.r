@@ -91,7 +91,7 @@ denstall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,ti=FALSE,bw=
     else layouti<- c(1,ndat)
     foo<-lattice::densityplot(~rep(talla,a$n*ylim[1])|rep(camp,a$n*ylim[1]),a,subscripts=TRUE,xlim=xlimi,plot.points=FALSE,nint=15,
                      scales=list(alternating=FALSE,tck=c(1,0),cex=.7,x=list(tick.number=10)),main=tit,xlab=list(label=ax[1],cex=.9),
-                     ylab=list(label="density",cex=cexleg*.9),layout=layouti,par.strip.text=list(cex=cexleg*.8,font=2),as.table=TRUE,
+                     ylab=list(label="density",cex=cexleg*.9),layout=ifelse(is.na(layout),layouti,layout),par.strip.text=list(cex=cexleg*.8,font=2),as.table=TRUE,
                      panel=function(x,...) {
                        lattice::panel.fill(col="white")
                        lattice::panel.grid(-1,0,lty=3,col="gray60")

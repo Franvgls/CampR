@@ -66,7 +66,7 @@ MapNort(
 
 \item{FUsLab}{Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs}
 
-\item{dens}{si mayor de 0 las superficies de los estratos tienen patrones de líneas}
+\item{dens}{densidad (transparanecia) del color de la FU, 20 por defecto, menos no se aprecia mucho, más de 20 sale color fijo, 0 quita el color de relleno}
 
 \item{country}{si T saca el país}
 

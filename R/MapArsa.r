@@ -10,6 +10,10 @@
 #' @param ICESrectcol color de las líneas de los rectangulos
 #' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
 #' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
+#' @param FU Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)
+#' @param ColFU por defecto "chartreuse" o "white" selecciona el color de las unidades funcionales de cigala
+#' @param dens densidad (transparanecia) del color de la FU, 20 por defecto, menos no se aprecia mucho, más de 20 sale color fijo, 0 quita el color de relleno
+#' @param FUsLab Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs
 #' @param leg si T incluye una legenda con los estratos de profundidad y los estratos se colorean respectivamente
 #' @param ax Si T saca los ejes x e y
 #' @param bw si T mapa con tierra en gris, si F tierra en color
@@ -22,7 +26,8 @@
 #' @family mapas base
 #' @family ARSA
 #' @export
-MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESrectcol=2,ICESlab=FALSE,ICESlabcex=.5,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
+MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,
+                  ICESrectcol=2,ICESlab=FALSE,FU=NA,ColFU="white",dens=20,FUsLab=FALSE,ICESlabcex=.5,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
   asp<-diff(c(35.95,37.33))/(diff(c(-8.1711,-5.5))*cos(mean(c(35.95,37.35))*pi/180))
   if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
@@ -38,6 +43,9 @@ MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=
   if (cuadrMSFD) {
     abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
     abline(v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
+  }
+  if (any(!is.na(FU))) {
+    if (any(stringr::str_detect(FU,"FU30"))) {polygon(FU30[,c("long")],FU30[,c("lat")],density = dens,col=ColFU,border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU30),lat==max(FU30[,"lat"])),lab="FU30",cex=.8,font=2,pos=4,col=2)}
   }
   maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,5),ifelse(bw,"light gray","bisque")),lwd=lwdl,xaxs="i",yaxs="i")
   maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,6),ifelse(bw,"light gray","bisque")),lwd=lwdl,xaxs="i",yaxs="i")

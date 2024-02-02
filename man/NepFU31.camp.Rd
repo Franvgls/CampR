@@ -13,7 +13,9 @@ NepFU31.camp(
   ICESlab = FALSE,
   ICESrectcol = 1,
   ICESrect = TRUE,
-  FU = 31,
+  FU = "FU31",
+  ColFU = "white",
+  dens = 20,
   places = TRUE,
   out.dat = TRUE,
   bw = FALSE,
@@ -36,7 +38,11 @@ NepFU31.camp(
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 
-\item{FU}{pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo}
+\item{FU}{pinta la FU31}
+
+\item{ColFU}{color de relleno de la FU, blanco por defecto, con dens=0 se omite el relleno.}
+
+\item{dens}{valores de 20 hace que el color permita ver el fondo con los ICES rects y la batimetría, más lo deja en color sólido, 0 quita el relleno del todo.}
 
 \item{places}{Si T saca etiquetas de principales ciudades en el mapa, si F se omiten los letreros}
 

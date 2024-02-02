@@ -20,6 +20,7 @@
 #' @param strat Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)
 #' @param FU Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)
 #' @param ColFU por defecto "chartreuse" o "white" selecciona el color de las unidades funcionales de cigala
+#' @param dens densidad (transparanecia) del color de la FU, 20 por defecto, menos no se aprecia mucho, más de 20 sale color fijo, 0 quita el color de relleno
 #' @param FUsLab Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs
 #' @param places Si T saca ciudades y puntos geográficos de referencia
 #' @param country si T saca el país
@@ -49,7 +50,6 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,latlong
   if (latlonglin) abline(v=c(-20:2),h=c(40:60),lty=3,col=gray(.7))
   if (cuadr) abline(h=seq(41,45,by=1/12),v=seq(-12,0,by=3/26),col=cuadrcol,lwd=.5)
   if (cuadrMSFD) abline(h=seq(31,45,by=1/6),v=seq(-12,0,by=0.2174213),col=gray(.4),lwd=.5)
-  if (ICESlab) text(c(stat_y+.22)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
   if (ICESrect) abline(h=seq(41,45,by=.5),v=seq(-12,-1),col=ICESrectcol,lwd=2)
   if (strat) {
     abline(h=43,v=c(-7.66,-6,-3.5),lty=1,col=gray(.0),lwd=2)
@@ -60,6 +60,7 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,latlong
     if (any(stringr::str_detect(FU,"FU25"))) {polygon(FU25[,c("long")],FU25[,c("lat")],density = dens,col=ColFU,border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU25),long==max(FU25[,"long"])),lab="FU25",cex=.8,font=2,pos=4,col=2)}
     if (any(stringr::str_detect(FU,"FU31"))) {polygon(FU31[,c("long")],FU31[,c("lat")],density = dens,col=ColFU,border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),filter(as.data.frame(FU31),long==min(FU31[,"long"])),lab="FU31",cex=.8,font=2,pos=1,col=2)}
   }
+  if (ICESlab) text(c(stat_y+.22)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
   maps::map(Nort.str,add=TRUE,fill=TRUE,col=c(rep(NA,16),ifelse(bw,"light gray","wheat")),lwd=lwdl)
   maps::map(Nort.map,Nort.map$names[1:16],add=TRUE,col=c("gray"),lwd=lwdl)
   maps::map(Nort.map,Nort.map$names[17],add=TRUE,col=c("black"),lwd=lwdl)

@@ -14,6 +14,10 @@ MapArsa(
   ICESrect = FALSE,
   ICESrectcol = 2,
   ICESlab = FALSE,
+  FU = NA,
+  ColFU = "white",
+  dens = 20,
+  FUsLab = FALSE,
   ICESlabcex = 0.5,
   ax = TRUE,
   bw = F,
@@ -40,6 +44,14 @@ MapArsa(
 \item{ICESrectcol}{color de las líneas de los rectangulos}
 
 \item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
+
+\item{FU}{Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)}
+
+\item{ColFU}{por defecto "chartreuse" o "white" selecciona el color de las unidades funcionales de cigala}
+
+\item{dens}{densidad (transparanecia) del color de la FU, 20 por defecto, menos no se aprecia mucho, más de 20 sale color fijo, 0 quita el color de relleno}
+
+\item{FUsLab}{Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs}
 
 \item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 

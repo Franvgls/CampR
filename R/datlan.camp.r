@@ -52,11 +52,11 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     DBI::dbDisconnect(ch1)
     if (any(!lan$nsl %in% c("N","S"))) message(paste("En el lance",lan[!lan$nsl %in% c("N","S"),"lance"],
                                                            "el campo nsl que debe ser N o S y es",lan[!lan$nsl %in% c("N","S"),"nsl"]))
-    if (any(!lan$ewl %in% c("W","E"))) message(paste("En la estación",lan[!lan$ewl %in% c("E","W"),"ewl"],
+    if (any(!lan$ewl %in% c("W","E"))) message(paste("En la estación",paste(lan[!lan$ewl %in% c("E","W"),"ewl"],collapse = ","),
                                                            "el campo ewl que debe ser E o W y es",lan[!lan$ewl %in% c("N","S"),"ewl"]))
-    if (any(!lan$nsv %in% c("N","S"))) message(paste("En el lance",lan[!lan$nsv %in% c("N","S"),"lance"],
+    if (any(!lan$nsv %in% c("N","S"))) message(paste("En el lance",paste(lan[!lan$nsv %in% c("N","S"),"lance"],collapse=","),
                                                      "el campo nsv que debe ser N o S y es",lan[!lan$nsv %in% c("N","S"),"nsv"]))
-    if (any(!lan$ewv %in% c("W","E"))) message(paste("En la estación",lan[!lan$ewv %in% c("E","W"),"ewv"],
+    if (any(!lan$ewv %in% c("W","E"))) message(paste("En la estación",paste(lan[!lan$ewv %in% c("E","W"),"ewv"],collapse=","),
                                                      "el campo ewv que debe ser E o W y es",lan[!lan$ewv %in% c("N","S"),"ewv"]))
     lan$latitud_l<-round(sapply(lan$latitud_l,gradec)*ifelse(lan$nsl=="N",1,-1),4)
     lan$longitud_l<-round(sapply(lan$longitud_l,gradec)*ifelse(lan$ewl=="E",1,-1),4)
@@ -78,8 +78,15 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
       if (lan$lat[i]>35.95 & lan$lat[i]<37.75 & lan$long[i] > c(-7.5) & lan$long[i] < c(-5.50)) {lan$zona[i]<- "9a"}
       if (dns=="Medi" & lan$lat[i]>35.8 & lan$long[i]>c(-5.6556)) {lan$zona[i]<-"wm.37.1"}
     }
-    if (any(is.na(lan$zona))) {message(paste0("Al menos un lance: ",lan$lance[is.na(lan$zona)],
+    if (any(is.na(lan$zona))) {message(paste0("Al menos un lance: ",paste(lan$lance[is.na(lan$zona)],collapse = ","),
                                                 " sin Zona ICES asignada, revise resultados",lan$camp[is.na(lan$zona)]))}
+    if (any(format(lan$hora_l,format="%H")>format(lan$hora_v,format="%H"))) {message(paste0("Al menos un lance ",
+                      paste(lan[format(lan$hora_l,format="%H")>format(lan$hora_v,format="%H"),c("lance")],collapse = ","),
+                                            " con hora de virada antes de hora de largada"))}
+    if (any(is.na(as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))))) {message(paste0("Al menos una hora de largada (lance: ",
+                      paste(lan[is.na(as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))),c("lance")],collapse=","),") con hora inválida"))}
+    if (any(is.na(as.ITime(gsub("\\.",":",format(lan$hora_v,format="%H")))))) {message(paste0("Al menos una hora de virada (lance: ",
+                      paste(lan[is.na(as.ITime(gsub("\\.",":",lan$hora_v))),c("lance")],collapse = ","),") con hora inválida"))}
     #lan<-lan[,c(1:18,23:ncol(lan))]
     lan$dista_p[lan$dista_p==0]<-NA
     lan$abert_v[lan$abert_v==0]<-NA

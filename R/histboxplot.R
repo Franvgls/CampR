@@ -81,11 +81,11 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	if (any(!is.na(profrange))) mtext(prang,   #paste(ifelse(es,"Rango prof: ","Depth range: "),expression(prang))
 	                  side=3,font=2,cex=.8,adj=0)
 	if (nlans) mtext(side=1,at=1:ndat,line=-1,text=tapply(dumb$numero,dumb$camp,length),cex=lan.cex,font=2)
-	# if (is.logical(ti)) {
-	#   if (ti) {title(main=especie,cex.main=1.1*cex.leg,
-	#                  font.main=ifelse((idi!="l" | any(esp=="999")),2,4),line=ifelse(any(is.character(sub),sub),1.5,1))}
-	# }
-	else {title(main=ti,font.main=2,line=1.3,cex.main=1.1*cex.leg)}
+	if (is.logical(ti)) {
+	   if (ti) {title(main=especie,cex.main=1.1*cex.leg,
+	                  font.main=ifelse((idi!="l" | any(esp=="999")),2,4),line=ifelse(any(is.character(sub),sub),1.5,1))}
+	}
+	else {title(main=buscaesp(gr,esp),font.main=4,line=1.3,cex.main=1.1*cex.leg)}
 	if (is.logical(sub)) {
 	  if (sub) {title(main=ifelse(ind=="p",ifelse(es,"Biomasa","Biomass"),ifelse(es,"Número","Number")),
 	                  font.main=2,line=.5,cex.main=cex.leg*.9)}

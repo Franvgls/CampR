@@ -15,7 +15,9 @@ NepFU25.camp(
   ICESrect = TRUE,
   FU = 25,
   places = TRUE,
-  out.dat = TRUE
+  out.dat = TRUE,
+  ColFU = "white",
+  dens = 20
 )
 }
 \arguments{
@@ -31,11 +33,15 @@ NepFU25.camp(
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 
-\item{FU}{pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo}
+\item{FU}{pinta los límites de la FU25 en color rojo}
 
 \item{places}{Si T saca etiquetas de principales ciudades en el mapa, si F se omiten los letreros}
 
 \item{out.dat}{Si T el resultado final de la función es la figura en pantalla, pero los datos de abundancia de cigala en cada FU con datos de biomasa, numero, desviaciones estándar y número de lances en cada FU.}
+
+\item{ColFU}{color de relleno de la FU, blanco por defecto, con dens=0 se omite el relleno.}
+
+\item{dens}{valores de 20 hace que el color permita ver el fondo con los ICES rects y la batimetría, más lo deja en color sólido, 0 quita el relleno del todo.}
 
 \item{year}{si T incluye una columna con el año al final de los datos}
 

@@ -14,8 +14,10 @@ NepFU30.camp(
   ICESlab = FALSE,
   ICESrectcol = 1,
   ICESrect = TRUE,
-  FU = 30,
   places = TRUE,
+  FU = "FU30",
+  ColFU = "white",
+  dens = 20,
   out.dat = TRUE,
   bw = FALSE
 )
@@ -33,9 +35,13 @@ NepFU30.camp(
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 
-\item{FU}{pinta una o varias unidades funcionales, a elegir FU30, FU25 o FU30 con grueso lwd=2 y color rojo}
-
 \item{places}{Si T saca etiquetas de principales ciudades en el mapa, si F se omiten los letreros}
+
+\item{FU}{pinta los límites de la FU30 en color rojo}
+
+\item{ColFU}{color de relleno de la FU, blanco por defecto, con dens=0 se omite el relleno.}
+
+\item{dens}{valores de 20 hace que el color permita ver el fondo con los ICES rects y la batimetría, más lo deja en color sólido, 0 quita el relleno del todo.}
 
 \item{out.dat}{Si T el resultado final de la función es la figura en pantalla, pero los datos de abundancia de cigala en cada FU con datos de biomasa, numero, desviaciones estándar y número de lances en cada FU.}
 
@@ -63,7 +69,7 @@ Si se detecta este error revisar la estructura de lanceXXX.dbf con la de
 otros ficheros de lances de los últimos años
 }
 \examples{
-  NepFU30.camp("N21")
+  NepFU30.camp(camp="121",dns="Arsa")
 }
 \seealso{
 Other mapas, NEP: 

@@ -15,6 +15,8 @@
 #' @family Control de calidad
 #' @export
 qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,plots=TRUE) {
+  while (!is.null(dev.list()))  dev.off()
+  windows()
   dumblan<-datlan.camp(camp,dns,redux=FALSE)
   dumblan$mins<-round(dumblan$haul.mins*dumblan$weight.time,1)
   dumblan$dist.vel<-round(c(dumblan$weight.time*dumblan$haul.mins)/60*dumblan$velocidad*1852,0)
@@ -76,4 +78,4 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
                           return(lt)}
   if (!error.rb) return(dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error*3,
                                c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","vel.dist","error.dist","error.vel")])
-    }
+  }

@@ -15,28 +15,31 @@
 #' @param rumbo si T incluye
 #' @param ax Si T saca los ejes x e y
 #' @param bw Si T gráfico en blanco y negro por default, si F gráfico en color
+#' @param ErrLans NA por defecto, pero si se da un vector con varios lances con errores que sale de qcdistlan.camp()$lances solo saca los lances con error
 #' @return Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux
 #' @seealso {\link{datlan.camp}}, {\link{qcdistlan.camp}}
-#' @examples MapLansGPS("12C","Cant",ti=TRUE)
+#' @examples MapLansGPS("12C","Cant",ti=TRUE,xlims=c(-10.4,-7.4),ylims=c(41.8,44.6))
+#' @examples MapLansGPS(123,"Arsa",ti=TRUE,ErrLans=c(1,7,40),Nlans=T)
 #' @family mapas
 #' @family PescaWin
 #' @export
-MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,ti=FALSE,col=2,lwd=2,places=TRUE,Nlans=FALSE,cexlans=.8,rumbo=FALSE,es=TRUE,bw=FALSE,ax=TRUE) {
+MapLansGPS<-function(camp,dns="Porc",incl0=FALSE,xlims=NA,ylims=NA,ti=FALSE,col=2,lwd=2,places=TRUE,Nlans=FALSE,cexlans=.8,rumbo=FALSE,es=TRUE,bw=FALSE,ax=TRUE,ErrLans=NA,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.8) {
   #if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
   lan<-datlan.camp(camp,dns,redux=FALSE,incl2=TRUE,incl0=TRUE)
+  if (any(!is.na(ErrLans))) lan<-filter(lan,lance %in% ErrLans)
   lannul<-lan[lan$validez==0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
   lan<-lan[lan$validez!=0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
   camp.name<-DBI::dbReadTable(ch1, paste0("CAMP",camp[1]))$IDENT
   DBI::dbDisconnect(ch1)
   if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
-    if (any(!is.na(xlims))) {mapporco(xlims=xlims,ylims=ylims,ax=ax)} else mapporco()
+    if (any(!is.na(xlims) | !is.na(ylims))) {mapporco(ICESrect=ICESrect,ICESlab=ICESlab,xlims=ifelse(!is.na(xlims),c(-15.5,-10.5),xlims),ylims=ifelse(!is.na(ylims),c(50.5,54.5),ylims),ax=ax)} else mapporco(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)
     }
   if (substr(dns,1,4)=="Cant" | dns=="Cnew" ) {
-    if (any(!is.na(xlims))) {MapNort(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapNort()
+    if (any(!is.na(xlims)|!is.na(ylims))) {MapNort(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapNort(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)
   }
   if (dns=="Arsa") {
-    if (any(!is.na(xlims))) {MapArsa(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapArsa()
+    if (any(!is.na(xlims))) {MapArsa(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapArsa(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)
   }
   if (dns=="Medi") {
     if (any(!is.na(xlims))) {MapMedit(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapMedit()

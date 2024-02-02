@@ -11,7 +11,7 @@ buscacod(nomb, dns = "Camp", buscfam = FALSE)
 
 \item{dns}{origen de base de datos a utilizar en la busqueda, camp debería ser el que esté dirigido al del camp por defecto donde está el especies.dbf del camp, se puede crear uno de red.}
 
-\item{buscfam}{en vez de buscar el nombre de la especie busca a través de la familia, si T no muestra la lista de especies, sólo la familia, si F no seleccona por familia}
+\item{buscfam}{en vez de buscar el nombre de la especie busca a través de la familia y la especie, si T no muestra la lista de especies, sólo la familia, si F no selecciona por familia}
 }
 \description{
 Busca el código del grupo, especie y la familia a partir del nombre o fragmento de la especie. Es independiente de mayúsculas y minúsculas y puede sacar más de una especie si una parte de sus nombres coincide.

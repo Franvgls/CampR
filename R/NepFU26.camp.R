@@ -21,24 +21,28 @@
 #' @param places Si T saca etiquetas de principales ciudades en el mapa, si F se omiten los letreros
 #' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
 #' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
-#' @param FU pinta una o varias unidades funcionales, a elegir FU26, FU25 o FU31 con grueso lwd=2 y color rojo
+#' @param FU pinta los límites de la FU26 en color rojo
+#' @param ColFU color de relleno de la FU, blanco por defecto, con dens=0 se omite el relleno.
+#' @param dens valores de 20 hace que el color permita ver el fondo con los ICES rects y la batimetría, más lo deja en color sólido, 0 quita el relleno del todo.
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos de abundancia de cigala en cada FU con datos de biomasa, numero, desviaciones estándar y número de lances en cada FU.
 #' @return Produce un gráfico con los lances en los que ha habido cigala en el lance y especialmente los lances en cada FU dentro de Demersales FU25,FU26 y FU31
 #' @family mapas, NEP
 #' @examples
-#'   NepFU26.camp("N21")
+#'   NepFU26.camp("N21",ColFU=)
 #' @export
 NepFU26.camp<-function(camp=camp,dns="Cant",plot=TRUE,es=FALSE,ti=TRUE,ICESlab=FALSE,
-                      ICESrectcol=1,ICESrect=TRUE,FU=31,places=TRUE,out.dat=TRUE,bw=FALSE) {
+                      ICESrectcol=1,ICESrect=TRUE,FU=31,places=TRUE,out.dat=TRUE,bw=FALSE,ColFU="white",dens=20) {
   Nep<-maphist(2,19,camp,"Cant",plot=F,out.dat=T)
   Nep_26<-subset(Nep,c(long>c(-10) & long<c(-8.5) & lat<c(43.005) & lat>42.005))
-  lans_FU31<-dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long<c(-8.5) & lat <c(43.005) & lat>(42.005)))
+  lans_FU26<-dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T,incl0 = F),c(long<c(-8.5) & lat <c(43.005) & lat>(42.005)))
   #lans_FU31<-rbind(lans_FU31,dplyr::filter(datlan.camp(Nsh,"Cant",redux=T,incl2=T),c(long>c(-3) & long<c(-2) & lat >c(43) & lat<(44))))
-  MapNort(ICESrect = ICESrect,ylims=c(42.005,43.005),xlims=c(-10.5,-8.5),bw=bw,ICESlab = ICESlab,ICESrectcol = ICESrectcol)
+  MapNort(ICESrect = ICESrect,ylims=c(42.005,43.005),xlims=c(-10.5,-8.5),bw=bw,ICESlab = ICESlab,ICESrectcol = ICESrectcol,FU="FU26",ColFU = ColFU,dens=dens)
   title(main=camptoyear(camp),line=1.5,sub=paste("FU 26 Nep Catch (n)= ",
                                                    sum(Nep_26[Nep_26$camp==camp,"numero"])),cex.sub=1.2,cex.main=2)
   points(lat~long,Nep,subset=c(peso.gr>0 & camp==camp),cex=sqrt(Nep$numero/5),pch=21,col=2,bg=2)
   points(lat~long,Nep,subset=c(peso.gr==0 & camp==camp),cex=.7,pch=21,col=1,bg=1)
   legend("bottomright",legend=c("0 catch hauls"),pch=21,pt.bg=1,pt.cex=.7,inset=.01,bty="n")
+  if (out.dat) {data.frame(camp=camp,Wgh=sum(Nep_26$peso.gr/1000),Nb=sum(Nep_26$numero),MeanWg=mean(Nep_26$peso.gr/1000),
+                           SDwg=sd(Nep_26$peso.gr/1000),MeanNb=mean(Nep_26$numero),sdNb=sd(Nep_26$numero),Nlans=nrow(Nep_26))}
 }
 

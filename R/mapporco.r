@@ -32,9 +32,11 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
                    ICESlabcex=.7,label=FALSE,colo=2,dens=0,bw=F,places=TRUE,es=TRUE,ax=TRUE,wmf=FALSE,corners=FALSE,
                    leg=FALSE,sectcol=FALSE,FU=NA,FUsLab=FALSE) {
   asp<-diff(c(50.5,54.5))/(diff(range(-15.5,-10.5))*cos(mean(50.5,54.5)*pi/180))
-  if (wmf) win.metafile(filename = "porconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
-  if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3, mgp=c(2,.5,0))
-  if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
+  if (any(is.na(xlims))) {xlims<-c(-15.5,-10.5)}
+  if (any(is.na(ylims))) {ylims<-c(50.5,54.5)}
+  if (wmf) {win.metafile(filename = "porconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)}
+  if (!wmf) {par(mar=c(2,2.5,2, 2.5) + 0.3, mgp=c(2,.5,0))}
+  if (!ax) {par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))}
   library(mapdata)
   maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
             fill=TRUE,col=ifelse(bw,gray(.7),"saddlebrown"),type="n")
