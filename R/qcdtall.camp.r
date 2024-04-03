@@ -29,8 +29,8 @@ qcdtall.camp<- function(gr,esp,camp="P12",dns="Porc",lance,ti=FALSE,legend=TRUE,
   #                                      " where grupo='",gr,"' and esp='",esp,"'"))
   ntalls<-DBI::dbGetQuery(ch1,paste("select lance,peso_gr,peso_m,cate,talla,sexo,numer from NTALL",camp,
                              " where grupo='",gr,"' and esp='",esp,"' and lance='",lance,"'",sep=""))
-  fauna<-DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camp))
-  fauna<-fauna[fauna$GRUPO==gr & fauna$ESP==esp & fauna$LANCE==lance,]
+  fauna<-DBI::dbGetQuery(ch1,paste0("select lance,grupo,esp,peso_gr,numero from FAUNA",camp,
+                                    " where grupo='",gr,"' and esp='",esp,"' and lance='",lance,"'",sep=""))
   DBI::dbDisconnect(ch1)
   ch2<-DBI::dbConnect(odbc::odbc(), "Camp")
   esps<-DBI::dbGetQuery(ch2,"select * from especies")
@@ -77,11 +77,11 @@ qcdtall.camp<- function(gr,esp,camp="P12",dns="Porc",lance,ti=FALSE,legend=TRUE,
   #  browser()
   counts<-0
   mtext(paste("Campaña:",camp,"    No. lance:",lance),line=.5,side=3,cex=.8,font=2)
-  mtext(paste0("Peso= ",fauna$PESO_GR,"g, Bio= ",round(sop),"g, SOP ratio= ",round(sop/fauna$PESO_GR,2)),side=3,line=-1,font=2,cex=.8)
+  mtext(paste0("Peso= ",fauna$peso_gr,"g, Bio= ",round(sop),"g, SOP ratio= ",round(sop/fauna$peso_gr,2)),side=3,line=-1,font=2,cex=.8)
   for (i in names(ordcat)[order(ordcat)]) {
     counts<-counts+1
     mtext(paste0("Categ.",i),line=1.8,side=1,cex=.8,font=2,at=mean(rep(dtall$talla,dtall[,i])))
-    if(ncol(dtall)>3) mtext(paste0("Peso= ",bio.cats[i],"g, Bio= ",bio.mue[i],"g, Sop.ratio= ",round(bio.mue[i]/bio.cats[i],2)),line=2.8,side=1,cex=.8,font=2,at=mean(rep(dtall$talla,dtall[,i])))
+    if(ncol(dtall)>3) mtext(paste0("Peso= ",bio.cats[i],"g, Bio= ",bio.mue[i],"g, Sop.ratio= ",round(bio.mue[i]/bio.cats[i],2)),line=2.8,side=2,cex=.8,font=2,at=mean(rep(dtall$talla,dtall[,i])))
     mtext(paste("n=",round(ntots[i],2),"F.pond=",round(wghts[i],2)),line=3.8,side=1,cex=.8,font=2,at=mean(rep(dtall$talla,dtall[,i])))
     if (wghts[i]>1) mtext(paste("n min. ideal=",sum(dtall[,i]>0)*10),side=1,line=4.8,cex=.8,font=2,at=mean(rep(dtall$talla,dtall[,i])))
   }

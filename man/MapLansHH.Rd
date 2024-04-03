@@ -16,6 +16,7 @@ MapLansHH(
   lwd = 2,
   places = TRUE,
   Nlans = FALSE,
+  bearing = FALSE,
   es = T,
   bw = FALSE,
   ax = T
@@ -38,13 +39,15 @@ MapLansHH(
 
 \item{places}{si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine}
 
-\item{Nlans}{se T incluye los números de lance por encima de los segmentos}
+\item{Nlans}{si T incluye los números de lance por encima de los segmentos}
 
 \item{bw}{Si T gráfico en blanco y negro por default, si F gráfico en color}
 
 \item{ax}{Si T saca los ejes x e y}
 
 \item{nrows}{Número de filas del fichero que se quieren obtener, por defecto NA y coge todo el fichero}
+
+\item{Bearing}{si T marca el rumbo hacia el punto final con un punto en el final del lance.}
 }
 \value{
 Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux

@@ -37,7 +37,7 @@ NepFUs.camp<-function(camp=Nsh[length(Nsh)],dns="Cant",plot=TRUE,plotnep=TRUE,es
   Nep$year<-camptoyear(Nep$camp)
   if (substr(dns,1,4)=="Cant") {
   Nep_17E1<-subset(Nep,c(long<c(-7.9) &lat>c(44)))
-  Nep_31<-subset(Nep,c(c(long>c(-8) & long<c(-2) & lat>43.5 &  lat <c(44) & prof<650) | c(c(long>c(-8) & long<c(-2) & lat> 43.5 & lat<43.7))))
+  Nep_31<-subset(Nep,c(c(long>c(-8) & long<c(-2) & lat>43.5 &  lat <c(44.5) & prof<650) | c(c(long>c(-8) & long<c(-2) & lat> 43.5 & lat<44.5))))
   Nep_25<-subset(Nep,c(long<c(-7.99) & lat>c(43) & lat<(44.5) & prof<600))
   Nep_26<-subset(Nep,c(long>c(-10) & long<c(-8.5) & lat<c(43.005) & lat>42.005))
   if (plot) {

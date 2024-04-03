@@ -4,7 +4,7 @@
 \alias{talpes.camp}
 \title{Parámetros a y b relación talla-peso}
 \usage{
-talpes.camp(gr, esp)
+talpes.camp(gr, esp, dns = "Camp")
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}

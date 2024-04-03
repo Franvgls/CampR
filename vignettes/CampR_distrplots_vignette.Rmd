@@ -2,10 +2,11 @@
 title: "Gráficos distribuciones de abundancias"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
-vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteINdexEntry{Gráficos distribuciones de abundancias} 
-  %\VignetteEncoding{UTF-8}
+output:
+  html_document:
+    df_print: paged
+vignette: |
+  %\VignetteEngine{knitr::rmarkdown} %\VignetteINdexEntry{Gráficos distribuciones de abundancias}  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, echo=FALSE, results='hide',include=FALSE}

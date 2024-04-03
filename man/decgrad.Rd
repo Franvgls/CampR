@@ -12,6 +12,9 @@ decgrad(x)
 \description{
 Transforma grados y minutos decimales a grados decimales, avisa si el dato es incorrecto, es decir minutos más de 60
 }
+\examples{
+decgrad(43.7923)
+}
 \seealso{
 Other Conversion unidades: 
 \code{\link{HdectoH}()},

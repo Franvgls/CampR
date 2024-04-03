@@ -38,8 +38,8 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
   if (!wmf) {par(mar=c(2,2.5,2, 2.5) + 0.3, mgp=c(2,.5,0))}
   if (!ax) {par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))}
   library(mapdata)
-  maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
-            fill=TRUE,col=ifelse(bw,gray(.7),"saddlebrown"),type="n")
+#  maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=ylims,xlim=xlims,
+#            fill=TRUE,col=ifelse(bw,gray(.7),"saddlebrown"),type="n")
   maps::map(Porc.map,xlim=xlims,ylim=ylims,type="n")
   if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
   nstrat<-length(which(!is.na(Porc.map$names)))

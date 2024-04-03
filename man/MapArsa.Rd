@@ -18,7 +18,7 @@ MapArsa(
   ColFU = "white",
   dens = 20,
   FUsLab = FALSE,
-  ICESlabcex = 0.5,
+  ICESlabcex = 0.8,
   ax = TRUE,
   bw = F,
   wmf = FALSE,
@@ -73,6 +73,7 @@ Funci?n auxiliar para sacar mapas de la campaña ARSA
 }
 \examples{
 MapArsa()
+MapArsa(ICESrect = T,ICESlab = T,ICESrectcol = T,FU="FU30",ColFU="white",dens=20,xlims = c(-7.7,-6),ylims = c(36,37.3))
 }
 \seealso{
 {\link{MapCant}}, {\link{mapporco}}

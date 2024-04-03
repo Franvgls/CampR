@@ -23,11 +23,12 @@
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones
 #' @seealso {\link{MapCant}}, {\link{mapporco}}
 #' @examples MapArsa()
+#' @examples MapArsa(ICESrect = T,ICESlab = T,ICESrectcol = T,FU="FU30",ColFU="white",dens=20,xlims = c(-7.7,-6),ylims = c(36,37.3))
 #' @family mapas base
 #' @family ARSA
 #' @export
 MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,
-                  ICESrectcol=2,ICESlab=FALSE,FU=NA,ColFU="white",dens=20,FUsLab=FALSE,ICESlabcex=.5,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
+                  ICESrectcol=2,ICESlab=FALSE,FU=NA,ColFU="white",dens=20,FUsLab=FALSE,ICESlabcex=.8,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
   asp<-diff(c(35.95,37.33))/(diff(c(-8.1711,-5.5))*cos(mean(c(35.95,37.35))*pi/180))
   if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
   if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
@@ -38,7 +39,6 @@ MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=
     abline(h=seq(31,45,by=1/12),col=gray(.6),lwd=.6)
     abline(v=seq(-12,0,by=0.089),col=gray(.6),lwd=.6)
   }
-  if (ICESlab) text(c(stat_y-.22)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,col=1,font=2)
   if (ICESrect) abline(h=seq(31,45,by=.5),v=seq(-12,0,by=1),col=ICESrectcol,lwd=.6)
   if (cuadrMSFD) {
     abline(h=seq(31,45,by=1/6),col=gray(.4),lwd=.5)
@@ -47,6 +47,7 @@ MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=
   if (any(!is.na(FU))) {
     if (any(stringr::str_detect(FU,"FU30"))) {polygon(FU30[,c("long")],FU30[,c("lat")],density = dens,col=ColFU,border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU30),lat==max(FU30[,"lat"])),lab="FU30",cex=.8,font=2,pos=4,col=2)}
   }
+  if (ICESlab) text(c(stat_y-.19)~c(stat_x),Area,label=ICESNAME,cex=ICESlabcex,col=1,font=2)
   maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,5),ifelse(bw,"light gray","bisque")),lwd=lwdl,xaxs="i",yaxs="i")
   maps::map(Arsa.map,add=TRUE,fill=TRUE,col=c(rep(NA,6),ifelse(bw,"light gray","bisque")),lwd=lwdl,xaxs="i",yaxs="i")
   if (leg) {
@@ -67,10 +68,12 @@ MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=
       legend("topright",c("A: 15-30 m","B: 30-70 m","C: 71-200 m","D: 201-500 m","E: 501-800 m"),fill=c(gray(.9),gray(.8),gray(.6),gray(.5),gray(.4)),title=ifelse(es,"Estr. prof","Depth strata"),cex=.8,inset=.05,bg="white")
     }
   }
-    if (places) {
-    points(c(-6.299667,-6.950833,-7.93204),c(36.53433,37.25833,37.02573),pch=20)
+  if (places) {
+    points(c(-7.319498722,-6.299667,-6.43703,-6.950833,-7.93204),c(37.192832562,36.53433,36.73663,37.25833,37.02573),pch=20)
+    text(-7.319498722,37.192832562,"Isla Cristina",cex=.85,font=2,pos=3)
     text(-6.950833,37.25833,"Huelva",cex=.85,font=2,pos=2)
     text(-6.299667,36.53433,"Cádiz",cex=.85,font=2,pos=3)
+    text(-6.43703,36.73663,"Chipiona",cex=.85,font = 2,pos=4 )
     text(-7.93204,37.02573,"Faro",cex=.85,font=2,pos=3)
     text(-8,37.25,"PORTUGAL",cex=1,font=2,pos=4)
   }

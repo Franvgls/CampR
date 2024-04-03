@@ -74,7 +74,7 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
   colSums(dumbtal[,2:ncol(dumbtal)],na.rm=TRUE)
 }
 
-#hkeCantPequeños<-dattal.camps(1,50,Nsh[7:27],"Cnew",1,20,years=TRUE)
+#hkeCantPequeños<-dattal.camps(1,50,Nsh[7:40],"Cant",1,20,years=TRUE)
 #hkeAlboranPequeños<-dattal.camps(1,50,Msh[1:17],"Medi",1,20,excl.sect=c(2:3),years=TRUE)
 #hkeAlboranGrandes<-dattal.camps(1,50,Msh[1:17],"Medi",21,99,excl.sect=c(2:3),years=TRUE)
 #hkeLevantinoPequeños<-dattal.camps(1,50,Msh[1:17],"Medi",1,20,excl.sect=c(1),years=TRUE)

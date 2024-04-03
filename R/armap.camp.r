@@ -137,3 +137,4 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
 #armap.camp("N08","Cant",noval=FALSE,CTDs=TRUE,places=TRUE,cuadrMSFD=TRUE)
 #armap.camp("P06",cols=FALSE,arrow=FALSE,leg=TRUE,CTDs=TRUE,es=TRUE,noval=TRUE)
 #armap.camp("106","Arsa",cols=FALSE,arrow=FALSE,leg=TRUE,CTDs=FALSE,es=TRUE,noval=TRUE)
+

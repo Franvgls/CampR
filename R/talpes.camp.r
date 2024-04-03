@@ -5,9 +5,9 @@
 #' @param esp Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo
 #' @family datos_especies
 #' @export
-talpes.camp<-function(gr,esp) {
+talpes.camp<-function(gr,esp,dns="Camp") {
   esp<-format(esp,width=3,justify="r")
-  ch1<-DBI::dbConnect(odbc::odbc(), dsn="camp")
+  ch1<-DBI::dbConnect(odbc::odbc(), ifelse(dns=="Camp","Camp","Arsa"))
   if (length(gr)>1 | length(esp)>1) {
     stop("Esta funcion no permite mas de una especie por vez")
   }

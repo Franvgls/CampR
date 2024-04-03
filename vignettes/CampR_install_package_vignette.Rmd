@@ -7,7 +7,8 @@ vignette: |
   %\VignetteEngine{knitr::rmarkdown} %\VignetteINdexEntry{Instalación de datos para CampR}  %\VignetteEncoding{UTF-8}
 ---
 
- CampR: Instalación de R, Rstudio y librerías de R necesarias
+### <div style="text-align: center">  CampR: Instalación de R, Rstudio y librerías de R necesarias </div>
+
 ------------
 
 La librería CampR importa funciones de muchas otras librerías, pero dadas las limitaciones de tener que trabajar en 32bits en lugar de 64bits hay que tener en cuenta que la librería CampR funciona con R en 32bits, no con R en 64bits, con lo que:
@@ -22,7 +23,6 @@ Además hay algunas librerías que han pasado a versiones modernas que no son co
 * data.table 1.14.8
 * dplyr 1.0.6
 * glue 1.4.2
-* hms 1.1.2
 * lattice 0.20-38
 * magrittr 2.0.1
 * pillar 1.6.4
@@ -46,7 +46,6 @@ Hay otras librerías de las que se utilizan funciones en CampR:
   - maps
   - mapdata
   - suncalc
-  - hms
   - geosphere
 
 - graficos:

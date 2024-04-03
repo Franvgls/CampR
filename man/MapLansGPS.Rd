@@ -7,6 +7,7 @@
 MapLansGPS(
   camp,
   dns = "Porc",
+  leg = F,
   incl0 = FALSE,
   xlims = NA,
   ylims = NA,
@@ -31,7 +32,7 @@ MapLansGPS(
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa"}
 
-\item{incl0}{Si T se incluyen los lances nulos}
+\item{incl0}{si T incluye los lances nulos con color negro}
 
 \item{xlims}{Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña}
 

@@ -10,7 +10,8 @@
 #' @param col Define el color de los segmentos
 #' @param lwd Define el ancho de los segmentos
 #' @param places si T por defecto, incluye las etiquetas de países y ciudad en tierra, no funciona en Porcupine
-#' @param Nlans se T incluye los números de lance por encima de los segmentos
+#' @param Nlans si T incluye los números de lance por encima de los segmentos
+#' @param Bearing si T marca el rumbo hacia el punto final con un punto en el final del lance.
 #' @param ax Si T saca los ejes x e y
 #' @param bw Si T gráfico en blanco y negro por default, si F gráfico en color
 #' @return Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux
@@ -20,7 +21,7 @@
 #' @family mapas
 #' @family PescaWin
 #' @export
-MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,es=T,bw=FALSE,ax=T) {
+MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,bearing=FALSE,es=T,bw=FALSE,ax=T) {
   namesHH<-c("RecordType","Quarter","Country","Ship","Gear","SweepLngt","GearExp","DoorType","StNo","HaulNo","Year","Month","Day",
              "TimeShot","Stratum","HaulDur","DayNight","ShootLat","ShootLong","HaulLat","HaulLong","StatRec","Depth","HaulVal",
              "HydroStNo","StdSpecRecCode","BycSpecRecCode","DataType","Netopening","Rigging","Tickler","Distance","Warplngt",
@@ -56,6 +57,7 @@ MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,yli
                   longrank[2]+.5),leg=F,dens=0,load=F,ICESdiv=F)
   }
   segments(lan$ShootLong,lan$ShootLat,lan$HaulLong,lan$HaulLat,col=1,lwd=lwd)
+  if (bearing) points(HaulLat~HaulLong,lan,pch=23,bg="grey90",cex=.8)
   if (incl0) segments(lannul$ShootLong,lannul$ShootLat,lannul$HaulLong,lannul$HaulLat,col=2,lwd=lwd)
   if (incl2) segments(lanesp$ShootLong,lanesp$ShootLat,lanesp$HaulLong,lanesp$HaulLat,col=3,lwd=lwd)
   if (any(exists("lannul") |exists("lanesp"))) {legend("bottom", legend = c("Standard","Extra", "Null"), inset=c(0,0.01),

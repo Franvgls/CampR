@@ -9,7 +9,7 @@ buscacod(nomb, dns = "Camp", buscfam = FALSE)
 \arguments{
 \item{nomb}{Nombre científico de la especie o fragmento del nombre entre ""}
 
-\item{dns}{origen de base de datos a utilizar en la busqueda, camp debería ser el que esté dirigido al del camp por defecto donde está el especies.dbf del camp, se puede crear uno de red.}
+\item{dns}{origen de base de datos a utilizar en la busqueda, camp debería ser el que esté dirigido al del camp por defecto donde está el especies.dbf del camp, se puede crear uno de red. Se puede utilizar "Arsa" como dns y si se tiene el especies del golfo de Gádiz en el directorio ARSA salen los códigos del Golfo de Cádiz, hay que incluir un camp MED numérico de ancho 1 en ese especies}
 
 \item{buscfam}{en vez de buscar el nombre de la especie busca a través de la familia y la especie, si T no muestra la lista de especies, sólo la familia, si F no selecciona por familia}
 }

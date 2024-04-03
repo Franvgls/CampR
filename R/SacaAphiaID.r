@@ -7,9 +7,9 @@
 #' @examples buscaesp(1,87);SacaAphiaID(1,87)
 #' @export
 SacaAphiaID<- function(grupo,esp,dns="Camp") {
-  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  ch1<-DBI::dbConnect(odbc::odbc(), ifelse(dns=="Camp","Camp","Arsa"))
   if (length(esp)>1 | length(grupo)>1) stop("Esta función no permite más de una especie por vez")
-  else name<-sub(" ","_",buscaesp(grupo,esp))
+  else name<-sub(" ","_",buscaesp(grupo,esp,dns = dns))
   DBI::dbDisconnect(ch1)
    worrms::wm_name2id(name = name)
 #  Encoding(especies$ESPECIE)  <- "UTF-8"

@@ -1,9 +1,10 @@
 #' Distribucion binomial: exitos necesarios para ser significativo
-#' 
+#'
 #' Funcion para la MSFD y calculo de numero de especies que hacen que unos resultados esten fuera de lo que cabria esperar al azar para ver mejoras en la biodiversidad por especie.
 #' @param n Número de eventos a tener en cuenta
 #' @param p.teorica probabilidad teórica de la distribución que se quiere comprobar.
 #' @return Devuelve una matriz con tres columnas: una la probabilidad en función del número de casos que se consideren como un éxito, y luego los intervalos de confianza inferior y superior, a partir de que p baja de 1 y llega a .05 se puede considerar que el resultado no se puede considerar debido al azar
+#' @references {[Greenstreet et al. 2012](https:://doi:10.1093/icesjms/fss148)}
 #' @examples #binom(24)
 #' @export
 binom<-function(n,p.teorica=.5) {

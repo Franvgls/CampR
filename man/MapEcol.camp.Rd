@@ -18,6 +18,7 @@ MapEcol.camp(
   es = TRUE,
   out.dat = FALSE,
   layout = NA,
+  cex.pt = 1,
   cexleg = 1,
   years = TRUE
 )
@@ -47,7 +48,9 @@ MapEcol.camp(
 
 \item{layout}{Organización de gráficos en filas ó columnas c(r,c)}
 
-\item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
+\item{cex.pt}{Varía el tamaño de los puntos en los gráficos}
+
+\item{cexleg}{varía el tamaño del texto de la leyenda y los ejes}
 
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
 }

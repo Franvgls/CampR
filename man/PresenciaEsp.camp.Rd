@@ -15,7 +15,7 @@ PresenciaEsp.camp(gr, esp, dns, tablas = FALSE, redux = TRUE)
 
 \item{tablas}{Si T muestra al final de los resultados una lista con todos los ficheros de definición (CAMP con su identificador de campaña), fauna y tallas presentes en el directorio.}
 
-\item{redux}{si T no incluye los datos de las campañas en las que no aparece la especie, sólo los positivos, para ver todas las campañas en directorio mejor {\link{CampsDNS.camp.R}}}
+\item{redux}{si T no incluye los datos de las campañas en las que no aparece la especie, sólo los positivos, para ver todas las campañas en directorio mejor {\link{CampsDNS.camp}}}
 }
 \value{
 Devuelve dos vectores con las campañas con presencia de la especie, y con las campañas con datos de talla de la especie. Tb incluye información sobre campañas que no tienen datos en el fichero FAUNAXXX.dbf y/o NTALLXXX.dbf

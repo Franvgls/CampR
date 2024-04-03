@@ -27,7 +27,7 @@ En esta versión de CampR estan implementadas funciones para las siguientes zona
 ------------
 
 Las DSNs de usuario para los ficheros de Dbase III utilizados en el CAMP funcionan bien en 32 bits más que en 64 bits, por ello es mejor instalarlos desde el <b>odbcad32.exe</b> del directorio <b>c:/windows/system32</b>, o bien hacerlo desde el <b>c:/windows/sysWOW64</b> pero siempre buscar <b>odbcad32.exe</b>. Esto supone que <b>no se puede utilizar CampR con R a 64 bits</b>. De hecho <b>R version 3.6.3</b>:  <https://cran.r-project.org/bin/windows/base/old/3.6.3/> es la última que funciona para utilizar CampR. 
-Es muy importante utilizar <b>"Microsoft Access Dbase driver .dbf, .ndx"</b> y no "driver do Microsoft dBase .dbf" que no funciona bien.
+Es muy importante utilizar <b>"Microsoft dBase Driver (*.dbf)"</b> y no <del>"driver <b>do</b> Microsoft dBase .dbf"</del> u otros disponibles que no funcionan bien.
 
 Para cada uno de estos directorios habrá que agregar un origen de datos DSN de usuario en el panel de control de herramientas administrativas de Windows: 
 

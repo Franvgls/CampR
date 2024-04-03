@@ -20,3 +20,6 @@ Funcion para la MSFD y calculo de numero de especies que hacen que unos resultad
 \examples{
 #binom(24)
 }
+\references{
+{\href{https:://doi:10.1093/icesjms/fss148}{Greenstreet et al. 2012}}
+}

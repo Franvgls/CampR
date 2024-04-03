@@ -41,7 +41,6 @@ MapIberia<-function(xlims=c(-10.7,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
     abline(h=seq(35,45,by=1/12),col=gray(.6),lwd=.6)
     abline(v=seq(-10,5,by=0.089),col=gray(.6),lwd=.6)
   }
-  if (ICESlab) text(c(stat_y+.19)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
   if (ICESrect) {
     abline(h=seq(35,45,by=.5),col=gray(.2),lwd=.6)
     abline(v=seq(-10,5,by=1),col=gray(.2),lwd=.6)
@@ -61,6 +60,7 @@ MapIberia<-function(xlims=c(-10.7,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
   }
   if (bw) {colo="lightgray"}
   else colo="wheat"
+  if (ICESlab) text(c(stat_y+.19)~stat_x,Area,label=ICESNAME,cex=ICESlabcex,font=2)
   #else colo="bisque"
   maps::map(Iberiamap,add=TRUE,fill=TRUE,col=colo,lwd=lwdl)
   if (places) {
