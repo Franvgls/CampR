@@ -20,12 +20,9 @@ edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,excl.sect=NA,cor.time=TRUE
     stop("Sólo se puede incluir una especie en esta función")
   }
   esp<-format(esp,width=3,justify="r")
-  ch1<-RODBC::odbcConnect(dns)
-  RODBC::odbcSetAutoCommit(ch1, FALSE)
-  ntalls<-RODBC::sqlQuery(ch1,paste("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp,
-                             " where grupo='",gr,"' and esp='",esp,"'",sep=""))
-  RODBC::odbcCloseAll()
-  #on.exit(RODBC::odbcClose(ch1))
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  ntalls<-DBI::dbGetQuery(ch1,paste0("select lance,peso_gr,peso_m,talla,sexo,numer from NTALL",camp," where grupo='",gr,"'AND esp='",esp,"'"))
+  DBI::dbDisconnect(ch1)
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(as.character(ntalls$lance))
   ntalls$numer<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
@@ -87,15 +84,14 @@ edadsect.camp<-function(gr,esp,camp,dns="Porc",plus=8,excl.sect=NA,cor.time=TRUE
     lan<-datlan.camp(camp,dns,redux=TRUE,incl2=FALSE)
     lan<-lan[!is.na(lan$estrato),c("lance","sector")]
     area<-NULL
-    ch1<-RODBC::odbcConnect(dns)
-    RODBC::odbcSetAutoCommit(ch1, FALSE)
-    dumb<-as.character(names(RODBC::sqlQuery(ch1,paste("select * from CAMP",camp,sep=""))))
+    ch1<-DBI::dbConnect(odbc::odbc(),dns)
+    dumb<-as.character(names(DBI::dbGetQuery(ch1,paste0("select * from CAMP",camp))))
     for (i in 21:45) {
       area<-paste(area,dumb[i],sep=",")
     }
     area<-substr(area,2,nchar(area))
-    area<-RODBC::sqlQuery(ch1,paste("select ",area," from CAMP",camp,sep=""))
-    RODBC::odbcCloseAll()
+    area<-DBI::dbGetQuery(ch1,paste("select ",area," from CAMP",camp,sep=""))
+    DBI::dbDisconnect(ch1)
     area<-area[-which(is.na(area) | area==0)]
     area<-as.data.frame(cbind(substr(names(area),2,3),as.numeric(t(area))))
     names(area)<-c("sector","arsect")

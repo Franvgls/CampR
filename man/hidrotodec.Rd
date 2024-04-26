@@ -9,7 +9,7 @@ hidrotodec(camp, dns, year = T)
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las RODBCs}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las odbcs}
 
 \item{year}{si T incluye una columna con el año al final de los datos}
 }

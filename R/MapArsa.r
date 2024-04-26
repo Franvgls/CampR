@@ -69,13 +69,14 @@ MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=
     }
   }
   if (places) {
-    points(c(-7.319498722,-6.299667,-6.43703,-6.950833,-7.93204),c(37.192832562,36.53433,36.73663,37.25833,37.02573),pch=20)
+    points(c(-7.319498722,-6.299667,-6.43703,-6.950833,-7.93204,-5.9426963),c(37.192832562,36.53433,36.73663,37.25833,37.02573,36.1922841),pch=20)
+    text(-8,37.25,"PORTUGAL",cex=1,font=2,pos=4)
+    text(-7.93204,37.02573,"Faro",cex=.85,font=2,pos=3)
     text(-7.319498722,37.192832562,"Isla Cristina",cex=.85,font=2,pos=3)
     text(-6.950833,37.25833,"Huelva",cex=.85,font=2,pos=2)
-    text(-6.299667,36.53433,"Cádiz",cex=.85,font=2,pos=3)
     text(-6.43703,36.73663,"Chipiona",cex=.85,font = 2,pos=4 )
-    text(-7.93204,37.02573,"Faro",cex=.85,font=2,pos=3)
-    text(-8,37.25,"PORTUGAL",cex=1,font=2,pos=4)
+    text(-6.299667,36.53433,"Cádiz",cex=.85,font=2,pos=3)
+    text(-5.9426963,36.1922841,"Barbate",cex = .85,font=2,pos=4)
   }
   if (ax) {
      degs = seq(-8,-5,ifelse(abs(diff(xlims))>1,1,.5))

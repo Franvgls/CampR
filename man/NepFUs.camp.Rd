@@ -23,7 +23,7 @@ NepFUs.camp(
 \arguments{
 \item{camp}{Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Sólo disponible para el Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las RODBCs}
+\item{dns}{Sólo disponible para el Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las odbcs}
 
 \item{plot}{Saca el gráfico (T) o lo omite para dejar sólo los datos (F)}
 

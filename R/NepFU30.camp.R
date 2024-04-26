@@ -11,7 +11,7 @@
 #' otros ficheros de lances de los últimos años
 #'
 #' @param camp Campaña de la que se extraen los datos: año concreto (XX): Arsa "1XX"
-#' @param dns Sólo disponible para el Golfo de Cádiz "Cant" combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las RODBCs
+#' @param dns Sólo disponible para el Golfo de Cádiz "Cant" combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las odbcs
 #' @param year si T incluye una columna con el año al final de los datos
 #' @param plot Saca el gráfico (T) o lo omite para dejar sólo los datos (F)
 #' @param es si T letreros en español, si F en inglés (F por defecto)

@@ -22,7 +22,9 @@ histboxplot(
   cex.leg = 1.1,
   years = TRUE,
   profrange = NA,
-  proflab = F,
+  longrange = NA,
+  latrange = NA,
+  ranglabel = TRUE,
   nlans = TRUE,
   lan.cex = 0.6
 )
@@ -62,6 +64,12 @@ histboxplot(
 
 \item{profrange}{Si c(profmin,profmax) filtra por ese rango de profundidad por defecto NA no filtra profundidades}
 
+\item{longrange}{Si c(longmin,longmax) filtra por ese rango de longitudes por defecto NA no filtra longitudes}
+
+\item{latrange}{Si c(latmin,latmax) filtra por ese rango de latitudes por defecto NA no filtra latitudes}
+
+\item{ranglabel}{Si T incluye texto con los rangos elegidos, is F los omite}
+
 \item{nlans}{T por defecto presenta el número de lances en la campaña por encima del eje x}
 
 \item{lan.cex}{tamaño de las etiquetas del numero de lances por campaña}
@@ -88,6 +96,7 @@ examples ambas opciones
 histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE)
 histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n")
 histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n",ceros=FALSE)
+histboxplot(1,50,Nsh[21:40],"Cant",years=T,ind="p",latrange=c(42,43))
 }
 \seealso{
 Other abunds: 

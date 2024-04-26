@@ -11,7 +11,7 @@
 #' otros ficheros de lances de los últimos años
 #'
 #' @param camp Campaña de la que se extraen los datos: año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las RODBCs
+#' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", combinados con "dnsred" busca los datos en el servidor de Santander si se han creado las odbcs
 #' @param incl2 Si T se incluyen los lances extra no incluidos para las abundancias o biomasas estratificadas
 #' @param incl0 Si T se incluyen los lances nulos
 #' @param outhidro si T saca los datos del fichero hidro al final de todo el proceso como salida
