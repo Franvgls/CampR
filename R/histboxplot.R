@@ -44,7 +44,7 @@
 #' @family abunds
 #' @export
 histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.dat=FALSE,ind="p",idi="l",
-  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,longrange=NA,latrange=NA,ranglabel=TRUE,nlans=TRUE,lan.cex=.6) {
+  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,longrange=NA,latrange=NA,ranglabel=TRUE,nlans=TRUE,lan.cex=.6,graf=FALSE) {
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   especie<-buscaesp(gr,esp,idi)
@@ -64,9 +64,9 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	if (!ceros) dumb<-filter(dumb,numero>0)
 	if (any(!is.na(profrange))) {
 	  dumb<-filter(dumb,prof>min(profrange) & prof<max(profrange))
-	    ti<-ifelse(es,"Rango profs:","Depth range:")
-	    if (min(profrange)==0) prang<-bquote(.(ti) <=.(format(paste0(max(profrange),"m")))) #list(label=bquote(" "<=.(format(paste0(max(profrange),"m")))),font.sub=2,cex=cex.leg*.9)
-	    if (max(profrange)==999) prang<-bquote(.(ti) >=.(format(paste0(min(profrange),"m"))))
+	    titrang<-ifelse(es,"Rango profs:","Depth range:")
+	    if (min(profrange)==0) prang<-bquote(.(tirang) <=.(format(paste0(max(profrange),"m")))) #list(label=bquote(" "<=.(format(paste0(max(profrange),"m")))),font.sub=2,cex=cex.leg*.9)
+	    if (max(profrange)==999) prang<-bquote(.(tirang) >=.(format(paste0(min(profrange),"m"))))
 	    if (min(profrange)!=0 & max(profrange)!=999) prang<-paste(ifelse(es,"Rango profs:","Depth range:"),min(profrange),"-",max(profrange),"m")
 	    if (min(profrange)==0 & max(profrange)==999) prang<-paste(ifelse(es,"Rango profs:","Depth range:"),min(profrange),"-",max(profrange),"m")
 	}
@@ -82,6 +82,7 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	  if (max(longrange)>0) prangW<-paste0(max(longrange),"ºW")
 	  lgrang<-paste(ifelse(es,"Rango longitud:","Longitude range:"),prangE,"-",prangW)
 	}
+	if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 1000,height = 800, pointsize = 15)
 	#  op<-par(no.readonly=T)
 #  par(mgp=c(2.5,.8,0))
 	if (ind=="p") {
@@ -115,6 +116,10 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	                  font.main=2,line=.5,cex.main=cex.leg*.9)}
 	}
 	else title(main=sub,line=.3,font.main=2,cex.main=cex.leg*.9)
+	if (!is.logical(graf)) {
+	  dev.off()
+	  message(paste0("figura: ",getwd(),"/",graf,".png"))
+	}
 	if (out.dat) {
     dumb$peso<-round(dumb$peso,3)
     if (years) dumb<-dumbcamp

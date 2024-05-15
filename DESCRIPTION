@@ -1,6 +1,6 @@
 Package: CampR
 Title: Libreria de funciones en R para el programa CAMP
-Version: 0.9.15
+Version: 0.9.17
 Date: 2024-02-22
 Author: Fran Velasco <franvgls@gmail.com>
 Maintainer: FVG <franvgls@gmail.com>
@@ -37,7 +37,7 @@ Suggests:
     rmarkdown
 VignetteBuilder: 
     knitr
-Encoding: utf-8
+Encoding: UTF-8
 LazyData: true
 LazyLoad: true
 Roxygen: list(markdown = TRUE)
