@@ -63,7 +63,7 @@ MapArsa(
 
 \item{bw}{si T mapa con tierra en gris, si F tierra en color}
 
-\item{graf}{Si F no saca nada, si pones el nombre de un gráfico saca un grafico png y al final del porceso dice dónd está el mapa con ese nombre:}
+\item{graf}{Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:}
 
 \item{es}{Si T saca titulos y ejes en español}
 

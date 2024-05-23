@@ -19,7 +19,8 @@ ArtePars(
   profrange = NA,
   proflab = F,
   Nlans = TRUE,
-  lan.cex = 0.8
+  lan.cex = 0.8,
+  graf = FALSE
 )
 }
 \arguments{

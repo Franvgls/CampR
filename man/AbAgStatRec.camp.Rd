@@ -15,8 +15,8 @@ AbAgStatRec.camp(
   AltAlk = NA,
   incl2 = FALSE,
   DatGraf = FALSE,
-  plotrix = T,
-  es = T
+  plotrix = TRUE,
+  es = TRUE
 )
 
 AbAgStatRec.camp(
@@ -30,8 +30,8 @@ AbAgStatRec.camp(
   AltAlk = NA,
   incl2 = FALSE,
   DatGraf = FALSE,
-  plotrix = T,
-  es = T
+  plotrix = TRUE,
+  es = TRUE
 )
 }
 \arguments{

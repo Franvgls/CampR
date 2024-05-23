@@ -21,7 +21,7 @@
 #' @param ax Si T saca los ejes x e y
 #' @param escala si T incluye una escala
 #' @param cex.scala tamaño fuente escala, por defecto si hay escala .6
-#' @param graf Si F no saca nada, si pones el nombre de un gráfico saca un grafico png y al final del porceso dice dónd está el mapa con ese nombre:
+#' @param graf Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:
 #' @param corners Si T coloca dos puntos rojos en los extremos nordeste y suroeste para ajustar mapas al PescaWin con ax=F
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones, si wmf=TRUE lo saca a metafile para fondo del pescawin
 #' @seealso {\link{MapNort}}, {\link{MapCant}}

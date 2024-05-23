@@ -20,7 +20,7 @@
 #' @param cex.scala tamaño de la fuente de la escala, .6 por defecto
 #' @param bw si T mapa con tierra en gris, si F tierra en color
 #' @param es Si T saca titulos y ejes en español
-#' @param graf Si F no saca nada, si pones el nombre de un gráfico saca un grafico png y al final del porceso dice dónd está el mapa con ese nombre:
+#' @param graf Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:
 #' @param places Si T saca ciudades y puntos geográficos de referencia
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones
 #' @seealso {\link{MapCant}}, {\link{mapporco}}

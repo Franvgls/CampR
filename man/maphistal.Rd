@@ -27,7 +27,8 @@ maphistal(
   ceros = TRUE,
   escmult = 0.25,
   cexleg = 1,
-  years = TRUE
+  years = TRUE,
+  graf = FALSE
 )
 }
 \arguments{
@@ -76,6 +77,8 @@ maphistal(
 \item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
 
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
+
+\item{graf}{Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:}
 }
 \value{
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis

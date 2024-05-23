@@ -25,7 +25,7 @@
 #' @family gear
 #' @export
 ArtePars<-function(camp,dns="Cant",incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.dat=FALSE,
-  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,proflab=F,Nlans=TRUE,lan.cex=.8) {
+  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,proflab=F,Nlans=TRUE,lan.cex=.8,graf=FALSE) {
   options(scipen=2)
   colo<-ifelse(bw,gray(1),"steelblue")
 	dumb<-NULL

@@ -27,7 +27,8 @@ histboxplot(
   ranglabel = TRUE,
   nlans = TRUE,
   lan.cex = 0.6,
-  graf = FALSE
+  graf = FALSE,
+  psize = 15
 )
 }
 \arguments{
@@ -74,6 +75,10 @@ histboxplot(
 \item{nlans}{T por defecto presenta el número de lances en la campaña por encima del eje x}
 
 \item{lan.cex}{tamaño de las etiquetas del numero de lances por campaña}
+
+\item{graf}{Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:}
+
+\item{psize}{Tamaño del punto del archivo png, en este gráfico por defecto 15}
 
 \item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
 

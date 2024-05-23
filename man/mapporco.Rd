@@ -22,7 +22,7 @@ mapporco(
   ax = TRUE,
   escala = FALSE,
   cex.scala = 0.6,
-  wmf = FALSE,
+  graf = FALSE,
   corners = FALSE,
   leg = FALSE,
   sectcol = FALSE,
@@ -63,7 +63,7 @@ mapporco(
 
 \item{cex.scala}{tamaño fuente escala, por defecto si hay escala .6}
 
-\item{wmf}{Si T saca a fichero metafile porconc.emf}
+\item{graf}{Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:}
 
 \item{corners}{Si T coloca dos puntos rojos en los extremos nordeste y suroeste para ajustar mapas al PescaWin con ax=F}
 
