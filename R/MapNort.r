@@ -17,6 +17,7 @@
 #' @param dens si mayor de 0 las superficies de los estratos tienen patrones de líneas
 #' @param es si T saca textos en español, si F en inglés
 #' @param ax Si T saca los ejes x e y
+#' @param escala si T incluye una escala en la zona inferior izquierda
 #' @param strat Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)
 #' @param FU Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)
 #' @param ColFU por defecto "chartreuse" o "white" selecciona el color de las unidades funcionales de cigala
@@ -33,8 +34,8 @@
 #' @family Galicia Cantabrico
 #' @export
 MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,latlonglin=TRUE,ICESrect=FALSE,
-                   ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=FALSE,es=FALSE,ax=TRUE,strat=FALSE,
-                   places=FALSE,FU=NA,ColFU="chartreuse",FUsLab=FALSE,dens=20,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.6)) {
+                   ICESrectcol=gray(.2),ICESlab=FALSE,ICESlabcex=.7,leg=F,bw=FALSE,es=FALSE,ax=TRUE,escala=FALSE,strat=FALSE,
+                   cex.scala=.6,places=FALSE,FU=NA,ColFU="chartreuse",FUsLab=FALSE,dens=20,country=F,xlims=c(-10.25,-1.4),ylims=c(41.82,44.6)) {
   maps::map(Nort.str,xlim=xlims,ylim=ylims,type="n")
   if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
   if (ax) {
@@ -90,6 +91,7 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,latlong
   if (country) {
     legend("bottom",ifelse(es,"España","Spain"),cex=2,inset=.15,bty="n")
   }
+  if (escala) {mapscale(x=-8,font=2,cex=cex.scala,lwd=2,es=es)}
   if (places) {
     text(-8.383,43.367,"A Coruña",cex=.85,font=2,pos=1)
     points(-8.383,43.367,pch=15,cex=.9)

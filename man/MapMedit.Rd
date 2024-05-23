@@ -66,7 +66,8 @@ Other mapas base:
 \code{\link{MapIberia}()},
 \code{\link{MapNort}()},
 \code{\link{MapPorc}()},
-\code{\link{mapporco}()}
+\code{\link{mapporco}()},
+\code{\link{mapscale}()}
 
 Other Medits: 
 \code{\link{MapIberia}()}

@@ -1,5 +1,5 @@
 ---
-title: "CampR Results on hake Porcupine 2016"
+title: "Vignete 8.- CampR Results on hake Porcupine 2016"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
 vignette: >

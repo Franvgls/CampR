@@ -16,3 +16,6 @@ unid.camp(gr, esp, dns = "Camp")
 \description{
 Da información de las unidades en que se miden las especies y permite añadir datos a los gráficos
 }
+\examples{
+unid.camp(1,50)
+}

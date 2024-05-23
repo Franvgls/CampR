@@ -26,7 +26,8 @@ histboxplot(
   latrange = NA,
   ranglabel = TRUE,
   nlans = TRUE,
-  lan.cex = 0.6
+  lan.cex = 0.6,
+  graf = FALSE
 )
 }
 \arguments{
@@ -97,6 +98,7 @@ histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE)
 histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n")
 histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n",ceros=FALSE)
 histboxplot(1,50,Nsh[21:40],"Cant",years=T,ind="p",latrange=c(42,43))
+histboxplot(1,50,Nsh,"Cant",latrange = c(42,43),graf="Graf")
 }
 \seealso{
 Other abunds: 

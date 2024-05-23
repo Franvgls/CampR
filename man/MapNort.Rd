@@ -18,7 +18,9 @@ MapNort(
   bw = FALSE,
   es = FALSE,
   ax = TRUE,
+  escala = FALSE,
   strat = FALSE,
+  cex.scala = 0.6,
   places = FALSE,
   FU = NA,
   ColFU = "chartreuse",
@@ -56,6 +58,8 @@ MapNort(
 
 \item{ax}{Si T saca los ejes x e y}
 
+\item{escala}{si T incluye una escala en la zona inferior izquierda}
+
 \item{strat}{Si marca los sectores geográficos (los batimetricos salen con las líneas correspondientes, y en colores con leg=T)}
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
@@ -92,7 +96,8 @@ Other mapas base:
 \code{\link{MapIberia}()},
 \code{\link{MapMedit}()},
 \code{\link{MapPorc}()},
-\code{\link{mapporco}()}
+\code{\link{mapporco}()},
+\code{\link{mapscale}()}
 
 Other Galicia Cantabrico: 
 \code{\link{MapCant}()}

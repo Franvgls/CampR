@@ -16,9 +16,11 @@
 #' @param FUsLab Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs
 #' @param leg si T incluye una legenda con los estratos de profundidad y los estratos se colorean respectivamente
 #' @param ax Si T saca los ejes x e y
+#' @param escaala si T incluye una escala del mapa
+#' @param cex.scala tamaño de la fuente de la escala, .6 por defecto
 #' @param bw si T mapa con tierra en gris, si F tierra en color
 #' @param es Si T saca titulos y ejes en español
-#' @param wmf Si T saca a fichero metafile Arsaconc.emf
+#' @param graf Si F no saca nada, si pones el nombre de un gráfico saca un grafico png y al final del porceso dice dónd está el mapa con ese nombre:
 #' @param places Si T saca ciudades y puntos geográficos de referencia
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones
 #' @seealso {\link{MapCant}}, {\link{mapporco}}
@@ -28,10 +30,10 @@
 #' @family ARSA
 #' @export
 MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,
-                  ICESrectcol=2,ICESlab=FALSE,FU=NA,ColFU="white",dens=20,FUsLab=FALSE,ICESlabcex=.8,ax=TRUE,bw=F,wmf=FALSE,es=TRUE,places=TRUE) {
+                  ICESrectcol=2,ICESlab=FALSE,escala=FALSE,cex.scala=.6,FU=NA,ColFU="white",dens=20,FUsLab=FALSE,ICESlabcex=.8,ax=TRUE,bw=F,graf=FALSE,es=TRUE,places=TRUE) {
   asp<-diff(c(35.95,37.33))/(diff(c(-8.1711,-5.5))*cos(mean(c(35.95,37.35))*pi/180))
-  if (wmf) win.metafile(filename = "Arsaconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)
-  if (!wmf) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
+  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 1200,height = 800, pointsize = 15)
+  if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
   if (!ax) par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))
   maps::map(Arsa.str,xlim=xlims,ylim=ylims,type="n",xaxs="i",yaxs="i")
   if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
@@ -78,6 +80,7 @@ MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=
     text(-6.299667,36.53433,"Cádiz",cex=.85,font=2,pos=3)
     text(-5.9426963,36.1922841,"Barbate",cex = .85,font=2,pos=4)
   }
+  if (escala) {mapscale(font=2,cex=cex.scala,lwd=2,es=es)}
   if (ax) {
      degs = seq(-8,-5,ifelse(abs(diff(xlims))>1,1,.5))
      alg = sapply(degs,function(x) bquote(.(abs(x))*degree ~ W))
@@ -90,6 +93,9 @@ MapArsa<-function(xlims=c(-8.15,-5.52),ylims=c(35.95,37.335),lwdl=1,leg=F,cuadr=
   }
   #rect(xlims[1],ylims[1],xlims[2],ylims[2],lwd=lwdl);
   box(lwd=lwdl,which = "plot")
-  if (wmf) dev.off()
-  if (wmf) par(mar=c(5, 4, 4, 2) + 0.1)
+  if (!is.logical(graf)) {
+    dev.off()
+    message(paste0("figura: ",getwd(),"/",graf,".png"))
+  }
+  if (!is.logical(graf)) par(mar=c(5, 4, 4, 2) + 0.1)
  }

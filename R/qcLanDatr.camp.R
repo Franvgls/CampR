@@ -8,14 +8,13 @@
 #' @examples qclansdatr.camp("N23","Cant")
 #' @examples qclansdatr.camp("216","Arsa")
 #' @seealso {\link{MapLansGPS}}
-#' @references 
 #' @family Control de calidad
 #' @export
 qclandatr.camp<-function(camp,dns) {
   par(mfrow=c(2,2))
   datcamp<-datlan.camp(camp,dns,redux=F,incl2=T,incl0 = F)
   if (dns=="Cant") {
-    MapNort(places=T)     
+    MapNort(places=T)
     datdatr<-icesDatras::getDATRAS("HH","SP-NORTH",camptoyear(camp),4)
   }
   if (dns=="Porc") {
@@ -32,4 +31,5 @@ qclandatr.camp<-function(camp,dns) {
   points(Netopening~Depth,datdatr,pch=21,cex=1.2,lwd=2)
   points(latitud_l~longitud_l,datcamp,pch=21,bg="blue")
   points(ShootLat~ShootLong,datdatr,pch=21,cex=1.2,lwd=2)
+    }
 }

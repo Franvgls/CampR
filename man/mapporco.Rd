@@ -20,6 +20,8 @@ mapporco(
   places = TRUE,
   es = TRUE,
   ax = TRUE,
+  escala = FALSE,
+  cex.scala = 0.6,
   wmf = FALSE,
   corners = FALSE,
   leg = FALSE,
@@ -57,6 +59,10 @@ mapporco(
 
 \item{ax}{Si T saca los ejes x e y}
 
+\item{escala}{si T incluye una escala}
+
+\item{cex.scala}{tamaño fuente escala, por defecto si hay escala .6}
+
 \item{wmf}{Si T saca a fichero metafile porconc.emf}
 
 \item{corners}{Si T coloca dos puntos rojos en los extremos nordeste y suroeste para ajustar mapas al PescaWin con ax=F}
@@ -88,7 +94,8 @@ Other mapas base:
 \code{\link{MapIberia}()},
 \code{\link{MapMedit}()},
 \code{\link{MapNort}()},
-\code{\link{MapPorc}()}
+\code{\link{MapPorc}()},
+\code{\link{mapscale}()}
 
 Other Porcupine: 
 \code{\link{MapPorc}()},

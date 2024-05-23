@@ -19,7 +19,9 @@
 #' @param sectcol si T pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot
 #' @param bw Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE
 #' @param ax Si T saca los ejes x e y
-#' @param wmf Si T saca a fichero metafile porconc.emf
+#' @param escala si T incluye una escala
+#' @param cex.scala tamaño fuente escala, por defecto si hay escala .6
+#' @param graf Si F no saca nada, si pones el nombre de un gráfico saca un grafico png y al final del porceso dice dónd está el mapa con ese nombre:
 #' @param corners Si T coloca dos puntos rojos en los extremos nordeste y suroeste para ajustar mapas al PescaWin con ax=F
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones, si wmf=TRUE lo saca a metafile para fondo del pescawin
 #' @seealso {\link{MapNort}}, {\link{MapCant}}
@@ -29,13 +31,13 @@
 #' @family Porcupine
 #' @export
 mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRUE,cuadr=FALSE,ICESrect=FALSE,ICESlab=FALSE,
-                   ICESlabcex=.7,label=FALSE,colo=2,dens=0,bw=F,places=TRUE,es=TRUE,ax=TRUE,wmf=FALSE,corners=FALSE,
+                   ICESlabcex=.7,label=FALSE,colo=2,dens=0,bw=F,places=TRUE,es=TRUE,ax=TRUE,escala=FALSE,cex.scala=.6,graf=FALSE,corners=FALSE,
                    leg=FALSE,sectcol=FALSE,FU=NA,FUsLab=FALSE) {
   asp<-diff(c(50.5,54.5))/(diff(range(-15.5,-10.5))*cos(mean(50.5,54.5)*pi/180))
   if (any(is.na(xlims))) {xlims<-c(-15.5,-10.5)}
   if (any(is.na(ylims))) {ylims<-c(50.5,54.5)}
-  if (wmf) {win.metafile(filename = "porconc.emf", width = 10, height = 10*asp+.63, pointsize = 10)}
-  if (!wmf) {par(mar=c(2,2.5,2, 2.5) + 0.3, mgp=c(2,.5,0))}
+  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 950,height = 1200, pointsize = 20)
+  if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
   if (!ax) {par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))}
   library(mapdata)
 #  maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=ylims,xlim=xlims,
@@ -109,6 +111,7 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
     text(-12.3,(51.2+51.05)/2,label=ifelse(es,"Sector 1 (norte) E, F y G","Sector 1: E, F & G"),pos=4,cex=.8,font=2)
     text(-12.3,(50.8+50.95)/2,label=ifelse(es,"Sector 2 (sur) F & G","Sector 2: F & G"),pos=4,cex=.8,font=2)
   }
+  if (escala) {mapscale(font=2,cex=cex.scala,lwd=2,x=-12,y=50.7,es=es)}
   if (label) {
     if (!exists("Porc.grid")) {
       Porc.grid<-sacagrid()
@@ -116,6 +119,9 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
     text(Porc.grid$x,Porc.grid$y,labels=Porc.grid$pt,cex=.3,col=colo)
   }
   if (corners) points(c(-15.5,-10.5),c(50.5,54.5),pch=16,col=2)
-  if (wmf) dev.off()
-  if (wmf) par(mar=c(5, 4, 4, 2) + 0.1)
+  if (!is.logical(graf)) {
+    dev.off()
+    message(paste0("figura: ",getwd(),"/",graf,".png"))
+  }
+  if (!is.logical(graf)) par(mar=c(5, 4, 4, 2) + 0.1)
 }

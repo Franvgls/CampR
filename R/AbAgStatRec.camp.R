@@ -16,7 +16,7 @@
 #' @examples AbAgStatRec.camp(1,43,"P10","Porc",DatGraf = T)
 #' @family edades
 #' @export
-AbAgStatRec.camp<-function(gr,esp,camp,dns="Cant",plus=8,mediahora=2,cor.time=TRUE,AltAlk=NA,incl2=FALSE,DatGraf=FALSE,plotrix=T,es=T) {
+AbAgStatRec.camp<-function(gr,esp,camp,dns="Cant",plus=8,mediahora=2,cor.time=TRUE,AltAlk=NA,incl2=FALSE,DatGraf=FALSE,plotrix=TRUE,es=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   if (length(esp)>1) {stop("Sólo se puede incluir una especie en esta función")}
   esp<-format(esp,width=3,justify="r")

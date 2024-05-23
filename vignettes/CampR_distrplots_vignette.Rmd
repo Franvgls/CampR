@@ -1,5 +1,5 @@
 ---
-title: "Gráficos distribuciones de abundancias"
+title: "Vignete 6.- Gráficos distribuciones de abundancias"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
 output:

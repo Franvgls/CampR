@@ -1,5 +1,5 @@
 ---
-title: "CampR con plotly y ggplot2"
+title: "Vignete 4.- CampR con plotly y ggplot2"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
 output:

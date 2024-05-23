@@ -14,6 +14,8 @@ MapArsa(
   ICESrect = FALSE,
   ICESrectcol = 2,
   ICESlab = FALSE,
+  escala = FALSE,
+  cex.scala = 0.6,
   FU = NA,
   ColFU = "white",
   dens = 20,
@@ -21,7 +23,7 @@ MapArsa(
   ICESlabcex = 0.8,
   ax = TRUE,
   bw = F,
-  wmf = FALSE,
+  graf = FALSE,
   es = TRUE,
   places = TRUE
 )
@@ -45,6 +47,8 @@ MapArsa(
 
 \item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
 
+\item{cex.scala}{tamaño de la fuente de la escala, .6 por defecto}
+
 \item{FU}{Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)}
 
 \item{ColFU}{por defecto "chartreuse" o "white" selecciona el color de las unidades funcionales de cigala}
@@ -59,11 +63,13 @@ MapArsa(
 
 \item{bw}{si T mapa con tierra en gris, si F tierra en color}
 
-\item{wmf}{Si T saca a fichero metafile Arsaconc.emf}
+\item{graf}{Si F no saca nada, si pones el nombre de un gráfico saca un grafico png y al final del porceso dice dónd está el mapa con ese nombre:}
 
 \item{es}{Si T saca titulos y ejes en español}
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
+
+\item{escaala}{si T incluye una escala del mapa}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones
@@ -84,7 +90,8 @@ Other mapas base:
 \code{\link{MapMedit}()},
 \code{\link{MapNort}()},
 \code{\link{MapPorc}()},
-\code{\link{mapporco}()}
+\code{\link{mapporco}()},
+\code{\link{mapscale}()}
 
 Other ARSA: 
 \code{\link{As1}},

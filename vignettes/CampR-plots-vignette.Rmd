@@ -1,5 +1,5 @@
 ---
-title: "Campañas y zonas implementadas en CampR 0.6.0"
+title: "Vignete 3.- Campañas y zonas implementadas en CampR 0.9.17"
 author: "Fran Velasco"
 package: CampR
 date: "`r Sys.Date()`"

@@ -1,5 +1,5 @@
 ---
-title: "Instalación de librerías para CampR"
+title: "Vignete 2.-Instalación de librerías para CampR"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
 output: html_document

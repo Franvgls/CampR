@@ -27,7 +27,7 @@
 ArtePars<-function(camp,dns="Cant",incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.dat=FALSE,
   ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,proflab=F,Nlans=TRUE,lan.cex=.8) {
   options(scipen=2)
-  colo<-ifelse(bw,gray(1),"lightblue")
+  colo<-ifelse(bw,gray(1),"steelblue")
 	dumb<-NULL
   lan<-datlan.camp(camp=camp,dns=dns,incl2=incl2,redux=T)
   if (any(!is.na(profrange))) {

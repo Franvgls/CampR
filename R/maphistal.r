@@ -24,6 +24,7 @@
 #' @param escmult Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
+#' @param graf Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
 #' @examples maphistal(1,50,Psh[1:12],"Porc",1,23,layout=c(4,3),out.dat=TRUE)
 #' @family mapas
@@ -31,7 +32,7 @@
 #' @export
 maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",ICESrect=FALSE,
                     sex=NA,bw=FALSE,ti=TRUE,subti=TRUE,plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,
-                    escmult=.25,cexleg=1,years=TRUE) {
+                    escmult=.25,cexleg=1,years=TRUE,graf=FALSE) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)
   if (plot) {
@@ -45,7 +46,7 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
     }
     }
   if (length(esp)>1 | any(esp=="999")) {
-    print("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
+    message("Distintas especies pueden estar medidas en distintas unidades (mm y cm) o a la aleta anal")
     if (!is.na(sex)) {
       stop("No se pueden seleccionar sexo para más de una especie")
       }
@@ -89,11 +90,13 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	if (tmin!=0 & tmax!=999) sub<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
 	if (tmin==0 & tmax==999) sub<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
 	}
+	if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 950,height = 1200, pointsize = 20)
+#	if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
 	if (any(is.na(layout))) {
 		if (ndat!=4) layout=c(1,ndat)
 		if (ndat==4) layout=c(2,2)
 		}
-  if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
+	if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
 		asp<-diff(c(50.5,54.5))/(diff(c(-15.5,-10.5))*cos(mean(c(50.5,54.5))*pi/180))
 		mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=c(-15.5,-10.5),main=titulo,sub=sub,xlab=NULL,ylab=NULL,
 			ylim=c(50.5,54.5),aspect=asp,par.strip.text=list(cex=cexleg,font=2),scales=list(alternating=FALSE,tck=c(1,0),
@@ -210,4 +213,9 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	else {
     if (!plot) mapdist
     }
+	if (!is.logical(graf)) {
+	  dev.off()
+	  message(paste0("figura: ",getwd(),"/",graf,".png"))
 	}
+	if (!is.logical(graf)) par(mar=c(5, 4, 4, 2) + 0.1)
+}

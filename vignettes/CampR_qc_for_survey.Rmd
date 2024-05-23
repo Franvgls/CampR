@@ -1,5 +1,5 @@
 ---
-title: "CampR control de calidad en campañas de arrastre"
+title: "Vignete 9. CampR control de calidad en campañas de arrastre"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
 vignette: "%\\VignetteEngine{knitr::rmarkdown} \n%\\VignetteINdexEntry{CampR control
@@ -10,7 +10,7 @@ vignette: "%\\VignetteEngine{knitr::rmarkdown} \n%\\VignetteINdexEntry{CampR con
 library(CampR)
 ```
 
-Este documento R Markdown. resume y propone un protolo para realiar la comprobación de errores en los datos recogidos y tecleados a lo largo de una campaña de arrastre con datos almacenados con las bases de datos de _**CAMP 12** Harbour Windows 10 version_.
+Este documento R Markdown. resume y propone un protocolo para realizar la comprobación de errores en los datos recogidos y tecleados a lo largo de una campaña de arrastre con datos almacenados con las bases de datos de _**CAMP 12** Harbour Windows 10 version_.
 
 El protocolo debe incluir la revisión de:
 

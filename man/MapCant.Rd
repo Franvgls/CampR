@@ -62,7 +62,8 @@ Other mapas base:
 \code{\link{MapMedit}()},
 \code{\link{MapNort}()},
 \code{\link{MapPorc}()},
-\code{\link{mapporco}()}
+\code{\link{mapporco}()},
+\code{\link{mapscale}()}
 
 Other Galicia Cantabrico: 
 \code{\link{MapNort}()}

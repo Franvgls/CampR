@@ -35,16 +35,19 @@
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param escmult Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos
 #' @param cex.leg Varía el tamaño de letra de los ejes y del número de la leyenda
+#' @param graf Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:
+#' @param psize Tamaño del punto del archivo png, en este gráfico por defecto 15
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,peso.gr,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
 #' @examples
 #' histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE)
 #' histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n")
 #' histboxplot(1,50,Nsh[7:27],"Cant",years=TRUE,ind="n",ceros=FALSE)
 #' histboxplot(1,50,Nsh[21:40],"Cant",years=T,ind="p",latrange=c(42,43))
+#' histboxplot(1,50,Nsh,"Cant",latrange = c(42,43),graf="Graf")
 #' @family abunds
 #' @export
 histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.dat=FALSE,ind="p",idi="l",
-  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,longrange=NA,latrange=NA,ranglabel=TRUE,nlans=TRUE,lan.cex=.6,graf=FALSE) {
+  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,longrange=NA,latrange=NA,ranglabel=TRUE,nlans=TRUE,lan.cex=.6,graf=FALSE,psize=15) {
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
   especie<-buscaesp(gr,esp,idi)
@@ -82,7 +85,7 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	  if (max(longrange)>0) prangW<-paste0(max(longrange),"ºW")
 	  lgrang<-paste(ifelse(es,"Rango longitud:","Longitude range:"),prangE,"-",prangW)
 	}
-	if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 1000,height = 800, pointsize = 15)
+	if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 1000,height = 800, pointsize = psize)
 	#  op<-par(no.readonly=T)
 #  par(mgp=c(2.5,.8,0))
 	if (ind=="p") {

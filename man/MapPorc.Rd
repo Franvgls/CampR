@@ -57,7 +57,8 @@ Other mapas base:
 \code{\link{MapIberia}()},
 \code{\link{MapMedit}()},
 \code{\link{MapNort}()},
-\code{\link{mapporco}()}
+\code{\link{mapporco}()},
+\code{\link{mapscale}()}
 
 Other Porcupine: 
 \code{\link{Psh}},

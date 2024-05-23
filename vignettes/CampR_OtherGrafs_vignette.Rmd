@@ -1,5 +1,5 @@
 ---
-title: "Otros tipos de gráficos"
+title: "Vignete 5.- Otros tipos de gráficos"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
