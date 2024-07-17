@@ -30,8 +30,9 @@ MapLansGPS("N22","Cant")
 
 La función `qcdistlan.camp` permite ver errores en la distancia recorrida y la velocidad incluida en los datos y su relación, además de la duración del lance y el rumbo. Además incorpora una revisión de las horas de largada y virada comprobando que no existen lances fuera de las horas de día y que no hay años mal tecleados avisando si se encuentran lances asignados a varios años
 
-```{r qcdistlan.camp}
-head(qcdistlan.camp("N22","Cant",todos=FALSE,pc.error=2))
+
+```{r qcdistlan.camp,fig.width=16,fig.height=8,fig.align="center"}
+head(qcdistlan.camp("N22","Cant",plots = TRUE,todos=FALSE,pc.error=2))
 ```
 
 ### Funcionamiento del arte (análisis del `log` del ITI, MARPORT, SCANMAR...)

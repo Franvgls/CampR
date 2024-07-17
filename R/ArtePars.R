@@ -32,6 +32,8 @@ ArtePars<-function(camp,dns="Cant",incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.
   lan<-datlan.camp(camp=camp,dns=dns,incl2=incl2,redux=T)
   if (any(!is.na(profrange))) {
     lan<-dplyr::filter(lan,prof>min(profrange) & prof<max(profrange))}
+  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 1200,height = 800, pointsize = 15)
+  if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
   par(mfcol=c(1,3))
   plot(dista_p~prof,lan,pch=ifelse(Nlans,NA,21),cex=1*lan.cex,bg=colo,ylim=c(0,hablar::max_(dista_p)*1.1),
        ylab=paste(ifelse(es,"Distancia puertas","Door spread"),"(m)"),
@@ -48,6 +50,11 @@ ArtePars<-function(camp,dns="Cant",incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.
        xlab=paste(ifelse(es,"Prof.","Depth"),"(m)"))
   if (Nlans) text(abert_v~prof,lan,label=lance,cex=lan.cex*1,font=2,pos=4)
   if (ti) title(ifelse(es,"Abertura vertical con profundidad","Vertical opening vs depth"))
+  if (!is.logical(graf)) {
+    dev.off()
+    message(paste0("figura: ",getwd(),"/",graf,".png"))
+  }
+  if (!is.logical(graf)) par(mar=c(5, 4, 4, 2) + 0.1)
   if (out.dat) {
 	  if (out.dat) print(lan[,c("lance","dista_p","abert_h","abert_v")])
 	}

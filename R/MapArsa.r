@@ -16,7 +16,7 @@
 #' @param FUsLab Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs
 #' @param leg si T incluye una legenda con los estratos de profundidad y los estratos se colorean respectivamente
 #' @param ax Si T saca los ejes x e y
-#' @param escaala si T incluye una escala del mapa
+#' @param escala si T incluye una escala del mapa
 #' @param cex.scala tamaño de la fuente de la escala, .6 por defecto
 #' @param bw si T mapa con tierra en gris, si F tierra en color
 #' @param es Si T saca titulos y ejes en español

@@ -1,4 +1,6 @@
-#' Mapas de presentación de datos de una campaña comparando dos sectores/lances, creada para la campaña N21 con dos barcos, el lance 66 es el último que se hizo con el Miguel Oliver
+#' Mapas de presentación de datos de una campaña comparando dos sectores/lances,
+#' función creada para la campaña N21 con dos barcos, el lance 66 es el último que se hizo con el Miguel Oliver
+#' Pero adaptada para comparar entre dos zonas dentro de una campaña, desde el lance uno al **lance** y el resto de la campaña
 #'
 #' Crea un mapa con la distribucion en biomasa o numero para distintas el Cantábrico (dns=Cant)
 #' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
@@ -20,13 +22,15 @@
 #' @param escmult Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param years Si T saca los años como nombre de campaña
+#' @examples MapComp(1,50,"N21","Cant",lance=66)
+#' @examples MapComp(1,74,"N22","Cant",lance=121)
 #' @export
 MapComp<-function(gr,esp,camp="N21",dns="Cant",lance=66,ti=T,plot=T,out.dat=F,ind="p",idi="l",es=F,
                   layout=NA,leg=T,pts=F,ceros=TRUE,escmult=.25,cexleg=1,years=F,bw=FALSE,notch=TRUE) {
   dat<-maphist(gr,esp,camp,dns,plot=F,out.dat=T)
 #  dat$peso<-dat$peso.gr/1000
   if (bw) {cols=c(gray(.2),gray(.7))} else cols=c("blue","green")
-  dat$barco<-cut(dat$lan,c(0,66,150),c("29MO","29VE"))
+  dat$barco<-cut(dat$lan,c(0,lance,nrow(dat)),labels=ifelse(camp=="N21",c("29MO","29VE"),c("Zona 1","Zona 2")))
   escmult<- .05
   if (ind=="p") {
     dat$peso<-dat$peso.gr/1000

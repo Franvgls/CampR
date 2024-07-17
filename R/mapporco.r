@@ -21,6 +21,8 @@
 #' @param ax Si T saca los ejes x e y
 #' @param escala si T incluye una escala
 #' @param cex.scala tamaño fuente escala, por defecto si hay escala .6
+#' @param SACs si T incluye los polígonos de las areas speiales de conservación Irlandesas
+#' @param filSAC si T los poligonos están con fondo de color
 #' @param graf Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:
 #' @param corners Si T coloca dos puntos rojos en los extremos nordeste y suroeste para ajustar mapas al PescaWin con ax=F
 #' @return Saca en pantalla el mapa y es utilizada por otras funciones, si wmf=TRUE lo saca a metafile para fondo del pescawin
@@ -32,7 +34,7 @@
 #' @export
 mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRUE,cuadr=FALSE,ICESrect=FALSE,ICESlab=FALSE,
                    ICESlabcex=.7,label=FALSE,colo=2,dens=0,bw=F,places=TRUE,es=TRUE,ax=TRUE,escala=FALSE,cex.scala=.6,graf=FALSE,corners=FALSE,
-                   leg=FALSE,sectcol=FALSE,FU=NA,FUsLab=FALSE) {
+                   leg=FALSE,sectcol=FALSE,FU=NA,FUsLab=FALSE,SACs=FALSE,filSAC=FALSE) {
   asp<-diff(c(50.5,54.5))/(diff(range(-15.5,-10.5))*cos(mean(50.5,54.5)*pi/180))
   if (any(is.na(xlims))) {xlims<-c(-15.5,-10.5)}
   if (any(is.na(ylims))) {ylims<-c(50.5,54.5)}
@@ -65,7 +67,7 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
     abline(h=seq(50,55,by=.5),col=gray(.2),lwd=.6)
     abline(v=seq(-18,-10,by=1),col=gray(.2),lwd=.6)
   }
-  if (sectcol) colrs=c("Steelblue2","Steelblue2","Steelblue","blue4","green","darkgreen",gray(.7))
+  if (sectcol) colrs=c("Steelblue2","Steelblue2","Steelblue","blue4","darkolivegreen","darkdarkolivegreen",gray(.7))
   else {
     if (bw) {colrs=c(rep(ifelse(bw,"white","lightblue"),6),gray(.7))} else {colrs=c(rep("lightblue1",6),"antiquewhite")}
   }
@@ -110,6 +112,14 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
     }
     text(-12.3,(51.2+51.05)/2,label=ifelse(es,"Sector 1 (norte) E, F y G","Sector 1: E, F & G"),pos=4,cex=.8,font=2)
     text(-12.3,(50.8+50.95)/2,label=ifelse(es,"Sector 2 (sur) F & G","Sector 2: F & G"),pos=4,cex=.8,font=2)
+  }
+  if (SACs) {
+    polygon(hmmSAC$long,hmmSAC$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+    polygon(NewPorcCanyon$long,NewPorcCanyon$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+    polygon(PorcNWSAC$long,PorcNWSAC$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+    polygon(PorcSWSAC$long,PorcSWSAC$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+    polygon(PorcShelfSAC$long,PorcShelfSAC$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+    polygon(BelgicaMound$long,BelgicaMound$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
   }
   if (escala) {mapscale(font=2,cex=cex.scala,lwd=2,x=-12,y=50.7,es=es)}
   if (label) {

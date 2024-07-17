@@ -97,7 +97,7 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
     boxplot(numero~camp,dumb,outline=F,varwidth=T,col=colo,ylab=ifelse(es,expression("ind"%*%"lance"^-1),expression("ind"%*%"haul"^-1)),
       xlab=ifelse(es,"Año","Year"),las=2,cex.axis=cex.leg*.8)
   }
-	if (!ceros) mtext(ifelse(es,"Lances sin captura excluidos","0 catches hauls excluded"),
+	if (!ceros) mtext(ifelse(es,"Lances sin captura excluidos","0 catch hauls excluded"),
 	                  side=3,0,font=2,cex=.8,adj=ifelse(ceros,0,1))
 	if (ranglabel) {
   	if (exists("prang")) mtext(prang,   #paste(ifelse(es,"Rango prof: ","Depth range: "),expression(prang))
