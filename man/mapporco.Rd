@@ -27,7 +27,9 @@ mapporco(
   leg = FALSE,
   sectcol = FALSE,
   FU = NA,
-  FUsLab = FALSE
+  FUsLab = FALSE,
+  SACs = FALSE,
+  filSAC = FALSE
 )
 }
 \arguments{
@@ -74,6 +76,10 @@ mapporco(
 \item{FU}{Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en Porcupine sólo es FU16)}
 
 \item{FUsLab}{Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs}
+
+\item{SACs}{si T incluye los polígonos de las areas speiales de conservación Irlandesas}
+
+\item{filSAC}{si T los poligonos están con fondo de color}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones, si wmf=TRUE lo saca a metafile para fondo del pescawin

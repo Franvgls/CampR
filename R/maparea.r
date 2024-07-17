@@ -4,6 +4,8 @@
 #' @param ICESrect Si T incluye los los rectángulos ICES
 #' @param ICESlab Si T incluye las etiquetas de los rectángulos ICES
 #' @param ICESlabcex tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande
+#' @param SACs si T incluye la silueta de las areas de especial atención irlandesas SACs
+#' @param filSAC si T las SACs se llenan con color verde, si F sólo queda el contorno
 #' @param es Textos en español, si F en inglés
 #' @param leg incluye la leyenda con los colores/patrones de los estratos
 #' @param bw Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE
@@ -11,10 +13,11 @@
 #' @param sectcol si T pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot
 #' @examples maparea(sectcol=TRUE,leg=TRUE)
 #' @examples maparea(sectcol=FALSE,leg=FALSE)
+#' @examples maparea(sectcol=FALSE,leg=FALSE,SACs=T,filSAC=T)
 #' @family mapas
 #' @family Porcupine
 #' @export
-maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw=FALSE,dens=0,sectcol=F) {
+maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw=FALSE,dens=0,sectcol=FALSE,SACs=FALSE,filSAC=FALSE) {
   library(mapdata)
   maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
 		fill=TRUE,col=ifelse(bw,gray(.7),"saddlebrown"),type="n")
@@ -43,6 +46,14 @@ maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw
 		polygon(maps::map(Porc.map,"2C",plot=FALSE)$x,maps::map(Porc.map,"2C",plot=FALSE)$y,density=dens,angle=135)
 		polygon(maps::map(Porc.map,"1C",plot=FALSE)$x,maps::map(Porc.map,"1C",plot=FALSE)$y,density=dens,angle=135)
 	   }
+	if (SACs) {
+	  polygon(hmmSAC$long,hmmSAC$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+	  polygon(NewPorcCanyon$long,NewPorcCanyon$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+	  polygon(PorcNWSAC$long,PorcNWSAC$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+	  polygon(PorcSWSAC$long,PorcSWSAC$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+	  polygon(PorcShelfSAC$long,PorcShelfSAC$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+	  polygon(BelgicaMound$long,BelgicaMound$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
+	}
 	if (leg) {
 		rect(-13.2,50.7,-10.3,51.3,col="white")
 		rect(-13.05,51.05,-12.8,51.2,col=colrs[1])

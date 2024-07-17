@@ -41,6 +41,7 @@ dtallan.peso(gr=1,esp=9,camp="N02",dns="Cant",lance=50)
 \seealso{
 Other Distribuciones de tallas: 
 \code{\link{denstall.camp}()},
+\code{\link{dtall.campb}()},
 \code{\link{dtall.camp}()},
 \code{\link{dtall.lan}()},
 \code{\link{dtallan.camp}()},

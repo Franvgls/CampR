@@ -47,6 +47,8 @@ MapArsa(
 
 \item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
 
+\item{escala}{si T incluye una escala del mapa}
+
 \item{cex.scala}{tamaño de la fuente de la escala, .6 por defecto}
 
 \item{FU}{Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)}
@@ -68,8 +70,6 @@ MapArsa(
 \item{es}{Si T saca titulos y ejes en español}
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
-
-\item{escaala}{si T incluye una escala del mapa}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones

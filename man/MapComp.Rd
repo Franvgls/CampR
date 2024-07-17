@@ -2,7 +2,9 @@
 % Please edit documentation in R/MapComp.R
 \name{MapComp}
 \alias{MapComp}
-\title{Mapas de presentación de datos de una campaña comparando dos sectores/lances, creada para la campaña N21 con dos barcos, el lance 66 es el último que se hizo con el Miguel Oliver}
+\title{Mapas de presentación de datos de una campaña comparando dos sectores/lances,
+función creada para la campaña N21 con dos barcos, el lance 66 es el último que se hizo con el Miguel Oliver
+Pero adaptada para comparar entre dos zonas dentro de una campaña, desde el lance uno al \strong{lance} y el resto de la campaña}
 \usage{
 MapComp(
   gr,
@@ -68,4 +70,8 @@ MapComp(
 }
 \description{
 Crea un mapa con la distribucion en biomasa o numero para distintas el Cantábrico (dns=Cant)
+}
+\examples{
+MapComp(1,50,"N21","Cant",lance=66)
+MapComp(1,74,"N22","Cant",lance=121)
 }

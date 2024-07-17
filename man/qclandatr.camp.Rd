@@ -20,8 +20,8 @@ Devuelve un gráfico con cuatro plots puertas~prof, calones~prof, vertical~prof 
 Sirve para control de calidad y asegurarse que los datos de distancias, posiciones, y las horas de largada y virada son correctos y no salen del estándar de largar y virar de día
 }
 \examples{
-qclansdatr.camp("N23","Cant")
-qclansdatr.camp("216","Arsa")
+qclandatr.camp("N23","Cant")
+qclandatr.camp("216","Arsa")
 }
 \seealso{
 {\link{MapLansGPS}}

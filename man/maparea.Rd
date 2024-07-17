@@ -12,7 +12,9 @@ maparea(
   leg = TRUE,
   bw = FALSE,
   dens = 0,
-  sectcol = F
+  sectcol = FALSE,
+  SACs = FALSE,
+  filSAC = FALSE
 )
 }
 \arguments{
@@ -31,6 +33,10 @@ maparea(
 \item{dens}{si mayor de 0 las superficies de los estratos tienen patrones de líneas}
 
 \item{sectcol}{si T pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot}
+
+\item{SACs}{si T incluye la silueta de las areas de especial atención irlandesas SACs}
+
+\item{filSAC}{si T las SACs se llenan con color verde, si F sólo queda el contorno}
 }
 \description{
 Mapa con la estratificación y el área general del banco de Porcupine incluyendo parte de Irlanda
@@ -38,6 +44,7 @@ Mapa con la estratificación y el área general del banco de Porcupine incluyend
 \examples{
 maparea(sectcol=TRUE,leg=TRUE)
 maparea(sectcol=FALSE,leg=FALSE)
+maparea(sectcol=FALSE,leg=FALSE,SACs=T,filSAC=T)
 }
 \seealso{
 Other mapas: 
