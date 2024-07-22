@@ -91,6 +91,7 @@ mapICESStatRec(1,74,"N22",age=1,"Cant",lattice = F,plotrix = F)
 }
 \seealso{
 Other mapas: 
+\code{\link{BelgicaMound}},
 \code{\link{GrafMarksGPS_2}()},
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapEcol.camp}()},
@@ -98,11 +99,16 @@ Other mapas:
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
 \code{\link{NepFUs.camp}()},
+\code{\link{NewPorcCanyon}},
+\code{\link{PorShelfSAC}},
+\code{\link{PorcNWSAC}},
+\code{\link{PorcSWSAC}},
 \code{\link{VedaCigala.out}},
 \code{\link{VedaCigala}},
 \code{\link{arMapLansGPS}()},
 \code{\link{armap.camp}()},
 \code{\link{armap.tot}()},
+\code{\link{hmmSAC}},
 \code{\link{map.check}()},
 \code{\link{mapICESStatRec.plotrix}()},
 \code{\link{maparea}()},

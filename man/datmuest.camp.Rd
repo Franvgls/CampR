@@ -18,7 +18,7 @@ datmuest.camp(gr, esp, camps, dns = "Cant", excl.sect = NA)
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 }
 \value{
-Devuelve un data.frame con datos del muestreo e los años elegidos y contendio: nombre especie,campaña,y pesos y número totales muestreados y el rango de tallas, talla mínima, talla máxima.
+Devuelve un data.frame con datos del muestreo e los años elegidos y contendio: nombre especie,campaña, pesos y número totales muestreados, numero total capturado, peso medio de los bichos medidos y el rango de tallas, talla mínima, talla máxima y número total capturado
 }
 \description{
 Saca un resumen de los ejemplares y peso muestreados de la especie esp en la campaña camp

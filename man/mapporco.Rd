@@ -104,10 +104,16 @@ Other mapas base:
 \code{\link{mapscale}()}
 
 Other Porcupine: 
+\code{\link{BelgicaMound}},
 \code{\link{MapPorc}()},
+\code{\link{NewPorcCanyon}},
+\code{\link{PorShelfSAC}},
+\code{\link{PorcNWSAC}},
+\code{\link{PorcSWSAC}},
 \code{\link{Psh}},
 \code{\link{VedaCigala.out}},
 \code{\link{VedaCigala}},
+\code{\link{hmmSAC}},
 \code{\link{maparea}()}
 }
 \concept{Porcupine}

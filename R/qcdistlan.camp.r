@@ -50,7 +50,7 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
   # if (out.dat) return(dumblan)
   # else return(filter(dumblan,daynight=="N")[,c("date","lance","daynight","sunrise","time_l","sunset","time_v")])
   dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error | abs(dumblan$error.rumb)>pc.error,c("camp","lance","recorrido","dist.hf","vel.dist","velocidad","error.dist","error.vel","error.rumb")]
-  if(reset) {op<-par(no.readonly = T)}
+  op<-par(no.readonly = T)
   if (plots) {
     temp<-dumblan[order(dumblan$camp,dumblan$lance),c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","vel.dist","error.dist","error.vel","rumbo","error.rumb")]
     par(mfrow=c(1,3),oma=c(0,0,2,0))
@@ -69,7 +69,7 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
     title(main="Error rumbo puntos")
   }
-  if (reset) {par(op)}
+  par(op)
   if (length(unique(year(dumblan$fecha)))>1) print(paste("Detectados lances en varios años: ",paste(unique(dumblan$year),collapse = ", ")))
   if (todos & error.rb) return(dumblan[order(dumblan$camp,dumblan$lance),c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","vel.dist","error.dist","error.vel","rumbo","error.rumb","sunrise","time_l","sunset","time_v","dusk","daynight")])
   if (!todos & error.rb) {lt<-list(lances=(dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error*3 | abs(dumblan$error.rumb)>pc.error*3,

@@ -6,7 +6,7 @@
 #' @param camps Campañas de las que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
-#' @return Devuelve un data.frame con datos del muestreo e los años elegidos y contendio: nombre especie,campaña,y pesos y número totales muestreados y el rango de tallas, talla mínima, talla máxima.
+#' @return Devuelve un data.frame con datos del muestreo e los años elegidos y contendio: nombre especie,campaña, pesos y número totales muestreados, numero total capturado, peso medio de los bichos medidos y el rango de tallas, talla mínima, talla máxima y número total capturado
 #' @examples  datmuest.camps(2,19,c("P16","P17"),"Porc")
 #' @export
 datmuest.camp<-function(gr,esp,camps,dns="Cant",excl.sect=NA) {
@@ -20,6 +20,7 @@ datmuest.camp<-function(gr,esp,camps,dns="Cant",excl.sect=NA) {
   DBI::dbDisconnect(ch1)
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(ntalls$lance)
+  ntalls$ncapt<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
   if (any(!is.na(excl.sect))) {
     ntalls<-ntalls[ntalls$lance %in% lan$lance,]
     }
@@ -31,6 +32,7 @@ datmuest.camp<-function(gr,esp,camps,dns="Cant",excl.sect=NA) {
     print(ntalls[is.na(ntalls$numer),])
   }
   Ntot<-sum(ntalls$numer,na.rm=TRUE)
+  Ncapt<-sum(ntalls$ncapt,na.rm=TRUE)
   if (any(is.na(ntalls$peso.gr))) {
     warning("Detectado valores nulos en algún registro de peso muestra peso.gr fichero ntallXXX.dbf")
     print(ntalls[is.na(ntalls$peso.gr),])
@@ -43,8 +45,8 @@ datmuest.camp<-function(gr,esp,camps,dns="Cant",excl.sect=NA) {
   Pmue<-round(sum(tapply(ntalls$peso.m,ntalls$lance,mean,na.rm=TRUE))/1000,1)
   output<-data.frame(especie=buscaesp(gr,esp),
                camp=camps[1],
-               numero.medido=Ntot,peso.total.kg=Ptot,
-               peso.muestreado.kg=Pmue,talmin=talmin,talmax=talmax)
+               numero.medido=Ntot,numero.capturado=Ncapt,peso.total.kg=Ptot,
+               peso.muestreado.kg=Pmue,peso.medio=Pmue/Ntot,talmin=talmin,talmax=talmax)
   if (length(camps)>1) {
     for (i in camps[2:length(camps)]) {
       ch1<-DBI::dbConnect(odbc::odbc(), dns)
@@ -54,6 +56,7 @@ datmuest.camp<-function(gr,esp,camps,dns="Cant",excl.sect=NA) {
       DBI::dbDisconnect(ch1)
       names(ntalls)<-gsub("_", ".",names(ntalls))
       ntalls$lance<-as.numeric(ntalls$lance)
+      ntalls$ncapt<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
       if (any(!is.na(excl.sect))) {
         ntalls<-ntalls[ntalls$lance %in% lan$lance,]
       }
@@ -65,6 +68,7 @@ datmuest.camp<-function(gr,esp,camps,dns="Cant",excl.sect=NA) {
         print(ntalls[is.na(ntalls$numer),])
       }
       Ntot<-sum(ntalls$numer,na.rm=TRUE)
+      Ncapt<-sum(ntalls$ncapt,na.rm=TRUE)
       if (any(is.na(ntalls$peso.gr))) {
         warning("Detectado valores nulos en algún registro de peso muestra peso.gr fichero ntallXXX.dbf")
         print(ntalls[is.na(ntalls$peso.gr),])
@@ -75,8 +79,8 @@ datmuest.camp<-function(gr,esp,camps,dns="Cant",excl.sect=NA) {
         print(ntalls[is.na(ntalls$peso.m),])
       }
       Pmue<-round(sum(tapply(ntalls$peso.m,ntalls$lance,mean,na.rm=TRUE))/1000,1)
-      output<-rbind(output,data.frame(especie=buscaesp(gr,esp),camp=i,numero.medido=Ntot,
-                                    peso.total.kg=Ptot,peso.muestreado.kg=Pmue,talmin=talmin,talmax=talmax))
+      output<-rbind(output,data.frame(especie=buscaesp(gr,esp),camp=i,numero.medido=Ntot,numero.capturado=Ncapt,
+                                    peso.total.kg=Ptot,peso.muestreado.kg=Pmue,peso.medio.kg=Pmue*10^3/Ntot,talmin=talmin,talmax=talmax))
     }
   }
   output

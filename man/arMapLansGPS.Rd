@@ -58,6 +58,7 @@ arMapLansGPS("N20","Cant",xlims=c(-9.8,-7.8),ylims=c(43.5,44.2))
 {\link{datlan.camp}}, {\link{qcdistlan.camp}}
 
 Other mapas: 
+\code{\link{BelgicaMound}},
 \code{\link{GrafMarksGPS_2}()},
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapEcol.camp}()},
@@ -65,10 +66,15 @@ Other mapas:
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
 \code{\link{NepFUs.camp}()},
+\code{\link{NewPorcCanyon}},
+\code{\link{PorShelfSAC}},
+\code{\link{PorcNWSAC}},
+\code{\link{PorcSWSAC}},
 \code{\link{VedaCigala.out}},
 \code{\link{VedaCigala}},
 \code{\link{armap.camp}()},
 \code{\link{armap.tot}()},
+\code{\link{hmmSAC}},
 \code{\link{map.check}()},
 \code{\link{mapICESStatRec.plotrix}()},
 \code{\link{mapICESStatRec}()},
