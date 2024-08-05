@@ -19,7 +19,11 @@ MapLansHH(
   bearing = FALSE,
   es = T,
   bw = FALSE,
-  ax = T
+  ax = TRUE,
+  graf = FALSE,
+  xpng = 1400,
+  ypng = 800,
+  ppng = 15
 )
 }
 \arguments{
@@ -45,6 +49,14 @@ MapLansHH(
 
 \item{ax}{Si T saca los ejes x e y}
 
+\item{graf}{si F el gráfico sale en la pantalla, si nombre fichero va a fichero en el directorio de trabajo del Rstudio ver getwd()}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
+
 \item{nrows}{Número de filas del fichero que se quieren obtener, por defecto NA y coge todo el fichero}
 
 \item{Bearing}{si T marca el rumbo hacia el punto final con un punto en el final del lance.}
@@ -56,7 +68,7 @@ Devuelve un data.frame con datos de cada lance, las variables dependen de la sel
 gráfica todos los lances de una campaña con las distancias recorridas en cada uno de ellos
 }
 \examples{
-MapLansHH(fic=icesDatras::getDATRAS("HH","SP-NORTH",2001,4),dns="Other")
+MapLansHH(fic=icesDatras::getDATRAS("HH","SP-NORTH",2001,4),dns="Other",graf="MapLans_ejemplo")
 MapLansHH(fic=icesDatras::getDATRAS("HH","IE-IGFS",2019,4),dns="Other")
 }
 \seealso{

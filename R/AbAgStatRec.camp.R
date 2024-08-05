@@ -25,6 +25,7 @@ AbAgStatRec.camp<-function(gr,esp,camp,dns="Cant",plus=8,mediahora=2,cor.time=TR
   datlanICES$HaulNo<-as.numeric(datlanICES$HaulNo)
   AbAgeHaulICES<-merge(AbAgeHaul,datlanICES,by.x="lan",by.y = "HaulNo")
   Results<-tapply(AbAgeHaulICES[,5],AbAgeHaulICES$StatRec,mean)
+  nLans<-tapply(AbAgeHaulICES[,5],AbAgeHaulICES$StatRec,length)
   for (i in 1:plus) {
     Results<-rbind(Results,tapply(AbAgeHaulICES[,5+i],AbAgeHaulICES$StatRec,mean))
   }
@@ -36,21 +37,22 @@ AbAgStatRec.camp<-function(gr,esp,camp,dns="Cant",plus=8,mediahora=2,cor.time=TR
     Results1$long<-NA
     Results1$lat<-NA
     for (i in 1:nrow(Results1)) {
-      Results1$long[i]<-Area[Area$ICESNAME==as.character(Results1$ICESrect[i]),"stat_x"]
-      Results1$lat[i]<-Area[Area$ICESNAME==as.character(Results1$ICESrect[i]),"stat_y"]
+      Results1$long[i]<-Area[Area$ICESNAME==gsub(" ","",as.character(Results1$ICESrect[i])),"stat_x"]
+      Results1$lat[i]<-Area[Area$ICESNAME==gsub(" ","",as.character(Results1$ICESrect[i])),"stat_y"]
     }
-    Results1
-    Result3<-tidyr::pivot_longer(Results1,cols=colnames(Results1[2:ncol(Results1)]),values_to="numero")
+    Results1<-data.frame(Nlans=unname(nLans),Results1)
+    Result3<-tidyr::pivot_longer(Results1,cols=colnames(Results1[3:c(ncol(Results1)-2)]),values_to="numero")
     Result3$name<-gsub("\\.","+",Result3$name)
     Result3$long<-NA
     Result3$lat<-NA
-    Result3$ICESrect<-as.character(Result3$ICESrect)
+    Result3$ICESrect<-gsub(" ","",as.character(Result3$ICESrect))
     #Area$ICESNAME<-as.character(Area$ICESNAME)
     for (i in 1:nrow(Result3)) {
       Result3$long[i]<-Area[Area$ICESNAME==Result3$ICESrect[i],"stat_x"]
       Result3$lat[i]<-Area[Area$ICESNAME==Result3$ICESrect[i],"stat_y"]
     }
+    Result3<-data.frame(nLans=unname(nLans),Result3)
     Result3}
-    if (plotrix) return(Results1)
+    if (plotrix) return(Results1) else return(Result3)
   }
 

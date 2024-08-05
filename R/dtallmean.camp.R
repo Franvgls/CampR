@@ -7,7 +7,7 @@
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa" y Mediterráneo "Medi", gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados
 #' @param cor.time Si T corrige abundancias con la duración del lance para llevarlo a 30 minutos
 #' @param ti Si T añade título al gráfico, el nombre de la especie en latín
-#' @param graf si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf
+#' @param graf si F el gráfico sale en la pantalla, si nombre fichero va a fichero en el directorio de trabajo del Rstudio ver getwd()
 #' @param xpng width archivo png si graf es el nombre del fichero
 #' @param ypng height archivo png si graf es el nombre del fichero
 #' @param ppng points png archivo si graf es el nombre del fichero

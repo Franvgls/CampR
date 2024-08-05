@@ -51,7 +51,7 @@ ArteParCompC<-function(camp,dns="Cant",incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=T,out
         ylab=paste(ifelse(es,"Abertura calones","Wing spread"),"(m)"))
   if (Nlans)  text(WingSpread~Depth,landatr,label=HaulNo,subset = Netopening>0,pos=4,font=2,cex=1*cex.leg)
   if (ti) title(main=paste(ifelse(es,"Abertura calones con profundidad","Wing spread vs. depth"),"DATRAS"))
-  if (sub) mtext(paste0(landatr$Survey," Q",landatr$Quarter),3,adj=1,font=1,cex=.8)
+  if (sub) mtext(paste0(landatr$Survey," Q",landatr$Quarter[]),3,adj=1,font=1,cex=.8)
   # plot(abert_h~prof,lan,pch=21,bg=colo,ylim=c(0,hablar::max_(abert_h)*1.1),
   #      ylab=paste(ifelse(es,"Abertura calones","Wing spread"),"(m)"),
   #      xlab=paste(ifelse(es,"Prof","Depth"),"(m)"))

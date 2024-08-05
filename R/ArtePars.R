@@ -18,21 +18,25 @@
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @param escmult Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos
 #' @param cex.leg Varía el tamaño de letra de los ejes y del número de la leyenda
+#' @param graf si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf
+#' @param xpng width archivo png si graf es el nombre del fichero
+#' @param ypng height archivo png si graf es el nombre del fichero
+#' @param ppng points png archivo si graf es el nombre del fichero
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,peso.gr,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
 #' @examples
 #' ArtePars("N23","Cant",Nlans = F,ti=T)
 #' ArtePars("N23","Cant",Nlans = T,ti=T,lan.cex=2)
 #' @family gear
 #' @export
-ArtePars<-function(camp,dns="Cant",incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.dat=FALSE,
-  ceros=TRUE,cex.leg=1.1,years=TRUE,profrange=NA,proflab=F,Nlans=TRUE,lan.cex=.8,graf=FALSE) {
+ArtePars<-function(camp,dns="Cant",incl2=TRUE,es=T,bw=TRUE,ti=TRUE,sub=NULL,out.dat=FALSE,ceros=TRUE,cex.leg=1.1,
+  years=TRUE,profrange=NA,proflab=F,Nlans=TRUE,lan.cex=.8,graf=FALSE,xpng=1200,ypng=800,ppng=15) {
   options(scipen=2)
   colo<-ifelse(bw,gray(1),"steelblue")
 	dumb<-NULL
   lan<-datlan.camp(camp=camp,dns=dns,incl2=incl2,redux=T)
   if (any(!is.na(profrange))) {
     lan<-dplyr::filter(lan,prof>min(profrange) & prof<max(profrange))}
-  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 1200,height = 800, pointsize = 15)
+  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
   if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
   par(mfcol=c(1,3))
   plot(dista_p~prof,lan,pch=ifelse(Nlans,NA,21),cex=1*lan.cex,bg=colo,ylim=c(0,hablar::max_(dista_p)*1.1),

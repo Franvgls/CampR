@@ -24,7 +24,11 @@ MapLansGPS(
   ErrLans = NA,
   ICESrect = FALSE,
   ICESlab = FALSE,
-  ICESlabcex = 0.8
+  ICESlabcex = 0.8,
+  graf = FALSE,
+  xpng = 1200,
+  ypng = 800,
+  ppng = 15
 )
 }
 \arguments{
@@ -66,7 +70,7 @@ gráfica todos los lances de una campaña con las distancias recorridas en cada 
 }
 \examples{
 MapLansGPS("12C","Cant",ti=TRUE,xlims=c(-10.4,-7.4),ylims=c(41.8,44.6))
-MapLansGPS(123,"Arsa",ti=TRUE,ErrLans=c(1,7,40),Nlans=T)
+MapLansGPS(123,"Arsa",ti=TRUE,ErrLans=c(1,7,40),Nlans=T,graf="Maplans123")
 }
 \seealso{
 {\link{datlan.camp}}, {\link{qcdistlan.camp}}

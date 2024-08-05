@@ -14,7 +14,11 @@ maparea(
   dens = 0,
   sectcol = FALSE,
   SACs = FALSE,
-  filSAC = FALSE
+  filSAC = FALSE,
+  graf = FALSE,
+  xpng = 1000,
+  ypng = 900,
+  ppng = 15
 )
 }
 \arguments{
@@ -37,12 +41,20 @@ maparea(
 \item{SACs}{si T incluye la silueta de las areas de especial atención irlandesas SACs}
 
 \item{filSAC}{si T las SACs se llenan con color verde, si F sólo queda el contorno}
+
+\item{graf}{si F el gráfico sale en la pantalla, si nombre fichero va a fichero en el directorio de trabajo del Rstudio ver getwd()}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
 }
 \description{
 Mapa con la estratificación y el área general del banco de Porcupine incluyendo parte de Irlanda
 }
 \examples{
-maparea(sectcol=TRUE,leg=TRUE)
+maparea(sectcol=TRUE,leg=TRUE,graf="MapArea.ejemplo")
 maparea(sectcol=FALSE,leg=FALSE)
 maparea(sectcol=FALSE,leg=FALSE,SACs=T,filSAC=T)
 }

@@ -18,7 +18,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
       DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-10,to=-1,by=1),labels=rev(c("E8","E7","E6","E5","E4","E3","E2","E1","E0"))) # ,"D9","D8"
        DB$rectlat<-cut(DB$latitud_l,breaks=seq(from=41.5,to=44.5,by=.5),labels=c(12:17))
        #Crea la columna del rectangulo ICES
-       DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
+       DB$icesrect<-paste(DB$rectlat,DB$rectlong)
        DB$Gear="BAK"
        DB$barco=ifelse(DB$barco=="29MO","29MO",ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="CDS","29CS")))
        DB$Warpdia=ifelse(DB$barco=="CDS",22,24)

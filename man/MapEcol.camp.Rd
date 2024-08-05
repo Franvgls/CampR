@@ -20,7 +20,11 @@ MapEcol.camp(
   layout = NA,
   cex.pt = 1,
   cexleg = 1,
-  years = TRUE
+  years = TRUE,
+  graf = FALSE,
+  xpng = 1200,
+  ypng = 800,
+  ppng = 15
 )
 }
 \arguments{
@@ -53,6 +57,14 @@ MapEcol.camp(
 \item{cexleg}{varía el tamaño del texto de la leyenda y los ejes}
 
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
+
+\item{graf}{si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
 }
 \value{
 Saca el mapa de diversidad en la campaña seleccionada.

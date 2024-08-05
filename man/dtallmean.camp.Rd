@@ -33,7 +33,7 @@ dtallmean.camp(
 
 \item{cor.time}{Si T corrige abundancias con la duración del lance para llevarlo a 30 minutos}
 
-\item{graf}{si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf}
+\item{graf}{si F el gráfico sale en la pantalla, si nombre fichero va a fichero en el directorio de trabajo del Rstudio ver getwd()}
 
 \item{xpng}{width archivo png si graf es el nombre del fichero}
 

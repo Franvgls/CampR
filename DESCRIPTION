@@ -1,10 +1,10 @@
 Package: CampR
 Title: Libreria de funciones en R para el programa CAMP
-Version: 0.9.21
+Version: 0.9.23
 Date: 2024-07-17
 Author: Fran Velasco <franvgls@gmail.com>
 Maintainer: FVG <franvgls@gmail.com>
-Description: Funciones para sacar resultados de los datos de campa?as de
+Description: Funciones para sacar resultados de los datos de campañas de
     arrastre demersal guardados en el CAMP version 12 Windows7 - Windows10
     (Harbour) Solo para 32 bits y Rstudio < 1.2 no funciona con R de 64
     bits

@@ -49,10 +49,10 @@ mapICESStatRec<-function(gr,esp,camp,dns="Cant",age=0,plus=3,cor.time=TRUE,ICESr
     }
   esp<-format(esp,width=3,justify="r")
   # function(gr,esp,camp,dns="Cant",plus=8,mediahora=2,cor.time=TRUE,AltAlk=NA,incl2=FALSE,DatGraf=FALSE,es=T)
-  Result3<-AbAgStatRec.camp(gr=gr,esp = esp,camp = camp,dns = dns,plus = plus,cor.time = cor.time,AltAlk = AltAlk,incl2 = incl2,DatGraf = T)
+  Result3<-AbAgStatRec.camp(gr=gr,esp = esp,camp = camp,dns = dns,plus = plus,cor.time = cor.time,AltAlk = AltAlk,incl2 = incl2,DatGraf = TRUE,plotrix = FALSE)
   MapHistAge<-maphistage(gr,esp,camp,dns,age=0,plus=plus,out.dat=T,plot=F,incl2 = F)
-  leyenda<-signif(max(Result3$numero)*.9,1)
-  escala<-signif(max(Result3$numero),1)*escmult
+  leyenda<-signif(max(Result3$name)*.9,1)
+  escala<-signif(max(Result3$name),1)*escmult
 	if (is.logical(ti)) {
 		if (ti) {titulo<-list(label=paste(buscaesp(gr,esp,id=idi),"\n",ifelse(years,camptoyear(camp),camp),sep=""),
 		font=ifelse(idi=="l",4,2),cex=cexleg)}

@@ -14,14 +14,19 @@
 #' @param Bearing si T marca el rumbo hacia el punto final con un punto en el final del lance.
 #' @param ax Si T saca los ejes x e y
 #' @param bw Si T gráfico en blanco y negro por default, si F gráfico en color
+#' @param graf si F el gráfico sale en la pantalla, si nombre fichero va a fichero en el directorio de trabajo del Rstudio ver getwd()
+#' @param xpng width archivo png si graf es el nombre del fichero
+#' @param ypng height archivo png si graf es el nombre del fichero
+#' @param ppng points png archivo si graf es el nombre del fichero
 #' @return Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux
 #' @seealso {\link{MapLansGPS}}, {\link{armap.camp}}
-#' @examples MapLansHH(fic=icesDatras::getDATRAS("HH","SP-NORTH",2001,4),dns="Other")
+#' @examples MapLansHH(fic=icesDatras::getDATRAS("HH","SP-NORTH",2001,4),dns="Other",graf="MapLans_ejemplo")
 #' @examples MapLansHH(fic=icesDatras::getDATRAS("HH","IE-IGFS",2019,4),dns="Other")
 #' @family mapas
 #' @family PescaWin
 #' @export
-MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,bearing=FALSE,es=T,bw=FALSE,ax=T) {
+MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,ylims=NA,col=2,lwd=2,places=TRUE,Nlans=FALSE,
+                    bearing=FALSE,es=T,bw=FALSE,ax=TRUE,graf=FALSE,xpng=1400,ypng=800,ppng=15) {
   namesHH<-c("RecordType","Quarter","Country","Ship","Gear","SweepLngt","GearExp","DoorType","StNo","HaulNo","Year","Month","Day",
              "TimeShot","Stratum","HaulDur","DayNight","ShootLat","ShootLong","HaulLat","HaulLong","StatRec","Depth","HaulVal",
              "HydroStNo","StdSpecRecCode","BycSpecRecCode","DataType","Netopening","Rigging","Tickler","Distance","Warplngt",
@@ -35,6 +40,7 @@ MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,yli
   if (incl0) {lannul<-dplyr::filter(lan,HaulVal=="I")}
   if (incl2) {lanesp<-dplyr::filter(lan,HaulVal=="A")}
   lan<-dplyr::filter(lan,HaulVal!="I" & HaulVal!="A")
+  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
   if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
     if (any(!is.na(xlims))) {mapporco(xlims=xlims,ylims=ylims,ax=ax)} else mapporco()
     }
@@ -61,8 +67,12 @@ MapLansHH<-function(fic,dns="Cant",nurows=NA,incl0=FALSE,incl2=TRUE,xlims=NA,yli
   if (incl0) segments(lannul$ShootLong,lannul$ShootLat,lannul$HaulLong,lannul$HaulLat,col=2,lwd=lwd)
   if (incl2) segments(lanesp$ShootLong,lanesp$ShootLat,lanesp$HaulLong,lanesp$HaulLat,col=3,lwd=lwd)
   if (any(exists("lannul") |exists("lanesp"))) {legend("bottom", legend = c("Standard","Extra", "Null"), inset=c(0,0.01),
-                                                           bty = "n", cex = .8,lty=1,lwd=2,col=c(1,3,2),horiz=T)}
+                                                           bty = "o",bg="white",col=c("black","green","red"),cex = .8,lty=1,lwd=2,horiz=T)}
   if (Nlans) text(HaulLat~HaulLong,lan,label=lan$HaulNo,pos=1,cex=.7,font=2)
   if (Nlans & incl0) text(HaulLat~HaulLong,lannul,label=lannul$HaulNo,pos=1,cex=.7,col=2)
+  if (!is.logical(graf)) {
+    dev.off()
+    message(paste0("figura: ",getwd(),"/",graf,".png"))
+  }
   lan
 }

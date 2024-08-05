@@ -11,14 +11,20 @@
 #' @param bw Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE
 #' @param dens si mayor de 0 las superficies de los estratos tienen patrones de líneas
 #' @param sectcol si T pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot
-#' @examples maparea(sectcol=TRUE,leg=TRUE)
+#' @param graf si F el gráfico sale en la pantalla, si nombre fichero va a fichero en el directorio de trabajo del Rstudio ver getwd()
+#' @param xpng width archivo png si graf es el nombre del fichero
+#' @param ypng height archivo png si graf es el nombre del fichero
+#' @param ppng points png archivo si graf es el nombre del fichero
+#' @examples maparea(sectcol=TRUE,leg=TRUE,graf="MapArea.ejemplo")
 #' @examples maparea(sectcol=FALSE,leg=FALSE)
 #' @examples maparea(sectcol=FALSE,leg=FALSE,SACs=T,filSAC=T)
 #' @family mapas
 #' @family Porcupine
 #' @export
-maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw=FALSE,dens=0,sectcol=FALSE,SACs=FALSE,filSAC=FALSE) {
+maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw=FALSE,dens=0,
+                  sectcol=FALSE,SACs=FALSE,filSAC=FALSE,graf=FALSE,xpng=1000,ypng=900,ppng=15) {
   library(mapdata)
+  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
   maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
 		fill=TRUE,col=ifelse(bw,gray(.7),"saddlebrown"),type="n")
   if (!bw) rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col=ifelse(bw,"white","lightblue1"))
@@ -76,4 +82,9 @@ maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw
 	axis(2,at=seq(51,54,by=1),labels=paste(seq(51,54,by=1),"º",sep=""),cex.axis=.8,las=1)
 	axis(3,at=seq(-16,-8,by=1),labels=paste(abs(seq(-16,-8,by=1)),"º",sep=""),cex.axis=.8)
 	axis(4,at=seq(51,54,by=1),labels=paste(seq(51,54,by=1),"º",sep=""),cex.axis=.8,las=1)
+	if (!is.logical(graf)) {
+	  dev.off()
+	  message(paste0("figura: ",getwd(),"/",graf,".png"))
+	}
+
 	}

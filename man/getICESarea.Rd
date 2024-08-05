@@ -22,5 +22,5 @@ A data.table with haul variables, ICESrect and ICESarea
 Function to complete HH with ICESrect and area
 }
 \examples{
-# getICESrect(icesDatras::getHHdata("SP-NORTH",2015,4),latname="haullat",longname="haullong")
+# getICESrect("N22","Cant")
 }

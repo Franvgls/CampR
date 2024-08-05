@@ -20,7 +20,10 @@ ArtePars(
   proflab = F,
   Nlans = TRUE,
   lan.cex = 0.8,
-  graf = FALSE
+  graf = FALSE,
+  xpng = 1200,
+  ypng = 800,
+  ppng = 15
 )
 }
 \arguments{
@@ -49,6 +52,14 @@ ArtePars(
 \item{profrange}{Si c(profmin,profmax) filtra por ese rango de profundidad por defecto NA no filtra profundidades}
 
 \item{lan.cex}{tamaño de las etiquetas del numero de lances por campaña}
+
+\item{graf}{si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
 
 \item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
 

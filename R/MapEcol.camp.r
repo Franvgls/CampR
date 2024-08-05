@@ -16,6 +16,10 @@
 #' @param cex.pt Varía el tamaño de los puntos en los gráficos
 #' @param cexleg varía el tamaño del texto de la leyenda y los ejes
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
+#' @param graf si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf
+#' @param xpng width archivo png si graf es el nombre del fichero
+#' @param ypng height archivo png si graf es el nombre del fichero
+#' @param ppng points png archivo si graf es el nombre del fichero
 #' @return Saca el mapa de diversidad en la campaña seleccionada.
 #' @examples
 #' dumbecol<-MapEcol.camp(1,999,Nsh[25:30],"Cant",ind="n",bw=TRUE,indec="simp",out.dat=TRUE,layout=c(2,3))
@@ -25,8 +29,8 @@
 #' @family mapas
 #' @family ecologia
 #' @export
-MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRUE,bw=FALSE,
-                       ti=TRUE,idi="l",es=TRUE,out.dat=FALSE,layout=NA,cex.pt=1,cexleg=1,years=TRUE) {
+MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRUE,bw=FALSE,ti=TRUE,idi="l",
+                       es=TRUE,out.dat=FALSE,layout=NA,cex.pt=1,cexleg=1,years=TRUE,graf=FALSE,xpng=1200,ypng=800,ppng=15) {
   if (!(indec %in% c("simp","div","nesp"))) {
     stop(paste("el índice",indec,"no está implementado, índices disponibles: 'div', 'nesp' y 'simp'"))
   }
@@ -88,6 +92,7 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
     if (ndat!=4) layout=c(1,ndat)
     if (ndat==4) layout=c(2,2)
   }
+  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
   if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
     asp<-diff(c(50.5,54.5))/(diff(c(-15.5,-10.5))*cos(mean(c(50.5,54.5))*pi/180))
 #    leyenda<-signif(c(1,.5)*leyenda,1)
@@ -184,4 +189,8 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
   if (plot) {print(mapdist)}
   if (out.dat) dumb
   else mapdist
+  if (!is.logical(graf)) {
+    dev.off()
+    message(paste0("figura: ",getwd(),"/",graf,".png"))
+  }
 }
