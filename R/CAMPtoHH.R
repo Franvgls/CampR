@@ -48,7 +48,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
     }
     if (substr(dns,1,4)=="Arsa") {
       DB$survey="SP-ARSA"
-      DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-9,to=-6,by=1),labels=rev(c("E1","E2","E3"))) # ,"D9","D8"
+      DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-9,to=-6,by=1),labels=c("E1","E2","E3")) # ,"D9","D8"
       DB$rectlat<-paste0("0",cut(DB$latitud_l,breaks=seq(from=36.0,to=37.5,by=.5),labels=as.character(c(1:3))))
       DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
       DB$Gear="BAK"

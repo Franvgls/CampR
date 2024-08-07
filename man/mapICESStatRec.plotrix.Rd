@@ -18,7 +18,7 @@ mapICESStatRec.plotrix(
   incl2 = FALSE,
   bw = FALSE,
   ti = TRUE,
-  plot = T,
+  plot = TRUE,
   out.dat = FALSE,
   ind = "n",
   cexleg = 1,
@@ -26,7 +26,6 @@ mapICESStatRec.plotrix(
   es = TRUE,
   years = TRUE,
   escmult = 0.1,
-  layout = NA,
   ceros = FALSE,
   mediahora = 2
 )
@@ -70,11 +69,11 @@ mapICESStatRec.plotrix(
 
 \item{years}{Si T permite sacar el dato de la campaña como nombre campaña o como año}
 
-\item{layout}{Organización de gráficos en filas columnas c(r,c)}
-
 \item{ceros}{Añade puntos para los datos igual a 0 si T, si F no incluye x en los valores 0}
 
 \item{mediahora}{Valor para obtener abundancias por hora si media hora es mayor}
+
+\item{layout}{Organización de gráficos en filas columnas c(r,c)}
 }
 \value{
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,0,1,2,...,Age+ (número de individuos edad 0,1,2...),camp. Si out.dat=F saca el Gráfico en pantalla o como objeto para combinar con otros Gráficos con print.trellis
