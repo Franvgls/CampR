@@ -17,15 +17,17 @@ MapArsa(
   escala = FALSE,
   cex.scala = 0.6,
   FU = NA,
-  ColFU = "white",
+  ColFU = rgb(0, 1, 0, 0.2),
   dens = 20,
   FUsLab = FALSE,
+  limfu = "black",
   ICESlabcex = 0.8,
   ax = TRUE,
   bw = F,
   graf = FALSE,
   es = TRUE,
-  places = TRUE
+  places = TRUE,
+  pais = FALSE
 )
 }
 \arguments{
@@ -53,11 +55,13 @@ MapArsa(
 
 \item{FU}{Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en MapNort son FU31, FU25, FU26)}
 
-\item{ColFU}{por defecto "chartreuse" o "white" selecciona el color de las unidades funcionales de cigala}
+\item{ColFU}{por defecto Verde con transparencia (rgb(0, 1, 0,0.2)) o "white" selecciona el color de las unidades funcionales de cigala}
 
 \item{dens}{densidad (transparanecia) del color de la FU, 20 por defecto, menos no se aprecia mucho, más de 20 sale color fijo, 0 quita el color de relleno}
 
 \item{FUsLab}{Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs}
+
+\item{limfu}{Color del limite de las FU}
 
 \item{ICESlabcex}{tamaño del ICESlab en cex, .5 por defecto subirlo si se quiere más grande}
 
@@ -70,6 +74,8 @@ MapArsa(
 \item{es}{Si T saca titulos y ejes en español}
 
 \item{places}{Si T saca ciudades y puntos geográficos de referencia}
+
+\item{pais}{si T incluye Portugal como lugar}
 }
 \value{
 Saca en pantalla el mapa y es utilizada por otras funciones

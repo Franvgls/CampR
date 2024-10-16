@@ -22,6 +22,10 @@
 #' @param escmult Varía la relación de tamaño de los puntos con la leyenda y el máximo en los datos
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
+#' @param graf si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf
+#' @param xpng width archivo png si graf es el nombre del fichero
+#' @param ypng height archivo png si graf es el nombre del fichero
+#' @param ppng points png archivo si graf es el nombre del fichero
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,peso.gr,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
 #' @examples
 #' maphist(1,50,Nsh[7:27],"Cant",layout=c(3,7),years=TRUE)
@@ -29,7 +33,7 @@
 #' @family mapas
 #' @export
 maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=TRUE,sub=NULL,plot=TRUE,out.dat=FALSE,ind="p",idi="l",
-  layout=NA,leg=TRUE,pts=FALSE,ceros=TRUE,ICESrect=FALSE,ICESlab=FALSE,escmult=.25,cexleg=1,years=TRUE) {
+  layout=NA,leg=TRUE,pts=FALSE,ceros=TRUE,ICESrect=FALSE,ICESlab=FALSE,escmult=.25,cexleg=1,years=TRUE,graf=FALSE,xpng=1200,ypng=800,ppng=15) {
   if (all(!pts & !leg & length(camps)>1)) {stop("Solo estaciones se usa para sólo una campaña, ha incluido más de una")}
   options(scipen=2)
   esp<-format(esp,width=3,justify="r")
@@ -78,6 +82,8 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=T
   #browser()
 	if (out.dat) print(dumb[dumb[,5]>0,])
 	if (pts) dumb[dumb[,5]>0,8]<-0
+	# if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
+	# if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
 	if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
 		asp<-diff(c(50.5,54.5))/(diff(c(-15.5,-10.5))*cos(mean(c(50.5,54.5))*pi/180))
 		mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=Porc.map$range[c(1,2)],ylim=Porc.map$range[c(3,4)],xlab=NULL,ylab=NULL,
@@ -173,7 +179,14 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=T
              pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
           })
         }
-  if (plot) {print(mapdist)}
+	if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
+	if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
+	if (plot) {print(mapdist)}
+	if (!is.logical(graf)) {
+	  dev.off()
+	  message(paste0("figura: ",getwd(),"/",graf,".png"))
+	}
+	if (!is.logical(graf)) par(mar=c(5, 4, 4, 2) + 0.1)
 	if (out.dat) {
     dumb$peso<-round(dumb$peso,3)
     if (years) dumb<-dumbcamp

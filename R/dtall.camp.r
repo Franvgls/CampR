@@ -22,13 +22,17 @@
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @param verbose Si T saca avisos de consistencia en tallas, sino los omite
+#' @param graf si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf
+#' @param xpng width archivo png si graf es el nombre del fichero
+#' @param ypng height archivo png si graf es el nombre del fichero
+#' @param ppng points png archivo si graf es el nombre del fichero
 #' @return Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(filas)xCampañas(columnas)
 #' @family Distribuciones de tallas
 #' @examples dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T)
 #' @examples dtall.camp(1,50,Nsh[c(length(Nsh)-9):length(Nsh)],"Cant",es=F,ti=T,years=T,out.dat=T)
 #' @export
 dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cexleg=1,bw=TRUE,es=TRUE,sex=TRUE,plot=T,idi="l",clms=2,
-  layout=NA,excl.sect=NA,ymax=NA,out.dat=FALSE,years=TRUE,verbose=TRUE) {
+  layout=NA,excl.sect=NA,ymax=NA,out.dat=FALSE,years=TRUE,verbose=TRUE,graf=FALSE,xpng=1200,ypng=800,ppng=15) {
   library(lattice)
   options(scipen=2)
   if (length(gr)>1) stop("No tiene sentido mezclar distribuciones de tallas de especies en distintos clases taxonómicas")
@@ -185,7 +189,14 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
     colbars<-c("lightyellow", "steelblue", "yellow1")
     lattice::trellis.par.set(lattice::col.whitebg())
     }
-print(foo)
+	  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
+	  if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
+	  print(foo)
+if (!is.logical(graf)) {
+  dev.off()
+  message(paste0("figura: ",getwd(),"/",graf,".png"))
+}
+if (!is.logical(graf)) par(mar=c(5, 4, 4, 2) + 0.1)
      }
 	if (out.dat) {
     if (years) {

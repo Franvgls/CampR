@@ -36,7 +36,7 @@ MapLansGPS<-function(camp,dns="Porc",leg=F,incl0=FALSE,xlims=NA,ylims=NA,ti=FALS
   DBI::dbDisconnect(ch1)
   if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
   if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
-    if (any(!is.na(xlims) | !is.na(ylims))) {mapporco(ICESrect=ICESrect,ICESlab=ICESlab,xlims=ifelse(!is.na(xlims),c(-15.5,-10.5),xlims),ylims=ifelse(!is.na(ylims),c(50.5,54.5),ylims),ax=ax)} else mapporco(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)}
+    if (any(!is.na(xlims) | !is.na(ylims))) {mapporco(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,bw=bw,ax=ax)} else mapporco(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)}
   if (substr(dns,1,4)=="Cant" | dns=="Cnew" ) {
     if (any(!is.na(xlims)|!is.na(ylims))) {MapNort(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapNort(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)
   }
@@ -54,7 +54,8 @@ MapLansGPS<-function(camp,dns="Porc",leg=F,incl0=FALSE,xlims=NA,ylims=NA,ti=FALS
     latrank<-range(lan$latitud_l,lan$latitud_v,na.rm=T)
     latrank<-c(floor(latrank[1]),ceiling(latrank[2]))
     maps::map("worldHires",xlim=longrank,ylim=latrank,fill=T,col="grey")
-    }
+  }
+  box()
   if (ti) {title(camp.name,line=2)}
   segments(lan$longitud_l,lan$latitud_l,lan$longitud_v,lan$latitud_v,col=col,lwd=lwd)
   if (rumbo) points(lan$longitud_v,lan$latitud_v,pch=21,bg=2,col=1,cex=.8)

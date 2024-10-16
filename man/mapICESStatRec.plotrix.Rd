@@ -9,7 +9,6 @@ mapICESStatRec.plotrix(
   esp,
   camp,
   dns = "Cant",
-  age = 0,
   plus = 3,
   cor.time = TRUE,
   ICESrect = TRUE,
@@ -21,13 +20,16 @@ mapICESStatRec.plotrix(
   plot = TRUE,
   out.dat = FALSE,
   ind = "n",
-  cexleg = 1,
   idi = "l",
   es = TRUE,
   years = TRUE,
   escmult = 0.1,
   ceros = FALSE,
-  mediahora = 2
+  mediahora = 2,
+  graf = FALSE,
+  xpng = NA,
+  ypng = NA,
+  ppng = 15
 )
 }
 \arguments{
@@ -38,8 +40,6 @@ mapICESStatRec.plotrix(
 \item{camp}{Campaña o campañas a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa". Medits "Medi" no tiene sentido en esta gráfica por no utilizar rectángulos ICES}
-
-\item{age}{Edad solicitada}
 
 \item{plus}{Edad plus: incluir la edad considerada como plus, solo afecta si se pide como plus la edad solicitada que suma todas las edades mayores}
 
@@ -55,15 +55,9 @@ mapICESStatRec.plotrix(
 
 \item{bw}{Gráfico en blanco en negro si T o en color si F}
 
-\item{ti}{Si T añade titulo al mapa, el nombre de la especie en latín}
-
-\item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
+\item{ti}{Si T añade titulo al mapa, el nombre de la especie en latín y año de la campaña o campaña si years=F}
 
 \item{out.dat}{Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto}
-
-\item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
-
-\item{idi}{Nombre científico de la especie ("l") o nombre común ("e")}
 
 \item{es}{Si T saca los ejes y legendas en español, si F lo saca en inglés}
 
@@ -73,7 +67,15 @@ mapICESStatRec.plotrix(
 
 \item{mediahora}{Valor para obtener abundancias por hora si media hora es mayor}
 
-\item{layout}{Organización de gráficos en filas columnas c(r,c)}
+\item{graf}{si F el gráfico sale en la pantalla, si nombre fichero va a fichero en el directorio de trabajo del Rstudio ver getwd()}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero, tienen valores default para cant,porc,arsa, no tocar si no}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero, tienen valores default para cant,porc,arsa, no tocar si no}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
+
+\item{age}{Edad solicitada}
 }
 \value{
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,0,1,2,...,Age+ (número de individuos edad 0,1,2...),camp. Si out.dat=F saca el Gráfico en pantalla o como objeto para combinar con otros Gráficos con print.trellis
@@ -82,9 +84,9 @@ Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,0,1,2,...,Age+
 Mapa de la distribución geográfica en rectángulos ICES por edad de la especie en la campaña solicitada
 }
 \examples{
-mapICESStatRec(1,74,"N22","Cant",plus=3)
-mapICESStatRec(1,43,"P21","Porc",age=3,plus=8,bw=F,lattice=F,plotrix=F)
-mapICESStatRec(1,74,"N22",age=1,"Cant",lattice = F,plotrix = F)
+mapICESStatRec.plotrix(1,74,"N05","Cant",plus=3,ICESlab = T,bw=F)
+mapICESStatRec.plotrix(1,43,"P21","Porc",plus=7,ICESlab = T,bw=F)
+mapICESStatRec.plotrix(1,73,"219","Arsa",plus=3,ICESlab = T,bw=F)
 }
 \seealso{
 Other mapas: 

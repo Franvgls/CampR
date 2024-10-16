@@ -15,6 +15,8 @@
 #' @param leg incluye la leyenda con los colores/patrones de los estratos
 #' @param FU Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en Porcupine sólo es FU16)
 #' @param FUsLab Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs
+#' @param colFU Por defecto rgb(0,1,0,.2), color para las zonas de las FU de cigalas
+#' @param limfu color de los bordes de las FU
 #' @param dens si mayor de 0 las superficies de los estratos tienen patrones de líneas
 #' @param sectcol si T pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot
 #' @param bw Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE
@@ -34,7 +36,7 @@
 #' @export
 mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRUE,cuadr=FALSE,ICESrect=FALSE,ICESlab=FALSE,
                    ICESlabcex=.7,label=FALSE,colo=2,dens=0,bw=F,places=TRUE,es=TRUE,ax=TRUE,escala=FALSE,cex.scala=.6,graf=FALSE,corners=FALSE,
-                   leg=FALSE,sectcol=FALSE,FU=NA,FUsLab=FALSE,SACs=FALSE,filSAC=FALSE) {
+                   leg=FALSE,sectcol=FALSE,FU=NA,FUsLab=FALSE,colFU=rgb(0,1,0.2),densfu=100,limfu="darkgreen",ColFU=rgb(0, 1, 0,0.2),SACs=FALSE,filSAC=FALSE) {
   asp<-diff(c(50.5,54.5))/(diff(range(-15.5,-10.5))*cos(mean(50.5,54.5)*pi/180))
   if (any(is.na(xlims))) {xlims<-c(-15.5,-10.5)}
   if (any(is.na(ylims))) {ylims<-c(50.5,54.5)}
@@ -76,7 +78,7 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
             fill=TRUE,col=ifelse(bw,gray(.7),"bisque"),add = T)
   maps::map(Porc.map,add=TRUE,fill=TRUE,col=c(rep(NA,nstrat-1),ifelse(bw,"gray85","bisque")),lwd=lwdl)
   if (any(!is.na(FU))) {
-    if (any(stringr::str_detect(FU,"FU16"))) {polygon(FU16[,c("long")],FU16[,c("lat")],density = NULL,col=NULL,border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU16),lat==max(FU16[,"lat"])),lab="FU16",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU16"))) {polygon(FU16[,c("long")],FU16[,c("lat")],density = densfu,col=colFU,border=limfu,lwd=2); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU16),lat==max(FU16[,"lat"])),lab="FU16",cex=.8,font=2,pos=4,col=2)}
   }
   if (places) {
     points(-(9+.0303/.6),(53+.1623/.6),pch=16,col=1)

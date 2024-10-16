@@ -25,7 +25,11 @@ dtall.camp(
   ymax = NA,
   out.dat = FALSE,
   years = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  graf = FALSE,
+  xpng = 1200,
+  ypng = 800,
+  ppng = 15
 )
 }
 \arguments{
@@ -70,6 +74,14 @@ dtall.camp(
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
 
 \item{verbose}{Si T saca avisos de consistencia en tallas, sino los omite}
+
+\item{graf}{si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
 }
 \value{
 Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(filas)xCampañas(columnas)

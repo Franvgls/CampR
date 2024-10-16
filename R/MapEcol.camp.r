@@ -187,10 +187,10 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
 #                                                       pch=ifelse(dumb$numbesp[subscripts]>0,16,20),col=colo)}
                     })}
   if (plot) {print(mapdist)}
-  if (out.dat) dumb
   else mapdist
   if (!is.logical(graf)) {
     dev.off()
     message(paste0("figura: ",getwd(),"/",graf,".png"))
   }
+  if (out.dat) dumb
 }

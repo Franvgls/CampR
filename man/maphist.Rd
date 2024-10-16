@@ -26,7 +26,11 @@ maphist(
   ICESlab = FALSE,
   escmult = 0.25,
   cexleg = 1,
-  years = TRUE
+  years = TRUE,
+  graf = FALSE,
+  xpng = 1200,
+  ypng = 800,
+  ppng = 15
 )
 }
 \arguments{
@@ -71,6 +75,14 @@ maphist(
 \item{cexleg}{Varía el tamaño de letra de los ejes y del número de la leyenda}
 
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
+
+\item{graf}{si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
 }
 \value{
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,peso.gr,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis

@@ -27,7 +27,11 @@ grafhistbox(
   tline = FALSE,
   years = TRUE,
   sub = FALSE,
-  cex.leg = 1.1
+  cex.leg = 1.1,
+  graf = FALSE,
+  xpng = 1200,
+  ypng = 800,
+  ppng = 15
 )
 }
 \arguments{
@@ -76,6 +80,14 @@ grafhistbox(
 \item{sub}{Añade un subtítulo con el valor que se le ponga si no F}
 
 \item{cex.leg}{Sirve para modificar los tamaños de letra del gráfico, funciona con ejes y títulos. Por defecto en 1.1}
+
+\item{graf}{si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
 
 \item{las}{Sirve para modificar la dirección de las etiquetas en el eje de las equis, por defecto F pero se cambia cuando se elige years=T, si no se cambia salen paralelas}
 }

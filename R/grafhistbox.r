@@ -25,6 +25,10 @@
 #' @param sub Añade un subtítulo con el valor que se le ponga si no F
 #' @param cex.leg Sirve para modificar los tamaños de letra del gráfico, funciona con ejes y títulos. Por defecto en 1.1
 #' @param las Sirve para modificar la dirección de las etiquetas en el eje de las equis, por defecto F pero se cambia cuando se elige years=T, si no se cambia salen paralelas
+#' @param graf si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf
+#' @param xpng width archivo png si graf es el nombre del fichero
+#' @param ypng height archivo png si graf es el nombre del fichero
+#' @param ppng points png archivo si graf es el nombre del fichero
 #' @return Crea una gráfica de evolución de las abundancias en biomasa o número y devuelve en consola un data.frame con columnas: avg,SE (error estándar),camp
 #' @seealso {\link{grafhistbox.comp}}
 #' @examples grafhistbox(1,45,Nsh[7:27],"Cant",es=FALSE,years=TRUE,tline=TRUE,DLS=FALSE,ti=TRUE,sub=TRUE)
@@ -33,14 +37,17 @@
 #' @family abunds
 #' @export
 grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.lev=.8,DLS=F,DLSrat=c(2,5),idi="l",SE=TRUE,
-  es=TRUE,excl.sect=NA,sector=NA,ti=TRUE,Nas=FALSE,ymax=NA,mar=NA,tline=FALSE,years=TRUE,sub=FALSE,cex.leg=1.1) {
+  es=TRUE,excl.sect=NA,sector=NA,ti=TRUE,Nas=FALSE,ymax=NA,mar=NA,tline=FALSE,years=TRUE,sub=FALSE,cex.leg=1.1,
+  graf=FALSE,xpng=1200,ypng=800,ppng=15) {
   options(scipen=2)
   if (length(sector)>1) {
     stop("Para calcular más de un sector utilice excl.sect quitando los no deseados")
     }
   if (tline & DLS) {stop("Elija línea de tendencia tline=T o cambios últimos 2 años frente a 3 previos DLS=T")}
   op<-par("mar")
-	if (any(is.na(mar))) par(mar=c(4, 4.5, 2.5, 2.5) + 0.1)
+  if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
+  if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
+  if (any(is.na(mar))) par(mar=c(4, 4.5, 2.5, 2.5) + 0.1)
   else par(mar=mar,mgp=c(2.8,.8,0))
 #  par(mgp=c(2,ifelse(is.na(ymax),.7,1.5),0))
   esp<-format(esp,width=3,justify="r")
@@ -107,7 +114,7 @@ grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.l
 	xetiq<-ifelse(es,ifelse(years,"Año","Campaña"),ifelse(years,"Year","Survey"))
   especie<-buscaesp(gr,esp,idi)
 	if (is.na(ymax)) ymax<-max(.05,ifelse(ci.lev>0,max(dumb.env$point[1,]),max(dumbSETot$SE+dumbSETot$avg,na.rm=TRUE))*1.05)
-	plot(dumb.mean,xlab=xetiq,ylab=yetiq,ylim=c(0,ymax),axes=FALSE,cex.lab=cex.leg*.9)
+  plot(dumb.mean,xlab=xetiq,ylab=yetiq,ylim=c(0,ymax),axes=FALSE,cex.lab=cex.leg*.9)
 	rect(-1000,-1000,10^5,10^5,col="white")
 	if (is.logical(ti)) {
 		if (ti) {title(main=especie,cex.main=1.1*cex.leg,
@@ -145,6 +152,14 @@ grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.l
   else axis(1,at=1:ndat,labels=camps,las=1,cex.axis=cex.leg*.9)
 	if(ci.lev>0) axis(4,at=dumb.env$point[,ndat],labels=rev(paste(round(dumb.env$k.pt/10,0),"%")),
 		tick=FALSE,cex.axis=cex.leg*.6,las=1,line=-.5)
+	if (!is.logical(graf)) {
+	  dev.off()
+	  message(paste0("figura: ",getwd(),"/",graf,".png"))
+	}
+	if (!is.logical(graf)) par(mar=c(5, 4, 4, 2) + 0.1)
+#	if (out.dat) {
+#	  if (out.dat) print(lan[,c("lance","dista_p","abert_h","abert_v")])
+#	}
 	par(op)
   dumbSETot
 	}

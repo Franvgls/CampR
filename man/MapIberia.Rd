@@ -14,8 +14,9 @@ MapIberia(
   ICESlab = FALSE,
   ICESlabcex = 0.6,
   FU = NULL,
-  ColFU = "chartreuse",
+  ColFU = rgb(0, 1, 0, 0.2),
   FUsLab = FALSE,
+  limfu = "darkgreen",
   bw = F,
   ax = TRUE,
   wmf = FALSE,
@@ -23,7 +24,7 @@ MapIberia(
   places = TRUE,
   pais = TRUE,
   escmult = 1,
-  dens = 20,
+  dens = 100,
   add = FALSE
 )
 }
@@ -47,6 +48,8 @@ MapIberia(
 \item{ColFU}{Por defecto chartreuse, color para las zonas de las FU de cigalas}
 
 \item{FUsLab}{Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs}
+
+\item{limfu}{color de los bordes de las FU}
 
 \item{bw}{si T mapa con tierra en gris, si F tierra en color}
 

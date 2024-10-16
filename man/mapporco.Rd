@@ -28,6 +28,10 @@ mapporco(
   sectcol = FALSE,
   FU = NA,
   FUsLab = FALSE,
+  colFU = rgb(0, 1, 0.2),
+  densfu = 100,
+  limfu = "darkgreen",
+  ColFU = rgb(0, 1, 0, 0.2),
   SACs = FALSE,
   filSAC = FALSE
 )
@@ -76,6 +80,10 @@ mapporco(
 \item{FU}{Por defecto NA pero si se incluye un vector con la lista de las unidades funcionales las pinta (las disponibles en Porcupine sólo es FU16)}
 
 \item{FUsLab}{Por defecto F, pero si T incluye una etiqueta con los nombres de las FUs seleccionadas en FUs}
+
+\item{colFU}{Por defecto rgb(0,1,0,.2), color para las zonas de las FU de cigalas}
+
+\item{limfu}{color de los bordes de las FU}
 
 \item{SACs}{si T incluye los polígonos de las areas speiales de conservación Irlandesas}
 

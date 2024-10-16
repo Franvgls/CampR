@@ -205,6 +205,13 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	if (plot) {print(mapdist)}
 	if (out.dat) {
 	  if (ind=="n") dumb$numero<-round(dumb$numero,1)
+	  if (ind=="p") dumb$peso<-round(dumb$peso,2)
+	  if (years) dumb<-dumbcamp
+	  if (!ceros) dumb<-dumb[dumb$numero>0,]
+	  print(dumb)
+	}
+	if (out.dat) {
+	  if (ind=="n") dumb$numero<-round(dumb$numero,1)
     if (ind=="p") dumb$peso<-round(dumb$peso,2)
 	  if (years) dumb<-dumbcamp
     if (!ceros) dumb<-dumb[dumb$numero>0,]
