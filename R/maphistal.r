@@ -15,7 +15,7 @@
 #' @param ICESrect Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud
 #' @param ti Si T añade titulo al mapa, el nombre de la especie en latín. También se puede poner como list con parámetros **main**: el título, **font** y demás.
 #' @param subti ti T añade un subtítulo bajo la gráfica con el rango de tallas seleccionado.
-#' @param plot Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)
+#' @param plot Saca el gráfico (T) o si se salva como objeto se puede componer para componer con otros gráficos de lattice (F)
 #' @param out.dat Si T el resultado final de la funcion es la figura en pantalla, pero los datos en objeto
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param layout Organización de gráficos en filas ó columnas c(r,c)
@@ -90,7 +90,6 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	if (tmin!=0 & tmax!=999) sub<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
 	if (tmin==0 & tmax==999) sub<-list(font.sub=2,label=paste(tmin,"-",tmax,ifelse(unid.camp(gr,esp)$MED==2,"mm","cm")),cex=cexleg*.9)
 	}
-	if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 950,height = 1200, pointsize = 20)
 #	if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
 	if (any(is.na(layout))) {
 		if (ndat!=4) layout=c(1,ndat)
@@ -202,14 +201,11 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 					pch=ifelse(dumb$numero[subscripts]>0,16,ifelse(ceros,4,NA)),col=colo)}
 				})
 			}
+	if (!is.logical(graf)) {
+	  png(filename=paste0(graf,".png"),width = 950,height = 1200, pointsize = 20)
+	  print(mapdist)
+	  dev.off()}
 	if (plot) {print(mapdist)}
-	if (out.dat) {
-	  if (ind=="n") dumb$numero<-round(dumb$numero,1)
-	  if (ind=="p") dumb$peso<-round(dumb$peso,2)
-	  if (years) dumb<-dumbcamp
-	  if (!ceros) dumb<-dumb[dumb$numero>0,]
-	  print(dumb)
-	}
 	if (out.dat) {
 	  if (ind=="n") dumb$numero<-round(dumb$numero,1)
     if (ind=="p") dumb$peso<-round(dumb$peso,2)
@@ -217,10 +213,8 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
     if (!ceros) dumb<-dumb[dumb$numero>0,]
     print(dumb)
     }
-	else {
-    if (!plot) mapdist
-    }
-	if (!is.logical(graf)) {
+	if (!plot) return(mapdist)
+  if (!is.logical(graf)) {
 	  dev.off()
 	  message(paste0("figura: ",getwd(),"/",graf,".png"))
 	}

@@ -60,7 +60,7 @@ maphistal(
 
 \item{subti}{ti T añade un subtítulo bajo la gráfica con el rango de tallas seleccionado.}
 
-\item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
+\item{plot}{Saca el gráfico (T) o si se salva como objeto se puede componer para componer con otros gráficos de lattice (F)}
 
 \item{out.dat}{Si T el resultado final de la funcion es la figura en pantalla, pero los datos en objeto}
 

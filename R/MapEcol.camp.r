@@ -7,7 +7,7 @@
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
 #' @param ind Elige el valor (n)úmero o (p)eso sobre el que se calculan los índices de diversidad, dominancia....
 #' @param indec Elige el índice ecológico a representar: opciones disponibles: Shannon-Wiener: 'div', Número de especies: 'nesp' y Diversidad Simpson: 'simp'.
-#' @param plot Si T saca un gráfico en pantalla
+#' @param plot Saca el gráfico (si T) o si se salva como objeto se puede componer para componer con otros gráficos de lattice (F)
 #' @param ti Añade el nombre de la especie en latín sin T, si F no añade titulo
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
@@ -186,8 +186,8 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
 #                      if (indec=="nesp") {lattice::panel.xyplot(x,y,cex=ifelse(dumb$numbesp[subscripts]>0,sqrt((dumb$numbesp[subscripts])/escala),.35),
 #                                                       pch=ifelse(dumb$numbesp[subscripts]>0,16,20),col=colo)}
                     })}
-  if (plot) {print(mapdist)}
-  else mapdist
+  if (!plot) return(mapdist)
+  else print(mapdist)
   if (!is.logical(graf)) {
     dev.off()
     message(paste0("figura: ",getwd(),"/",graf,".png"))

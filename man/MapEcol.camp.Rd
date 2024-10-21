@@ -40,7 +40,7 @@ MapEcol.camp(
 
 \item{indec}{Elige el índice ecológico a representar: opciones disponibles: Shannon-Wiener: 'div', Número de especies: 'nesp' y Diversidad Simpson: 'simp'.}
 
-\item{plot}{Si T saca un gráfico en pantalla}
+\item{plot}{Saca el gráfico (si T) o si se salva como objeto se puede componer para componer con otros gráficos de lattice (F)}
 
 \item{ti}{Añade el nombre de la especie en latín sin T, si F no añade titulo}
 
