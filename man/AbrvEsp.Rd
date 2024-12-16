@@ -34,6 +34,7 @@ AbrvEsp(buscaesp(1,50),1,8,".")
 Other datos_especies: 
 \code{\link{BuscaAphia}()},
 \code{\link{buscacod}()},
+\code{\link{buscaesp.datras}()},
 \code{\link{buscaesp}()},
 \code{\link{camptoyear}()},
 \code{\link{hidrotodec}()},

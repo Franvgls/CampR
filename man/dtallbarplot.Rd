@@ -54,6 +54,7 @@ dtallbarplot(1,c(34),camps=Nsh[27:37],"Cant",camp="N21",excl.sect=1,ymax=1.5,es=
 \seealso{
 Other Distribuciones de tallas: 
 \code{\link{denstall.camp}()},
+\code{\link{dtall.campa}()},
 \code{\link{dtall.campb}()},
 \code{\link{dtall.camp}()},
 \code{\link{dtall.lan}()},

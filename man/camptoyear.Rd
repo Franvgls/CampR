@@ -20,6 +20,7 @@ Other datos_especies:
 \code{\link{AbrvEsp}()},
 \code{\link{BuscaAphia}()},
 \code{\link{buscacod}()},
+\code{\link{buscaesp.datras}()},
 \code{\link{buscaesp}()},
 \code{\link{hidrotodec}()},
 \code{\link{talpes.camp}()}

@@ -28,7 +28,10 @@ maphistal(
   escmult = 0.25,
   cexleg = 1,
   years = TRUE,
-  graf = FALSE
+  graf = FALSE,
+  xpng = 1200,
+  ypng = 800,
+  ppng = 15
 )
 }
 \arguments{
@@ -79,6 +82,12 @@ maphistal(
 \item{years}{Si T saca los años como nombre de campaña en los paneles lattice de campañas}
 
 \item{graf}{Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
 }
 \value{
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
@@ -96,6 +105,7 @@ Other mapas:
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapEcol.camp}()},
 \code{\link{MapGaltal}()},
+\code{\link{MapHidro.camp}()},
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
 \code{\link{NepFUs.camp}()},

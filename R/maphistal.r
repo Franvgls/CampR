@@ -25,6 +25,9 @@
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
 #' @param years Si T saca los años como nombre de campaña en los paneles lattice de campañas
 #' @param graf Si F no saca nada, si pones el nombre de un gráfico lo saca saca como archivo png y al final del proceso dice dónde está el mapa con ese nombre:
+#' @param xpng width archivo png si graf es el nombre del fichero
+#' @param ypng height archivo png si graf es el nombre del fichero
+#' @param ppng points png archivo si graf es el nombre del fichero
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
 #' @examples maphistal(1,50,Psh[1:12],"Porc",1,23,layout=c(4,3),out.dat=TRUE)
 #' @family mapas
@@ -32,7 +35,7 @@
 #' @export
 maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=TRUE,ind="n",ICESrect=FALSE,
                     sex=NA,bw=FALSE,ti=TRUE,subti=TRUE,plot=TRUE,out.dat=FALSE,idi="l",layout=NA,leg=TRUE,ceros=TRUE,
-                    escmult=.25,cexleg=1,years=TRUE,graf=FALSE) {
+                    escmult=.25,cexleg=1,years=TRUE,graf=FALSE,xpng=1200,ypng=800,ppng=15) {
   options(scipen=2)
   colo<-ifelse(bw,gray(.1),4)
   if (plot) {
@@ -202,7 +205,7 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 				})
 			}
 	if (!is.logical(graf)) {
-	  png(filename=paste0(graf,".png"),width = 950,height = 1200, pointsize = 20)
+	  png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
 	  print(mapdist)
 	  dev.off()}
 	if (plot) {print(mapdist)}

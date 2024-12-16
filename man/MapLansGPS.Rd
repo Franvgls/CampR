@@ -9,10 +9,11 @@ MapLansGPS(
   dns = "Porc",
   leg = F,
   incl0 = FALSE,
+  add = F,
   xlims = NA,
   ylims = NA,
   ti = FALSE,
-  col = 2,
+  col = "navy",
   lwd = 2,
   places = TRUE,
   Nlans = FALSE,
@@ -37,6 +38,8 @@ MapLansGPS(
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa"}
 
 \item{incl0}{si T incluye los lances nulos con color negro}
+
+\item{add}{si T añade las líneas al gráfico anterior si F lo empieza de cero}
 
 \item{xlims}{Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña}
 
@@ -81,6 +84,7 @@ Other mapas:
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapEcol.camp}()},
 \code{\link{MapGaltal}()},
+\code{\link{MapHidro.camp}()},
 \code{\link{MapLansHH}()},
 \code{\link{NepFUs.camp}()},
 \code{\link{NewPorcCanyon}},

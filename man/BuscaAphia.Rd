@@ -27,6 +27,7 @@ Sirve para crear un fichero del que se pueden importar los códigos AphiaID al e
 Other datos_especies: 
 \code{\link{AbrvEsp}()},
 \code{\link{buscacod}()},
+\code{\link{buscaesp.datras}()},
 \code{\link{buscaesp}()},
 \code{\link{camptoyear}()},
 \code{\link{hidrotodec}()},

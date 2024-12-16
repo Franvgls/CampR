@@ -1,0 +1,295 @@
+"RType","Quarter","Country","Ship","Gear","Survey","Rs1","Rs2","StNo","HaulNo","Year","LTREF","PARAM","LTSZC","UnitWgt","LT_Weight","UnitItem","LT_Items","LTSRC","TYPPL","LTPRP"
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"001","001",2024,"C-TS-REV2","A7","13","kg/haul",21,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"001","001",2024,"C-TS-REV2","E2","12","kg/haul",178,"items/haul",21,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"002","002",2024,"C-TS-REV2","A2","C","kg/haul",12,"items/haul",2,"transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"002","002",2024,"C-TS-REV2","E2","12","kg/haul",24,"items/haul",5,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"003","003",2024,"C-TS-REV2","A7","12","kg/haul",26,"items/haul",6,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"003","003",2024,"C-TS-REV2","E2","11","kg/haul",12,"items/haul",5,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"004","004",2024,"C-TS-REV2","A6","12","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"004","004",2024,"C-TS-REV2","E2","12","kg/haul",7,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"005","005",2024,"C-TS-REV2","A5","12","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"005","005",2024,"C-TS-REV2","D3","a","kg/haul",128,"items/haul",11,"botella cerveza 25 ml",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"006","006",2024,"C-TS-REV2","A1","c","kg/haul",16,"items/haul",1,"trozo botella",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"006","006",2024,"C-TS-REV2","E2","12","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"007","007",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"008","008",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"009","009",2024,"C-TS-REV2","A5","14","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"009","009",2024,"C-TS-REV2","A6","12","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"009","009",2024,"C-TS-REV2","A7","13","kg/haul",8,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"009","009",2024,"C-TS-REV2","E2","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"010","010",2024,"C-TS-REV2","A10","C","kg/haul",1,"items/haul",1,"NEGRO",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"010","010",2024,"C-TS-REV2","A6","13","kg/haul",3,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"010","010",2024,"C-TS-REV2","E2","12","kg/haul",14,"items/haul",5,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"011","011",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"012","012",2024,"C-TS-REV2","A5","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"013","013",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"014","014",2024,"C-TS-REV2","A5","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"014","014",2024,"C-TS-REV2","E2","13","kg/haul",12,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"015","015",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"016","016",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"017","017",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"018","018",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"019","019",2024,"C-TS-REV2","A8","c","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"020","020",2024,"C-TS-REV2","E2","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"021","021",2024,"C-TS-REV2","A6","12","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"021","021",2024,"C-TS-REV2","E2","12","kg/haul",8,"items/haul",3,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"022","022",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"023","023",2024,"C-TS-REV2","A13","c","kg/haul",6,"items/haul",1,"envoltorio o compresa",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"023","023",2024,"C-TS-REV2","A5","12","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"024","024",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"025",2024,NA,"A2",NA,NA,NA,NA,NA,NA,NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"025",2024,NA,"A5",NA,NA,NA,NA,NA,"SBF",NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"025",2024,NA,"F1",NA,NA,NA,NA,NA,NA,NA,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"025","025",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"026","026",2024,"C-TS-REV2","A13","a","kg/haul",2,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"026","026",2024,"C-TS-REV2","A7","11","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"027","027",2024,"C-TS-REV2","A16","a","kg/haul",14,"items/haul",1,"trozo de bolo de arrastre",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"027","027",2024,"C-TS-REV2","E2","12","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"028","028",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"029","029",2024,"C-TS-REV2","A7","12","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"030","030",2024,"C-TS-REV2","A11","c","kg/haul",22,"items/haul",1,"embalaje café",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"030","030",2024,"C-TS-REV2","A2","b","kg/haul",52,"items/haul",2,"transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"030","030",2024,"C-TS-REV2","A3","b","kg/haul",10,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"030","030",2024,"C-TS-REV2","A8","b","kg/haul",3,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"030","030",2024,"C-TS-REV2","E2","12","kg/haul",3,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"031","031",2024,"C-TS-REV2","A16","C","kg/haul",24,"items/haul",1,"trozo red nasa negro",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"031","031",2024,"C-TS-REV2","A2","D","kg/haul",28,"items/haul",1,"lámina transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"032","032",2024,"C-TS-REV2","A1","c","kg/haul",10,"items/haul",1,"trozo botella",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"032","032",2024,"C-TS-REV2","A2","d","kg/haul",8,"items/haul",1,"lámina plastico",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"032","032",2024,"C-TS-REV2","E2","12","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"033","033",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"034","034",2024,"C-TS-REV2","A14","b","kg/haul",28,"items/haul",1,"Negro. Tubo corrugado",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"034","034",2024,"C-TS-REV2","B3","d","kg/haul",1244,"items/haul",1,"Bolo arrastre",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"034","034",2024,"C-TS-REV2","E2","13","kg/haul",16,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"034","034",2024,"C-TS-REV2","E5","b","kg/haul",38,"items/haul",1,"Bolsa cebo nasa",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"035","035",2024,"C-TS-REV2","A5","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"035","035",2024,"C-TS-REV2","A6","12","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"035","035",2024,"C-TS-REV2","E2","13","kg/haul",8,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"036","036",2024,"C-TS-REV2","A2","e","kg/haul",222,"items/haul",1,"azul",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"037","037",2024,"C-TS-REV2","A2","c","kg/haul",10,"items/haul",1,"transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"037","037",2024,"C-TS-REV2","A6","13","kg/haul",7,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"037","037",2024,"C-TS-REV2","A7","14","kg/haul",14,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"037","037",2024,"C-TS-REV2","E2","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"038","038",2024,"C-TS-REV2","A8","c","kg/haul",3,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"038","038",2024,"C-TS-REV2","E3","d","kg/haul",160,"items/haul",1,"gris",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"039","039",2024,"C-TS-REV2","A5","13","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"040","040",2024,"C-TS-REV2","A7","13","kg/haul",4,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"040","040",2024,"C-TS-REV2","E2","13","kg/haul",11,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"041","041",2024,"C-TS-REV2","A1","d","kg/haul",40,"items/haul",1,"botella Fairy",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"041","041",2024,"C-TS-REV2","A5","12","kg/haul",6,"items/haul",17,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"041","041",2024,"C-TS-REV2","A6","13","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"041","041",2024,"C-TS-REV2","B8","a","kg/haul",6,"items/haul",1,"trozo metal",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"042","042",2024,"C-TS-REV2","A5","13","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"042","042",2024,"C-TS-REV2","B3",NA,"kg/haul",3,"items/haul",2,"anzuelo palangre",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"043","043",2024,"C-TS-REV2","A14","c","kg/haul",14,"items/haul",1,"tubo colgate",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"043","043",2024,"C-TS-REV2","B2","c","kg/haul",10,"items/haul",1,"lata Fanta rota",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"043","043",2024,"C-TS-REV2","F3","c","kg/haul",6,"items/haul",1,"cremallera con tela",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"044","044",2024,"C-TS-REV2","A2","c","kg/haul",12,"items/haul",2,"transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"044","044",2024,"C-TS-REV2","A5","13","kg/haul",2,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"044","044",2024,"C-TS-REV2","A7","14","kg/haul",142,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"045","045",2024,"C-TS-REV2","A16","d","kg/haul",80,"items/haul",1,"saco red negro",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"045","045",2024,"C-TS-REV2","A2","c","kg/haul",7,"items/haul",3,"blanco",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"045","045",2024,"C-TS-REV2","A7","13","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"046","046",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"047","047",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"048",2024,NA,"A2",NA,NA,NA,NA,NA,NA,NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"048",2024,NA,"A7",NA,NA,NA,NA,NA,"SBF",NA,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"048","048",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"049","049",2024,"C-TS-REV2","A2","b","kg/haul",1,"items/haul",1,"blanca",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"049","049",2024,"C-TS-REV2","A5","13","kg/haul",15,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"050","050",2024,"C-TS-REV2","A11","c","kg/haul",8,"items/haul",1,"bolsa salchichas Oscar Mayer",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"050","050",2024,"C-TS-REV2","A5","12","kg/haul",3,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"050","050",2024,"C-TS-REV2","A7","13","kg/haul",14,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"051","051",2024,"C-TS-REV2","A2","d","kg/haul",14,"items/haul",1,"transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"051","051",2024,"C-TS-REV2","A5","12","kg/haul",4,"items/haul",7,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"051","051",2024,"C-TS-REV2","A8","c","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"051","051",2024,"C-TS-REV2","E2","13","kg/haul",14,"items/haul",3,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"052","052",2024,"C-TS-REV2","A14","d","kg/haul",14,"items/haul",1,"trozo cajetín",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"052","052",2024,"C-TS-REV2","A2","c","kg/haul",1,"items/haul",1,"blanca",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"052","052",2024,"C-TS-REV2","A5","13","kg/haul",2,"items/haul",4,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"053","053",2024,"C-TS-REV2","A2","b","kg/haul",1,"items/haul",3,"transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"053","053",2024,"C-TS-REV2","A7","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"053","053",2024,"C-TS-REV2","A8","d","kg/haul",266,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"054","054",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"055","055",2024,"C-TS-REV2","A7","14","kg/haul",10,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"055","055",2024,"C-TS-REV2","E2","13","kg/haul",4,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"056","056",2024,"C-TS-REV2","A2","c","kg/haul",2,"items/haul",1,"blanca",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"056","056",2024,"C-TS-REV2","A3","e","kg/haul",158,"items/haul",1,"bolsa basura blanca",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"057","057",2024,"C-TS-REV2","A2","e","kg/haul",30,"items/haul",1,"transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"057","057",2024,"C-TS-REV2","A7","14","kg/haul",16,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"057","057",2024,"C-TS-REV2","E2","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"058","058",2024,"C-TS-REV2","A6","b","kg/haul",4,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"059","059",2024,"C-TS-REV2","A16","d","kg/haul",344,"items/haul",1,"aparejo enmalle (amasijo)",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"059","059",2024,"C-TS-REV2","A2","d","kg/haul",150,"items/haul",2,"transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"059","059",2024,"C-TS-REV2","A5","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"059","059",2024,"C-TS-REV2","E2","12","kg/haul",4,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"060","060",2024,"C-TS-REV2","A2","c","kg/haul",10,"items/haul",1,"blanco",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"060","060",2024,"C-TS-REV2","A5","13","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"060","060",2024,"C-TS-REV2","B8","d","kg/haul",496,"items/haul",1,"chapa",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"061","061",2024,"C-TS-REV2","A2","C","kg/haul",2,"items/haul",1,"transparente",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"061","061",2024,"C-TS-REV2","A5","13","kg/haul",1,"items/haul",3,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"061","061",2024,"C-TS-REV2","E2","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"062","062",2024,"C-TS-REV2","A3","D","kg/haul",250,"items/haul",NA,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"062","062",2024,"C-TS-REV2","A7","13","kg/haul",8,"items/haul",NA,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"063","063",2024,"C-TS-REV2","A3","C","kg/haul",16,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"063","063",2024,"C-TS-REV2","A6","14","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"063","063",2024,"C-TS-REV2","A7","10","kg/haul",16,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"064","064",2024,"C-TS-REV2","A2","a","kg/haul",10,"items/haul",1,"actinidos",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"064","064",2024,"C-TS-REV2","A7","9","kg/haul",2,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"065","065",2024,"C-TS-REV2","A15","c","kg/haul",31,"items/haul",1,"epizoantus",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"065","065",2024,"C-TS-REV2","A2","b","kg/haul",34,"items/haul",3,"actinia, epizoantus",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"065","065",2024,"C-TS-REV2","A8","c","kg/haul",5,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"065","065",2024,"C-TS-REV2","E1","a","kg/haul",7,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"065","065",2024,"C-TS-REV2","F1","c","kg/haul",45,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"066","066",2024,"C-TS-REV2","A3","f","kg/haul",488,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"066","066",2024,"C-TS-REV2","F1","e","kg/haul",142,"items/haul",1,"puesta gasteropodo",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"067","067",2024,"C-TS-REV2","A3","d","kg/haul",53,"items/haul",1,"Anomiidae",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"067","067",2024,"C-TS-REV2","A5","12","kg/haul",2,"items/haul",4,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"067","067",2024,"C-TS-REV2","A7","13","kg/haul",10,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"068","068",2024,"C-TS-REV2","A2","a","kg/haul",5,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"068","068",2024,"C-TS-REV2","A7","11","kg/haul",3,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"069","069",2024,"C-TS-REV2","A13","b","kg/haul",17,"items/haul",1,"Corallina",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"069","069",2024,"C-TS-REV2","A2","a","kg/haul",2,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"069","069",2024,"C-TS-REV2","A7","12","kg/haul",18,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"070","070",2024,"C-TS-REV2","A6","8","kg/haul",1,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"070","070",2024,"C-TS-REV2","A7","10","kg/haul",10,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"071","071",2024,"C-TS-REV2","A5","14","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"071","071",2024,"C-TS-REV2","D1","c","kg/haul",56,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"072","072",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"073","073",2024,"C-TS-REV2","A2","B","kg/haul",6,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"073","073",2024,"C-TS-REV2","A7","12","kg/haul",12,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"073","073",2024,"C-TS-REV2","B2","c","kg/haul",50,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"074","074",2024,"C-TS-REV2","A1","c","kg/haul",70,"items/haul",3,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"074","074",2024,"C-TS-REV2","A13","b","kg/haul",586,"items/haul",7,"serpúlidos",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"074","074",2024,"C-TS-REV2","A2","c","kg/haul",130,"items/haul",3,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"074","074",2024,"C-TS-REV2","A3","d","kg/haul",100,"items/haul",4,"azul",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"074","074",2024,"C-TS-REV2","A5","15","kg/haul",50,"items/haul",4,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"074","074",2024,"C-TS-REV2","A6","c","kg/haul",60,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"074","074",2024,"C-TS-REV2","A7","12","kg/haul",150,"items/haul",8,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"074","074",2024,"C-TS-REV2","E1","c","kg/haul",4750,"items/haul",12,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"075","075",2024,"C-TS-REV2","A5","14","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"075","075",2024,"C-TS-REV2","C6","11","kg/haul",7,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"075","075",2024,"C-TS-REV2","F1","b","kg/haul",14,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"076","076",2024,"C-TS-REV2","A16","b","kg/haul",20,"items/haul",1,"guante",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"076","076",2024,"C-TS-REV2","A2","b","kg/haul",5,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"077","077",2024,"C-TS-REV2","A3","c","kg/haul",94,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"077","077",2024,"C-TS-REV2","A7","12","kg/haul",10,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"077","077",2024,"C-TS-REV2","E1","d","kg/haul",3100,"items/haul",14,"?????",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"078","078",2024,"C-TS-REV2","A2","A","kg/haul",5,"items/haul",2,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"078","078",2024,"C-TS-REV2","A5","D","kg/haul",5,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"078","078",2024,"C-TS-REV2","A7","11","kg/haul",20,"items/haul",1,"SBF",-9,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"079",2024,NA,"A2",NA,NA,NA,NA,NA,NA,NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"079",2024,NA,"A5",NA,NA,NA,NA,NA,"SBF",NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"079",2024,NA,"A7",NA,NA,NA,NA,NA,"SBF",NA,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"079","079",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"080","080",2024,"C-TS-REV2","C6","11","kg/haul",50,"items/haul",1,"anillo de goma",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"080","080",2024,"C-TS-REV2","F1","c","kg/haul",11,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"081","081",2024,"C-TS-REV2","A2","c","kg/haul",14,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"081","081",2024,"C-TS-REV2","A7","10","kg/haul",18,"items/haul",3,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"081","081",2024,"C-TS-REV2","F1","c","kg/haul",30,"items/haul",3,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"082","082",2024,"C-TS-REV2","A4","b","kg/haul",12,"items/haul",2,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"082","082",2024,"C-TS-REV2","A7","13","kg/haul",68,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"083","083",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"084","084",2024,"C-TS-REV2","A2","a","kg/haul",20,"items/haul",2,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"084","084",2024,"C-TS-REV2","A5","14","kg/haul",4,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"084","084",2024,"C-TS-REV2","A7","11","kg/haul",14,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"084","084",2024,"C-TS-REV2","A8","c","kg/haul",5,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"084","084",2024,"C-TS-REV2","B2",NA,"kg/haul",4,"items/haul",2,"anzuelos",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"085","085",2024,"C-TS-REV2","A2","a","kg/haul",2,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"085","085",2024,"C-TS-REV2","A5","11","kg/haul",5,"items/haul",3,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"085","085",2024,"C-TS-REV2","F1","13","kg/haul",10,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"086","086",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"087","087",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"088","088",2024,"C-TS-REV2","A2","c","kg/haul",12,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"088","088",2024,"C-TS-REV2","A7","12","kg/haul",3,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"089","089",2024,"C-TS-REV2","A2","c","kg/haul",64,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"089","089",2024,"C-TS-REV2","A5","e","kg/haul",3,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"089","089",2024,"C-TS-REV2","A7","b","kg/haul",4,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"090","090",2024,"C-TS-REV2","A1","b","kg/haul",3,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"090","090",2024,"C-TS-REV2","A3","d","kg/haul",66,"items/haul",3,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"090","090",2024,"C-TS-REV2","A7","10","kg/haul",3,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"091","091",2024,"C-TS-REV2","A1","c","kg/haul",46,"items/haul",1,"champan",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"091","091",2024,"C-TS-REV2","A3","d","kg/haul",650,"items/haul",21,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"091","091",2024,"C-TS-REV2","A5","13","kg/haul",3,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"091","091",2024,"C-TS-REV2","E3","d","kg/haul",800,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"091","091",2024,"C-TS-REV2","F1","c","kg/haul",130,"items/haul",3,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"092","092",2024,"C-TS-REV2","A2","8","kg/haul",5,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"092","092",2024,"C-TS-REV2","A7","12","kg/haul",94,"items/haul",10,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"092","092",2024,"C-TS-REV2","E1","11","kg/haul",19,"items/haul",2,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"093","093",2024,"C-TS-REV2","A2","a","kg/haul",4,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"093","093",2024,"C-TS-REV2","A7","13","kg/haul",24,"items/haul",3,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"093","093",2024,"C-TS-REV2","B2","c","kg/haul",60,"items/haul",2,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"093","093",2024,"C-TS-REV2","F1","c","kg/haul",104,"items/haul",2,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"094","094",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"095","095",2024,"C-TS-REV2","A2","c","kg/haul",46,"items/haul",3,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"095","095",2024,"C-TS-REV2","A9","11","kg/haul",3,"items/haul",2,"SBF",-9,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"096",2024,NA,"A14",NA,NA,NA,NA,NA,NA,NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"096",2024,NA,"A2",NA,NA,NA,NA,NA,NA,NA,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"096","096",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"097","097",2024,"C-TS-REV2","A2","b","kg/haul",2,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"097","097",2024,"C-TS-REV2","B2","12","kg/haul",4,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"097","097",2024,"C-TS-REV2","D2","13","kg/haul",116,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"098","098",2024,"C-TS-REV2","A2","c","kg/haul",50,"items/haul",2,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"098","098",2024,"C-TS-REV2","A7",NA,"kg/haul",10,"items/haul",6,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"098","098",2024,"C-TS-REV2","B3",NA,"kg/haul",6,"items/haul",6,"anzuelos palangre",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"098","098",2024,"C-TS-REV2","F3","f","kg/haul",14000,"items/haul",1,"esponja colchón",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"099","099",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"100","100",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"101","101",2024,"C-TS-REV2","A2","d","kg/haul",160,"items/haul",3,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"101","101",2024,"C-TS-REV2","A7","12","kg/haul",5,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"102","102",2024,"C-TS-REV2","A2","b","kg/haul",10,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"102","102",2024,"C-TS-REV2","B2","c","kg/haul",34,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"103","103",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"104","104",2024,"C-TS-REV2","A5","13","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"104","104",2024,"C-TS-REV2","B3","10","kg/haul",2,"items/haul",1,"anzuelo",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"104","104",2024,"C-TS-REV2","C6","c","kg/haul",50,"items/haul",1,"lamina",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"105","105",2024,"C-TS-REV2","A3","d","kg/haul",64,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"105","105",2024,"C-TS-REV2","A5","12","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"105","105",2024,"C-TS-REV2","A7","12","kg/haul",60,"items/haul",4,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"106","106",2024,"C-TS-REV2","A2","c","kg/haul",30,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"106","106",2024,"C-TS-REV2","A7","11","kg/haul",10,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"107","107",2024,"C-TS-REV2","A16","d","kg/haul",2900,"items/haul",1,"nasa pulpo",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"107","107",2024,"C-TS-REV2","A2","b","kg/haul",3,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"107","107",2024,"C-TS-REV2","C6","c","kg/haul",18,"items/haul",1,"lámina",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"108","108",2024,"C-TS-REV2","A2","a","kg/haul",10,"items/haul",2,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"108","108",2024,"C-TS-REV2","A5","11","kg/haul",2,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"109","109",2024,"C-TS-REV2","A7","10","kg/haul",10,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"109","109",2024,"C-TS-REV2","E1","11","kg/haul",30,"items/haul",1,NA,-9,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"110",2024,NA,"A1",NA,NA,NA,NA,NA,NA,NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"110",2024,NA,"A11",NA,NA,NA,NA,NA,NA,NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"110",2024,NA,"A5",NA,NA,NA,NA,NA,"SBF",NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"110",2024,NA,"A7",NA,NA,NA,NA,NA,"SBF",NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"110",2024,NA,"C6",NA,NA,NA,NA,NA,NA,NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"110",2024,NA,"F1",NA,NA,NA,NA,NA,NA,NA,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"110","110",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"111","111",2024,"C-TS-REV2","A13","b","kg/haul",15,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"112","112",2024,"C-TS-REV2","A2","d","kg/haul",22,"items/haul",1,"negra",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"112","112",2024,"C-TS-REV2","F1","d","kg/haul",52,"items/haul",1,"blanco, trozo de tela",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"113","113",2024,"C-TS-REV2","A1","13","kg/haul",40,"items/haul",1,"lejia",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"114","114",2024,"C-TS-REV2","A13","c","kg/haul",10,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"114","114",2024,"C-TS-REV2","A7","10","kg/haul",5,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"115","115",2024,"C-TS-REV2","A3","d","kg/haul",28,"items/haul",1,"negra",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"116","116",2024,"C-TS-REV2","A5","13","kg/haul",3,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"116","116",2024,"C-TS-REV2","F1","c","kg/haul",30,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"117","117",2024,"C-TS-REV2","A3","C","kg/haul",10,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"117","117",2024,"C-TS-REV2","A5","13","kg/haul",2,"items/haul",2,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"118","118",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"119","119",2024,"C-TS-REV2","A2","C","kg/haul",50,"items/haul",1,"serpúlidos",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"119","119",2024,"C-TS-REV2","A7","12","kg/haul",7,"items/haul",3,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"119","119",2024,"C-TS-REV2","F1","C","kg/haul",15,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"120","120",2024,"C-TS-REV2","A2","C","kg/haul",10,"items/haul",3,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"120","120",2024,"C-TS-REV2","A8","14","kg/haul",474,"items/haul",1,"SBF",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"120","120",2024,"C-TS-REV2","F1","d","kg/haul",328,"items/haul",1,"espuma colchón",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"121","121",2024,"C-TS-REV2","A2","9","kg/haul",5,"items/haul",1,NA,-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"121","121",2024,"C-TS-REV2","A7","13","kg/haul",70,"items/haul",3,"SBF",-9,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"122",2024,NA,"A2",NA,NA,NA,NA,NA,NA,NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"122",2024,NA,"A7",NA,NA,NA,NA,NA,"SBF",NA,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"122","122",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"123","123",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"124","124",2024,"C-TS-REV2","D2","13","kg/haul",416,"items/haul",1,"vino",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"124","124",2024,"C-TS-REV2","F1","c","kg/haul",90,"items/haul",1,"espuma colchón",-9,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"125",2024,NA,"A1",NA,NA,NA,NA,NA,NA,NA,-9
+NA,NA,NA,NA,NA,NA,-9,-9,NA,"125",2024,NA,"A2",NA,NA,NA,NA,NA,NA,NA,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"125","125",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"126","126",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9
+"LT",4,"ES","29MO","BAK","SP-NORTH",-9,-9,"127","127",2024,"RECO-LT","LT-TOT","-9","kg/haul",0,"items/haul",0,"-9",-9,-9

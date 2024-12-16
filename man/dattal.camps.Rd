@@ -17,10 +17,13 @@ dattal.camps(
   ind = "n",
   ti = TRUE,
   las = 2,
-  plot = FALSE,
   grid = TRUE,
   es = FALSE,
-  bw = TRUE
+  bw = TRUE,
+  graf = FALSE,
+  xpng = 1200,
+  ypng = 800,
+  ppng = 15
 )
 }
 \arguments{
@@ -48,11 +51,17 @@ dattal.camps(
 
 \item{las}{Controla el sentido de las etiquetas del gráfico, 2 perpendicular al eje, mejor para etiquetas de años}
 
-\item{plot}{Saca el gráfico (T) o lo guarda como objeto para componer con otros gráficos (F)}
-
 \item{grid}{Si plot=T incluye un grid horizontal para comparar mejor los límites de las barras.}
 
 \item{es}{Si T gráfico en castellano, si F gráfico en inglés}
+
+\item{graf}{si F no el gráfico va a pantalla, si nombre fichero va a fichero en el directorio en que está wdf}
+
+\item{xpng}{width archivo png si graf es el nombre del fichero}
+
+\item{ypng}{height archivo png si graf es el nombre del fichero}
+
+\item{ppng}{points png archivo si graf es el nombre del fichero}
 }
 \value{
 Devuelve un vector con nombre con el número estratificado del rango de tallas deseados por campaña/año. Si se solicita plot=TRUE saca un gráfico de barras que muestra la abundancia por año. En peso sólo saca los resultados para una especie.
@@ -61,7 +70,7 @@ Devuelve un vector con nombre con el número estratificado del rango de tallas d
 Extrae los datos de abundancia de una especie o conjunto de especies con un rango de tallas determinado a partir de las distribuciones de talla.También puede mostrar los datos de biomasa a partir de la relación talla-peso
 }
 \examples{
-dattal.camps(2,19,Psh,"Porc",1,15,ind="n",plot=TRUE)
+dattal.camps(2,19,Psh,"Porc",0,15,ind="n",graf="Tararito")
 }
 \seealso{
 {\link{dattal.camp}}

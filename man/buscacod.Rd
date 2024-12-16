@@ -23,6 +23,7 @@ buscacod("sph")
 Other datos_especies: 
 \code{\link{AbrvEsp}()},
 \code{\link{BuscaAphia}()},
+\code{\link{buscaesp.datras}()},
 \code{\link{buscaesp}()},
 \code{\link{camptoyear}()},
 \code{\link{hidrotodec}()},

@@ -80,6 +80,7 @@ Other mapas:
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapEcol.camp}()},
 \code{\link{MapGaltal}()},
+\code{\link{MapHidro.camp}()},
 \code{\link{MapLansGPS}()},
 \code{\link{NepFUs.camp}()},
 \code{\link{NewPorcCanyon}},

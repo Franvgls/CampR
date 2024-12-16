@@ -72,10 +72,11 @@ dtall.campb<- function(gr,esp,camp,dns,cor.time=TRUE,cor.5=FALSE,ti=FALSE,sub=NA
 	for (i in 1:ndat) {
     #browser()
 		dtall<-dattal.camp(gr,esp,camp[i],dns,cor.time=cor.time,excl.sect=excl.sect,sex=sex,verbose=verbose)
-    #### sección para corregir datos de tallas a .5 cm dejándolos a 1 cm
-		if (cor.5 & diff(range(dtall$talla))>100) {
+    names(dtall)<-c("talla","indet") #### sección para corregir datos de tallas a .5 cm dejándolos a 1 cm
+		if (!cor.5 & diff(range(dtall$talla))>100) {
 		  dtall$talb<- trunc(dtall$talla/10)
 		  dtall<-aggregate(indet~talb,dtall,sum)
+		  dtall<-filter(dtall,talb>0)
 		  names(dtall)<-c("talla","indet")
 		  increm<-1
 		  medida<-"cm"

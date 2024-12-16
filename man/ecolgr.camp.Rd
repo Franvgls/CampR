@@ -4,16 +4,16 @@
 \alias{ecolgr.camp}
 \title{Índices ecológicos para un grupo en una campaña}
 \usage{
-ecolgr.camp(gr, esp = 999, camp, dns = "Porc", ind = "n")
+ecolgr.camp(gr, esp = 999, camp, dns = "Porc", ind = "n", subtit = TRUE)
 }
 \arguments{
-\item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6}
+\item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y no orgánico. \emph{9 incluye todos los grupos a excepción del 6}}
 
 \item{esp}{ha de ser 999 cuando se quiere incluir todas las especies del grupo, o elegir todas las especies deseadas con los codigos de las especies}
 
 \item{camp}{Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Mediterráneo "Medi"}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", Mediterráneo "Medi"}
 
 \item{ind}{Elige el valor sobre el que se calculan los índices de diversidad, dominancia....}
 }

@@ -8,7 +8,8 @@
 #' @param ind Elige el valor (n)úmero o (p)eso sobre el que se calculan los índices de diversidad, dominancia....
 #' @param indec Elige el índice ecológico a representar: opciones disponibles: Shannon-Wiener: 'div', Número de especies: 'nesp' y Diversidad Simpson: 'simp'.
 #' @param plot Saca el gráfico (si T) o si se salva como objeto se puede componer para componer con otros gráficos de lattice (F)
-#' @param ti Añade el nombre de la especie en latín sin T, si F no añade titulo
+#' @param ti por defecto en blanco (" "), pero pone el texto que se quiera poner como título
+#' @param subtit Si T, es el valor por defecto, incluye un subtítulo abajo del gráfico con el índice representado, si F no se pone el subtítulo pero *convendría que añadirlo a posteriori*
 #' @param idi Nombre científico de la especie ("l") o nombre común ("e")
 #' @param out.dat Si T el resultado final de la función es la figura en pantalla, pero los datos en objeto
 #' @param es Si T saca los titulos y rotulos en español, si F en inglés
@@ -22,14 +23,16 @@
 #' @param ppng points png archivo si graf es el nombre del fichero
 #' @return Saca el mapa de diversidad en la campaña seleccionada.
 #' @examples
-#' dumbecol<-MapEcol.camp(1,999,Nsh[25:30],"Cant",ind="n",bw=TRUE,indec="simp",out.dat=TRUE,layout=c(2,3))
+#' MapEcol.camp(c(2:5),999,"N24","Cant",ind = "n",indec = "div",ti="Invertebrados")
+#' dumbecol<-MapEcol.camp(1,999,Nsh[25:30],"Cant",ind="n",bw=TRUE,indec="simp",out.dat=TRUE,layout=c(2,3),ti=" ")
+#' dumbecol<-MapEcol.camp(2:5,999,Nsh[25:30],"Cant",ind="n",ti="Invertebrados, sin peces",bw=TRUE,indec="simp",out.dat=TRUE,layout=c(2,3))
 #' dumbecol$estrato<-cut(dumbecol$prof,c(0,70,120,200,500,900),c("A1","A","B","C","D"))
 #' lattice::bwplot(numbesp~estrato|camp,dumbecol,horizontal=FALSE,main="Número de especies",xlab="Estrato")
 #' lattice::bwplot(div~estrato|camp,dumbecol,horizontal=FALSE,main="Shannon Wiener",xlab="Estrato")
 #' @family mapas
 #' @family ecologia
 #' @export
-MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRUE,bw=FALSE,ti=TRUE,idi="l",
+MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRUE,subtit=TRUE,bw=FALSE,ti=" ",idi="l",
                        es=TRUE,out.dat=FALSE,layout=NA,cex.pt=1,cexleg=1,years=TRUE,graf=FALSE,xpng=1200,ypng=800,ppng=15) {
   if (!(indec %in% c("simp","div","nesp"))) {
     stop(paste("el índice",indec,"no está implementado, índices disponibles: 'div', 'nesp' y 'simp'"))
@@ -78,8 +81,12 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
 #    escala<-signif(max(dumb$domsimp),1)*1/2
 #    if (!es) sub<-paste("Simpson's dominance",ifelse(ind=="p","- Biomass","- Number"))
 #    else sub<-paste("Dominancia Simpson",ifelse(ind=="p","- Biomasa","- Número"))
-  if (ti) titulo<-list(label=buscaesp(gr,esp,id=idi),font=ifelse((idi=="l" & gr!="9" & esp!="999"),4,2))
-  else titulo<-NULL
+  if (is.logical(ti)) {
+    if (ti) {titulo<-list(label=paste(ifelse(es,"grupos:","groups:"),paste(gr,collapse = " ")))}
+    else titulo<-list(label=" ")
+  }
+  if (length(gr)>1 & isTRUE(ti)) titulo<-list(label=paste(ifelse(es,"grupos:","groups:"),paste(gr,collapse = " ")))
+  else titulo<-list(label=ti)
   if (bw) {
     lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
     colo=gray(.1)
@@ -98,7 +105,7 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
 #    leyenda<-signif(c(1,.5)*leyenda,1)
     mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=c(-15.5,-10.5),main=titulo,xlab=NULL,ylab=NULL,
                     ylim=c(50.5,54.5),aspect=asp,par.strip.text=list(cex=.9,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,
-                                                                                                x=list(at=c(-15:-11),labels=as.character(abs(-15:11))),y=list(at=(51:54),rot=90)),as.table=TRUE,sub=sub,
+                                                                                                x=list(at=c(-15:-11),labels=as.character(abs(-15:11))),y=list(at=(51:54),rot=90)),as.table=TRUE,sub=ifelse(subtit,sub,""),
                     panel=function(x,y,subscripts) {
                       lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
                       lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
@@ -117,7 +124,7 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
 #    leyenda<-signif(c(1,.5,.25)*leyenda,1)
     mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=c(-10.25,-1.4),ylim=c(41.82,44.3),main=titulo,xlab=NULL,ylab=NULL,
                     aspect=asp,par.strip.text=list(cex=.9,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,
-                                                                                                 x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),y=list(at=(42:44),rot=90)),as.table=TRUE,sub=sub,
+                                                                                                 x=list(at=c(-10:-2),labels=as.character(abs(-10:-2))),y=list(at=(42:44),rot=90)),as.table=TRUE,sub=ifelse(subtit,sub,""),
                     panel=function(x,y,subscripts) {
                       lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
                       lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.2))
@@ -142,7 +149,7 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
 #    leyenda<-signif(c(1,.5,.25)*leyenda,1)
     mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=Arsa.map$range[c(1,2)],ylim=Arsa.map$range[c(3,4)],main=titulo,xlab=NULL,ylab=NULL,
                     aspect=asp,par.strip.text=list(cex=.9,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,x=list(at=c(-7:-5),
-                    labels=as.character(abs(-7:-5))),y=list(at=(36:37),rot=90)),as.table=TRUE,sub=sub,
+                    labels=as.character(abs(-7:-5))),y=list(at=(36:37),rot=90)),as.table=TRUE,sub=ifelse(subtit,sub,""),
                     panel=function(x,y,subscripts) {
                       lattice::panel.fill(col=ifelse(bw,"white","lightblue1"))
                       lattice::panel.xyplot(Arsa.str$x,Arsa.str$y,type="l",lty=3,col=gray(.2))
@@ -167,7 +174,7 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
 #    leyenda<-signif(c(1,.5,.25)*leyenda,1)
     mapdist<-lattice::xyplot(lat~long|camp,dumb,layout=layout,xlim=Medits.tot$range[c(1,2)],ylim=Medits.tot$range[c(3,4)],main=titulo,xlab=NULL,
                     ylab=NULL,aspect=asp,par.strip.text=list(cex=.9,font=2),scales=list(alternating=FALSE,tck=c(1,0),cex=.7,
-                    x=list(at=c(-5:4),labels=c(paste(as.character(abs(-5:-1)),"W",sep=""),0,paste(1:4,"E",sep=""))),y=list(at=(36:42),rot=90)),as.table=TRUE,sub=sub,
+                    x=list(at=c(-5:4),labels=c(paste(as.character(abs(-5:-1)),"W",sep=""),0,paste(1:4,"E",sep=""))),y=list(at=(36:42),rot=90)),as.table=TRUE,sub=ifelse(subtit,sub,""),
                     panel=function(x,y,subscripts) {
                       lattice::panel.xyplot(Medits.tot$x,Medits.tot$y,type="l",lty=3,col=gray(.2))
                       grid::grid.polygon(maps::map(Medits.tot,Medits.tot$names[],plot=FALSE)[[1]],maps::map(Medits.tot,Medits.tot$names[],plot=FALSE)[[2]],

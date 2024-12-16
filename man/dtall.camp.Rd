@@ -96,6 +96,7 @@ dtall.camp(1,50,Nsh[c(length(Nsh)-9):length(Nsh)],"Cant",es=F,ti=T,years=T,out.d
 \seealso{
 Other Distribuciones de tallas: 
 \code{\link{denstall.camp}()},
+\code{\link{dtall.campa}()},
 \code{\link{dtall.campb}()},
 \code{\link{dtall.lan}()},
 \code{\link{dtallan.camp}()},

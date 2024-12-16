@@ -4,6 +4,7 @@
 #' @param camp Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz "Arsa"
 #' @param incl0 Si T se incluyen los lances nulos
+#' @param add si T añade las líneas al gráfico anterior si F lo empieza de cero
 #' @param xlims Define los limites longitudinales del mapa, si se deja en NA toma los límites de long del área definida en la campaña
 #' @param ylims Define los limites latitudinales del mapa, si se deja en NA toma los límites de lat del área definida en la campaña
 #' @param ti si TRUE inclye el nombre de la campaña en el gráfico
@@ -24,43 +25,47 @@
 #' @family mapas
 #' @family PescaWin
 #' @export
-MapLansGPS<-function(camp,dns="Porc",leg=F,incl0=FALSE,xlims=NA,ylims=NA,ti=FALSE,col=2,lwd=2,places=TRUE,Nlans=FALSE,cexlans=.8,rumbo=FALSE,
+MapLansGPS<-function(camp,dns="Porc",leg=F,incl0=FALSE,add=F,xlims=NA,ylims=NA,ti=FALSE,col="navy",lwd=2,places=TRUE,Nlans=FALSE,cexlans=.8,rumbo=FALSE,
                      es=TRUE,bw=FALSE,ax=TRUE,ErrLans=NA,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.8,graf=FALSE,xpng=1200,ypng=800,ppng=15) {
   #if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
   lan<-datlan.camp(camp,dns,redux=FALSE,incl2=TRUE,incl0=TRUE)
   if (any(!is.na(ErrLans))) lan<-filter(lan,lance %in% ErrLans)
   lannul<-lan[lan$validez==0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
-  lan<-lan[lan$validez!=0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
+  lanesp<-lan[lan$validez>1,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
+  lan<-lan[lan$validez==1,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
   camp.name<-DBI::dbReadTable(ch1, paste0("CAMP",camp[1]))$IDENT
   DBI::dbDisconnect(ch1)
   if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
-  if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
-    if (any(!is.na(xlims) | !is.na(ylims))) {mapporco(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,bw=bw,ax=ax)} else mapporco(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)}
-  if (substr(dns,1,4)=="Cant" | dns=="Cnew" ) {
-    if (any(!is.na(xlims)|!is.na(ylims))) {MapNort(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapNort(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)
-  }
-  if (dns=="Arsa") {
-    if (any(!is.na(xlims))) {MapArsa(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapArsa(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)
-    if (leg) {legend("topright",c("Valid","Null"),lty=1,col = c(2,1),inset=.02,bg="white")}
-  }
-  if (dns=="Medi") {
-    if (any(!is.na(xlims))) {MapMedit(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapMedit()
-  }
-  if (dns=="Other") {
-    longrank<-range(lan$longitud_l,lan$longitud_v,na.rm=T)
-    if (max(lan$longitud_l,lan$longitud_v)<c(-10)) longrank<-c(longrank[1],c(-10))
-    longrank<-c(floor(longrank[1]),ceiling(longrank[2]))
-    latrank<-range(lan$latitud_l,lan$latitud_v,na.rm=T)
-    latrank<-c(floor(latrank[1]),ceiling(latrank[2]))
-    maps::map("worldHires",xlim=longrank,ylim=latrank,fill=T,col="grey")
-  }
-  box()
-  if (ti) {title(camp.name,line=2)}
+  if (!add) {
+    if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
+      if (any(!is.na(xlims) | !is.na(ylims))) {mapporco(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,bw=bw,ax=ax)} else mapporco(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)}
+    if (substr(dns,1,4)=="Cant" | dns=="Cnew" ) {
+      if (any(!is.na(xlims)|!is.na(ylims))) {MapNort(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapNort(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)
+    }
+    if (dns=="Arsa") {
+      if (any(!is.na(xlims))) {MapArsa(ICESrect=ICESrect,ICESlab=ICESlab,xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapArsa(ICESrect=ICESrect,ICESlab=ICESlab,ICESlabcex = ICESlabcex)
+      if (leg) {legend("topright",c("Valid","Null"),lty=1,col = c(2,1),inset=.02,bg="white")}
+    }
+    if (dns=="Medi") {
+      if (any(!is.na(xlims))) {MapMedit(xlims=xlims,ylims=ylims,places=places,es=es,bw=bw,ax=ax)} else MapMedit()
+    }
+    if (dns=="Other") {
+      longrank<-range(lan$longitud_l,lan$longitud_v,na.rm=T)
+      if (max(lan$longitud_l,lan$longitud_v)<c(-10)) longrank<-c(longrank[1],c(-10))
+      longrank<-c(floor(longrank[1]),ceiling(longrank[2]))
+      latrank<-range(lan$latitud_l,lan$latitud_v,na.rm=T)
+      latrank<-c(floor(latrank[1]),ceiling(latrank[2]))
+      maps::map("worldHires",xlim=longrank,ylim=latrank,fill=T,col="grey")
+    }
+    box()
+    if (ti) {title(camp.name,line=2)}
+    }
   segments(lan$longitud_l,lan$latitud_l,lan$longitud_v,lan$latitud_v,col=col,lwd=lwd)
+  segments(lanesp$longitud_l,lanesp$latitud_l,lanesp$longitud_v,lanesp$latitud_v,col="red",lwd=lwd)
   if (rumbo) points(lan$longitud_v,lan$latitud_v,pch=21,bg=2,col=1,cex=.8)
   if (incl0) segments(lannul$longitud_l,lannul$latitud_l,lannul$longitud_v,lannul$latitud_l,col=1,lwd=2)
-  if (Nlans) text(latitud_v~longitud_v,lan,label=lan$lance,pos=1,cex=cexlans,font=2,offset=.05)
+  if (Nlans) text(latitud_v~longitud_v,lan,label=lan$lance,pos=1,cex=cexlans,font=2,offset=.05,col=ifelse(add,col,"black"))
   if (Nlans & incl0) text(latitud_v~longitud_v,lannul,label=lannul$lance,pos=1,cex=cexlans,col=2,font=2)
   if (!is.logical(graf)) {
     dev.off()

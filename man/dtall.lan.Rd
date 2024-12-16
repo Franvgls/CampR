@@ -77,6 +77,7 @@ dtall.lan(1,36,"P08","Porc",lances=c(10:15,17),ti=TRUE)
 \seealso{
 Other Distribuciones de tallas: 
 \code{\link{denstall.camp}()},
+\code{\link{dtall.campa}()},
 \code{\link{dtall.campb}()},
 \code{\link{dtall.camp}()},
 \code{\link{dtallan.camp}()},

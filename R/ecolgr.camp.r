@@ -1,10 +1,10 @@
 #' Índices ecológicos para un grupo en una campaña
 #'
 #' Utiliza los datos del Camp para calcular la riqueza, diversidad y dominancia
-#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y otros. 9 incluye todos los grupos a excepción del 6
+#' @param gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados 6 para deshechos y no orgánico. *9 incluye todos los grupos a excepción del 6*
 #' @param esp ha de ser 999 cuando se quiere incluir todas las especies del grupo, o elegir todas las especies deseadas con los codigos de las especies
 #' @param camp Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
-#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa", Mediterráneo "Medi"
+#' @param dns Elige el origen de las bases de datos: Porcupine "Porc" o "Pnew", Cantábrico "Cant", Golfo de Cádiz "Arsa", Mediterráneo "Medi"
 #' @param ind Elige el valor sobre el que se calculan los índices de diversidad, dominancia....
 #' @return Devuelve un data.frame con campos lan,lat,long,prof,div (Diversidad de Shanon),numbesp (riqueza: número de especies),simp (diversidad de simpson),domsimp (indice de dominancia de simpson).
 #' @seealso {\link{MapEcol.camp}}
@@ -12,22 +12,26 @@
 #' @examples ecolgr.camp(1,999,"M08","Medi",ind="n")
 #' @family ecologia
 #' @export
-ecolgr.camp<- function(gr,esp=999,camp,dns="Porc",ind="n") {
-  if (length(camp)>1) {
-    stop("Seleccionadas más de una campaña, sólo se sacan resultados de campañas de una en una")
-  }
-  grupo<-as.character(gr)
+ecolgr.camp<- function(gr,esp=999,camp,dns="Porc",ind="n",subtit=TRUE) {
+  if (length(camp)>1) {stop("Seleccionadas más de una campaña, sólo se sacan resultados de campañas de una en una")}
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
-  if (gr!="9" & esp!="999") {
-    absp<-DBI::dbGetQuery(ch1,paste("select lance,grupo,esp,peso_gr,numero from FAUNA",
-                             camp," where grupo='",gr,"' and esp='",esp,"'",sep="")) }
-  if (gr!="9" & esp=="999") {
-    absp<-DBI::dbGetQuery(ch1,paste("select lance,grupo,esp,peso_gr,numero from FAUNA",camp," where grupo='",gr,"'",sep="")) }
-  if (gr=="9" & esp=="999") {
+  if (length(gr)>1 & esp!="999") {stop("Si se sacan datos de más de un grupo no se puede elegir especies dentro de los grupos")}
+  if (any(gr==6)) {warning("El grupo 6 son elementos no orgánicos y no tiene sentido estudiar su biodiversidad"); gr=gr[gr!=6]}
+    if (length(gr)>1) {
+      absp<-DBI::dbGetQuery(ch1,paste("select lance,grupo,esp,peso_gr,numero from FAUNA",camp," where grupo=","'",gr[1],"'",sep=""))
+      for (i in 2:length(gr)) {
+        absp<-rbind(absp,DBI::dbGetQuery(ch1,paste("select lance,grupo,esp,peso_gr,numero from FAUNA",camp,
+                                                   " where grupo=","'",gr[i],"'",sep=""))) }
+        }
+    # absp<-DBI::dbGetQuery(ch1,paste("select lance,grupo,esp,peso_gr,numero from FAUNA",
+    #                          camp," where grupo='",gr,"' and esp='",esp,"'",sep=""))
+  if (all(length(gr)==1 & gr!="9" & esp=="999")) {absp<-DBI::dbGetQuery(ch1,paste("select lance,grupo,esp,peso_gr,numero from FAUNA",camp," where grupo='",gr,"'",sep="")) }
+  if (all(gr=="9" & esp=="999")) {
     absp<-DBI::dbGetQuery(ch1,paste("select lance,grupo,esp,peso_gr,numero from FAUNA",camp,sep=""))
     absp<-absp[absp$grupo!=6,]
   }
+  grupo<-as.character(gr)
   DBI::dbDisconnect(ch1)
   lan<-datlan.camp(camp,dns,redux=TRUE,incl2=TRUE,incl0=FALSE)
   if (length(lan)==1) {
