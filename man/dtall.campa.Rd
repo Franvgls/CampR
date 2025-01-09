@@ -17,7 +17,7 @@ dtall.campa(
   cexleg = 1,
   bw = TRUE,
   es = TRUE,
-  sex = TRUE,
+  sex = FALSE,
   plot = T,
   idi = "l",
   clms = 2,
@@ -81,8 +81,8 @@ Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(fi
 Histograma de la distribución de tallas media estratificada por sexos a partir de ficheros del camp
 }
 \examples{
-dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T)
-dtall.camp(1,50,Nsh[c(length(Nsh)-9):length(Nsh)],"Cant",es=F,ti=T,years=T,out.dat=T)
+dtall.campa(5,15,"N24","Cant",es=F,sex=F,cor.5=T,out.dat=T)
+dtall.campa(1,111,c("P22","P23"),"Porc",cor.5=T,sex=F)
 }
 \seealso{
 Other Distribuciones de tallas: 

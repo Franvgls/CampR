@@ -34,6 +34,7 @@ Other mapas:
 \code{\link{MapEcol.camp}()},
 \code{\link{MapGaltal}()},
 \code{\link{MapHidro.camp}()},
+\code{\link{MapHidro_b.camp}()},
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
 \code{\link{NepFUs.camp}()},

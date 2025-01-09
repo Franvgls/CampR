@@ -74,6 +74,7 @@ Other mapas:
 \code{\link{GrafMarksGPS}()},
 \code{\link{MapEcol.camp}()},
 \code{\link{MapGaltal}()},
+\code{\link{MapHidro_b.camp}()},
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
 \code{\link{NepFUs.camp}()},
@@ -94,6 +95,9 @@ Other mapas:
 \code{\link{maphistage}()},
 \code{\link{maphistal}()},
 \code{\link{maphist}()}
+
+Other hidrología: 
+\code{\link{MapHidro_b.camp}()}
 }
 \concept{hidrología}
 \concept{mapas}

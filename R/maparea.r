@@ -8,6 +8,7 @@
 #' @param filSAC si T las SACs se llenan con color verde, si F sólo queda el contorno
 #' @param es Textos en español, si F en inglés
 #' @param leg incluye la leyenda con los colores/patrones de los estratos
+#' @param dpth si T incluye los datos de estratos batimétricos en la leyenda, si F solo los sectores
 #' @param bw Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE
 #' @param dens si mayor de 0 las superficies de los estratos tienen patrones de líneas
 #' @param sectcol si T pone los sectores con color de fondo, en caso contrario lo deja en blanco, bueno para armap.tot
@@ -21,7 +22,7 @@
 #' @family mapas
 #' @family Porcupine
 #' @export
-maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw=FALSE,dens=0,
+maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,dpth=TRUE,bw=FALSE,dens=0,
                   sectcol=FALSE,SACs=FALSE,filSAC=FALSE,graf=FALSE,xpng=1000,ypng=900,ppng=15) {
   library(mapdata)
   if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
@@ -61,12 +62,12 @@ maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw
 	  polygon(BelgicaMound$long,BelgicaMound$lat,lwd=2,col=ifelse(filSAC,"darkolivegreen",NA))
 	}
 	if (leg) {
-		rect(-13.2,50.7,-10.3,51.3,col="white")
-		rect(-13.05,51.05,-12.8,51.2,col=colrs[1])
-		rect(-12.8,51.05,-12.55,51.2,col=colrs[3])
-		rect(-12.55,51.05,-12.30,51.2,col=colrs[4])
-		rect(-12.9,50.8,-12.65,50.95,col=colrs[5])
-		rect(-12.65,50.8,-12.4,50.95,col=colrs[6])
+		rect(-13.35,50.7,-10.2,51.3,col="white")
+		rect(-13.2,51.05,-12.95,51.2,col=colrs[1])
+		rect(-12.95,51.05,-12.7,51.2,col=colrs[3])
+		rect(-12.7,51.05,-12.45,51.2,col=colrs[4])
+		rect(-13.,50.8,-12.75,50.95,col=colrs[5])
+		rect(-12.75,50.8,-12.5,50.95,col=colrs[6])
 		if (dens>0) {
 			rect(-13.05,51.05,-12.8,51.2,col=1,density=15)
 			rect(-12.8,51.05,-12.55,51.2,col=1,density=15,angle=0)
@@ -74,8 +75,18 @@ maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw
 			rect(-12.9,50.8,-12.65,50.95,col=1,density=15,angle=0)
 			rect(-12.65,50.8,-12.4,50.95,col=1,density=15,angle=135)
 		   }
-		text(-12.3,(51.2+51.05)/2,label=ifelse(es,"Sector 1 (norte) E, F y G","Sector 1: E, F & G"),pos=4,cex=.8,font=2)
-		text(-12.3,(50.8+50.95)/2,label=ifelse(es,"Sector 2 (sur) F & G","Sector 2: F & G"),pos=4,cex=.8,font=2)
+		text(-12.5,(51.2+51.05)/2,label=ifelse(es,"Sector 1 (norte)","Sector 1 (North)"),pos=4,cex=.9,font=2)
+		text(-12.5,(50.8+50.95)/2,label=ifelse(es,"Sector 2 (sur)","Sector 2 (south)"),pos=4,cex=.9,font=2)
+		if (dpth) {
+		  par(lheight=1.5)
+		  text(-10.85,(50.76+51.26)/2,label=ifelse(es,"Estratos\nE (170-300 m)\nF (301-450 m)\n G (451-800 m)","Depth strata:\nE (170-300 m)\nF (301-450 m)\n G (451-800 m)"),cex=.9,font=2)
+		  rect(-10.46,51.1,-10.34,51.02,col=colrs[1])
+		  rect(-10.46,50.91,-10.34,50.98,col=colrs[3])
+		  rect(-10.41,50.91,-10.34,50.98,col=colrs[5])
+		  rect(-10.46,50.785,-10.4,50.86,col=colrs[4])
+		  rect(-10.41,50.785,-10.34,50.86,col=colrs[6])
+		  par(lheight=1)
+		}
 	}
 	box()
 	axis(1,at=seq(-16,-8,by=1),labels=paste(abs(seq(-16,-8,by=1)),"º",sep=""),cex.axis=.8)
@@ -86,5 +97,4 @@ maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,bw
 	  dev.off()
 	  message(paste0("figura: ",getwd(),"/",graf,".png"))
 	}
-
 	}

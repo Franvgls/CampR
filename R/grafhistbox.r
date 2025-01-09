@@ -46,7 +46,7 @@ grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.l
   if (tline & DLS) {stop("Elija línea de tendencia tline=T o cambios últimos 2 años frente a 3 previos DLS=T")}
   op<-par("mar")
   if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
-  if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
+  if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="r",yaxs="i")
   if (any(is.na(mar))) par(mar=c(4, 4.5, 2.5, 2.5) + 0.1)
   else par(mar=mar,mgp=c(2.8,.8,0))
 #  par(mgp=c(2,ifelse(is.na(ymax),.7,1.5),0))

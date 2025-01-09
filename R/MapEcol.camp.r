@@ -111,8 +111,8 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
                       lattice::panel.xyplot(Porc.map$x,Porc.map$y,type="l",lty=3,col=gray(.2))
                       grid::grid.polygon(maps::map(Porc.map,"narr",plot=FALSE)[[1]],maps::map(Porc.map,"narr",plot=FALSE)[[2]],
                                    default.units = "native",gp=grid::gpar(fill=gray(.7)))
-                      lattice::panel.xyplot(c(-12.5,-12.5,-12.5,-12.5),c(51.5,51.3,51.1,50.9),cex=1*cex.pt,pch=21,col=1,fill=c("yellow","green","lightsalmon","red"))
-                      lattice::ltext(rep(-12.5,4),c(51.5,51.3,51.1,50.9),labels=leyenda,pos=4,offset=1,cex=.8)
+                      lattice::panel.xyplot(c(-12.5,-12.5,-12.5,-12.5),rev(c(51.5,51.3,51.1,50.9)),cex=1*cex.pt,pch=21,col=1,fill=c("yellow","green","lightsalmon","red"))
+                      lattice::ltext(rep(-12.5,4),rev(c(51.5,51.3,51.1,50.9)),labels=leyenda,pos=4,offset=1,cex=.8)
                       if (indec=="div") {lattice::panel.xyplot(x,y,cex=1*cex.pt,pch=21,col=1,fill=as.character(dumb$divC))}
                       if (indec=="simp") {lattice::panel.xyplot(x,y,cex=1*cex.pt,pch=21,col=1,fill=as.character(dumb$simpC))}
                       if (indec=="nesp") {lattice::panel.xyplot(x,y,cex=1*cex.pt,pch=21,col=1,fill=as.character(dumb$nespC))}
@@ -130,8 +130,8 @@ MapEcol.camp<-function(gr,esp="999",camp,dns="Porc",ind="n",indec="div",plot=TRU
                       lattice::panel.xyplot(Nort.str$x,Nort.str$y,type="l",lty=3,col=gray(.2))
                       grid::grid.polygon(maps::map(Nort.map,"Costa",plot=FALSE)[[1]],maps::map(Nort.map,"Costa",plot=FALSE)[[2]],
                                    default.units = "native",gp=grid::gpar(fill=ifelse(bw,gray(.7),"bisque")))
-                      lattice::panel.xyplot(rep(-7,4),c(43.,42.80,42.60,42.4),cex=1*cex.pt,pch=21,col=1,fill=c("yellow","green","lightsalmon","red"))
-                      lattice::ltext(rep(-7,4),c(43.,42.80,42.60,42.4),labels=leyenda,pos=4,offset=1.1,cex=.7)
+                      lattice::panel.xyplot(rep(-7,4),rev(c(43.,42.80,42.60,42.4)),cex=1*cex.pt,pch=21,col=1,fill=c("yellow","green","lightsalmon","red"))
+                      lattice::ltext(rep(-7,4),rev(c(43.,42.80,42.60,42.4)),labels=leyenda,pos=4,offset=1.1,cex=.7)
                       if (indec=="div") {lattice::panel.xyplot(x,y,cex=1*cex.pt,pch=21,col=1,fill=as.character(dumb$divC))}
                       if (indec=="simp") {lattice::panel.xyplot(x,y,cex=1*cex.pt,pch=21,col=1,fill=as.character(dumb$simpC))}
                       if (indec=="nesp") {lattice::panel.xyplot(x,y,cex=1*cex.pt,pch=21,col=1,fill=as.character(dumb$nespC))}

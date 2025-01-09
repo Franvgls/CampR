@@ -39,6 +39,7 @@ MapHidro.camp<-function(camp,dns="Porc",ind="t",plot=TRUE,subtit=TRUE,bw=FALSE,t
   }
   dumb$camp<-factor(dumb$camp)
   if (ind=="t") {
+    if (all(is.na(dumb$temp))) {stop("No existen datos de temperatura en la campaña solicitada")}
     dumb$tempF<-cut(dumb$temp,breaks=cuts,right=T) #etiquetas leyenda
     dumb$tempC<-cut(dumb$temp,breaks=cuts,labels = heat.colors(cuts),right=T) # colores puntos
     leyenda<-levels(dumb$tempF)
@@ -46,7 +47,7 @@ MapHidro.camp<-function(camp,dns="Porc",ind="t",plot=TRUE,subtit=TRUE,bw=FALSE,t
   else sub<-sub<-"Temperatura"
        }
   if (ind=="s") {
-    #leyenda<-c(0,15,20,25,50)
+    if (all(is.na(dumb$sali))) {stop("No existen datos de salinidad en la campaña solicitada")}    #leyenda<-c(0,15,20,25,50)
     dumb$salF<-cut(dumb$sali,breaks=cuts,right=T)  #etiquetas leyenda
     dumb$salC<-cut(dumb$sali,breaks=cuts,labels = terrain.colors(cuts),right=T) # colores puntos
     leyenda<-levels(dumb$salF)
@@ -82,7 +83,10 @@ MapHidro.camp<-function(camp,dns="Porc",ind="t",plot=TRUE,subtit=TRUE,bw=FALSE,t
                                    default.units = "native",gp=grid::gpar(fill=gray(.7)))
                       lattice::panel.xyplot(c(-12.5,-12.5,-12.5,-12.5),c(51.5,51.3,51.1,50.9),cex=1*cex.pt,pch=21,col=1,fill=c("yellow","green","lightsalmon","red"))
                       lattice::ltext(rep(-12.5,4),c(51.5,51.3,51.1,50.9),labels=leyenda,pos=4,offset=1,cex=.8)
-                      if (ind=="t") {lattice::panel.xyplot(x,y,cex=1*cex.pt,pch=21,col=1,fill=as.character(dumb$tempC))}
+                      if (ind=="t") {
+                        lattice::panel.xyplot(x,y,cex=1*cex.pt,pch=21,col=1,fill=as.character(dumb$tempC))
+                        lattice::panel.xyplot(x,y,subset=is.na(dumb$temp),cex=1*cex.pt,pch="X",col=1)
+                      }
                       if (ind=="s") {lattice::panel.xyplot(x,y,cex=1*cex.pt,pch=21,col=1,fill=as.character(dumb$salC))}
                     }) }
   if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {

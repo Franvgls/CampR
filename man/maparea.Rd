@@ -10,6 +10,7 @@ maparea(
   ICESlabcex = 0.7,
   es = TRUE,
   leg = TRUE,
+  dpth = TRUE,
   bw = FALSE,
   dens = 0,
   sectcol = FALSE,
@@ -31,6 +32,8 @@ maparea(
 \item{es}{Textos en español, si F en inglés}
 
 \item{leg}{incluye la leyenda con los colores/patrones de los estratos}
+
+\item{dpth}{si T incluye los datos de estratos batimétricos en la leyenda, si F solo los sectores}
 
 \item{bw}{Si T mapa en blanco y negro respecto a tierra y puntos, en caso contrario en color. Para sacar el diseño de estratos de Porcupine se utiliza sectcol=TRUE y leg=TRUE}
 
@@ -66,6 +69,7 @@ Other mapas:
 \code{\link{MapEcol.camp}()},
 \code{\link{MapGaltal}()},
 \code{\link{MapHidro.camp}()},
+\code{\link{MapHidro_b.camp}()},
 \code{\link{MapLansGPS}()},
 \code{\link{MapLansHH}()},
 \code{\link{NepFUs.camp}()},

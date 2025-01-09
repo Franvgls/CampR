@@ -25,10 +25,10 @@
 #' @param verbose Si T saca avisos de consistencia en tallas, sino los omite
 #' @return Si plot=T saca el gráfico, pero si out.dat=T puede exportar una matriz talla(filas)xCampañas(columnas)
 #' @family Distribuciones de tallas
-#' @examples dtall.camp(1,63,Psh,"Porc",es=F,sex=F,ti=T,years=T)
-#' @examples dtall.camp(1,50,Nsh[c(length(Nsh)-9):length(Nsh)],"Cant",es=F,ti=T,years=T,out.dat=T)
+#' @examples dtall.campa(5,15,"N24","Cant",es=F,sex=F,cor.5=T,out.dat=T)
+#' @examples dtall.campa(1,111,c("P22","P23"),"Porc",cor.5=T,sex=F)
 #' @export
-dtall.campa<- function(gr,esp,camp,dns,cor.time=TRUE,cor.5=FALSE,ti=FALSE,sub=NA,leg=TRUE,cexleg=1,bw=TRUE,es=TRUE,sex=TRUE,plot=T,idi="l",clms=2,
+dtall.campa<- function(gr,esp,camp,dns,cor.time=TRUE,cor.5=FALSE,ti=FALSE,sub=NA,leg=TRUE,cexleg=1,bw=TRUE,es=TRUE,sex=FALSE,plot=T,idi="l",clms=2,
                        layout=NA,excl.sect=NA,ymax=NA,out.dat=FALSE,years=TRUE,verbose=TRUE) {
   library(lattice)
   options(scipen=2)
@@ -48,7 +48,7 @@ dtall.campa<- function(gr,esp,camp,dns,cor.time=TRUE,cor.5=FALSE,ti=FALSE,sub=NA
     medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm",ifelse(increm==5,"x5 mm","mm"))
   }
   if (bw) {
-    colbars<-c(gray(.2),gray(.6),"white")
+    colbars<-c(gray(.5),gray(.8),"white")
   }
   else {
     colbars<-c("lightyellow","steelblue","yellow1")
@@ -72,13 +72,18 @@ dtall.campa<- function(gr,esp,camp,dns,cor.time=TRUE,cor.5=FALSE,ti=FALSE,sub=NA
   for (i in 1:ndat) {
     #browser()
     dtall<-dattal.camp(gr,esp,camp[i],dns,cor.time=cor.time,excl.sect=excl.sect,sex=sex,verbose=verbose)
+    if (!sex) {
+      dtall$indet<-dtall$numero
+    }
     #### sección para corregir datos de tallas a .5 cm dejándolos a 1 cm
     if (cor.5 & diff(range(dtall$talla))>150) {
       dtall$talb<- trunc(dtall$talla/10)
-      dtall<-aggregate(numero~talb,dtall,sum)
+      dtall<-aggregate(indet~talb,dtall,sum)
       names(dtall)<-c("talla","indet")
       increm<-1
       medida<-"cm"
+      if (es) {ax<-c(paste0("Talla (",medida,")"),expression("Ind"%*%"lan"^-1))}
+      else {ax<-c(paste0("Length (",medida,")"),expression("Ind"%*%"haul"^-1))}
     }
     names(dtall)<-c("talla",sexn[which(!is.na(match(dtalln,names(dtall)[2:ncol(dtall)])))])
     sxs<- match(sixn,names(dtall)[2:length(names(dtall))])
@@ -128,8 +133,8 @@ dtall.campa<- function(gr,esp,camp,dns,cor.time=TRUE,cor.5=FALSE,ti=FALSE,sub=NA
     #			}
   }
   else {
-    if (bw) colbars<-gray(.3)
-    else colbars<-"olivedrab1"
+    if (bw) colbars<-gray(.9)
+    else colbars<-"steelblue"
     leg=F
   }
   #browser()
@@ -187,11 +192,11 @@ dtall.campa<- function(gr,esp,camp,dns,cor.time=TRUE,cor.5=FALSE,ti=FALSE,sub=NA
   #browser()
   if (plot) {
     if (bw) {
-      colbars<-c(gray(.2),gray(.5),"white")
+      colbars<-c(gray(.8),gray(.7),"white")
       lattice::trellis.par.set("strip.background",list(col=c(gray(.80))))
     }
     else {
-      colbars<-c("lightyellow", "steelblue", "yellow1")
+      colbars<-c("lightblue", "steelblue", "yellow1")
       lattice::trellis.par.set(lattice::col.whitebg())
     }
     print(foo)
