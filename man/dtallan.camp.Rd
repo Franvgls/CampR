@@ -53,7 +53,6 @@ dtallan.camp(gr=1,esp=10,camp="N14",dns="Cant",lances=NA,muestr=F)
 Other Distribuciones de tallas: 
 \code{\link{denstall.camp}()},
 \code{\link{dtall.campa}()},
-\code{\link{dtall.campb}()},
 \code{\link{dtall.camp}()},
 \code{\link{dtall.lan}()},
 \code{\link{dtallan.peso}()},

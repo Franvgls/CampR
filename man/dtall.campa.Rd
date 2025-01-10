@@ -87,7 +87,6 @@ dtall.campa(1,111,c("P22","P23"),"Porc",cor.5=T,sex=F)
 \seealso{
 Other Distribuciones de tallas: 
 \code{\link{denstall.camp}()},
-\code{\link{dtall.campb}()},
 \code{\link{dtall.camp}()},
 \code{\link{dtall.lan}()},
 \code{\link{dtallan.camp}()},

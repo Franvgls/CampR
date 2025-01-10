@@ -59,7 +59,6 @@ denstall.camp(gr=1,esp=50,camp=Psh,dns="Porc",years=TRUE)
 \seealso{
 Other Distribuciones de tallas: 
 \code{\link{dtall.campa}()},
-\code{\link{dtall.campb}()},
 \code{\link{dtall.camp}()},
 \code{\link{dtall.lan}()},
 \code{\link{dtallan.camp}()},
