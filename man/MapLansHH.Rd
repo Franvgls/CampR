@@ -83,6 +83,7 @@ Other mapas:
 \code{\link{MapHidro.camp}()},
 \code{\link{MapHidro_b.camp}()},
 \code{\link{MapLansGPS}()},
+\code{\link{MatchHidro.ctd}()},
 \code{\link{NepFUs.camp}()},
 \code{\link{NewPorcCanyon}},
 \code{\link{PorShelfSAC}},

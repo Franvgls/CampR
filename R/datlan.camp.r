@@ -37,15 +37,16 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     lan$sector<-as.integer(lan$sector)
     lan$estn<-as.integer(lan$estn)
     lan$arte<-as.integer(lan$arte)
+    lan$camp<-camp
     if (outhidro) {
       if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {message(paste0("No existe fichero de CTDs para ",camp));outhidro=FALSE}
       else
-        {dathidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
-        names(dathidro)<-tolower(names(dathidro))
-        dathidro<-dplyr::rename(dathidro,prof.ctd=prof) #dathidro$prof.ctd<-dathidro$prof
-        dathidro<-dplyr::rename(dathidro,cable.ctd=cable) #dathidro$prof.ctd<-dathidro$prof
-        dathidro$fecha<-as.Date(ifelse(dathidro$fecha < "1980-12-31", format(dathidro$fecha, "20%y-%m-%d"), format(dathidro$fecha)))
-        dathidro$lance<-as.numeric(dathidro$lance)
+        {dathidro<-dathidro.camp(camp,dns)
+        #names(dathidro)<-tolower(names(dathidro))
+        # dathidro<-dplyr::rename(dathidro,prof.ctd=prof) #dathidro$prof.ctd<-dathidro$prof
+        # dathidro<-dplyr::rename(dathidro,cable.ctd=cable) #dathidro$prof.ctd<-dathidro$prof
+        # dathidro$fecha<-as.Date(ifelse(dathidro$fecha < "1980-12-31", format(dathidro$fecha, "20%y-%m-%d"), format(dathidro$fecha)))
+        # dathidro$lance<-as.numeric(dathidro$lance)
         if(nrow(dathidro)==0) message("Fichero de CTDs sin datos")
         }}
     dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
@@ -111,8 +112,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     area<-area[!is.na(area$arsect),]
     if (!incl0) {lan<-lan[c(lan$validez!=0),]}
     if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
-    datos<-merge(lan,area,by.x="sector",by.y="sector",all.x=TRUE)
-    if (outhidro) datos<-merge(lan,dathidro,by=c("lance","fecha","temp","sali","estn"),all.x = T)
+    datos<-dplyr::left_join(lan,area,by="sector")
+    if (outhidro) datos<-dplyr::full_join(lan,dathidro,by=c("camp","lance","temp","sali","estn","zona"))
     #datos$arsect<-as.numeric(as.character(datos$arsect))
     datos$barco<-barco
     #browser()
@@ -122,7 +123,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     if(year==T) datos$year=year(datos$fecha)
     datos[order(datos$lance),]
     }
-  datos<-data.frame(foop(camp[1],dns=dns,incl2=incl2,incl0=incl0,outhidro=outhidro),camp=camp[1])
+  datos<-data.frame(foop(camp[1],dns=dns,incl2=incl2,incl0=incl0,outhidro=outhidro))
   if (length(camp)>1) {
     for (i in camp[2:length(camp)]) datos<-rbind(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0,outhidro=outhidro),camp=i))
   }
@@ -135,8 +136,8 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
   }
   datos$sector<-factor(as.character(datos$sector))
   if (redux) {datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l")); datos<-dplyr::relocate(datos,c("camp","lance","validez","lat","long","prof"))}
-  if (!redux & !bio) {datos<-dplyr::select(datos,-c("long","lat","prof")); datos<-dplyr::relocate(datos,c("camp","lance","validez"))}
-  if (outhidro & redux) datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l"))
+  if (!redux & !bio) {datos<-dplyr::select(datos,-c("long","lat","prof"));datos$camp<-camp; datos<-dplyr::relocate(datos,c("camp","lance","validez"))}
+  #if (outhidro & redux) datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l"))
   if (bio) datos<-datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")]
   return(datos)
   }
