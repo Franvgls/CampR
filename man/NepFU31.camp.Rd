@@ -11,6 +11,7 @@ NepFU31.camp(
   es = FALSE,
   ti = TRUE,
   ICESlab = FALSE,
+  ceros = T,
   ICESrectcol = 1,
   ICESrect = TRUE,
   FU = "FU31",
@@ -35,6 +36,8 @@ NepFU31.camp(
 \item{es}{si T letreros en español, si F en inglés (F por defecto)}
 
 \item{ICESlab}{Si T incluye las etiquetas de los rectángulos ICES}
+
+\item{ceros}{si T saca los puntos sin captura de cigala como puntos negros, si F no se representan los ceros}
 
 \item{ICESrect}{Si T saca los rectangulos ices de 1 grado de latitud por medio de longitud}
 

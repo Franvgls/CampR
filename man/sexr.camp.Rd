@@ -13,6 +13,7 @@ sexr.camp(
   excl.sect = NA,
   verbose = TRUE,
   plot = TRUE,
+  es = F,
   sex.ratio = TRUE,
   sex.prop = FALSE,
   out.dat = FALSE

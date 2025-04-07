@@ -11,13 +11,17 @@ NepFU25.camp(
   es = FALSE,
   ti = TRUE,
   ICESlab = FALSE,
+  ceros = T,
   ICESrectcol = 1,
   ICESrect = TRUE,
   FU = 25,
   places = TRUE,
   out.dat = TRUE,
   ColFU = "white",
-  dens = 20
+  dens = 20,
+  leg = T,
+  escmult = 0.25,
+  cexleg = 1
 )
 }
 \arguments{

@@ -40,7 +40,7 @@ DpthPrflTals<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,inc
     medida<-c("cm")
   }
   else { medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm") }
-  dumb<-maphistal(gr,esp,camps,dns,tmin,tmax,cor.time=cor.time,incl2=incl2,sex=sex,plot=FALSE,out.dat=TRUE,ind=ind)
+  dumb<-maphistal(gr,esp,camps,dns,tmin,tmax,cor.time=cor.time,incl2=incl2,sex=sex,plot=T,out.dat=TRUE,ind=ind)
   if (ind=="n") {
     if (sum(dumb$numero)==0) {
       stop(paste("La especie",buscaesp(gr,esp),"no tiene capturas o datos de talla, saque distribuci?n con DpthPrfl"))

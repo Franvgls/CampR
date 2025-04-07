@@ -209,6 +209,12 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
 	  print(mapdist)
 	  dev.off()}
 	if (plot) {print(mapdist)}
+	if (!plot) return(mapdist)
+  if (!is.logical(graf)) {
+	  dev.off()
+	  message(paste0("figura: ",getwd(),"/",graf,".png"))
+	}
+	if (!is.logical(graf)) par(mar=c(5, 4, 4, 2) + 0.1)
 	if (out.dat) {
 	  if (ind=="n") dumb$numero<-round(dumb$numero,1)
     if (ind=="p") dumb$peso<-round(dumb$peso,2)
@@ -216,10 +222,4 @@ maphistal<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=
     if (!ceros) dumb<-dumb[dumb$numero>0,]
     print(dumb)
     }
-	if (!plot) return(mapdist)
-  if (!is.logical(graf)) {
-	  dev.off()
-	  message(paste0("figura: ",getwd(),"/",graf,".png"))
-	}
-	if (!is.logical(graf)) par(mar=c(5, 4, 4, 2) + 0.1)
 }
