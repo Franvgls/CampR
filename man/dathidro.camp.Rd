@@ -25,14 +25,14 @@ Extrae las características de las hidrología para una campaña determinada
 \details{
 Un problema que ocurre al utilizar el CampR con ficheros dbf de las primeras campañas
 puede ser que al fichero lanceXXX.dbf le falte algún campo, habitualmente
-el campo \strong{ESTN} utilizado en las últimas versiones del \strong{CAMP} para ligar lances con las estaciones de CTD.
+el campo \strong{ESTN} utilizado en las últimas versiones del \strong{CAMP} para relacionar los lances con las estaciones de CTD.
 El error usual es \strong{$ operator is invalid for atomic vectors}
 Si se detecta este error revisar la estructura de lanceXXX.dbf con la de
 otros ficheros de lances de los últimos años
 }
 \examples{
   print(dathidro.camp(Nsh[24],"Cant"))
-  print(datlan.camp("P16","Porc",bio=T,out))
+  print(datlan.camp("P16","Porc",bio=T,outhidro=T))
 }
 \seealso{
 {\link{MapLansGPS}}

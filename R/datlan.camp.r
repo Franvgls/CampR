@@ -26,31 +26,52 @@
 #'   print(datlan.camp(Nsh[24:28],"Cant",hidro=FALSE,excl.sect=c("A")))
 #'   print(datlan.camp("P16","Porc",bio=T))
 #' @export
-datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=NA,redux=FALSE,year=TRUE,quarter=TRUE,bio=FALSE) {
-  foop<-function(camp,dns,incl2=incl2,incl0=incl0,hidro=hidro,outhidro=outhidro) {
-    if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-    ch1<-DBI::dbConnect(odbc::odbc(), dns)
+datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,year=TRUE,quarter=TRUE,bio=FALSE) {
+  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  on.exit(DBI::dbDisconnect(ch1), add = TRUE)
+  lan<-DBI::dbGetQuery(ch1,paste0("select lance,validez,latitud_l,latitud_v,longitud_l,longitud_v,prof_l,prof_v,velocidad,
+                            sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,nsl,nsv,cuadricula,hora_l,hora_v,rumbo,dir_viento,
+                                    vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp[1]))
+  lan$camp<-camp[1]
+  dumb<-DBI::dbReadTable(ch1,paste0("CAMP",i))
+  lan$haul.mins<-dumb$DURLAN
+  lan$barco<-dumb$BARCO
+  lan$sector<-paste0(lan$sector,lan$estrato)
+  if(quarter==T) lan$quarter=substr(quarters(as.Date(lan$fecha)),2,2)
+  if(year==T) lan$year=year(lan$fecha)
+  foop<-function(camp,dns,incl2=incl2,incl0=incl0) {
+      # ch1<-DBI::dbConnect(odbc::odbc(), dns)
+      # on.exit(DBI::dbDisconnect(ch1), add = TRUE)
+      if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     lan<-DBI::dbGetQuery(ch1,paste0("select lance,validez,latitud_l,latitud_v,longitud_l,longitud_v,prof_l,prof_v,velocidad,
-                            sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,nsl,nsv,cuadricula,hora_l,hora_v,rumbo,dir_viento,vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp))
+                            sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,nsl,nsv,cuadricula,hora_l,hora_v,rumbo,dir_viento,
+                                    vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp))
     lan$lance<-as.integer(lan$lance)
     lan$validez<-as.integer(lan$validez)
     lan$sector<-as.integer(lan$sector)
     lan$estn<-as.integer(lan$estn)
     lan$arte<-as.integer(lan$arte)
     lan$camp<-camp
-    if (outhidro) {
-      if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {message(paste0("No existe fichero de CTDs para ",camp));outhidro=FALSE}
-      else
-        {dathidro<-dathidro.camp(camp,dns)
-        #names(dathidro)<-tolower(names(dathidro))
-        # dathidro<-dplyr::rename(dathidro,prof.ctd=prof) #dathidro$prof.ctd<-dathidro$prof
-        # dathidro<-dplyr::rename(dathidro,cable.ctd=cable) #dathidro$prof.ctd<-dathidro$prof
-        # dathidro$fecha<-as.Date(ifelse(dathidro$fecha < "1980-12-31", format(dathidro$fecha, "20%y-%m-%d"), format(dathidro$fecha)))
-        # dathidro$lance<-as.numeric(dathidro$lance)
-        if(nrow(dathidro)==0) message("Fichero de CTDs sin datos")
-        }}
+    # if (outhidro) {
+    #   if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {message(paste0("No existe fichero de CTDs para ",camp));outhidro=FALSE}
+    #   else
+    #     {dathidro<-dathidro.camp(camp,dns)
+    #      if(nrow(dathidro)==0) message("Fichero de CTDs sin datos")
+    #     }}
     dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
-    DBI::dbDisconnect(ch1)
+    lan$haul.mins<-dumb$DURLAN
+    lan$barco<-dumb$BARCO
+    lan$sector<-paste0(lan$sector,lan$estrato)
+    area<-as.data.frame(cbind(sector=
+                                as.character(substr(names(dumb[,21:45]),2,3)),arsect=as.numeric(t(dumb[,21:45]))))
+    area<-area[!is.na(area$arsect),]
+    # if(outhidro) {datos<-dplyr::full_join(lan,dathidro[,c("camp","lance","hora.ctd","fecha.ctd","lat.ctd","long.ctd","sonda","cable.ctd",
+    #                          "prof.ctd","temp0","sali0","sigma0","temp50","sali50","sigma50","temp100","sali100","sigma100")])}
+    # if (outhidro) datos<-dplyr::full_join(lan,dathidro,by=c("camp","lance","temp","sali","estn","zona"))
+    #datos$arsect<-as.numeric(as.character(datos$arsect))
+    #browser()
+    #datos<-datos[,c(2,1,3:ncol(datos))]
+    #names(datos)<-tolower(names(datos))
     if (any(!lan$nsl %in% c("N","S"))) message(paste("En el lance",lan[!lan$nsl %in% c("N","S"),"lance"],
                                                            "el campo nsl que debe ser N o S y es",lan[!lan$nsl %in% c("N","S"),"nsl"]))
     if (any(!lan$ewl %in% c("W","E"))) message(paste("En la estación",paste(lan[!lan$ewl %in% c("E","W"),"ewl"],collapse = ","),
@@ -66,7 +87,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     lan$lat<-round((lan$latitud_l+lan$latitud_v)/2,4)
     lan$long<-round((lan$longitud_l+lan$longitud_v)/2,4)
     lan$prof<-(lan$prof_l+lan$prof_v)/2
-    lan<-lan[,-c(22:19)]
+    #lan<-lan[,-c(22:19)]
     lan$zona<-NA
     for (i in c(1:nrow(lan))) {
       if (lan$lat[i]>48 & lan$lat[i]<52.5 & lan$long[i]>c(-18) & lan$long[i]<c(-12)) {lan$zona[i]<- "7k"}
@@ -96,37 +117,30 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     lan$temp[lan$temp==0]<-NA
     lan$fecha<-as.Date(ifelse(lan$fecha < "1980-12-31", format(lan$fecha, "20%y-%m-%d"), format(lan$fecha)))
       #format(lan$fecha,"%d-%m-%y")
-    durlan<-dumb$DURLAN
-    lan$sector<-paste0(lan$sector,lan$estrato)
-    lan$weight.time<-ifelse(durlan==60,1,2)*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6)))
+    #durlan<-dumb$DURLAN
+    lan$weight.time<-ifelse(lan$haul.mins==60,1,2)*((trunc(lan$hora_v)+((lan$hora_v-trunc(lan$hora_v))/.6))-(trunc(lan$hora_l)+((lan$hora_l-trunc(lan$hora_l))/.6)))
     lan$weight.time<-round(lan$weight.time,3)
-    lan$Haul.mins<-durlan
     lan$hora_l<-format(lan$hora_l,format="%H")
     lan$hora_v<-format(lan$hora_v,format="%H")
+    if(quarter==T) lan$quarter=substr(quarters(as.Date(lan$fecha)),2,2)
+    if(year==T) lan$year=year(lan$fecha)
     #if (!any(redux | bio)) lan<-lan[,c(1:29,33:35)]
     #else lan<-lan[,c(1:2,30:32,9:29,33:35)]
     #print(names(lan))
-    barco<-dumb$BARCO
-    area<-as.data.frame(cbind(sector=
-                                as.character(substr(names(dumb[,21:45]),2,3)),arsect=as.numeric(t(dumb[,21:45]))))
-    area<-area[!is.na(area$arsect),]
+    #barco<-dumb$BARCO
     if (!incl0) {lan<-lan[c(lan$validez!=0),]}
     if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
     datos<-dplyr::left_join(lan,area,by="sector")
-    if (outhidro) datos<-dplyr::full_join(lan,dathidro,by=c("camp","lance","temp","sali","estn","zona"))
-    #datos$arsect<-as.numeric(as.character(datos$arsect))
-    datos$barco<-barco
-    #browser()
-    #datos<-datos[,c(2,1,3:ncol(datos))]
-    names(datos)<-tolower(names(datos))
-    if(quarter==T) datos$quarter=substr(quarters(as.Date(datos$fecha)),2,2)
-    if(year==T) datos$year=year(datos$fecha)
+    datos$arsect<-as.numeric(as.character(datos$arsect))
+    #if(quarter==T) datos$quarter=substr(quarters(as.Date(datos$fecha)),2,2)
+    #datos<-dplyr::select(datos,-camp)
     datos[order(datos$lance),]
     }
-  datos<-data.frame(foop(camp[1],dns=dns,incl2=incl2,incl0=incl0,outhidro=outhidro))
+  datos<-data.frame(camp=camp[1],foop(camp[1],dns=dns,incl2=incl2,incl0=incl0)) #,outhidro=outhidro
   if (length(camp)>1) {
-    for (i in camp[2:length(camp)]) datos<-rbind(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0,outhidro=outhidro),camp=i))
+    for (i in camp[2:length(camp)]) datos<-dplyr::bind_rows(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0),camp=i)) #,outhidro=outhidro
   }
+#  if (length(datos$camp)==0) {datos$camp<-camp}
   if (any(is.na(datos$zona))) {message(paste0("Al menos un lance: ",datos$lance[is.na(datos$zona)],
                                             " sin Zona ICES asignada, revise resultados"))}
   if (any(!is.na(excl.sect))) {
@@ -134,11 +148,19 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,outhidro=FALSE,excl.sect=N
     for (i in 1:length(excl.sect)) {if (length(grep(excl.sect[i],as.character(datos$sector))>0)) datos<-datos[-grep(excl.sect[i],as.character(datos$sector)),]}
     #		  datos$sector<-factor(as.character(datos$sector))
   }
-  datos$sector<-factor(as.character(datos$sector))
-  if (redux) {datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l")); datos<-dplyr::relocate(datos,c("camp","lance","validez","lat","long","prof"))}
-  if (!redux & !bio) {datos<-dplyr::select(datos,-c("long","lat","prof"));datos$camp<-camp; datos<-dplyr::relocate(datos,c("camp","lance","validez"))}
+  datos$sector<-as.character(datos$sector)
+  if (redux) {
+    datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l"))
+    datos<-dplyr::relocate(datos,c("camp","lance","validez","lat","long","prof"))
+    }
+  if (!redux & !bio) {
+    #datos<-dplyr::select(datos,-c("long","lat","prof"))
+    #datos$camp<-camp
+    datos<-dplyr::relocate(datos,c("camp","lance","validez"))
+    }
   #if (outhidro & redux) datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l"))
-  if (bio) datos<-datos[,c("lance","sector","validez","lat","long","prof","estrato","fecha","zona","camp")]
+  if (bio) datos<-datos[,c("camp","lance","sector","validez","lat","long","prof","estrato","fecha","zona")]
+  if (!is.null(datos$camp.1)) {datos<-select(datos,-camp.1)}
   return(datos)
   }
 

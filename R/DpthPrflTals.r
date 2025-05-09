@@ -17,6 +17,7 @@
 #' @param nlans Si T añade el número de lances en cada rango de profundidad
 #' @param spl Si T incluye una curva spline en el gráfico
 #' @param brks Especifica los rangos de profundidad: "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, las opciones "FD", "Sturges" y "scott" también son válidas como están implenmentadas en {\link{hist}}
+#' @param overdpth En el caso de que, con brks=norte o porcupine de un aviso de que hay profundidades fuera de la estratificación fija el límite del estrato máximo al de la profundidad máxima detectada más 10 m, se aconseja tenerlo en T, y da error si hay profundidades fuera de brks .
 #' @param tabres Muestra una tabla resumen de la media, total de biomasa o número y frecuencia de la especie por estación según el brks especificado
 #' @param tit2 Añade un segundo título al gráfico especificando el rango de tallas
 #' @param cexleg Varía el tamaño de letra de los ejes y del número de la leyenda
@@ -25,7 +26,7 @@
 #' @examples DpthPrflTals(1,50,"P08","Porc",brks="porcupine")
 #' @export
 DpthPrflTals<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,incl2=T,ind="n",sex=NA,es=TRUE,ti=TRUE,idi="l",xmax=NA,
-                       nlans=TRUE,spl=FALSE,brks="Sturges",tabres=TRUE,tit2=TRUE,cexleg=1) {
+                       nlans=TRUE,spl=FALSE,brks="Sturges",overdpth=TRUE,tabres=TRUE,tit2=TRUE,cexleg=1) {
   esp<-format(esp,width=3,justify="r")
   if (length(gr)>1 | any(gr==9)) stop("No se pueden mezclar datos de grupos distintos, solo distintas especies del mismo grupo")
   #  if (chpar)  opar<-par(no.readonly=TRUE)
@@ -40,7 +41,7 @@ DpthPrflTals<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,inc
     medida<-c("cm")
   }
   else { medida<-ifelse(unid.camp(gr,esp)["MED"]==1,"cm","mm") }
-  dumb<-maphistal(gr,esp,camps,dns,tmin,tmax,cor.time=cor.time,incl2=incl2,sex=sex,plot=T,out.dat=TRUE,ind=ind)
+  dumb<-maphistal(gr,esp,camps,dns,tmin,tmax,cor.time=cor.time,incl2=incl2,sex=sex,plot=F,out.dat=TRUE,ind=ind)
   if (ind=="n") {
     if (sum(dumb$numero)==0) {
       stop(paste("La especie",buscaesp(gr,esp),"no tiene capturas o datos de talla, saque distribuci?n con DpthPrfl"))
@@ -61,12 +62,20 @@ DpthPrflTals<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,inc
     ylims<-c(-800,0)
   }
   if (any(brks=="porcupine")) {
-    brks=c(0,150,300,450,800)
-    if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[5]) stop("Existen lances fuera de los rangos de la campa?a, revise los datos")
+    brks=c(150,300,450,800)
+    if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[4]) k=T
+    if (max(dumb$prof)>brks[4] & overdpth) {
+      brks=c(brks,max(dumb$prof)+10)
+      ylims<-c(brks[length(brks)],brks[1])*c(-1)
+    }
   }
   if (any(brks=="norte")) {
-    brks=c(0,70,120,200,500,810)
-    if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[6]) stop("Existen lances fuera de los rangos de la campa?a, revise los datos")
+    brks=c(0,70,120,200,500,1000)
+    if (min(dumb$prof)<brks[1] | max(dumb$prof)>brks[6]) message("Existen lances fuera de los rangos de la campa?a, revise los datos")
+    if (max(dumb$prof)>brks[6] & overdpth) {
+      brks[6]=max(dumb$prof)+10
+      ylims<-c(brks[length(brks)],brks[1])*c(-1)
+    }
   }
   dumbDpth<-hist(dumb$prof,plot=FALSE,breaks=brks)
   if (ind=="n") {dumbDatDpth<-hist(rep(dumb$prof,dumb$numero),plot=FALSE,breaks=dumbDpth$breaks)}

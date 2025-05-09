@@ -191,7 +191,7 @@ maphist<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,bw=FALSE,ti=T
     dumb$peso<-round(dumb$peso,3)
     if (years) dumb<-dumbcamp
     if (!ceros) dumb<-dumb[dumb$numero>0,]
-    print(dumb)
+    dumb
     }
 	else {
     if (!plot) mapdist

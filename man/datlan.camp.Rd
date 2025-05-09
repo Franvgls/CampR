@@ -9,7 +9,6 @@ datlan.camp(
   dns,
   incl2 = TRUE,
   incl0 = FALSE,
-  outhidro = FALSE,
   excl.sect = NA,
   redux = FALSE,
   year = TRUE,
@@ -26,8 +25,6 @@ datlan.camp(
 
 \item{incl0}{Si T se incluyen los lances nulos}
 
-\item{outhidro}{si T saca los datos del fichero hidro al final de todo el proceso como salida}
-
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 
 \item{redux}{Si T elimina datos de longitud y latitud de virada y muestra la media de las profundidades de largada y virada}
@@ -37,6 +34,8 @@ datlan.camp(
 \item{quarter}{si T incluye una columna con el trimestre de los datos teniendo en cuenta la fecha del lance, puede cambiar a mitad de la campaña, cuidado con campañas IBTS adscritas a un trimestre particular.}
 
 \item{bio}{reduce el data.frame a los datos para los proyectos de biología, con datos en formato decimal y hexadecimal y las zonas ICES}
+
+\item{outhidro}{si T saca los datos del fichero hidro al final de todo el proceso como salida}
 }
 \value{
 Devuelve un data.frame con datos de cada lance, las variables dependen de la selección de hidro y redux. En cualquier caso incluye variables weight.time con el factor de calibración para lances con menos tiempo del estándar y arsect: el área del sector al que corresponde el lance dentro del muestreo

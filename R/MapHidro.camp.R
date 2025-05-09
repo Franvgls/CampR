@@ -1,4 +1,4 @@
-#' Mapa de índices ecológicos para un grupo en una campaña
+#' Mapa de índices hidrológicos (temp, sal) en una campaña
 #'
 #' Utiliza los datos del Camp representar la variación geográfica de los datos hidrologicos, temperatura y salinidad
 #' @param camp Campaña de la que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"

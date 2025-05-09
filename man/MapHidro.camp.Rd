@@ -2,7 +2,7 @@
 % Please edit documentation in R/MapHidro.camp.R
 \name{MapHidro.camp}
 \alias{MapHidro.camp}
-\title{Mapa de índices ecológicos para un grupo en una campaña}
+\title{Mapa de índices hidrológicos (temp, sal) en una campaña}
 \usage{
 MapHidro.camp(
   camp,

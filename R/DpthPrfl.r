@@ -14,7 +14,7 @@
 #' @param nlans Si T añade el número de lances en cada rango de profundidad
 #' @param spl Si T incluye una curva spline en el gráfico
 #' @param brks Especifica los rangos de profundidad: "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, las opciones "FD", "Sturges" y "scott" también son válidas como están implenmentadas en {\link{hist}}. También se pueden fijar unos límites a voluntad, si da error de hay datos fuera de los rangos (de norte o porcupine, se cogen los límites de la campaña y se fija el último rango a la prof máxima)
-#' @param overdpth En el caso de que, con brks=norte o porcupine de un aviso de que hay profundidades fuera de la estratificación fija el límite del estrato máximo al de la profundidad máxima detectada más 10 m, se aconseja tenerlo en T, y da error si hay profundidades fuera de brks .
+#' @param overdpth En el caso de que, con brks=norte o porcupine da un aviso de que hay profundidades fuera de la estratificación fija el límite del estrato máximo al de la profundidad máxima detectada más 10 m, se aconseja tenerlo en T, y da error si hay profundidades fuera de brks .
 #' @param tabres Muestra una tabla resumen del total de lances, media y total de biomasa o número y frecuencia de la especie por estrato según el brks especificado
 #' @examples DpthPrfl(1, 50, "N08", "Cant",brks = "norte",tabres=TRUE,ind="p")
 #' @examples DpthPrfl(1,50,"P08","Porc",brks="porcupine",ti=TRUE)

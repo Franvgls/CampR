@@ -5,7 +5,7 @@
 #'
 #' Un problema que ocurre al utilizar el CampR con ficheros dbf de las primeras campañas
 #' puede ser que al fichero lanceXXX.dbf le falte algún campo, habitualmente
-#' el campo **ESTN** utilizado en las últimas versiones del **CAMP** para ligar lances con las estaciones de CTD.
+#' el campo **ESTN** utilizado en las últimas versiones del **CAMP** para relacionar los lances con las estaciones de CTD.
 #' El error usual es **$ operator is invalid for atomic vectors**
 #' Si se detecta este error revisar la estructura de lanceXXX.dbf con la de
 #' otros ficheros de lances de los últimos años
@@ -18,21 +18,23 @@
 #' @seealso {\link{MapLansGPS}}
 #' @examples
 #'   print(dathidro.camp(Nsh[24],"Cant"))
-#'   print(datlan.camp("P16","Porc",bio=T,out))
+#'   print(datlan.camp("P16","Porc",bio=T,outhidro=T))
 #' @export
 dathidro.camp<-function(camp,dns,year=TRUE,quarter=TRUE) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
+    on.exit(DBI::dbDisconnect(ch1), add = TRUE)
     if (!DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {stop(paste0("No existe fichero de CTDs para ",camp));outhidro=FALSE}
     else
         {dathidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
         names(dathidro)<-tolower(names(dathidro))
-        dathidro<-data.frame(camp=camp,dathidro)
+        dathidro<-data.frame(camp=camp,dathidro,stringsAsFactors = FALSE)
         dathidro<-dplyr::rename(dathidro,prof.ctd=prof) #dathidro$prof.ctd<-dathidro$prof
         dathidro<-dplyr::rename(dathidro,cable.ctd=cable) #dathidro$prof.ctd<-dathidro$prof
         dathidro<-dplyr::rename(dathidro,hora.ctd=hora) #dathidro$prof.ctd<-dathidro$prof
         dathidro<-dplyr::rename(dathidro,fecha.ctd=fecha) #dathidro$prof.ctd<-dathidro$prof
-        dathidro$fecha<-as.Date(ifelse(dathidro$fecha < "1980-12-31", format(dathidro$fecha, "20%y-%m-%d"), format(dathidro$fecha)))
+        dathidro$fecha.ctd<-as.Date(ifelse(dathidro$fecha.ctd < "1980-12-31", format(dathidro$fecha.ctd, "20%y-%m-%d"), format(dathidro$fecha.ctd)))
+        #as.Date(ifelse(lan$fecha < "1980-12-31", format(lan$fecha, "20%y-%m-%d"), format(lan$fecha)))
         dathidro$lat.ctd<-gradec(dathidro$latitud)*ifelse(dathidro$nosu=="N",1,-1)
         dathidro$long.ctd<-gradec(dathidro$longitud)*ifelse(dathidro$eswe=="W",-1,1)
         dathidro$lance<-as.numeric(dathidro$lance)
@@ -40,7 +42,7 @@ dathidro.camp<-function(camp,dns,year=TRUE,quarter=TRUE) {
         if(nrow(dathidro)==0) message("Fichero de CTDs sin datos")
         }
     dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp))
-    DBI::dbDisconnect(ch1)
+    #DBI::dbDisconnect(ch1)
     if (any(!dathidro$nosu %in% c("N","S"))) message(paste("En la estacion",dathidro[!dathidro$nosu %in% c("N","S"),"estn"],
                                                            "el campo nosu debe ser N o S y es",dathidro[!dathidro$nosu %in% c("N","S"),"nosu"]))
     if (any(!dathidro$eswe %in% c("W","E"))) message(paste("En la estación",dathidro[!dathidro$eswe %in% c("E","W"),"eswe"],
@@ -70,7 +72,8 @@ dathidro.camp<-function(camp,dns,year=TRUE,quarter=TRUE) {
                       paste(dathidro[is.na(as.ITime(gsub("\\.",":",format(dathidro$hora,format="%H")))),c("estn")],collapse=","),") con hora inválida"))
     dathidro$sali[dathidro$sali==0]<-NA
     dathidro$temp[dathidro$temp==0]<-NA
-    dathidro$fecha.ctd<-as.Date(ifelse(dathidro$fecha.ctd < "1980-12-31", format(dathidro$fecha, "20%y-%m-%d"), format(dathidro$fecha)))
+    #as.Date(ifelse(lan$fecha < "1980-12-31", format(lan$fecha, "20%y-%m-%d"), format(lan$fecha)))
+    dathidro$fecha.ctd<-as.Date(ifelse(dathidro$fecha.ctd < "1980-12-31", format(dathidro$fecha.ctd, "20%y-%m-%d"), format(dathidro$fecha)))
     dathidro$hora.ctd<-format(dathidro$hora,format="%H")
     #dathidro<-dathidro[,c(2,1,3:ncol(dathidro))]
     if(quarter==T) dathidro$quarter=substr(quarters(as.Date(dathidro$fecha.ctd)),2,2)

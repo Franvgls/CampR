@@ -31,7 +31,7 @@
 #'   NepFU25.camp("N21")
 #' @export
 NepFU25.camp<-function(camp=camp,dns="Cant",plot=TRUE,es=FALSE,ti=TRUE,ICESlab=FALSE,ceros=T,ICESrectcol=1,ICESrect=TRUE,
-                       FU=25,places=TRUE,out.dat=TRUE,ColFU="white",dens=20,leg=T,escmult=.25,cexleg=1) {
+                       FU=25,places=TRUE,out.dat=TRUE,ColFU="white",dens=20,leg=T,escmult=.25,cexleg=1,cex0=1) {
   Nep<-maphist(2,19,camp,"Cant",plot=F,out.dat=T)
   Nep_25<-subset(Nep,c(long<c(-7.9) &lat>c(43) & lat<(44.5)))
   leyenda<-signif(max(Nep$numero)*.9,1)
@@ -41,15 +41,15 @@ NepFU25.camp<-function(camp=camp,dns="Cant",plot=TRUE,es=FALSE,ti=TRUE,ICESlab=F
   #lans_FU25.All<-rbind(lans_FU25[lans_FU25$long>c(-10) & lans_FU25$lat<43.5,],lans_FU25[lans_FU25$long>c(-9) & lans_FU25$lat>44.5,])
   MapNort(ICESrect = ICESrect,ylims=c(42.5,44.5),xlims=c(-10,-7.5),ICESlab = ICESlab,ICESrectcol =ICESrectcol,FU="FU25",ColFU=ColFU,dens=dens,places=places)
   title(main=camptoyear(camp),line=1.5,sub=paste("FU 25 Nep Catch (n)= ",
-                                                   sum(Nep_25[Nep_25$camp==camp,"numero"])),cex.sub=1.2,cex.main=2)
+                                                   sum(Nep_25[Nep_25$camp==camp,"numero"])),cex.sub=1.2,cex.main=1.5)
   points(lat~long,Nep,subset=c(peso.gr>0 & camp==camp),cex=sqrt(Nep$numero/5),pch=21,col=2,bg=2)
   if (leg & max(Nep$numero,na.rm=TRUE)>0) {
     points(rep(-8.5,3),c(43.1,43,42.9),cex=sqrt(leyenda/escala),pch=21,bg="tomato",col="tomato")
     text(rep(-8.5,3),c(43.1,43,42.9),labels=paste(leyenda,"ind."),pos=4,offset=1,cex=cexleg)
   }
   #  legend(x=-8.5,y=c(43,42.5),legend=c(paste(ceiling(max(Nep$numero)),"inds"),adj=c(-.5,0),bty="n",pch=21,pt.bg="grey20",pt.cex=sqrt(ceiling(max(Nep$numero)/5)),text.font=2,cex=.9)
-  if (ceros) {points(lat~long,Nep,subset=c(peso.gr==0 & camp==camp),cex=1,pch=21,col=1,bg=1)
-    legend("bottomright",legend=c("0 catch hauls"),pch=21,pt.bg=1,pt.cex=.7,inset=.01,bty="n")}
+  if (ceros) {points(lat~long,Nep,subset=c(peso.gr==0 & camp==camp),cex=1*cex0,pch=21,col=1,bg=1)
+    legend("bottomright",legend=c("0 catch hauls"),pch=21,pt.bg=1,pt.cex=1*cex0,inset=.01,bty="n")}
   if (out.dat) {data.frame(camp=camp,Wgh=sum(Nep_25$peso.gr/1000),Nb=sum(Nep_25$numero),MeanWg=mean(Nep_25$peso.gr/1000),
                            SDwg=sd(Nep_25$peso.gr/1000),MeanNb=mean(Nep_25$numero),sdNb=sd(Nep_25$numero),Nlans=nrow(Nep_25))}
   }

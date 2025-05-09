@@ -21,7 +21,8 @@ NepFU25.camp(
   dens = 20,
   leg = T,
   escmult = 0.25,
-  cexleg = 1
+  cexleg = 1,
+  cex0 = 1
 )
 }
 \arguments{

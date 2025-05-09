@@ -22,6 +22,7 @@ DpthPrflTals(
   nlans = TRUE,
   spl = FALSE,
   brks = "Sturges",
+  overdpth = TRUE,
   tabres = TRUE,
   tit2 = TRUE,
   cexleg = 1
@@ -59,6 +60,8 @@ DpthPrflTals(
 \item{spl}{Si T incluye una curva spline en el gráfico}
 
 \item{brks}{Especifica los rangos de profundidad: "norte" estratificación de Demersales, "porcupine" estratificación de Porcupine, las opciones "FD", "Sturges" y "scott" también son válidas como están implenmentadas en {\link{hist}}}
+
+\item{overdpth}{En el caso de que, con brks=norte o porcupine de un aviso de que hay profundidades fuera de la estratificación fija el límite del estrato máximo al de la profundidad máxima detectada más 10 m, se aconseja tenerlo en T, y da error si hay profundidades fuera de brks .}
 
 \item{tabres}{Muestra una tabla resumen de la media, total de biomasa o número y frecuencia de la especie por estación según el brks especificado}
 
