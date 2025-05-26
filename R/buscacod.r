@@ -9,9 +9,10 @@
 #' @export
 buscacod<- function(nomb,dns="Camp",buscfam=FALSE) {
   ch1<-DBI::dbConnect(odbc::odbc(), ifelse(dns=="Camp","Camp","Arsa"))
+  on.exit(DBI::dbDisconnect(ch1), add = TRUE)
   if (length(nomb)>1) stop("Esta función no permite más de una especie por vez")
   else especies<-data.table::as.data.table(DBI::dbGetQuery(ch1,"select * from ESPECIES"))
-  DBI::dbDisconnect(ch1)
+  #DBI::dbDisconnect(ch1)
 #  Encoding(especies$ESPECIE)  <- "UTF-8"
   if (buscfam) print(especies[grep(nomb,paste(especies$ESPECIE,especies$FAMILIA,ignore.case=T),c()),c(1,3,4,2,17)])
   else print(especies[grep(nomb,especies$ESPECIE,ignore.case=T),c(1,3,4,2,17)])

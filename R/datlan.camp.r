@@ -33,12 +33,12 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,y
                             sector,estrato,cable,malletas,dista_p,abert_h,abert_v,recorrido,fecha,ewl,ewv,nsl,nsv,cuadricula,hora_l,hora_v,rumbo,dir_viento,
                                     vel_viento,est_mar,temp,sali,estn,arte from LANCE",camp[1]))
   lan$camp<-camp[1]
-  dumb<-DBI::dbReadTable(ch1,paste0("CAMP",i))
+  dumb<-DBI::dbReadTable(ch1,paste0("CAMP",camp[1]))
   lan$haul.mins<-dumb$DURLAN
   lan$barco<-dumb$BARCO
   lan$sector<-paste0(lan$sector,lan$estrato)
   if(quarter==T) lan$quarter=substr(quarters(as.Date(lan$fecha)),2,2)
-  if(year==T) lan$year=year(lan$fecha)
+  if(year==T) lan$year=lubridate::year(lan$fecha)
   foop<-function(camp,dns,incl2=incl2,incl0=incl0) {
       # ch1<-DBI::dbConnect(odbc::odbc(), dns)
       # on.exit(DBI::dbDisconnect(ch1), add = TRUE)
@@ -105,10 +105,10 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,y
     if (any(format(lan$hora_l,format="%H")>format(lan$hora_v,format="%H"))) {message(paste0("Al menos un lance ",
                       paste(lan[format(lan$hora_l,format="%H")>format(lan$hora_v,format="%H"),c("lance")],collapse = ","),
                                             " con hora de virada antes de hora de largada"))}
-    if (any(is.na(as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))))) {message(paste0("Al menos una hora de largada (lance: ",
-                      paste(lan[is.na(as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))),c("lance")],collapse=","),") con hora inválida"))}
-    if (any(is.na(as.ITime(gsub("\\.",":",format(lan$hora_v,format="%H")))))) {message(paste0("Al menos una hora de virada (lance: ",
-                      paste(lan[is.na(as.ITime(gsub("\\.",":",lan$hora_v))),c("lance")],collapse = ","),") con hora inválida"))}
+    if (any(is.na(data.table::as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))))) {message(paste0("Al menos una hora de largada (lance: ",
+                      paste(lan[is.na(data.table::as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))),c("lance")],collapse=","),") con hora inválida"))}
+    if (any(is.na(data.table::as.ITime(gsub("\\.",":",format(lan$hora_v,format="%H")))))) {message(paste0("Al menos una hora de virada (lance: ",
+                      paste(lan[is.na(data.table::as.ITime(gsub("\\.",":",lan$hora_v))),c("lance")],collapse = ","),") con hora inválida"))}
     #lan<-lan[,c(1:18,23:ncol(lan))]
     lan$dista_p[lan$dista_p==0]<-NA
     lan$abert_v[lan$abert_v==0]<-NA
@@ -123,7 +123,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,y
     lan$hora_l<-format(lan$hora_l,format="%H")
     lan$hora_v<-format(lan$hora_v,format="%H")
     if(quarter==T) lan$quarter=substr(quarters(as.Date(lan$fecha)),2,2)
-    if(year==T) lan$year=year(lan$fecha)
+    if(year==T) lan$year=lubridate::year(lan$fecha)
     #if (!any(redux | bio)) lan<-lan[,c(1:29,33:35)]
     #else lan<-lan[,c(1:2,30:32,9:29,33:35)]
     #print(names(lan))
@@ -149,6 +149,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,y
     #		  datos$sector<-factor(as.character(datos$sector))
   }
   datos$sector<-as.character(datos$sector)
+  dplyr::arrange(datos,year,lance)
   if (redux) {
     datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l"))
     datos<-dplyr::relocate(datos,c("camp","lance","validez","lat","long","prof"))
@@ -160,7 +161,7 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,y
     }
   #if (outhidro & redux) datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l"))
   if (bio) datos<-datos[,c("camp","lance","sector","validez","lat","long","prof","estrato","fecha","zona")]
-  if (!is.null(datos$camp.1)) {datos<-select(datos,-camp.1)}
+  if (!is.null(datos$camp.1)) {datos<-dplyr::select(datos,-camp.1)}
   return(datos)
   }
 

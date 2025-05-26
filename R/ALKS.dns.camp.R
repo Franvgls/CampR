@@ -10,7 +10,8 @@
 #' @family edades
 #' @export
 ALKs.dns.camp<- function(dns,camp="") {
-  ch1<-DBI::dbConnect(odbc::odbc(), dns)
+   ch1<-DBI::dbConnect(odbc::odbc(), dns)
+   on.exit(DBI::dbDisconnect(ch1), add = TRUE)
    dumb<-DBI::dbListTables(ch1)
    dumb<-subset(dumb,nchar(dumb)==7)
    camps.ed<-substr(dumb[grepl("EDAD",dumb,1,7)],1,7)
@@ -26,7 +27,7 @@ ALKs.dns.camp<- function(dns,camp="") {
      if (nrow(DBI::dbReadTable(ch1,camps.ed[i]))>0) ages<-rbind(ages,cbind(camp=camps.ed[i],DBI::dbReadTable(ch1,camps.ed[i])))
    }
    }
-   DBI::dbDisconnect(ch1)
+   #DBI::dbDisconnect(ch1)
    results<-tapply(ages$NL,ages[,c("camp","ESP")],"length")
    especies<-buscaesp(1,colnames(results)[1])
    if (ncol(results)>1) for (i1 in 2:ncol(results)) {especies<-c(especies,buscaesp(1,colnames(results)[i1]))} else {especies<-buscaesp(1,colnames(results))}

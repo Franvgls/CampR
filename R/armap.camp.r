@@ -44,8 +44,9 @@
 armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cuadrMSFD=FALSE,ICESrect=FALSE,ICESlab=FALSE,arrow=FALSE,leg=TRUE,es=FALSE,cols=TRUE,noval=TRUE,
 	CTDs=FALSE,strat=FALSE,Nlans=FALSE,NCTDs=FALSE,Dates=F,places=FALSE,bw=FALSE,lans=TRUE,xlims=c(-10.25,-1.4),ylims=c(41.82,44.48)) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE,bio=F,outhidro=F)
+	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE,bio=F)
 	ch1<-DBI::dbConnect(odbc::odbc(), dns)
+	on.exit(DBI::dbDisconnect(ch1), add = TRUE)
 	if (DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {
 	  hidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
     hidro<-dplyr::rename_with(hidro,tolower)
@@ -58,7 +59,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
     }
 	camp.name<-DBI::dbReadTable(ch1, paste0("CAMP",camp[1]))$IDENT
 	#camp.name<-stringr::word(camp.name)
-	DBI::dbDisconnect(ch1)
+	#DBI::dbDisconnect(ch1)
  	if (CTDs | NCTDs) {
     hidro$latitud<-gradec(hidro$latitud)
     hidro$longitud<-gradec(hidro$longitud)*ifelse(hidro$eswe=="W",-1,1)

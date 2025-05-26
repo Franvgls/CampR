@@ -1,7 +1,7 @@
 Package: CampR
 Title: Libreria de funciones en R para el programa CAMP
-Version: 0.9.36
-Date: 2024-07-17
+Version: 0.9.38
+Date: 2025-05-26
 Author: Fran Velasco <franvgls@gmail.com>
 Maintainer: FVG <franvgls@gmail.com>
 Description: Funciones para sacar resultados de los datos de campañas de
@@ -10,14 +10,20 @@ Description: Funciones para sacar resultados de los datos de campañas de
     bits
 License: GPL-2
 Depends:
-    data.table (>= 1.11),
+    R (>= 2.15.2),
+Imports: 
+    tibble (>= 2.1.3), 
     dplyr (>= 1.0.6),
-    R (>= 2.15.2)
-Imports:
+    pillar (>= 1.5.1),
+    rlang (>= 0.4.10), 
+    vctrs (>= 0.3.5), 
+    data.table (>= 1.11),
+    glue (>= 1.3.2),
+    lifecycle (>= 1.0.0),
+    magrittr (>= 1.5),
+    tidyselect (>= 1.1.0), 
     boot,
-    data.table,
     DBI,
-    dplyr,
     foreign,
     geosphere,
     grid,
@@ -29,7 +35,6 @@ Imports:
     maps,
     odbc,
     suncalc,
-    tidyverse,
     vegan,
     worrms
 Suggests: 

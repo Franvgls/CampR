@@ -27,20 +27,20 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
   dumblan$rumb<-round(geosphere::bearingRhumb(dumblan[,c("longitud_l","latitud_l")],dumblan[c("longitud_v","latitud_v")]),1)
   dumblan$error.rumb<-round(dumblan$rumb-dumblan$rumbo)
   dumblan$date<-as.Date(paste0(dumblan$year,"-",month(dumblan$fecha),"-",lubridate::day(dumblan$fecha)))
-  dumblan$time_l<-as.ITime(paste0(substr(dumblan$hora_l,1,2),":",substr(dumblan$hora_l,4,5)))
-  dumblan$time_v<-as.ITime(paste0(substr(dumblan$hora_v,1,2),":",substr(dumblan$hora_v,4,5)))
+  dumblan$time_l<-data.table::as.ITime(paste0(substr(dumblan$hora_l,1,2),":",substr(dumblan$hora_l,4,5)))
+  dumblan$time_v<-data.table::as.ITime(paste0(substr(dumblan$hora_v,1,2),":",substr(dumblan$hora_v,4,5)))
   dumblan$lon<-dumblan$longitud_l
   dumblan$lat<-dumblan$latitud_l
   dumblan<-as.data.frame(cbind(dumblan,suncalc::getSunlightTimes(data = dumblan[,c("date","lat","lon")],tz="GMT",keep=c("dawn","sunrise","solarNoon"))[,c("dawn","sunrise","solarNoon")]))
   dumblan$lon<-dumblan$longitud_v
   dumblan$lat<-dumblan$latitud_v
   dumblan<-as.data.frame(cbind(dumblan,suncalc::getSunlightTimes(data = dumblan[,c("date","lat","lon")],tz="GMT",keep=c("sunset","dusk"))[,c("sunset","dusk")]))
-  dumblan$daynight<-ifelse(as.ITime(dumblan$sunrise)<dumblan$time_l & dumblan$time_l<as.ITime(dumblan$sunset),"D","N")
-  dumblan$dawn<-as.ITime(dumblan$dawn)
-  dumblan$sunrise<-as.ITime(dumblan$sunrise)
-  dumblan$solarNoon<-as.ITime(dumblan$solarNoon)
-  dumblan$sunset<-as.ITime(dumblan$sunset)
-  dumblan$dusk<-as.ITime(dumblan$dusk)
+  dumblan$daynight<-ifelse(data.table::as.ITime(dumblan$sunrise)<dumblan$time_l & dumblan$time_l<data.table::as.ITime(dumblan$sunset),"D","N")
+  dumblan$dawn<-data.table::as.ITime(dumblan$dawn)
+  dumblan$sunrise<-data.table::as.ITime(dumblan$sunrise)
+  dumblan$solarNoon<-data.table::as.ITime(dumblan$solarNoon)
+  dumblan$sunset<-data.table::as.ITime(dumblan$sunset)
+  dumblan$dusk<-data.table::as.ITime(dumblan$dusk)
   dumblan$dayhour<-NA
   for (i in 1:nrow(dumblan)) { if (dumblan$time_l[i]<dumblan$dawn[i] | dumblan$time_v[i]>dumblan$dusk[i]) dumblan$dayhour[i]<-"N" }
   for (i in 1:nrow(dumblan)) { if (dumblan$time_l[i]>dumblan$dawn[i] & dumblan$time_l[i]<dumblan$sunrise[i]) dumblan$dayhour[i]<-"S" }

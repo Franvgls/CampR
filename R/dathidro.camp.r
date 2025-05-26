@@ -68,8 +68,8 @@ dathidro.camp<-function(camp,dns,year=TRUE,quarter=TRUE) {
     }
     if (any(is.na(dathidro$zona))) {message(paste0("Al menos una estación: ",paste(dathidro$estn[is.na(dathidro$zona)],collapse = ","),
                                                 " sin Zona ICES asignada, revise resultados",dathidro$camp[is.na(dathidro$zona)]))}
-    if (any(is.na(as.ITime(gsub("\\.",":",format(dathidro$hora,format="%H")))))) {message(paste0("Al menos una hora de largada (estn: ",
-                      paste(dathidro[is.na(as.ITime(gsub("\\.",":",format(dathidro$hora,format="%H")))),c("estn")],collapse=","),") con hora inválida"))
+    if (any(is.na(data.table::as.ITime(gsub("\\.",":",format(dathidro$hora,format="%H")))))) {message(paste0("Al menos una hora de largada (estn: ",
+                      paste(dathidro[is.na(data.table::as.ITime(gsub("\\.",":",format(dathidro$hora,format="%H")))),c("estn")],collapse=","),") con hora inválida"))
     dathidro$sali[dathidro$sali==0]<-NA
     dathidro$temp[dathidro$temp==0]<-NA
     #as.Date(ifelse(lan$fecha < "1980-12-31", format(lan$fecha, "20%y-%m-%d"), format(lan$fecha)))

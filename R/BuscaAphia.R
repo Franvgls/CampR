@@ -12,8 +12,9 @@
 BuscaAphia <-function(gr = 1,dns="Camp",export = TRUE) {
     require(dplyr)
     ch2 <- DBI::dbConnect(odbc::odbc(), dsn = dns)
+    on.exit(DBI::dbDisconnect(ch2), add = TRUE)
     especies <-data.table::as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
-    DBI::dbDisconnect(ch2)
+    #DBI::dbDisconnect(ch2)
     names(especies) <- tolower(names(especies))
     especies <- subset(especies, especies$grupo == gr)
     especies$aphia<-as.numeric(especies$aphia)

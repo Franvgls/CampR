@@ -14,11 +14,13 @@ CAMPtoHLcrust<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     DB<-data.table::as.data.table(datlan.camp(camp,dns,redux=F,incl0 = F,incl2=incl2))
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
+    on.exit(DBI::dbDisconnect(ch1), add = TRUE)
     ntalls <-data.table::as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='2'")))
     names(ntalls)<-tolower(names(ntalls))
     ch2 <- DBI::dbConnect(odbc::odbc(), dsn = "Camp")
+    on.exit(DBI::dbDisconnect(ch2), add = TRUE)
     especies <-data.table::as.data.table(DBI::dbGetQuery(ch2,paste0("select * from ESPECIES where GRUPO='2'")))
-    DBI::dbDisconnect(ch2)
+    #DBI::dbDisconnect(ch2)
     names(especies) <- tolower(names(especies))
     if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
        DB$Gear="BAK"

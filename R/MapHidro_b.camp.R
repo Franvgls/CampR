@@ -66,7 +66,7 @@ MapHidro_b.camp<-function(camp,dns="Cant",ind="t",plot=TRUE,bw=FALSE,ti=TRUE,es=
       points(lat~long,dumb,pch=4,cex=1.2,subset = is.na(dumb$sali),lwd=2)
       legend("bottomright",legend=paste(c(">","<","<","<","<"),round(quantile(dumb$temp,c(.8,.8,.6,.4,.2),na.rm = T),2),"ºC"),pch=21,cex=1.2,
              pt.bg = c("red4","red","orange","lightblue","steelblue"),bg="white",
-             title=ifelse(es,"Temparatura","Temperature"),inset=c(.4,.23))
+             title=ifelse(es,"Temperatura","Temperature"),inset=c(.4,.23))
     }
     if (ti) title(main=titulo,font=2,line=2)
   }

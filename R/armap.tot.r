@@ -30,6 +30,7 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,ICESlab=FALSE,lwdl=1,col=2,ar
 	lan<-datlan.camp(camp,dns,redux=T,incl2=TRUE,incl0=TRUE)
   if (CTDs |NCTDs) {
 	ch1<-DBI::dbConnect(odbc::odbc(), dns)
+	on.exit(DBI::dbDisconnect(ch1), add = TRUE)
 	if (DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {
 	  hidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
 	  names(hidro)<-tolower(names(hidro))
@@ -40,7 +41,7 @@ armap.tot<-function(camp,dns="Porc",ICESrect=FALSE,ICESlab=FALSE,lwdl=1,col=2,ar
 	  if (CTDs | NCTDs) message(paste0("Solicitados datos de CTDs, falta fichero HIDRO",camp,".dbf. No se muestran los CTDS"))
 	  CTDs=F
 	}
-	DBI::dbDisconnect(ch1)
+	#DBI::dbDisconnect(ch1)
   }
 	#camp.name<-DBI::dbReadTable(ch1, paste0("CAMP",camp[1]))$IDENT
 	#camp.name<-stringr::word(camp.name)

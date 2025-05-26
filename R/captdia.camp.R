@@ -14,8 +14,9 @@ captdia.camp<-function(camp="C14",dns="Cant",dias,peces=c(50,42,43,44,45,50,51,8
   }
   #browser()
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  on.exit(DBI::dbDisconnect(ch1), add = TRUE)
   fauna<-DBI::dbGetQuery(ch1,paste0("select * from FAUNA",camp))
-  DBI::dbDisconnect(ch1)
+  #DBI::dbDisconnect(ch1)
   lan<-datlan.camp(camp,dns,redux=TRUE,incl2=TRUE,incl0=FALSE)
   lan<-lan[,c("lance","fecha")]
   lansdia<-substr(as.Date(lan$fecha,format="%d-%m-%y"),9,10)

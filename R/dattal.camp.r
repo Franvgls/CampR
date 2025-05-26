@@ -14,7 +14,7 @@
 #' @seealso {\link{datos.camp}}
 #' @examples dattal.camp("1"," 50",paste0("P0",7),"Porc",excl.sect=c("B","C"))
 #' @export
-dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=TRUE,verbose=TRUE) {
+dattal.camp<- function(gr,esp,camp,dns,cor.time=TRUE,excl.sect=NA,sex=FALSE,verbose=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
   abesp<-datos.camp(gr,esp,camp,dns,cor.time=cor.time)

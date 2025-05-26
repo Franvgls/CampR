@@ -9,7 +9,9 @@
 #' @export
 CampsDNS.camp<- function(dns) {
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  on.exit(DBI::dbDisconnect(ch1), add = TRUE)
   dumbdir<-DBI::dbConnect(odbc::odbc(), dns)@info$dbname
+  on.exit(DBI::dbDisconnect(dumbdir), add = TRUE)
   dumb<-DBI::dbListTables(ch1)
   dumb<-unlist(dumb)
   dumb<-dumb[nchar(dumb)<9 & grepl(c("CAMP|LANCE|FAUNA|NTALL|EDAD|HIDRO"),dumb)]
@@ -44,7 +46,7 @@ CampsDNS.camp<- function(dns) {
       YeCamp<-rbind(YeCamp,cbind(camp=paste0("LANCE",camps$ident[camps$tipo=="LANCE"])[i],year=m))
       }
     }
-  DBI::dbDisconnect(ch1)
+  #DBI::dbDisconnect(ch1)
   nombres<-NomCamp$IDENT
   #anyos<-NomCamp$anyos
   anyos_lan<-as.data.frame(YeCamp)$year

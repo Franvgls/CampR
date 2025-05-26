@@ -15,8 +15,9 @@ datgr.camp<- function(gr,esp,camp,dns,cor.time=TRUE,incl2=TRUE) {
   if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
   esp<-format(esp,width=3,justify="r")
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
+  on.exit(DBI::dbDisconnect(ch1), add = TRUE)
   fauna<-DBI::dbReadTable(ch1, paste0("FAUNA",camp))
-  DBI::dbDisconnect(ch1)
+  #DBI::dbDisconnect(ch1)
   fauna$ESP<-format(fauna$ESP,width = 3,justify="r")
   if (length(esp)==1) {
     if (gr!="9" & esp!="999") {

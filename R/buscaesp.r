@@ -12,6 +12,7 @@ buscaesp<- function(gr,esp,id="l",dns="Camp") {
   values<-c("i","e","l","a")
   if (!id %in% values) stop("Campo id debe ser l: latín, i: inglés, e: español o a: codigo AphiaID")
   ch1<-DBI::dbConnect(odbc::odbc(), ifelse(dns=="Camp","Camp","Arsa"))
+  on.exit(DBI::dbDisconnect(ch1), add = TRUE)
   if (length(esp)>1) {
     if (id=="l" | id=="e") { especie<-"Varias especies" }
     if (id=="i") { especie<-"Several species" }
@@ -20,7 +21,7 @@ buscaesp<- function(gr,esp,id="l",dns="Camp") {
     if (gr!="9" & esp!="999") {
       ESPECIES<-DBI::dbGetQuery(ch1,paste0("select especie,nombrei,nombree,aphia from Especies where grupo='",gr,
                                 "' and esp='",esp,"'"))
-      DBI::dbDisconnect(ch1)
+      #DBI::dbDisconnect(ch1)
       if (id=="l") {especie<-sub(" sp.","",ESPECIES[["especie"]],fixed = T)} #ESPECIES[["especie"]]}
       if (id=="i") {especie<-ESPECIES[["nombrei"]]}
       if (id=="e") {especie<-ESPECIES[["nombree"]]}
