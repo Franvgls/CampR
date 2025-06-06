@@ -87,8 +87,8 @@ grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.l
 	dumbSETot$camp<-factor(dumbSETot$camp)
 	if (ind=="p") {
 		if (any(is.na(sector))){
-			if (ci.lev>0) dumb.env<-boot::envelope(boot::boot(dumb$peso,strmean.camps,1000,stype="f",strata=dumb$sector,sector=dumb$sector,
-				area=dumb$arsect,camps=dumb$camp),level=ci.lev)
+			if (ci.lev>0) dumb.env<-boot::envelope(boot::boot(dumb$peso,strmean.camps,1000,stype="f",strata=as.factor(dumb$sector),sector=as.factor(dumb$sector),
+				area=dumb$arsect,camps=as.factor(dumb$camp)),level=ci.lev)
 			dumb.mean<-strmean.camps(dumb$peso,dumb$sector,dumb$arsect,camps=dumb$camp)}
 		else {
 			if (ci.lev>0) dumb.env<-boot::envelope(boot::boot(dumb$peso[grep(sector,as.character(dumb$sector))],strmean.camps,1000,stype="f",
@@ -100,8 +100,8 @@ grafhistbox<-function(gr,esp,camps,dns="Porc",ind="p",cor.time=TRUE,kg=TRUE,ci.l
 		}
 	else {
 		if (is.na(sector)){
-			if (ci.lev>0) dumb.env<-boot::envelope(boot::boot(dumb$num,strmean.camps,1000,stype="f",strata=dumb$sector,sector=dumb$sector,
-			area=dumb$arsect,camps=dumb$camp),level=ci.lev)
+			if (ci.lev>0) dumb.env<-boot::envelope(boot::boot(dumb$num,strmean.camps,1000,stype="f",strata=as.factor(dumb$sector),sector=as.factor(dumb$sector),
+			area=dumb$arsect,camps=as.factor(dumb$camp)),level=ci.lev)
 		dumb.mean<-strmean.camps(dumb$num,dumb$sector,dumb$arsect,camps=dumb$camp)}
 		else {
 			if (ci.lev>0) dumb.env<-boot::envelope(boot::boot(dumb$num[grep(sector,as.character(dumb$sector))],strmean.camps,1000,stype="f",

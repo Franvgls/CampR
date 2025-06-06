@@ -47,8 +47,8 @@ dathidro.camp<-function(camp,dns,year=TRUE,quarter=TRUE) {
                                                            "el campo nosu debe ser N o S y es",dathidro[!dathidro$nosu %in% c("N","S"),"nosu"]))
     if (any(!dathidro$eswe %in% c("W","E"))) message(paste("En la estación",dathidro[!dathidro$eswe %in% c("E","W"),"eswe"],
                                                             "el campo eswe debe ser E o W y es",dathidro[!dathidro$eswe %in% c("N","S"),"eswe"]))
-    dathidro<-select(dathidro,-longitud,-latitud,-nosu,-eswe)
-    dathidro<-select(dathidro,camp,estn,lance,hora.ctd,fecha.ctd,lat.ctd,long.ctd,sonda,cable.ctd,prof.ctd,
+    dathidro<-dplyr::select(dathidro,-longitud,-latitud,-nosu,-eswe)
+    dathidro<-dplyr::select(dathidro,camp,estn,lance,hora.ctd,fecha.ctd,lat.ctd,long.ctd,sonda,cable.ctd,prof.ctd,
                      temp0,sali0,sigma0,temp50,sali50,sigma50,temp100,sali100,sigma100,
                      temp,sali,sigma,observ)
     # if(all(is.na(dathidro$sigma))) select(dathidro,-sigma)

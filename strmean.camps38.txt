@@ -1,0 +1,11 @@
+function (x, sector, area, w = rep(1, length(x)), camps) 
+{
+    dummy <- tapply(x * w, data.frame(sector, camps), mean, na.rm = TRUE)
+    area.dumb <- tapply(area, data.frame(sector, camps), mean, 
+        na.rm = TRUE)
+    mean.dumb <- colSums(dummy * area.dumb, na.rm = TRUE)/colSums(area.dumb, 
+        na.rm = TRUE)
+    unname(mean.dumb)
+}
+<bytecode: 0x144f2a60>
+<environment: namespace:CampR>
