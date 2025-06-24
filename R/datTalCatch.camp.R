@@ -29,8 +29,8 @@ datTalCatch.camp<-function(gr,esp,camp,dns="Cant",cor.time=TRUE,incl2=FALSE) {
   ntalTal$Unit<-paste("TL",ifelse(unid.camp(gr,esp)$MED==1,"cm","mm"))
   names(ntalTal)[4]<-"number"
   ntaltal<-merge(ntalTal,datmap[,c("lan","lat","long","prof")],by.x = "lance",by.y="lan")
-  resulttal<-merge(ntaltal,result1[,c("Survey","HaulNb","DateYr","Quarter","SubDiv","ICESrect")],by.x="lance",by.y = "HaulNb")
-  resulttal[,c("Survey","DateYr","Quarter","lance","lat","long","SubDiv","ICESrect","prof","Unit","talla","number")]
+  resulttal<-merge(ntaltal,result1[,c("Survey","HaulNb","DateYr","Quarter","SubDiv","StatRec")],by.x="lance",by.y = "HaulNb")
+  resulttal[,c("Survey","DateYr","Quarter","lance","lat","long","SubDiv","StatRec","prof","Unit","talla","number")]
   }
 
 

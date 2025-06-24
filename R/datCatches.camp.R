@@ -13,17 +13,14 @@
 datCatches.camp<-function(gr,esp,camp,dns="Cant",cor.time=TRUE,incl2=FALSE) {
   datesp<-maphist(gr,esp,camp,dns,cor.time=cor.time,incl2=incl2,plot=FALSE,out.dat=T)
   datlan<-getICESarea(camp,dns,incl2=incl2)
-  DB<-datlan[,c("lance")] #c("camp","lance","prof")
-  DB$Survey<-rep(camp,nrow(datlan))
-  DB$DateYr<-datlan$year
-  DB$Quarter<- datlan$quarter
-  DB$HaulNb<- datlan$lance
-  DB$latdec<-datlan$lat
-  DB$longdec<-datlan$long
-  DB$SubDiv<-datlan$icesArea
-  DB$ICESrect<- paste(substr(datlan$StatRec,1,2),substr(datlan$StatRec,3,4))
-  DB$Depth<-datlan$prof
-  DB$N30<-datesp$numero
-  DB$Kg30<-datesp$peso.gr/1000
-  return(DB[,2:ncol(DB)])
+  datlan<-dplyr::rename(datlan,lan=lance)
+  datlan<-dplyr::select(datlan,camp,year,quarter,lan,lat,long,icesArea,StatRec,prof)
+  DB<-merge(datlan,datesp)
+  DB$camp<-ifelse(dns=="Cant","SpanNGFS","SpanPorc")
+  DB<- dplyr::rename(DB,Survey = camp, DateYr = year,Quarter=quarter,HaulNb=lan,latdec=lat,longdec=long,SubDiv=icesArea,
+                     StatRec=StatRec,Depth=prof,N30=numero,Kg30=peso.gr)
+  DB$StatRec<-paste0("#",sub(" ","",DB$StatRec),"#")
+  DB<-dplyr::select(DB,Survey,DateYr,Quarter,HaulNb,latdec,longdec,SubDiv,StatRec,Depth,N30,Kg30)
+  DB$Kg30<-DB$Kg30/1000
+  return(DB)
   }

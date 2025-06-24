@@ -19,7 +19,7 @@ ListFaunaTals.camps<-function(gr="1",camps,dns,excl.sect=NA,cor.time=TRUE,profra
       dumb<-rbind(dumb,cbind(camp=i,ListFaunaTals.camp(gr,i,dns,cor.time=cor.time,excl.sect,profrange=profrange,incl2)))
     }
   }
-  arrange(dumb,camp,-peso_gr)
+  dplyr::arrange(dumb,camp,-peso_gr)
 }
 #ListFaunaTals.camps(gr="1",Nsh[7:27],"Cant",excl.sect=NA,incl2=TRUE)
 #ListFaunaTals.camps(gr="1",Msh,"Cant",excl.sect=NA,incl2=TRUE)
