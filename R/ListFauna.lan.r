@@ -16,6 +16,7 @@ ListFauna.lan<- function(camp,dns="Porc",lan,gr=NA,out=TRUE) {
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
   listsps<-DBI::dbGetQuery(ch1,paste0("select grupo,esp,lance,peso_gr,numero from FAUNA",camp," where lance='",lan,"'"))
   DBI::dbDisconnect(ch1)
+  listsps<-dplyr::filter(listsps,grupo!="6")
   if (nrow(listsps)==0) {message(paste("Sin capturas en el lance",lan))}
   if (any(!is.na(gr))) listsps<-listsps[listsps$grupo %in% gr,]
   if (nrow(listsps)==0) {message(paste("Sin capturas del grupo",gr," en el lance",lan))}
@@ -25,6 +26,6 @@ ListFauna.lan<- function(camp,dns="Porc",lan,gr=NA,out=TRUE) {
   for (i in 1:nrow(listsps)) {
     listsps$especie[i]=buscaesp(listsps$grupo[i],listsps$esp[i]) }
   listsps<-listsps[,c("grupo","esp","lance","especie","peso","numero")]
-  if (out) print(setorder(listsps,grupo,-peso))
-  else setorder(listsps,grupo,-peso)}
+  if (out) print(data.table::setorder(listsps,grupo,-peso))
+  else data.table::setorder(listsps,grupo,-peso)}
   }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/getICESarea.R
 \name{getICESarea}
 \alias{getICESarea}
-\title{Includes ICESrect in an HH file with lat and long data}
+\title{Includes ICESrect in an HH file with lat and long data starts StatRec with # when rectlong starts with E to avoid exponential notation in excel}
 \usage{
 getICESarea(camp, dns, incl2 = T, incl0 = F)
 }
@@ -22,5 +22,7 @@ A data.table with haul variables, ICESrect and ICESarea
 Function to complete HH with ICESrect and area
 }
 \examples{
-# getICESrect("N22","Cant")
+# getICESarea("N22","Cant")
+# getICESarea("P22","Porc")
+# getICESarea("122","Arsa")
 }

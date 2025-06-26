@@ -9,6 +9,7 @@
 #' @param incl2 Si T se incluyen los lances extra no incluidos para las abundancias o biomasas estratificadas
 #' @return A data.table con el formato de datos para otras especies con formato de geográfico por lances
 #' @examples # datCatches.camp(1,18,"N23","Cant")
+#' @examples # datCatches.camp(1,18,"P23","Porc")
 #' @export
 datCatches.camp<-function(gr,esp,camp,dns="Cant",cor.time=TRUE,incl2=FALSE) {
   datesp<-maphist(gr,esp,camp,dns,cor.time=cor.time,incl2=incl2,plot=FALSE,out.dat=T)
@@ -19,7 +20,7 @@ datCatches.camp<-function(gr,esp,camp,dns="Cant",cor.time=TRUE,incl2=FALSE) {
   DB$camp<-ifelse(dns=="Cant","SpanNGFS","SpanPorc")
   DB<- dplyr::rename(DB,Survey = camp, DateYr = year,Quarter=quarter,HaulNb=lan,latdec=lat,longdec=long,SubDiv=icesArea,
                      StatRec=StatRec,Depth=prof,N30=numero,Kg30=peso.gr)
-  DB$StatRec<-paste0("#",sub(" ","",DB$StatRec),"#")
+  #if (dns=="Cant") {DB$StatRec<- paste0("#",sub(" ","",DB$StatRec),"#")}
   DB<-dplyr::select(DB,Survey,DateYr,Quarter,HaulNb,latdec,longdec,SubDiv,StatRec,Depth,N30,Kg30)
   DB$Kg30<-DB$Kg30/1000
   return(DB)

@@ -13,7 +13,7 @@ datTalCatch.camp(gr, esp, camp, dns = "Cant", cor.time = TRUE, incl2 = FALSE)
 
 \item{camp}{Campaña de la que se extraen los datos: año concreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
-\item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant", Golfo de Cádiz no implementado "Arsa" (únicamente para sacar datos al IBTS, no gráficos)gr Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
 
 \item{cor.time}{Corrección del tiempo de arrastre al calcular las abundancias (mantener en T, \emph{da datos por media hora de lance})}
 
@@ -23,8 +23,9 @@ datTalCatch.camp(gr, esp, camp, dns = "Cant", cor.time = TRUE, incl2 = FALSE)
 A data.table con el formato de datos para otras especies con formato de geográfico por lances
 }
 \description{
-Function para geographical - bayesian models
+Function to create geographical - bayesian models
 }
 \examples{
 # datCatches.camp(1,18,"N23","Cant")
+# datCatches.camp(1,18,"P23","Porc")
 }

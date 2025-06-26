@@ -12,11 +12,11 @@
 #' @family ListadosFauna
 #' @export
 ListFaunaTals.camps<-function(gr="1",camps,dns,excl.sect=NA,cor.time=TRUE,profrange=NA,incl2=TRUE) {
-  dumb<-cbind(camp=camps[1],ListFaunaTals.camp(gr,camps[1],dns,cor.time = cor.time,excl.sect=excl.sect,
-                                               profrange=profrange,incl2))
+  dumb<-ListFaunaTals.camp(gr,camps[1],dns,cor.time = cor.time,excl.sect=excl.sect,
+                                               profrange=profrange,incl2)
   if (length(camps)>1) {
     for (i in camps[2:length(camps)]) {
-      dumb<-rbind(dumb,cbind(camp=i,ListFaunaTals.camp(gr,i,dns,cor.time=cor.time,excl.sect,profrange=profrange,incl2)))
+      dumb<-rbind(dumb,ListFaunaTals.camp(gr,i,dns,cor.time=cor.time,excl.sect,profrange=profrange,incl2))
     }
   }
   dplyr::arrange(dumb,camp,-peso_gr)
