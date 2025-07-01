@@ -21,11 +21,11 @@ CephDataByH<-function(gr=3,esp,camp,dns,quarter=FALSE,incl2=FALSE,incl0=FALSE) {
     dlan<-dplyr::rename(dlan,lan=lance,ICESDivision=zona)
     dlan$ICESDivision<-paste0("27.",dlan$ICESDivision)
     if(quarter==T) dlan$quarter=substr(quarters(as.Date(dlan$fecha)),2,2)
-    DB1<-dplyr::left_join(DB1,select(dlan,lan,ICESDivision),by="lan")
+    DB1<-dplyr::left_join(DB1,dplyr::select(dlan,lan,ICESDivision),by="lan")
     DB1<-dplyr::rename(DB1,HaulNo = lan)
     DB1$HaulNo<-formatC(DB1$HaulNo,width = 3)
-    DB<-as.data.table(CAMPtoHH(camp,dns,incl2 = T))
-    DB<-select(DB,"Survey","Quarter","HaulNo","Year","Month","HaulLat","HaulLong","StatRec")
+    DB<-data.table::as.data.table(CAMPtoHH(camp,dns,incl2 = T))
+    DB<-dplyr::select(DB,"Survey","Quarter","HaulNo","Year","Month","HaulLat","HaulLong","StatRec")
     DB$HaulNo<-formatC(DB$HaulNo,width = 3)
     DB<-dplyr::left_join(DB1,DB,by="HaulNo")
     #DB<-dplyr::left_join(DB,dlan)
@@ -49,7 +49,7 @@ CephDataByH<-function(gr=3,esp,camp,dns,quarter=FALSE,incl2=FALSE,incl0=FALSE) {
     DB$CPUE<-DB$peso.gr*2/1000
     DB$CPUEUnits<-"kgs per hour"
     DB<-DB[,c("RecordType","Survey","Year","Quarter","Month","ICESDivision","StatRec","LatDgr","LatMin","LongDgr","LongMin","FAOAsphis","Abundance","UnitAb","CPUE","CPUEUnits")]
-    if (!incl0) DB<-filter(DB,CPUE>0)
+    if (!incl0) DB<-dplyr::filter(DB,CPUE>0)
     if (length(esp)>1) {
         message("Los resultados son la suma de los datos de abundancia/CPUEs de varias especies:")
         esps=buscaesp(gr,esp[1])

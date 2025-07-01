@@ -27,7 +27,7 @@ ListFaunaTals.camp<- function(gr="1",camp,dns,cor.time=TRUE,excl.sect=NA,profran
     for (i in 1:length(excl.sect)) {if (length(grep(excl.sect[i],as.character(lan$sector)))>0) lan<-lan[-grep(excl.sect[i],as.character(lan$sector)),]}
     lan$sector<-factor(as.character(lan$sector))
   }
-  if (any(!is.na(profrange))) lan<-filter(lan,prof>min(profrange) & prof<max(profrange))
+  if (any(!is.na(profrange))) lan<- dplyr::filter(lan,prof>min(profrange) & prof<max(profrange))
   dumb<-merge(listsps,lan)
   if (cor.time){
   dumb$peso<-dumb$peso_gr/dumb$weight.time
