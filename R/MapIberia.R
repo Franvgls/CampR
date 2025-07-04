@@ -51,13 +51,13 @@ MapIberia<-function(xlims=c(-10.7,5),ylims=c(35.9,44.5),lwdl=1,cuadr=FALSE,cuadr
     abline(v=seq(-10,5,by=0.2174213),col=gray(.4),lwd=.5)
   }
   if (any(!is.na(FU))) {
-    if (any(stringr::str_detect(FU,"FU25"))) {polygon(FU25[,c("long")],FU25[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU25),long==max(FU25[,"long"])),lab="FU25",cex=.8,font=2,pos=4,col=2)}
-    if (any(stringr::str_detect(FU,"FU26"))) {polygon(FU26[,c("long")],FU26[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU26),lat==max(FU26[,"lat"])),lab="FU26",cex=.8,font=2,pos=4,col=2)}
-    if (any(stringr::str_detect(FU,"FU27"))) {polygon(FU27[,c("long")],FU27[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),filter(as.data.frame(FU27),long==min(FU27[,"long"])),lab="FU27",cex=.8,font=2,pos=1,col=2)}
-    if (any(stringr::str_detect(FU,"FU28"))) {polygon(FU28[,c("long")],FU28[,c("lat")],density = dens,col=ColFU,border="grey",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),filter(as.data.frame(FU28),long==min(FU28[,"long"])),lab="FU28",cex=.8,font=2,pos=1,col=2)}
-    if (any(stringr::str_detect(FU,"FU29"))) {polygon(FU29[,c("long")],FU29[,c("lat")],density = dens,col=ColFU,border="grey",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),filter(as.data.frame(FU29),long==min(FU29[,"long"])),lab="FU29",cex=.8,font=2,pos=1,col=2)}
-    if (any(stringr::str_detect(FU,"FU30"))) {polygon(FU30[,c("long")],FU30[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),filter(as.data.frame(FU30),long==min(FU30[,"long"])),lab="FU30",cex=.8,font=2,pos=1,col=2)}
-    if (any(stringr::str_detect(FU,"FU31"))) {polygon(FU31[,c("long")],FU31[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),filter(as.data.frame(FU31),long==min(FU31[,"long"])),lab="FU31",cex=.8,font=2,pos=1,col=2)}
+    if (any(stringr::str_detect(FU,"FU25"))) {polygon(FU25[,c("long")],FU25[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),dplyr::filter(as.data.frame(FU25),long==max(FU25[,"long"])),lab="FU25",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU26"))) {polygon(FU26[,c("long")],FU26[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),dplyr::filter(as.data.frame(FU26),lat==max(FU26[,"lat"])),lab="FU26",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU27"))) {polygon(FU27[,c("long")],FU27[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),dplyr::filter(as.data.frame(FU27),long==min(FU27[,"long"])),lab="FU27",cex=.8,font=2,pos=1,col=2)}
+    if (any(stringr::str_detect(FU,"FU28"))) {polygon(FU28[,c("long")],FU28[,c("lat")],density = dens,col=ColFU,border="grey",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),dplyr::filter(as.data.frame(FU28),long==min(FU28[,"long"])),lab="FU28",cex=.8,font=2,pos=1,col=2)}
+    if (any(stringr::str_detect(FU,"FU29"))) {polygon(FU29[,c("long")],FU29[,c("lat")],density = dens,col=ColFU,border="grey",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),dplyr::filter(as.data.frame(FU29),long==min(FU29[,"long"])),lab="FU29",cex=.8,font=2,pos=1,col=2)}
+    if (any(stringr::str_detect(FU,"FU30"))) {polygon(FU30[,c("long")],FU30[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),dplyr::filter(as.data.frame(FU30),long==min(FU30[,"long"])),lab="FU30",cex=.8,font=2,pos=1,col=2)}
+    if (any(stringr::str_detect(FU,"FU31"))) {polygon(FU31[,c("long")],FU31[,c("lat")],density = dens,col=ColFU,border=limfu,lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.10),dplyr::filter(as.data.frame(FU31),long==min(FU31[,"long"])),lab="FU31",cex=.8,font=2,pos=1,col=2)}
       }
   if (bw) {colo="lightgray"}
   else colo="wheat"

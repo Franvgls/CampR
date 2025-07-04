@@ -28,7 +28,7 @@ datgr.camp<- function(gr,esp,camp,dns,cor.time=TRUE,incl2=TRUE) {
       absp<-fauna[fauna$GRUPO!="6",c(1,4:5)] }
   }
   else {
-    absp<-filter(fauna,GRUPO==gr & ESP %in% esp)
+    absp<-dplyr::filter(fauna,GRUPO==gr & ESP %in% esp)
   }
   lan<-datlan.camp(camp,dns,redux=TRUE,incl2=incl2)
   if (length(lan)==1) {

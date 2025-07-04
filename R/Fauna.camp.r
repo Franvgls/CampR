@@ -37,8 +37,8 @@ Fauna.camp<- function(gr="1",camp,dns,excl.sect=NA,incl2=TRUE,verbose=FALSE,geta
   dumbres$especie<-as.character(dumbres$especie)
   if (any(!is.na(excl.sect))) print(paste("Excluidos los sectores/estratos",excl.sect))
   if (getaphia) {
-    dumbresa<-filter(dumbres,especie=="ERROR CODIGO DESCONOCIDO")
-    dumbres<-filter(dumbres,especie!="ERROR CODIGO DESCONOCIDO")
+    dumbresa<-dplyr::filter(dumbres,especie=="ERROR CODIGO DESCONOCIDO")
+    dumbres<-dplyr::filter(dumbres,especie!="ERROR CODIGO DESCONOCIDO")
     for (i in 1:nrow(dumbres)) dumbres$AphiaID[i]<-worms::wormsbynames(dumbres$especie[i],verbose=verbose)$AphiaID
     rbind(dumbres[order(as.character(dumbres$especie,decreasing=FALSE)),],dumbresa)
     }

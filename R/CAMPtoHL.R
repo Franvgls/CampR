@@ -111,8 +111,8 @@ CAMPtoHL <-
       as.character(especies$especie[match(as.integer(ntallsdumb$esp), as.integer(especies$esp))])
     ntallsdumb$med <-
       as.character(especies$med[match(ntallsdumb$esp, especies$esp)])
-    if (nrow(filter(ntallsdumb,is.na(SpecCode)))>1) {
-      print(filter(ntallsdumb,is.na(SpecCode)))
+    if (nrow(dplyr::filter(ntallsdumb,is.na(SpecCode)))>1) {
+      print(dplyr::filter(ntallsdumb,is.na(SpecCode)))
     }
     ntallsdumb$incr <-
       as.character(especies$increm[match(as.integer(ntallsdumb$esp), as.integer(especies$esp))])

@@ -78,7 +78,7 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
             fill=TRUE,col=ifelse(bw,gray(.7),"bisque"),add = T)
   maps::map(Porc.map,add=TRUE,fill=TRUE,col=c(rep(NA,nstrat-1),ifelse(bw,"gray85","bisque")),lwd=lwdl)
   if (any(!is.na(FU))) {
-    if (any(stringr::str_detect(FU,"FU16"))) {polygon(FU16[,c("long")],FU16[,c("lat")],density = densfu,col=colFU,border=limfu,lwd=2); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU16),lat==max(FU16[,"lat"])),lab="FU16",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU16"))) {polygon(FU16[,c("long")],FU16[,c("lat")],density = densfu,col=colFU,border=limfu,lwd=2); if (FUsLab) text(c(lat+.10)~c(long-.55),dplyr::filter(as.data.frame(FU16),lat==max(FU16[,"lat"])),lab="FU16",cex=.8,font=2,pos=4,col=2)}
   }
   if (places) {
     points(-(9+.0303/.6),(53+.1623/.6),pch=16,col=1)
@@ -96,7 +96,7 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
     polygon(maps::map(Porc.map,"1C",plot=FALSE)$x,maps::map(Porc.map,"1C",plot=FALSE)$y,density=dens,angle=135)
   }
   if (any(!is.na(FU))) {
-    if (any(stringr::str_detect(FU,"FU16"))) {polygon(FU16[,c("long")],FU16[,c("lat")],density = 20,col="chartreuse",border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),filter(as.data.frame(FU16),lat==max(FU16[,"lat"])),lab="FU16",cex=.8,font=2,pos=4,col=2)}
+    if (any(stringr::str_detect(FU,"FU16"))) {polygon(FU16[,c("long")],FU16[,c("lat")],density = 20,col="chartreuse",border="red",lwd=3); if (FUsLab) text(c(lat+.10)~c(long-.55),dplyr::filter(as.data.frame(FU16),lat==max(FU16[,"lat"])),lab="FU16",cex=.8,font=2,pos=4,col=2)}
   }
   if (leg) {
     rect(-13.2,50.7,-10.3,51.3,col="white")

@@ -48,7 +48,7 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
   for (i in 1:nrow(dumblan)) { if (dumblan$time_l[i]>dumblan$solarNoon[i] & dumblan$time_l[i]<dumblan$sunset[i]) dumblan$dayhour[i]<-"T" }
   for (i in 1:nrow(dumblan)) { if (dumblan$time_l[i]>dumblan$sunset[i] & dumblan$time_v[i]<dumblan$dusk[i]) dumblan$dayhour[i]<-"A" }
   # if (out.dat) return(dumblan)
-  # else return(filter(dumblan,daynight=="N")[,c("date","lance","daynight","sunrise","time_l","sunset","time_v")])
+  # else return(dplyr::filter(dumblan,daynight=="N")[,c("date","lance","daynight","sunrise","time_l","sunset","time_v")])
   dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error | abs(dumblan$error.rumb)>pc.error,c("camp","lance","recorrido","dist.hf","vel.dist","velocidad","error.dist","error.vel","error.rumb")]
   op<-par(no.readonly = T)
   if (plots) {
@@ -74,7 +74,7 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
   if (todos & error.rb) return(dumblan[order(dumblan$camp,dumblan$lance),c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","vel.dist","error.dist","error.vel","rumbo","error.rumb","sunrise","time_l","sunset","time_v","dusk","daynight")])
   if (!todos & error.rb) {lt<-list(lances=(dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error*3 | abs(dumblan$error.rumb)>pc.error*3,
                        c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","rumbo","rumb","vel.dist","error.dist","error.vel","error.rumb")]),
-                          daynight=filter(dumblan,daynight=="N")[,c("date","lance","daynight","sunrise","time_l","sunset","time_v")])
+                          daynight=dplyr::filter(dumblan,daynight=="N")[,c("date","lance","daynight","sunrise","time_l","sunset","time_v")])
                           return(lt)}
   if (!error.rb) return(dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error*3,
                                c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","vel.dist","error.dist","error.vel")])

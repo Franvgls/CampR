@@ -29,7 +29,7 @@ MapLansGPS<-function(camp,dns="Porc",leg=F,incl0=FALSE,add=F,xlims=NA,ylims=NA,t
                      es=TRUE,bw=FALSE,ax=TRUE,ErrLans=NA,ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.8,graf=FALSE,xpng=1200,ypng=800,ppng=15) {
   #if (!all(any(is.na(xlims)),any(is.na(ylims))))  stop("Si especifica limite de coordenadas debe hacerlo tanto en latitud y longitud")
   lan<-datlan.camp(camp,dns,redux=FALSE,incl2=TRUE,incl0=TRUE)
-  if (any(!is.na(ErrLans))) lan<-filter(lan,lance %in% ErrLans)
+  if (any(!is.na(ErrLans))) lan<-dplyr::filter(lan,lance %in% ErrLans)
   lannul<-lan[lan$validez==0,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
   lanesp<-lan[lan$validez>1,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]
   lan<-lan[lan$validez==1,c("lance","longitud_l","latitud_l","prof_l","longitud_v","latitud_v","prof_v")]

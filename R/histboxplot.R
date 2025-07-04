@@ -64,9 +64,9 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
     }
 	dumb$camp<-factor(dumb$camp)
 	if (out.dat) print(dumb[dumb[,5]>0,])
-	if (!ceros) dumb<-filter(dumb,numero>0)
+	if (!ceros) dumb<-dplyr::filter(dumb,numero>0)
 	if (any(!is.na(profrange))) {
-	  dumb<-filter(dumb,prof>min(profrange) & prof<max(profrange))
+	  dumb<-dplyr::filter(dumb,prof>min(profrange) & prof<max(profrange))
 	    titrang<-ifelse(es,"Rango profs:","Depth range:")
 	    if (min(profrange)==0) prang<-bquote(.(tirang) <=.(format(paste0(max(profrange),"m")))) #list(label=bquote(" "<=.(format(paste0(max(profrange),"m")))),font.sub=2,cex=cex.leg*.9)
 	    if (max(profrange)==999) prang<-bquote(.(tirang) >=.(format(paste0(min(profrange),"m"))))
@@ -74,11 +74,11 @@ histboxplot<-function(gr,esp,camps,dns="Porc",cor.time=TRUE,incl2=TRUE,es=T,bw=T
 	    if (min(profrange)==0 & max(profrange)==999) prang<-paste(ifelse(es,"Rango profs:","Depth range:"),min(profrange),"-",max(profrange),"m")
 	}
 	if (any(!is.na(latrange))) {
-	  dumb<-filter(dumb,lat>min(latrange) & lat<max(latrange))
+	  dumb<-dplyr::filter(dumb,lat>min(latrange) & lat<max(latrange))
 	  ltrang<-paste(ifelse(es,"Rango latitud:","Latitude range:"),min(latrange),"ºN","-",max(latrange),"ºN")
 	}
 	if (any(!is.na(longrange))) {
-	  dumb<-filter(dumb,long>min(longrange) & long<max(longrange))
+	  dumb<-dplyr::filter(dumb,long>min(longrange) & long<max(longrange))
 	  if (min(longrange)<0) prangE<-paste0(abs(min(longrange)),"ºE") #list(label=bquote(" "<=.(format(paste0(max(longrange),"º")))),font.sub=2,cex=cex.leg*.9)
 	  if (min(longrange)>0) prangE<-paste0(min(longrange),"ºW") #list(label=bquote(" "<=.(format(paste0(max(longrange),"º")))),font.sub=2,cex=cex.leg*.9)
 	  if (max(longrange)<0) prangW<-paste0(abs(max(longrange)),"ºE")

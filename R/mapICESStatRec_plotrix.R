@@ -59,7 +59,7 @@ mapICESStatRec.plotrix<-function(gr,esp,camp,dns="Cant",plus=3,cor.time=TRUE,ICE
 	      mtext(ifelse(years,camptoyear(camp),camp),3,line=1.1,adj=0.5,font=2,cex=.9)
 	    }
 	    points(lat~long,mapage,pch=20,bg="black",cex=.8)
-	    points(lat~long,filter(mapage,rowSums(mapage[,5:c(5+plus)])>0),pch=21,bg="yellow")
+	    points(lat~long,dplyr::filter(mapage,rowSums(mapage[,5:c(5+plus)])>0),pch=21,bg="yellow")
 	    for (i in 1:nrow(mapice)) {
 		    if (sum(mapice[i,3:c(3+plus)])>0) {
 		      plotrix::floating.pie(mapice$long[i],mapice$lat[i],as.matrix(mapice[i,3:c(3+plus)]),
@@ -77,7 +77,7 @@ mapICESStatRec.plotrix<-function(gr,esp,camp,dns="Cant",plus=3,cor.time=TRUE,ICE
 		mtext(ifelse(years,camptoyear(camp),camp),3,line=1.1,adj=0.5,font=2,cex=.9)
 		}
 		points(lat~long,mapage,pch=20,cex=.8,bg="black")
-		points(lat~long,filter(mapage,rowSums(mapage[,5:c(5+plus)])>0),pch=21,bg="yellow")
+		points(lat~long,dplyr::filter(mapage,rowSums(mapage[,5:c(5+plus)])>0),pch=21,bg="yellow")
 		for (i in 1:nrow(mapice)) {
 		  if (sum(mapice[i,3:c(3+plus)])>0) {
 		    plotrix::floating.pie(mapice$long[i],mapice$lat[i],as.matrix(mapice[i,3:c(3+plus)]),
@@ -95,7 +95,7 @@ mapICESStatRec.plotrix<-function(gr,esp,camp,dns="Cant",plus=3,cor.time=TRUE,ICE
 	    mtext(ifelse(years,camptoyear(camp),camp),3,line=1.1,adj=0.5,font=2,cex=.9)
 	  }
 	  points(lat~long,mapage,pch=20,cex=.8,bg="black")
-		points(lat~long,filter(mapage,rowSums(mapage[,5:c(5+plus)])>0),pch=21,bg="yellow")
+		points(lat~long,dplyr::filter(mapage,rowSums(mapage[,5:c(5+plus)])>0),pch=21,bg="yellow")
 		  for (i in 1:nrow(mapice)) {
 		    if (sum(mapice[i,3:c(3+plus)])>0) {
 		      plotrix::floating.pie(mapice$long[i],mapice$lat[i],as.matrix(mapice[i,3:c(3+plus)]),

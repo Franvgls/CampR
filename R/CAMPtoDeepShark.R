@@ -116,8 +116,8 @@ CAMPtoDeepShark <-
       as.character(especies$especie[match(as.integer(ntallsdumb$esp), as.integer(especies$esp))])
     ntallsdumb$med <-
       as.character(especies$med[match(ntallsdumb$esp, especies$esp)])
-    if (nrow(filter(ntallsdumb,is.na(SpecCode)))>1) {
-      print(filter(ntallsdumb,is.na(SpecCode)))
+    if (nrow(dplyr::filter(ntallsdumb,is.na(SpecCode)))>1) {
+      print(dplyr::filter(ntallsdumb,is.na(SpecCode)))
     }
     ntallsdumb$incr <-
       as.character(especies$increm[match(as.integer(ntallsdumb$esp), as.integer(especies$esp))])
@@ -125,7 +125,7 @@ CAMPtoDeepShark <-
     ntallsdumb$LngtCode[ntallsdumb$med == 1] <- "1"
     ntallsdumb$LngtCode[ntallsdumb$med == 2] <- "."
     ntallsdumb$LngtCode[ntallsdumb$incr == 5] <- "0"
-    ntallsdumb<-filter(ntallsdumb,SpecCode %in% sharks$AphiaID)
+    ntallsdumb<-dplyr::filter(ntallsdumb,SpecCode %in% sharks$AphiaID)
     DB1 <-
       merge(ntallsdumb,
             data.table::as.data.table(DB),
