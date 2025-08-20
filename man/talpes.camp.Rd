@@ -10,6 +10,8 @@ talpes.camp(gr, esp, dns = "Camp")
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
 
 \item{esp}{Código de la especie numérico o carácter con tres espacios. 999 para todas las especies del grupo}
+
+\item{dns}{Elige el origen de las bases de datos: Porcupine "Porc", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
 }
 \description{
 Extrae los parámetros a y b de la relación talla-peso de una especie determinada

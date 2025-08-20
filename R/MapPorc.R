@@ -28,7 +28,7 @@ MapPorc<- function(gr,esp,camps,dns="Porc",puntos=FALSE,bw=FALSE,add=FALSE,esc.m
   for (i in 1:ndat) {
     tempdumb<-DBI::dbReadTable(ch1, paste0("FAUNA",camps[i]))
     tempdumb<-tempdumb[tempdumb$GRUPO==gr & tempdumb$ESP==esp,]
-    tempdumb<-select(tempdumb,lance=LANCE,peso_gr=PESO_GR,numero=NUMERO)
+    tempdumb<-dplyr::select(tempdumb,lance=LANCE,peso_gr=PESO_GR,numero=NUMERO)
     if (!is.null(tempdumb)) absp<-rbind(absp,cbind(tempdumb,camp=camps[i]))
   }
   absp$lance<-as.integer(absp$lance)

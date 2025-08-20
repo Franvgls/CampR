@@ -1,10 +1,12 @@
 ---
-title: "Vignete 2.-Instalación de librerías para CampR"
+title: "Vignette 2.-Instalación de librerías para CampR"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
 output: html_document
 vignette: |
-  %\VignetteEngine{knitr::rmarkdown} %\VignetteINdexEntry{Instalación de datos para CampR}  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteIndexEntry{Vignette 2.-Instalación de librerías para CampR}  
+  %\VignetteEncoding{UTF-8}
 ---
 
 ### <div style="text-align: center">  CampR: Instalación de R, Rstudio y librerías de R necesarias </div>
@@ -27,11 +29,13 @@ Además hay algunas librerías que han pasado a versiones modernas que no son co
 * magrittr 1.5
 * pillar 1.5.1
 * rlang 0.4.10
+* ggplot2 3.4.0
 * tibble 2.1.3
 * tidyselect (<= 1.1.0)
 * vctrs 0.3.5
 * maptools 1.1-4
 * rgdal 1.5-32
+* ggplot2 3.4.0
 * RODBC 1.3-16  (En principio ya no es necesario)
 
 
@@ -46,6 +50,7 @@ un Script adeduado una vez desinstaladas versiones anteriores de las librerías 
 #' remotes::install_version("vctrs","0.5.2",dependencies = F)
 #' remotes::install_version("pillar","1.5.1",dependencies = F)
 #' remotes::install_version("rlang","1.0.6",dependencies = F)
+#' remotes::install_version("ggplot2","3.4.0",dependencies=F)
 #' remotes::install_version("tibble","2.1.3",dependencies = F)
 #' remotes::install_version("tidyverse","1.3.0",dependencies = F)
 #' remotes::install_version("tidyselect","1.2.0",dependencies = F)

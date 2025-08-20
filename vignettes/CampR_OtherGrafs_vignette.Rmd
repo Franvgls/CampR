@@ -1,11 +1,11 @@
 ---
-title: "Vignete 5.- Otros tipos de gráficos"
+title: "Vignette 5.- Otros tipos de gráficos"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteINdexEntry{Otros tipos de gráficos} 
+  %\VignetteIndexEntry{Vignette 5.- Otros tipos de gráficos} 
   %\VignetteEncoding{UTF-8}
 ---
 

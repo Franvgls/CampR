@@ -4,7 +4,7 @@
 \alias{datmuest.camp}
 \title{Datos del muestreo de la especie esp en la campaña}
 \usage{
-datmuest.camp(gr, esp, camps, dns = "Cant", excl.sect = NA)
+datmuest.camp(gr, esp, camps, dns = "Cant", cor.time = FALSE, excl.sect = NA)
 }
 \arguments{
 \item{gr}{Grupo de la especie: 1 peces, 2 crustáceos 3 moluscos 4 equinodermos 5 invertebrados}
@@ -14,6 +14,8 @@ datmuest.camp(gr, esp, camps, dns = "Cant", excl.sect = NA)
 \item{camps}{Campañas de las que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"}
 
 \item{dns}{Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)}
+
+\item{cor.time}{Si T corrige la estimación de las abundancias de la captura a la duración del lance con 30 mins como estándar}
 
 \item{excl.sect}{Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos}
 }

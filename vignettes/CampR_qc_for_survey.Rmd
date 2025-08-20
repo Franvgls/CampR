@@ -1,9 +1,11 @@
 ---
-title: "Vignete 9. CampR control de calidad en campañas de arrastre"
+title: "Vignette 9. CampR control de calidad en campañas de arrastre"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
-vignette: "%\\VignetteEngine{knitr::rmarkdown} \n%\\VignetteINdexEntry{CampR control
-  de calidad en campañas de arrastre}     %\\VignetteEncoding{UTF-8}\n"
+vignette: |
+  %\\VignetteEngine{knitr::rmarkdown}
+  %\\VignetteINdexEntry{CampR control de calidad en campañas de arrastre}
+  %\\VignetteEncoding{UTF-8}
 ---
 
 ```{r, echo=FALSE, results='hide', include=FALSE}

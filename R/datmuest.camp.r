@@ -5,6 +5,7 @@
 #' @param esp Código de la especie numérico o carácter con tres espacios. Utilizar buscacod(gr,esp) para ver codigos
 #' @param camps Campañas de las que se extraen los datos: un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
 #' @param dns Elige el origen de las bases de datos: Porcupine "Pnew", Cantábrico "Cant, Golfo de Cádiz "Arsa" (únicamente para sacar datos al IBTS, no gráficos)
+#' @param cor.time Si T corrige la estimación de las abundancias de la captura a la duración del lance con 30 mins como estándar
 #' @param excl.sect Sectores a excluir como carácter, se pueden elegir tanto los sectores como estratos
 #' @return Devuelve un data.frame con datos del muestreo en los años/campañas elegidas y contendio: nombre especie,campaña, número de lances en la campaña,
 #'      número de lances con la especie,  pesos y número totales muestreados, numero total capturado, peso medio de los bichos medidos y el rango de tallas,
@@ -12,7 +13,7 @@
 #' @examples  datmuest.camp(2,19,c("P16","P17"),"Porc")
 #' @examples datmuest.camp(1,50,Psh,"Porc")
 #' @export
-datmuest.camp<-function(gr,esp,camps,dns="Cant",excl.sect=NA) {
+datmuest.camp<-function(gr,esp,camps,dns="Cant",cor.time=FALSE,excl.sect=NA) {
   esp<-format(esp,width=3,justify="r")
   #if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de mas de una")}
   if (any(length(esp)>1 | esp==999)) {stop("seleccionadas más de una especie, no tiene sentido sacar resultados sobre el muestreo de varias especies, sacarlos por especie y sumarlos")}
@@ -24,6 +25,15 @@ datmuest.camp<-function(gr,esp,camps,dns="Cant",excl.sect=NA) {
   #DBI::dbDisconnect(ch1)
   names(ntalls)<-gsub("_", ".",names(ntalls))
   ntalls$lance<-as.numeric(ntalls$lance)
+  if (any(cor.time,camps=="N83",camps=="N84")) {
+    ntalls<-merge(ntalls,lan,by.x="lance",by.y="lance")
+    if (any(ntalls$weight.time==0)) {
+      ntalls$weight.time[ntalls$weight.time==0]=.1
+      message("Hay lances con duración 0 minutos, revisa validez")
+    }
+    ntalls$numer<-ntalls$numer/ntalls$weight.time
+    ntalls<-ntalls[,1:6]
+  }
   ntalls$ncapt<-ntalls$numer*ntalls$peso.gr/ntalls$peso.m
   if (any(!is.na(excl.sect))) {
     ntalls<-ntalls[ntalls$lance %in% lan$lance,]

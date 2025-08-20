@@ -1,12 +1,14 @@
 ---
-title: "Vignete 6.- Gráficos distribuciones de abundancias"
+title: "Vignette 6.- Gráficos distribuciones de abundancias"
 author: "Fran Velasco"
 date: "`r Sys.Date()`"
 output:
   html_document:
     df_print: paged
 vignette: |
-  %\VignetteEngine{knitr::rmarkdown} %\VignetteINdexEntry{Gráficos distribuciones de abundancias}  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteIndexEntry{Vignette 6.- Gráficos distribuciones de abundancias}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, echo=FALSE, results='hide',include=FALSE}

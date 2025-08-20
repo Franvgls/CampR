@@ -54,6 +54,7 @@ MapNort<- function(lwdl=.5,cuadr=FALSE,cuadrcol=gray(.4),cuadrMSFD=FALSE,latlong
   if (ICESrect) abline(h=seq(41,45,by=.5),v=seq(-12,-1),col=ICESrectcol,lwd=2)
   if (strat) {
     abline(h=43,v=c(-7.66,-6,-3.5),lty=1,col=gray(.0),lwd=2)
+    lines(x=c(-1.7764333,-1.7764333,-1.84477,-2.2049),y=c(43.373,43.4811,43.6471,43.8498),lwd=2)
     text(c(-10,-9.7,-6.83,-4.75,-2.7),c(42.4,44.3,44.3,44.3,44.3),c("MF","FE","EP","PA","AB"),font=2)
   }
   if (any(!is.na(FU))) {

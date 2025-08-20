@@ -69,7 +69,7 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
     abline(h=seq(50,55,by=.5),col=gray(.2),lwd=.6)
     abline(v=seq(-18,-10,by=1),col=gray(.2),lwd=.6)
   }
-  if (sectcol) colrs=c("Steelblue2","Steelblue2","Steelblue","blue4","darkolivegreen","darkdarkolivegreen",gray(.7))
+  if (sectcol) colrs=c("Steelblue2","Steelblue2","Steelblue","blue4","green3","darkolivegreen",gray(.7))
   else {
     if (bw) {colrs=c(rep(ifelse(bw,"white","lightblue"),6),gray(.7))} else {colrs=c(rep("lightblue1",6),"antiquewhite")}
   }

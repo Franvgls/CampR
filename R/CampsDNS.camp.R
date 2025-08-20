@@ -11,7 +11,7 @@ CampsDNS.camp<- function(dns) {
   ch1<-DBI::dbConnect(odbc::odbc(), dns)
   on.exit(DBI::dbDisconnect(ch1), add = TRUE)
   dumbdir<-DBI::dbConnect(odbc::odbc(), dns)@info$dbname
-  on.exit(DBI::dbDisconnect(dumbdir), add = TRUE)
+  # on.exit(DBI::dbDisconnect(dumbdir), add = TRUE)
   dumb<-DBI::dbListTables(ch1)
   dumb<-unlist(dumb)
   dumb<-dumb[nchar(dumb)<9 & grepl(c("CAMP|LANCE|FAUNA|NTALL|EDAD|HIDRO"),dumb)]
@@ -34,14 +34,14 @@ CampsDNS.camp<- function(dns) {
     }
   }
   if (nrow(DBI::dbGetQuery(ch1,paste0("select FECHA from ","LANCE",camps$ident[camps$tipo=="LANCE"][1])))>0){
-    m<-year(as.Date((DBI::dbGetQuery(ch1,paste0("select FECHA from ","LANCE",camps$ident[camps$tipo=="LANCE"][1])))[1,],format="%Y-%m-%d")) %% 100
+    m<-lubridate::year(as.Date((DBI::dbGetQuery(ch1,paste0("select FECHA from ","LANCE",camps$ident[camps$tipo=="LANCE"][1])))[1,],format="%Y-%m-%d")) %% 100
     m<-ifelse(m>70,1900+m,2000+m)
     YeCamp<-dplyr::tibble(camp=paste0("LANCE",camps$ident[camps$tipo=="LANCE"][1][1]),year=m)
   }
   else YeCamp<-dplyr::tibble(camp=NA,year=NA)
   for (i in 2:length(paste0("LANCE",camps$ident[camps$tipo=="LANCE"]))) {
     if (nrow(DBI::dbGetQuery(ch1,paste0("select FECHA from ","LANCE",camps$ident[camps$tipo=="LANCE"][i])))>0) {
-      m<-year(as.Date((DBI::dbGetQuery(ch1,paste0("select FECHA from ","LANCE",camps$ident[camps$tipo=="LANCE"][i])))[1,],format="%Y-%m-%d")) %% 100
+      m<-lubridate::year(as.Date((DBI::dbGetQuery(ch1,paste0("select FECHA from ","LANCE",camps$ident[camps$tipo=="LANCE"][i])))[1,],format="%Y-%m-%d")) %% 100
       m<-ifelse(m<70,2000+m,1900+m)
       YeCamp<-rbind(YeCamp,cbind(camp=paste0("LANCE",camps$ident[camps$tipo=="LANCE"])[i],year=m))
       }
@@ -63,9 +63,10 @@ CampsDNS.camp<- function(dns) {
   if (length(camps.h$tipo)<Narchs) camps.h<-c(as.character(camps.h$tipo),rep(".",Narchs-nrow(camps.h)))
   if (length(camps.e$tipo)<Narchs) camps.e<-c(as.character(camps.e$tipo),rep(".",Narchs-nrow(camps.e)))
   message(paste("Directorio:",dumbdir))
-  DD<-dplyr::tibble(NomCamp=nombres,Year=anyos_lan,Camp=camps.c,Lance=camps.l,years=anyos_lan,Fauna=camps.f,
-                 Tallas=camps.t,Edad=camps.e,Hidro=camps.h)
+  DD<-dplyr::tibble(NomCamp=nombres,Year=as.numeric(anyos_lan),Camp=camps.c,Lance=camps.l,
+                    Fauna=camps.f,Tallas=camps.t,Edad=camps.e,Hidro=camps.h)
   print(DD[order(as.character(DD$Year),DD$NomCamp),],n=Inf) #c(1:4,7,9:11)
+  DD
 }
 
 # cbind(camps.c[substr(camps.f,6,8) %in% substr(camps.c,5,7)],camps.l[substr(camps.c,5,7) %in% substr(camps.l,6,8)],camps.f[substr(camps.c,5,7) %in% substr(camps.f,6,8)])

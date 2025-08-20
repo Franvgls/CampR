@@ -348,6 +348,17 @@
       ],
       "Hash": "bee651a42a89633eccb36dca9d9ab413"
     },
+    "cli": {
+      "Package": "cli",
+      "Version": "3.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "utils"
+      ],
+      "Hash": "78003c09d258968a4d28107e779edb10"
+    },
     "clipr": {
       "Package": "clipr",
       "Version": "0.8.0",
@@ -712,6 +723,17 @@
         "withr"
       ],
       "Hash": "44c6a2f8202d5b7e878ea274b1092426"
+    },
+    "glue": {
+      "Package": "glue",
+      "Version": "1.3.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "methods"
+      ],
+      "Hash": "af1f47b63d1aa2206c1fe4d3db1d9366"
     },
     "googledrive": {
       "Package": "googledrive",
@@ -1118,6 +1140,13 @@
       ],
       "Hash": "14cf492ea07bf498fb34c80563ba593b"
     },
+    "magrittr": {
+      "Package": "magrittr",
+      "Version": "1.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1bb58822a20301cee84a41678e25d9b7"
+    },
     "mapdata": {
       "Package": "mapdata",
       "Version": "2.3.1",
@@ -1521,6 +1550,20 @@
       ],
       "Hash": "76c9e04c712a05848ae7a23d2f170a40"
     },
+    "remotes": {
+      "Package": "remotes",
+      "Version": "2.4.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "methods",
+        "stats",
+        "tools",
+        "utils"
+      ],
+      "Hash": "227045be9aee47e6dda9bb38ac870d67"
+    },
     "renv": {
       "Package": "renv",
       "Version": "0.17.3",
@@ -1568,6 +1611,17 @@
         "utils"
       ],
       "Hash": "7e8f18c3a55c90a44ea05e0620c05a7e"
+    },
+    "rlang": {
+      "Package": "rlang",
+      "Version": "0.4.10",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "utils"
+      ],
+      "Hash": "599df23c40a4fce9c7b4764f28c37857"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
@@ -1864,6 +1918,24 @@
       ],
       "Hash": "90b28393209827327de889f49935140a"
     },
+    "tibble": {
+      "Package": "tibble",
+      "Version": "2.1.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "cli",
+        "crayon",
+        "fansi",
+        "methods",
+        "pillar",
+        "pkgconfig",
+        "rlang",
+        "utils"
+      ],
+      "Hash": "8248ee35d1e15d1e506f05f5a5d46a75"
+    },
     "tidyr": {
       "Package": "tidyr",
       "Version": "1.1.3",
@@ -1885,6 +1957,21 @@
         "vctrs"
       ],
       "Hash": "450d7dfaedde58e28586b854eeece4fa"
+    },
+    "tidyselect": {
+      "Package": "tidyselect",
+      "Version": "1.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "ellipsis",
+        "glue",
+        "purrr",
+        "rlang",
+        "vctrs"
+      ],
+      "Hash": "6ea435c354e8448819627cf686f66e0a"
     },
     "tidyverse": {
       "Package": "tidyverse",
@@ -2013,16 +2100,17 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.3.8",
+      "Version": "0.3.5",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
+        "digest",
         "ellipsis",
         "glue",
         "rlang"
       ],
-      "Hash": "ecf749a1b39ea72bd9b51b76292261f1"
+      "Hash": "d25c5bea636cf892edbfd64fc3d20c20"
     },
     "vegan": {
       "Package": "vegan",

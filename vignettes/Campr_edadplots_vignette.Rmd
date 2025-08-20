@@ -4,7 +4,8 @@ author: "Fran Velasco"
 date: "`r Sys.Date()`"
 vignette: |
   %\VignetteEngine{knitr::rmarkdown} 
-  %\VignetteINdexEntry{Edades y gráficos}  %\VignetteEncoding{UTF-8}
+  %\VignetteIn dexEntry{Edades y gráficos}  
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, echo=FALSE, results='hide',include=FALSE}
