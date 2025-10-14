@@ -10,7 +10,9 @@ qcdistlan.camp(
   todos = FALSE,
   pc.error = 2,
   error.rb = TRUE,
-  plots = TRUE
+  plots = TRUE,
+  es = FALSE,
+  esc.mult = 1
 )
 }
 \arguments{
@@ -25,6 +27,8 @@ qcdistlan.camp(
 \item{error.rb}{si F no tiene en cuenta los errores de rumbo que tampoco tiene mucho peso}
 
 \item{plots}{si T abre una pantalla con tres gráficos de los errores detectados en error.dist, error.vel y error.rumb}
+
+\item{es}{if T all text will be in Spanish, if F in English}
 }
 \value{
 Devuelve un data.frame con campaña, lance, recorrido, recorrido según la fórmula de Haversine, recorrido según la velocidad x el tiempo, velocidad, tiempo, rumbo, rumbo estimado según posiciones,velocidad calculada a partir de la distancia y el tiempo, y los porcentajes de errores de distancia, velocidad y rumbo, horas de amanecer, salida del sol, mediodía, puesta del sol y noche.

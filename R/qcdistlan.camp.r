@@ -7,6 +7,7 @@
 #' @param pc.error porcentaje de error aceptable para no mostrar los lances como erróneos
 #' @param error.rb si F no tiene en cuenta los errores de rumbo que tampoco tiene mucho peso
 #' @param plots si T abre una pantalla con tres gráficos de los errores detectados en error.dist, error.vel y error.rumb
+#' @param es if T all text will be in Spanish, if F in English
 #' @return Devuelve un data.frame con campaña, lance, recorrido, recorrido según la fórmula de Haversine, recorrido según la velocidad x el tiempo, velocidad, tiempo, rumbo, rumbo estimado según posiciones,velocidad calculada a partir de la distancia y el tiempo, y los porcentajes de errores de distancia, velocidad y rumbo, horas de amanecer, salida del sol, mediodía, puesta del sol y noche.
 #' @examples qcdistlan.camp("C14","Cant",pc.error=.01)
 #' @examples qcdistlan.camp("216","Arsa",pc.error=.01)
@@ -14,9 +15,9 @@
 #' @references distHaversine function gives the haversine calculation of distance between two geographic points \code{\link[geosphere]{distHaversine}}
 #' @family Control de calidad
 #' @export
-qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,plots=TRUE) {
+qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,plots=TRUE,es=FALSE,esc.mult=1) {
   while (!is.null(dev.list()))  dev.off()
-  windows()
+  if (plots) {windows()}
   dumblan<-datlan.camp(camp,dns,redux=FALSE)
   dumblan$mins<-round(dumblan$haul.mins*dumblan$weight.time,1)
   dumblan$dist.vel<-round(c(dumblan$weight.time*dumblan$haul.mins)/60*dumblan$velocidad*1852,0)
@@ -55,19 +56,21 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
     temp<-dumblan[order(dumblan$camp,dumblan$lance),c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","vel.dist","error.dist","error.vel","rumbo","error.rumb")]
     par(mfrow=c(1,3),oma=c(0,0,2,0))
     ylims<-hablar::max_(abs(temp$error.dist))*1.1
-    plot(error.dist~lance,temp,cex=sqrt(abs(error.dist)),pch=21,
-         bg= dplyr::if_else(error.dist<0,"red","blue"),type="o",ylim=c(-ylims,ylims))
-    mtext(paste("Campaña",camp),outer =T,cex=1.1,font=2)
+    plot(error.dist~lance,temp,cex=sqrt(abs(error.dist)),pch=21,cex.lab=1*esc.mult,cex.axis=1*esc.mult,
+         bg= dplyr::if_else(error.dist<0,"red","blue"),type="o",ylim=c(-ylims,ylims),xlab=ifelse(es,"lance","haul"),ylab=ifelse(es,"error.dist","distance error"))
+    mtext(paste(ifelse(es,"Campaña","Survey"),camp),outer =T,cex=1.1*esc.mult,font=2)
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
-    title(main="Error distancia-puntos")
+    title(main=ifelse(es,"Error distancia-puntos","Distance points error"),cex.main=1.1*esc.mult)
     ylims<-hablar::max_(abs(temp$error.vel))*1.1
-    plot(error.vel~lance,temp,cex=sqrt(abs(error.vel)),pch=21,bg=dplyr::if_else(error.vel<0,"red","blue"),type="o",ylim=c(-ylims,ylims))
+    plot(error.vel~lance,temp,cex=sqrt(abs(error.vel)),pch=21,bg=dplyr::if_else(error.vel<0,"red","blue"),type="o",
+         ylim=c(-ylims,ylims),cex.axis=1*esc.mult,cex.lab=1*esc.mult,ylab=ifelse(es,"error.vel","speed error"),xlab=ifelse(es,"lance","haul"))
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
-    title(main="Error distancia-velocidad")
+    title(main=ifelse(es,"Error distancia-velocidad","Distance-speed error"),cex.main=1.1*esc.mult)
     ylims<-hablar::max_(abs(temp$error.rumb))*1.1
-    plot(error.rumb~lance,temp,cex=sqrt(abs(error.rumb)),pch=21,bg=dplyr::if_else(error.rumb<0,"red","blue"),type="o",ylim=c(-ylims,ylims))
+    plot(error.rumb~lance,temp,cex=sqrt(abs(error.rumb)),pch=21,bg=dplyr::if_else(error.rumb<0,"red","blue"),type="o",ylim=c(-ylims,ylims),
+         cex.axis=1*esc.mult,cex.lab=1*esc.mult,xlab=ifelse(es,"lance","haul"),ylab=ifelse(es,"error.rumb","tow rhumb error"))
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
-    title(main="Error rumbo puntos")
+    title(main=ifelse(es,"Error rumbo puntos","tow direction points"),cex.main=1.1*esc.mult)
   }
   par(op)
   if (length(unique(lubridate::year(dumblan$fecha)))>1) print(paste("Detectados lances en varios años: ",paste(unique(dumblan$year),collapse = ", ")))

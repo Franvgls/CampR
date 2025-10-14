@@ -5,7 +5,7 @@
 \alias{Psh}
 \title{Serie histórica de la campaña Porcupine realizada por el IEO en el Banco Porcupine}
 \format{
-A vector with codes for the surveys from 2001 to 2018
+A vector with codes for the surveys from 2001 to 2025
 }
 \usage{
 Psh
