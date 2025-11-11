@@ -1,6 +1,6 @@
-#' Mapa distribución entre tallas tmin y tmax
+#' Mapa distribución entre tallas tmin y tmax uniendo distintas campañas en una sola gráfica
 #'
-#' Saca mapas de distribución de una especie entre tallas tmin y tmax para varias campañas
+#' Saca mapas de distribución de una especie entre tallas tmin y tmax para varias campañas en una sola gráfica
 #' @param gr Grupo de la especie: 1 peces, 2 crustaceos 3 moluscos 4 equinodermos 5 invertebrados. 6 Desechos y otros inorgánicos no tiene sentido sacar tallas, sólo recogidas en peces, crustáceos decápodos y algunos moluscos
 #' @param esp Código de la especie numerico o caracter con tres espacios. 999 para todas las especies del grupo
 #' @param camps Campaña a representar en el mapa de un año comcreto (XX): Demersales "NXX", Porcupine "PXX", Arsa primavera "1XX" y Arsa otoño "2XX"
@@ -29,7 +29,7 @@
 #' @param ypng height archivo png si graf es el nombre del fichero
 #' @param ppng points png archivo si graf es el nombre del fichero
 #' @return Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
-#' @examples maphistal.one(1,50,Nsh[32:41],"Cant",1,23,out.dat=TRUE)
+#' @examples maphistal.one(1,50,Nsh[32:41],"Cant",1,23)
 #' @family mapas
 #' @family tallas
 #' @export
@@ -97,7 +97,8 @@ maphistal.one<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,in
 	par(mar=c(3.5,4,3.2,3.5)+0.1)
 	if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
     mapporco()
-	  points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(numero/escala)*escmult,subset = numero>0)
+	  if (ind=="n") {points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(numero/escala)*escmult,subset = numero>0)}
+	  if (ind=="p") {points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(peso/escala)*escmult,subset = peso>0)}
 	  legend("bottomright",
 	         legend = paste0(format(vals_leg, big.mark = ""), ifelse(ind=="n"," ind."," g")),
 	         pch = 21,
@@ -117,8 +118,8 @@ maphistal.one<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,in
 	  }
 	if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
 	  MapNort(places=T)
-	  points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(numero/escala)*escmult,subset = numero>0)
-	  # Leyenda mejorada: fondo blanco, círculos separados y centrados
+	  if (ind=="n") {points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(numero/escala)*escmult,subset = numero>0)}
+	  if (ind=="p") {points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(peso/escala)*escmult,subset = peso>0)}
 	  legend("bottomright",
 	         legend = paste0(format(vals_leg, big.mark = ""), ifelse(ind=="n"," ind."," g")),
 	         pch = 21,
@@ -138,7 +139,8 @@ maphistal.one<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,in
 	}
 	if (dns=="Arsa") {
 	  MapArsa(places=T)
-	  points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(numero/escala)*escmult,subset = numero>0)
+	  if (ind=="n") {points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(numero/escala)*escmult,subset = numero>0)}
+	  if (ind=="p") {points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(peso/escala)*escmult,subset = peso>0)}
 	  legend("topright",
 	         legend = paste0(format(vals_leg, big.mark = ""), ifelse(ind=="n"," ind."," g")),
 	         pch = 21,
@@ -157,7 +159,8 @@ maphistal.one<-function(gr,esp,camps,dns="Porc",tmin=0,tmax=999,cor.time=TRUE,in
 	}
 	if (dns=="Medi") {
 	  MapMedit(places=T)
-	  points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(numero/escala)*escmult,subset = numero)
+	  if (ind=="n") {points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(numero/escala)*escmult,subset = numero>0)}
+	  if (ind=="p") {points(lat~long,dumb,pch=21,lwd=2,col="navy",cex=sqrt(peso/escala)*escmult,subset = peso>0)}
 	  legend("bottomright",
 	         legend = paste0(format(vals_leg, big.mark = ""), ifelse(ind=="n"," ind."," g")),
 	         pch = 21,

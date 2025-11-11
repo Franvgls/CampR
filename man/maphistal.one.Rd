@@ -2,7 +2,7 @@
 % Please edit documentation in R/maphistal.one.r
 \name{maphistal.one}
 \alias{maphistal.one}
-\title{Mapa distribución entre tallas tmin y tmax}
+\title{Mapa distribución entre tallas tmin y tmax uniendo distintas campañas en una sola gráfica}
 \usage{
 maphistal.one(
   gr,
@@ -92,10 +92,10 @@ maphistal.one(
 Si out.dat=TRUE devuelve un data.frame con columnas: lan,lat,long,prof,numero (de individuos entre tmin y tmax),camp, si out.dat=F saca el gráfico en pantalla o como objeto para combinar con otros gráficos con print.trellis
 }
 \description{
-Saca mapas de distribución de una especie entre tallas tmin y tmax para varias campañas
+Saca mapas de distribución de una especie entre tallas tmin y tmax para varias campañas en una sola gráfica
 }
 \examples{
-maphistal.one(1,50,Nsh[32:41],"Cant",1,23,out.dat=TRUE)
+maphistal.one(1,50,Nsh[32:41],"Cant",1,23)
 }
 \seealso{
 Other mapas: 
