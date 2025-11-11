@@ -30,7 +30,7 @@ MapCant<- function(gr,esp,camps,dns="Cant",puntos=FALSE,DpthStr=TRUE,bw=FALSE,ad
   for (i in 1:ndat) {
     tempdumb<-DBI::dbReadTable(ch1, paste0("FAUNA",camps[i]))
     tempdumb<-tempdumb[tempdumb$GRUPO==gr & tempdumb$ESP==esp,]
-    tempdumb<-select(tempdumb,lance=LANCE,peso_gr=PESO_GR,numero=NUMERO)
+    tempdumb<-dplyr::select(tempdumb,lance=LANCE,peso_gr=PESO_GR,numero=NUMERO)
     if (!is.null(tempdumb)) absp<-rbind(absp,cbind(tempdumb,camp=camps[i]))
   }
   absp$lance<-as.integer(absp$lance)

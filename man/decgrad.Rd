@@ -18,6 +18,7 @@ decgrad(43.7923)
 \seealso{
 Other Conversion unidades: 
 \code{\link{HdectoH}()},
-\code{\link{gradec}()}
+\code{\link{gradec}()},
+\code{\link{gradms}()}
 }
 \concept{Conversion unidades}

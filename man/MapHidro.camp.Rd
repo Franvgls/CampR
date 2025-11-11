@@ -85,6 +85,7 @@ Other mapas:
 \code{\link{PorcSWSAC}},
 \code{\link{VedaCigala.out}},
 \code{\link{VedaCigala}},
+\code{\link{VedasBesugo}},
 \code{\link{arMapLansGPS}()},
 \code{\link{armap.camp}()},
 \code{\link{armap.tot}()},
@@ -94,6 +95,7 @@ Other mapas:
 \code{\link{mapICESStatRec}()},
 \code{\link{maparea}()},
 \code{\link{maphistage}()},
+\code{\link{maphistal.one}()},
 \code{\link{maphistal}()},
 \code{\link{maphist}()}
 

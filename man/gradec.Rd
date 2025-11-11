@@ -18,6 +18,7 @@ gradec(43.3080)
 \seealso{
 Other Conversion unidades: 
 \code{\link{HdectoH}()},
-\code{\link{decgrad}()}
+\code{\link{decgrad}()},
+\code{\link{gradms}()}
 }
 \concept{Conversion unidades}

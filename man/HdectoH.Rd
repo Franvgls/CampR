@@ -20,6 +20,7 @@ HdectoH("10.9")
 \seealso{
 Other Conversion unidades: 
 \code{\link{decgrad}()},
-\code{\link{gradec}()}
+\code{\link{gradec}()},
+\code{\link{gradms}()}
 }
 \concept{Conversion unidades}

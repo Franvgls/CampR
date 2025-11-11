@@ -58,7 +58,7 @@ dattal.camps<- function(gr,esp,camps,dns,tmin=0,tmax=999,cor.time=TRUE,excl.sect
   }
   if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
   #    op<-par(no.readonly=TRUE)
-  ifelse(ti,par(mgp=c(2,.6,0)),par(mpg=c(1.5,.5,9)))
+  ifelse(ti,par(mgp=c(2,.6,0)),par(mgp=c(1.5,.5,9)))
   yetiq<-ifelse(es,expression("Ind"%*%"lan"^-1),expression("Ind"%*%"haul"^-1))
   datos<-colSums(dumbtal[,2:ncol(dumbtal)],na.rm=TRUE)
   barplot(datos,ylim=c(0,max(datos)*1.1),names.arg=colnames(datos),col=ifelse(bw,"grey","steelblue"),space=0,ylab=yetiq,las=las)
