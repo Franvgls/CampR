@@ -98,7 +98,7 @@ CAMPtoHL <-
       DB$StNo = DB$lance
     }
     DB <-DB[, c("Survey","year","barco","quarter","Gear","malletas","GearEx","DoorType","lance","StNo","validez","prof_l","prof_v")]
-    ntalls <- ntalls[lance %in% DB$lance, ]
+    ntalls <- ntalls[ntalls$lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
     dumb <- ntalls[, .(NoMeas = sum(numer)), by = .(lance, esp, sexo, cate)]

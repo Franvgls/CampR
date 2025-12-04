@@ -97,7 +97,7 @@ CAMPtoHLnw <-
       ntalls$lance <- format(ntalls$lance, width = 2,justify="r")
       DB$StationName = DB$lance
     }
-    DB <-DB[, c("Survey","year","barco","quarter","Gear","malletas","GearEx","DoorType","lance","StationName","validez","prof_l","prof_v")]
+    DB <-DB[, c("Survey","year","barco","quarter","Gear","malletas","GearExceptions","DoorType","lance","StationName","validez","prof_l","prof_v")]
     ntalls <- ntalls[lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubsamplingNumber <- round(ntalls$peso_gr / ntalls$peso_m, 4)

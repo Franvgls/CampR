@@ -22,8 +22,9 @@ CAMPtoHLmolus<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
     especies <-data.table::as.data.table(DBI::dbGetQuery(ch2,paste0("select * from ESPECIES where GRUPO='3'")))
     #DBI::dbDisconnect(ch2)
     if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
+       DB$Survey = "SP-NORTH"
        DB$Gear="BAK"
-       DB$barco=ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="CDS","CDS"))
+       if (any(DB$barco !="29MO")) {DB$barco = ifelse(DB$barco == "MOL", "29MO", ifelse(DB$barco == "CDS", "29CS"))}
        DB$GearExp=-9
        DB$DoorType=ifelse(DB$barco=="CDS","W","P")
        if(quart) DB$quarter<-"4"
@@ -32,7 +33,8 @@ CAMPtoHLmolus<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
        DB$StNo=DB$lance
     }
     if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
-       DB$barco="EZA"
+       DB$Survey = "SP-PORC"
+       DB$barco="29EZ"
        DB$Gear="PORB"
        DB$GearExp=-9
        DB$DoorType="P"
@@ -42,7 +44,10 @@ CAMPtoHLmolus<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
        DB$StNo<-format(as.integer(DB$cuadricula),width = 3,justify="r")
     }
     if (substr(dns,1,4)=="Arsa") {
-      DB$barco=ifelse(substr(DB$barco,1,3)=="COR","CDS",ifelse(DB$barco=="MOL","29MO"))
+      DB$Survey = "SP-ARSA"
+      if (any(DB$barco !="29MO")) {DB$barco = ifelse(substr(DB$barco, 1, 3) == "COR",
+                                                     "CDS",
+                                                     ifelse(DB$barco == "MOL", "29MO"))}
       DB$Gear="BAK"
       DB$GearExp=-9
       DB$DoorType=ifelse(substr(DB$barco,1,3)=="COR","W","P")

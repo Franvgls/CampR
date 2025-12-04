@@ -1,7 +1,7 @@
 Package: CampR
 Title: Libreria de funciones en R para el programa CAMP
-Version: 0.9.6
-Date: 2025-10-14
+Version: 0.9.7
+Date: 2025-12-03
 Author: Fran Velasco <franvgls@gmail.com>
 Maintainer: FVG <franvgls@gmail.com>
 Description: Funciones para sacar resultados de los datos de campañas de
