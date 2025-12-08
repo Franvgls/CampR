@@ -60,7 +60,7 @@ CAMPtoHLnw <-
       write.csv(especies, "c:/camp/peces.csv", row.names = F)
     }
     if (substr(dns, 1, 4) == "Cant" | substr(dns, 1, 4) == "Cnew") {
-      DB$Survey = "SP-NORTH"
+      DB$Survey = "G2784"
       DB$Gear = "BAK"
       if (any(DB$barco !="29MO")) {DB$barco = ifelse(DB$barco == "MOL", "29MO", ifelse(DB$barco == "CDS", "29CS"))}
       DB$GearExceptions = -9
@@ -72,37 +72,39 @@ CAMPtoHLnw <-
       DB$StationName = DB$lance
     }
     if (substr(dns, 1, 4) == "Pnew" | substr(dns, 1, 4) == "Porc") {
-      DB$Survey = "SP-PORC"
+      DB$Survey = "G5768"
       DB$barco = "29EZ"
       DB$Gear = "PORB"
       DB$GearExceptions = -9
       DB$DoorType = "P"
       if (quart)
         DB$quarter <- "3"
-      DB$lance <- format(as.integer(DB$lance), width = 2,justify="r")
-      ntalls$lance <- format(as.integer(ntalls$lance), width = 2,justify="r")
+      DB$lance <- format(as.integer(DB$lance), Width = 3,justify="r")
+      ntalls$lance <- format(as.integer(ntalls$lance), Width = 3,justify="r")
       DB$StationName <- format(as.integer(DB$cuadricula),width = 3,justify="r")
       }
     if (substr(dns, 1, 4) == "Arsa") {
-      DB$Survey = "SP-ARSA"
-      if (any(DB$barco !="29MO")) {DB$barco = ifelse(substr(DB$barco, 1, 3) == "COR",
-                        "CDS",
-                        ifelse(DB$barco == "MOL", "29MO"))}
+      DB$Survey = ifelse(substr(camp, 1, 1) == "1", "G7511", "G4309")       #"SP-ARSA"
+      if (all(DB$barco %in% c("29MO", "MOL"))) {DB$barco <- "29MO"}
+      if (all(DB$barco %in% c("COR", "CDS","29CS"))) {DB$barco <- "29CS"}
+      if (all(DB$barco %in% c("29VE", "VIZ"))) {DB$barco <- "29VE"}
+      #! ("A" %in% c("Q", "P", "T"))
+      if (!any(DB$barco %in% c("29MO","29CS","29VE"))) stop("Look platform")
       DB$Gear = "BAK"
       DB$GearExceptions = -9
       DB$DoorType = ifelse(substr(DB$barco, 1, 3) == "COR", "W", "P")
       if (quart)
         DB$quarter <- ifelse(substr(camp, 1, 1) == "1", "1", "4")
-      DB$lance <- format(DB$lance, width = 2,justify="r")
-      ntalls$lance <- format(ntalls$lance, width = 2,justify="r")
+      DB$lance <- format(DB$lance, Width = 3,justify="r")
+      ntalls$lance <- format(ntalls$lance, Width = 3,justify="r")
       DB$StationName = DB$lance
     }
     DB <-DB[, c("Survey","year","barco","quarter","Gear","malletas","GearExceptions","DoorType","lance","StationName","validez","prof_l","prof_v")]
-    ntalls <- ntalls[lance %in% DB$lance, ]
+    ntalls <- ntalls[ntalls$lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
-    ntalls$SubsamplingNumber <- round(ntalls$peso_gr / ntalls$peso_m, 4)
-    dumb <- ntalls[, .(SubsampledNumber = sum(numer)), by = .(lance, esp, sexo, cate)]
-    dumb <- dumb[, c("lance", "esp", "sexo", "cate", "SubsampledNumber")]
+    ntalls$SubsamplingFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
+    dumb <- ntalls[, .(SubSamplingNumber = sum(numer)), by = .(lance, esp, sexo, cate)]
+    dumb <- dumb[, c("lance", "esp", "sexo", "cate", "SubSamplingNumber")]
     ntallsdumb <- merge(ntalls, dumb, all.x = TRUE)
     ntallsdumb$esp<-as.integer(ntallsdumb$esp)
     ntallsdumb$SpeciesCode <-
@@ -134,8 +136,7 @@ CAMPtoHLnw <-
     if (inclSpecie == T) {
       HL_north <-
         data.table::data.table(
-          RecordType = "HL",
-          Survey=DB1$Survey,
+          RecordHeader = "HL",
           Quarter = DB1$quarter,
           Country = "ES",
           Platform = DB1$barco,
@@ -148,28 +149,29 @@ CAMPtoHLnw <-
           Year = DB1$year,
           SpeciesCodeType = "W",
           SpeciesCode = DB1$SpeciesCode,
-          specie = DB1$Specie,
+          Specie = DB1$Specie,
           SpeciesValidity = ifelse(DB1$validez==1,1,0),
           SpeciesSex = DB1$SpeciesSex,
-          TotalNumber = round(DB1$SubsampledNumber * DB1$SubsamplingNumber, 2),
-          SpeciesCategory = DB1$cate,
-          SubsampledNumber = DB1$SubsampledNumber,
-          SubsamplingNumber = DB1$SubsamplingNumber,
+          TotalNumber = round(DB1$SubSamplingNumber * DB1$SubsamplingFactor, 2),
+          SpeciesIdentifier = DB1$cate,
+          SubSamplingNumber = DB1$SubSamplingNumber,
+          SubsamplingFactor = DB1$SubsamplingFactor,
           SubsampleWeight = DB1$peso_m,
-          SpeciesCategoryWeight = DB1$peso_gr,
+          CatCatchWgt = DB1$peso_gr,
           LengthCode = DB1$LengthCode,
           LengthClass = DB1$talla,
           NumberAtLength = DB1$numer,
           DevelopmentStage=-9,
           LengthType=-9,
           DateofCalculation=-9,
-          Valid_Aphia=-9
-          )
+          Valid_Aphia=-9,
+          Survey=DB1$Survey
+        )
     }
     else
       HL_north <-
       data.table::data.table(
-        RecordType = "HL",
+        RecordHeader = "HL",
         Survey = DB1$Survey,
         Quarter = DB1$quarter,
         Country = "ES",
@@ -185,10 +187,10 @@ CAMPtoHLnw <-
         SpeciesCode = DB1$SpeciesCode,
         SpeciesValidity = ifelse(DB1$validez==1,1,0),
         SpeciesSex = DB1$SpeciesSex,
-        TotalNumber = round(DB1$SubsampledNumber * DB1$SubsamplingNumber, 2),
-        SpeciesCategory = DB1$cate,
-        SubsampledNumber = DB1$SubsampledNumber,
-        SubsamplingNumber = DB1$SubsamplingNumber,
+        TotalNumber = round(DB1$SubSamplingNumber * DB1$SubsamplingFactor, 2),
+        SpeciesIdentifier = DB1$cate,
+        SubSamplingNumber = DB1$SubSamplingNumber,
+        SubsamplingFactor = DB1$SubsamplingFactor,
         SubsampleWeight = DB1$peso_m,
         SpeciesCategoryWeight = DB1$peso_gr,
         LengthCode = DB1$LengthCode,

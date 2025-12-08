@@ -136,7 +136,7 @@ dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cex
 	else {leg<-NULL}
 	xlimi<-c(min(a$talla)*(.95-1),max(a$talla)*1.05)
 	if (is.character(sub)) sub=list(label=sub,font=2,cex=cexleg*.9)
-  if (length(camp)==1) {
+	if (length(camp)==1) {
 		foo<-lattice::barchart(n~talla,a,groups=a$sex,subscripts=T,key=leg,box.ratio=1000,box.width=increm,ylim=ylim,xlim=xlimi,
 			scales=list(alternating=F,tck=c(1,1),
 			            x=list(at= a$talla[abs(round(a$talla/10,1)-round(a$talla/10))==.5 | abs(round(a$talla/10,1)-round(a$talla/10))==0],

@@ -14,6 +14,7 @@
 CAMPtoHL <-
   function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,export = FALSE) {
     require(dplyr)
+    require(data.table)
     if (length(camp) > 1) {
       stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")
     }
@@ -79,29 +80,32 @@ CAMPtoHL <-
       DB$DoorType = "P"
       if (quart)
         DB$quarter <- "3"
-      DB$lance <- format(as.integer(DB$lance), width = 2,justify="r")
-      ntalls$lance <- format(as.integer(ntalls$lance), width = 2,justify="r")
+      DB$lance <- format(as.integer(DB$lance), width = 3,justify="r")
+      ntalls$lance <- format(as.integer(ntalls$lance), width = 3,justify="r")
       DB$StNo <- format(as.integer(DB$cuadricula),width = 3,justify="r")
       }
     if (substr(dns, 1, 4) == "Arsa") {
       DB$Survey = "SP-ARSA"
-      if (any(DB$barco !="29MO")) {DB$barco = ifelse(substr(DB$barco, 1, 3) == "COR",
-                        "CDS",
-                        ifelse(DB$barco == "MOL", "29MO"))}
+      if (all(DB$barco %in% c("29MO", "MOL"))) {DB$barco <- "29MO"}
+      if (all(DB$barco %in% c("COR", "CDS","29CS"))) {DB$barco <- "29CS"}
+      if (all(DB$barco %in% c("29VE", "VIZ"))) {DB$barco <- "29VE"}
+      #! ("A" %in% c("Q", "P", "T"))
+      if (!any(DB$barco %in% c("29MO","29CS","29VE"))) stop("Look platform")
       DB$Gear = "BAK"
       DB$GearEx = -9
       DB$DoorType = ifelse(substr(DB$barco, 1, 3) == "COR", "W", "P")
       if (quart)
         DB$quarter <- ifelse(substr(camp, 1, 1) == "1", "1", "4")
-      DB$lance <- format(DB$lance, width = 2,justify="r")
-      ntalls$lance <- format(ntalls$lance, width = 2,justify="r")
+      DB$lance <- format(DB$lance, width = 3,justify="r")
+      ntalls$lance <- format(ntalls$lance, width = 3,justify="r")
       DB$StNo = DB$lance
     }
     DB <-DB[, c("Survey","year","barco","quarter","Gear","malletas","GearEx","DoorType","lance","StNo","validez","prof_l","prof_v")]
     ntalls <- ntalls[ntalls$lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
-    dumb <- ntalls[, .(NoMeas = sum(numer)), by = .(lance, esp, sexo, cate)]
+    #@dumb <- ntalls[, .(NoMeas = sum(numer)), by = .(lance, esp, sexo, cate)]
+    dumb<-ntalls[, list(NoMeas = sum(numer)), by = list(lance, esp, sexo, cate)]
     dumb <- dumb[, c("lance", "esp", "sexo", "cate", "NoMeas")]
     ntallsdumb <- merge(ntalls, dumb, all.x = TRUE)
     ntallsdumb$esp<-as.integer(ntallsdumb$esp)
