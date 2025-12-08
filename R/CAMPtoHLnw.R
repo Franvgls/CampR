@@ -103,7 +103,7 @@ CAMPtoHLnw <-
     ntalls <- ntalls[ntalls$lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubsamplingFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
-    dumb <- ntalls[, .(SubSamplingNumber = sum(numer)), by = .(lance, esp, sexo, cate)]
+    dumb <- ntalls[, list(SubSamplingNumber = sum(numer)), by = list(lance, esp, sexo, cate)]
     dumb <- dumb[, c("lance", "esp", "sexo", "cate", "SubSamplingNumber")]
     ntallsdumb <- merge(ntalls, dumb, all.x = TRUE)
     ntallsdumb$esp<-as.integer(ntallsdumb$esp)

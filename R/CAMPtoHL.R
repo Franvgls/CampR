@@ -14,7 +14,7 @@
 CAMPtoHL <-
   function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,export = FALSE) {
     require(dplyr)
-    require(data.table)
+#    require(data.table)
     if (length(camp) > 1) {
       stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")
     }
