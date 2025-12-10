@@ -103,8 +103,9 @@ CAMPtoHLnw <-
     ntalls <- ntalls[ntalls$lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubsamplingFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
-    dumb <- ntalls[, list(SubSamplingNumber = sum(numer)), by = list(lance, esp, sexo, cate)]
-    dumb <- dumb[, c("lance", "esp", "sexo", "cate", "SubSamplingNumber")]
+    ntalls <- data.table::as.data.table(ntalls)
+    dumb <- ntalls[, list(SubsampledNumber = sum(numer)), by = list(lance, esp, sexo, cate)]
+    dumb <- dumb[, c("lance", "esp", "sexo", "cate", "SubsampledNumber")]
     ntallsdumb <- merge(ntalls, dumb, all.x = TRUE)
     ntallsdumb$esp<-as.integer(ntallsdumb$esp)
     ntallsdumb$SpeciesCode <-
@@ -152,9 +153,9 @@ CAMPtoHLnw <-
           Specie = DB1$Specie,
           SpeciesValidity = ifelse(DB1$validez==1,1,0),
           SpeciesSex = DB1$SpeciesSex,
-          TotalNumber = round(DB1$SubSamplingNumber * DB1$SubsamplingFactor, 2),
-          SpeciesIdentifier = DB1$cate,
-          SubSamplingNumber = DB1$SubSamplingNumber,
+          TotalNumber = round(DB1$SubsampledNumber * DB1$SubsamplingFactor, 2),
+          SpeciesCategory = DB1$cate,
+          SubsampledNumber = DB1$SubsampledNumber,
           SubsamplingFactor = DB1$SubsamplingFactor,
           SubsampleWeight = DB1$peso_m,
           CatCatchWgt = DB1$peso_gr,
@@ -172,7 +173,6 @@ CAMPtoHLnw <-
       HL_north <-
       data.table::data.table(
         RecordHeader = "HL",
-        Survey = DB1$Survey,
         Quarter = DB1$quarter,
         Country = "ES",
         Platform = DB1$barco,
@@ -187,9 +187,9 @@ CAMPtoHLnw <-
         SpeciesCode = DB1$SpeciesCode,
         SpeciesValidity = ifelse(DB1$validez==1,1,0),
         SpeciesSex = DB1$SpeciesSex,
-        TotalNumber = round(DB1$SubSamplingNumber * DB1$SubsamplingFactor, 2),
-        SpeciesIdentifier = DB1$cate,
-        SubSamplingNumber = DB1$SubSamplingNumber,
+        TotalNumber = round(DB1$SubsampledNumber * DB1$SubsamplingFactor, 2),
+        SpeciesCategory = DB1$cate,
+        SubsampledNumber = DB1$SubsampledNumber,
         SubsamplingFactor = DB1$SubsamplingFactor,
         SubsampleWeight = DB1$peso_m,
         SpeciesCategoryWeight = DB1$peso_gr,
@@ -198,6 +198,7 @@ CAMPtoHLnw <-
         NumberAtLength = DB1$numer,
         DevelopmentStage=-9,
         LengthType=-9,
+        Survey = DB1$Survey,
         DateofCalculation=-9,
         Valid_Aphia=-9
       )

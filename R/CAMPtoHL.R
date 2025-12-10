@@ -104,6 +104,7 @@ CAMPtoHL <-
     ntalls <- ntalls[ntalls$lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
+    ntalls <- data.table::as.data.table(ntalls)
     #@dumb <- ntalls[, .(NoMeas = sum(numer)), by = .(lance, esp, sexo, cate)]
     dumb<-ntalls[, list(NoMeas = sum(numer)), by = list(lance, esp, sexo, cate)]
     dumb <- dumb[, c("lance", "esp", "sexo", "cate", "NoMeas")]
