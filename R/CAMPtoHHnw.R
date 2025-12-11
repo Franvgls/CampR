@@ -14,7 +14,7 @@ CAMPtoHHnw<-function(camp,dns,quart=T,incl2=F) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     DB<-datlan.camp(camp,dns,redux=F,incl0 = T,incl2=incl2)
     if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
-      DB$survey="SP-NORTH"
+      DB$survey="G2784"
       DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-10,to=-1,by=1),labels=rev(c("E8","E7","E6","E5","E4","E3","E2","E1","E0"))) # ,"D9","D8"
        DB$rectlat<-cut(DB$latitud_l,breaks=seq(from=41.5,to=44.5,by=.5),labels=c(12:17))
        #Crea la columna del rectangulo ICES
@@ -27,10 +27,19 @@ CAMPtoHHnw<-function(camp,dns,quart=T,incl2=F) {
        DB$DoorWeight=ifelse(substr(DB$barco,1,3)=="CDS",650,350)
        if(quart) DB$quarter<-"4"
        DB$lance<-format(as.integer(DB$lance),width=3,justify = "r")
-       DB$StNo=DB$lance
+       DB$StationName<-format(as.integer(DB$cuadricula),width = 3,justify="r")
+       codigos_nuevos <- c(
+         "10" = "MF",
+         "20" = "FE",
+         "30" = "EP",
+         "40" = "PA",
+         "50" = "AB"
+       )
+       DB$SurveyIndexArea<- codigos_nuevos[as.character(DB$cuadricula)]
+#       DB$StNo=DB$lance
     }
     if (substr(dns,1,4)=="Pnew" | substr(dns,1,4)=="Porc") {
-      DB$survey="SP-PORC"
+      DB$survey="G5768"
       DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-15,to=-11,by=1),labels=rev(c("D8","D7","D6","D5"))) # ,"D9","D8"
        DB$rectlat<-cut(DB$latitud_l,breaks=seq(from=50.5,to=54,by=.5),labels=c(30:36))
        DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
@@ -45,14 +54,16 @@ CAMPtoHHnw<-function(camp,dns,quart=T,incl2=F) {
        DB$lance<-format(as.integer(DB$lance),width=2,justify="r")
        DB$StationName<-format(as.integer(DB$cuadricula),width = 3,justify="r")
        DB$estrato<-cut(DB$prof_l,breaks=c(120,300,450,800),labels=c("E","F","G"))
+       DB$SurveyIndexArea<- substr(DB$sector,1,1)
     }
     if (substr(dns,1,4)=="Arsa") {
-      DB$survey="SP-ARSA"
+      DB$Survey = ifelse(substr(camp, 1, 1) == "1", "G7511", "G4309")       #"SP-ARSA"
       DB$rectlong<-cut(DB$longitud_l,breaks=seq(from=-9,to=-6,by=1),labels=c("E1","E2","E3")) # ,"D9","D8"
       DB$rectlat<-paste0("0",cut(DB$latitud_l,breaks=seq(from=36.0,to=37.5,by=.5),labels=as.character(c(1:3))))
       DB$icesrect<-paste0(DB$rectlat,DB$rectlong)
       DB$Gear="BAK"
       DB$barco=ifelse(substr(DB$barco,1,3)=="COR","29CS",ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="VIZ","29VE","Vir")))
+      #      DB$barco=ifelse(substr(DB$barco,1,3)=="COR","29CS",ifelse(DB$barco=="MOL","29MO",ifelse(DB$barco=="VIZ","29VE","Vir")))
       DB$WarpDiameter=ifelse(DB$barco=="29CS",22,24)
       DB$DoorType=ifelse(DB$year<2008,"WR","T4")
       DB$DoorSurface=ifelse(DB$year<2008,3.6,1.8)
@@ -62,24 +73,25 @@ CAMPtoHHnw<-function(camp,dns,quart=T,incl2=F) {
       DB$lance<-formatC(as.integer(DB$lance),flag=0,width=3)
       DB$StationName=format(as.integer(DB$cuadricula),width = 3,justify="r")
       DB$estrato<-cut(DB$prof_l,breaks=c(1,30,100,200,500,770),labels=c("H1","H2","H3","H4","H5"))
+      DB$SurveyIndexArea<- c(-9)
     }
-    DB$TimeShot<-paste0(formatC(as.numeric(substr(DB$hora_l,1,2)),flag=0,width=2),sprintf("%02s",substr(DB$hora_l,4,5)))
+    DB$StartTime<-paste0(formatC(as.numeric(substr(DB$hora_l,1,2)),flag=0,width=2),sprintf("%02s",substr(DB$hora_l,4,5)))
     DB$estn<-as.numeric(as.character(DB$estn))
     HH_north<-data.table::data.table(RecordHeader="HH",Quarter=DB$quarter,Country="ES",Platform=DB$barco,Gear=DB$Gear,
                                      SweepLength=DB$malletas,GearExceptions=-9,DoorType=DB$DoorType,StationName=DB$StationName,
                                      HaulNumber=DB$lance,Year=DB$year,Month=substr(DB$fecha,6,7),
-                                     Day=substr(DB$fecha,9,10),TimeShot=DB$TimeShot,DepthStratum=DB$estrato,
+                                     Day=substr(DB$fecha,9,10),StartTime=DB$StartTime,DepthStratum=DB$estrato,
                                      HaulDuration=round(DB$haul.mins*DB$weight.time),DayNight="D",ShootLatitude=DB$latitud_l,
                                      ShootLongitude=DB$longitud_l,HaulLatitude=DB$latitud_v,HaulLongitude=DB$longitud_v,StatisticalRectangle=DB$icesrect,
                                      BottomDepth=DB$prof_l,HaulValidity=ifelse(DB$validez==1,"V",ifelse(DB$validez==2 | DB$validez==3,"A","I")),
-                                     HydroStationName=DB$estn,SpeciesCodeType=1,BycatchSpeciesCode=0,DataType="R",NetOpening=round(DB$abert_v,1),
+                                     HydrographicStationID=DB$estn,StandardSpeciesCode=1,BycatchSpeciesCode=0,DataType="R",NetOpening=round(DB$abert_v,1),
                                      Rigging=-9,Tickler=-9,Distance=round(DB$recorrido),WarpLength=DB$cable,WarpDiameter=DB$WarpDiameter,WarpDensity=-9,
                                      DoorSurface=DB$DoorSurface,DoorWeight=DB$DoorWeight,DoorSpread=trunc(DB$dista_p),WingSpread=round(DB$abert_h,1),
-                                     Buoyancy=-9,KiteDim=-9,GroundRopeWeight=-9,TowDirection=formatC(DB$rumbo,flag=0,width=3),GroundSpeed=DB$velocidad,
+                                     Buoyancy=-9,KiteArea=-9,GroundRopeWeight=-9,TowDirection=formatC(DB$rumbo,flag=0,width=3),SpeedGround=DB$velocidad,
                                      SpeedWater=-9,SurfaceCurrentDirection=-9,SurfaceCurrentSpeed=-9,BottomCurrentDirection=-9,BottomCurrentSpeed=-9,WindDirection=DB$dir_viento,
                                      WindSpeed=DB$vel_viento,SwellDirection=-9,SwellHeight=DB$est_mar,SurfaceTemperature=-9,BottomTemperature=DB$temp,SurfaceSalinity=-9,
                                      BottomSalinity=DB$sali,ThermoCline=-9,ThermoClineDepth=-9,CodendMesh=-9,SecchiDepth=-9,Turbidity=-9,TidePhase=-9,TideSpeed=-9,
-                                     PelagicSamplingType=-9,MinTrawlDepth=-9,MaxTrawlDepth=-9,Survey=DB$survey,EDMO=-9)
+                                     PelagicSamplingType=-9,MinTrawlDepth=-9,MaxTrawlDepth=-9,SurveyIndexArea=DB$SurveyIndexArea,Survey=DB$survey,EDMO=-9,ReasonHaulDisruption=-9)
     HH_north$DoorSpread[is.na(HH_north$DoorSpread)]<-c(-9)
     HH_north$NetOpening[is.na(HH_north$NetOpening)]<-c(-9)
     HH_north$WingSpread[is.na(HH_north$WingSpread)]<-c(-9)
