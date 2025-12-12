@@ -18,5 +18,5 @@ ListFauna.lans<- function(camp,dns="Porc",gr=NA,excl.sect=NA,incl2=FALSE) {
   for (i in lans$lance[2:nrow(lans)]) {
     datos<-rbind(datos,ListFauna.lan(camp,dns,i,gr=gr,out=FALSE))
   }
-  print(data.table::setorder(datos,lance,grupo,-peso))
+  print(setorder(datos,lance,grupo,-peso))
 }

@@ -19,7 +19,7 @@ ALKs.dns.camp<- function(dns,camp="") {
    camps.ed<-subset(camps.ed,subset=substr(camps.ed,1,nchar(paste0("EDAD",camp)))==paste0("EDAD",camp))
    if (nrow(DBI::dbReadTable(ch1,camps.ed[1]))>0) ages<-cbind(camp=camps.ed[1],DBI::dbReadTable(ch1,camps.ed[1]))
    else {
-     ages<-data.table::data.table(matrix(nrow=0,ncol=22))
+     ages<-data.table(matrix(nrow=0,ncol=22))
      names(ages)<-c("camp",names(DBI::dbReadTable(ch1,camps.ed[1])))
    }
    if (length(camps.ed)>1) {

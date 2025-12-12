@@ -12,19 +12,17 @@
 #' @examples # CAMPtoHL("P14","Porc")
 #' @import data.table
 #' @importFrom dplyr %>% mutate_if arrange filter mutate
-#' @importFrom DBI dbConnect dbDisconnect dbGetQuery dbReadTable
 #' @importFrom odbc odbc
 #' @importFrom worrms wm_name2id
 #' @export
 CAMPtoHLnw <-function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,export = FALSE) {
-#    require(dplyr)
     if (length(camp) > 1) {
       stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")
     }
-    DB <-data.table::as.data.table(datlan.camp(camp,dns,redux = F,incl0 = F,incl2 = incl2))
+    DB <-as.data.table(datlan.camp(camp,dns,redux = F,incl0 = F,incl2 = incl2))
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
     on.exit(DBI::dbDisconnect(ch1), add = TRUE)
-    ntalls <-data.table::as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='1'")))
+    ntalls <-as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='1'")))
     #DBI::dbDisconnect(ch1)
     names(ntalls) <- tolower(names(ntalls))
     if (dns=="Arsa") {
@@ -35,19 +33,19 @@ CAMPtoHLnw <-function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,exp
       ch2 <- DBI::dbConnect(odbc::odbc(), dsn= "Camp")
       on.exit(DBI::dbDisconnect(ch2), add = TRUE)
     }
-    especies <-data.table::as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
+    especies <-as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
     #DBI::dbDisconnect(ch2)
     names(especies) <- tolower(names(especies))
     especies <- subset(especies, especies$grupo == 1)
     #    especies<-subset(especies,especies$esp %in% unique(ntalls[ntalls$grupo==2,"esp"]))
-    especies <- dplyr::arrange(especies, esp)
-    especies %>% dplyr::mutate_if(is.factor, as.character) -> especies
+    especies <- arrange(especies, esp)
+    especies %>% mutate_if(is.factor, as.character) -> especies
     especies$especie[1] <- buscaesp(especies$grupo[1], especies$esp[1])
     if (substr(x = especies$especie[1],start = nchar(especies$especie[1]) - 3,
                stop = nchar(especies$especie[1])) == " sp.") {
       especies$especie[1] <-sub(" sp.","",buscaesp(especies$grupo[1], especies$esp[1]),fixed = TRUE)
       }
-    if (is.na(especies$aphia[1])) especies$aphia[1] <-worrms::wm_name2id(as.character(especies$especie[1]))
+    if (is.na(especies$aphia[1])) especies$aphia[1] <-wm_name2id(as.character(especies$especie[1]))
     if (export) {
       for (i1 in 2:nrow(especies)) {
         if (is.na(especies$aphia[i1])) {
@@ -57,7 +55,7 @@ CAMPtoHLnw <-function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,exp
             especies$especie[i1] <-sub(" sp.","",buscaesp(especies$grupo[i1], especies$esp[i1]),
                 perl = T)
           }
-          especies$aphia[i1] <- worrms::wm_name2id(especies$especie[i1])
+          especies$aphia[i1] <- wm_name2id(especies$especie[i1])
           write.csv(especies[,c("especie","aphia")], "c:/camp/peces.csv", row.names = F)
         }
       }
@@ -107,7 +105,7 @@ CAMPtoHLnw <-function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,exp
     ntalls <- ntalls[ntalls$lance %in% DB$lance, ]
     ntalls <- subset(ntalls, grupo == 1)
     ntalls$SubsamplingFactor <- round(ntalls$peso_gr / ntalls$peso_m, 4)
-    ntalls <- data.table::as.data.table(ntalls)
+    ntalls <- as.data.table(ntalls)
     dumb <- ntalls[, list(SubsampledNumber = sum(numer)), by = list(lance, esp, sexo, cate)]
     dumb <- dumb[, c("lance", "esp", "sexo", "cate", "SubsampledNumber")]
     ntallsdumb <- merge(ntalls, dumb, all.x = TRUE)
@@ -129,7 +127,7 @@ CAMPtoHLnw <-function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,exp
     ntallsdumb$LengthCode[ntallsdumb$incr == 5] <- "0"
     DB1 <-
       merge(ntallsdumb,
-            data.table::as.data.table(DB),
+            as.data.table(DB),
             all.x = T,
             by = "lance")
     DB1$SpeciesSex <-
@@ -140,7 +138,7 @@ CAMPtoHLnw <-function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,exp
       ))
     if (inclSpecie == T) {
       HL_north <-
-        data.table::data.table(
+        data.table(
           RecordHeader = "HL",
           Quarter = DB1$quarter,
           Country = "ES",
@@ -175,7 +173,7 @@ CAMPtoHLnw <-function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,exp
     }
     else
       HL_north <-
-      data.table::data.table(
+      data.table(
         RecordHeader = "HL",
         Quarter = DB1$quarter,
         Country = "ES",

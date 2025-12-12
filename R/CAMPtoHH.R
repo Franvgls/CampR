@@ -65,7 +65,7 @@ CAMPtoHH<-function(camp,dns,quart=T,incl2=F) {
     }
     DB$TimeShot<-paste0(formatC(as.numeric(substr(DB$hora_l,1,2)),flag=0,width=2),sprintf("%02s",substr(DB$hora_l,4,5)))
     DB$estn<-as.numeric(as.character(DB$estn))
-    HH_north<-data.table::data.table(RecordType="HH",Survey=DB$survey,Quarter=DB$quarter,Country="ES",Ship=DB$barco,Gear=DB$Gear,
+    HH_north<-data.table(RecordType="HH",Survey=DB$survey,Quarter=DB$quarter,Country="ES",Ship=DB$barco,Gear=DB$Gear,
                                      SweepLngt=DB$malletas,GearEx=-9,DoorType=DB$DoorType,StNo=DB$StNo,
                                      HaulNo=DB$lance,Year=DB$year,Month=substr(DB$fecha,6,7),
                                      Day=substr(DB$fecha,9,10),TimeShot=DB$TimeShot,DepthStratum=DB$estrato,

@@ -29,10 +29,10 @@ dathidro.camp<-function(camp,dns,year=TRUE,quarter=TRUE) {
         {dathidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
         names(dathidro)<-tolower(names(dathidro))
         dathidro<-data.frame(camp=camp,dathidro,stringsAsFactors = FALSE)
-        dathidro<-dplyr::rename(dathidro,prof.ctd=prof) #dathidro$prof.ctd<-dathidro$prof
-        dathidro<-dplyr::rename(dathidro,cable.ctd=cable) #dathidro$prof.ctd<-dathidro$prof
-        dathidro<-dplyr::rename(dathidro,hora.ctd=hora) #dathidro$prof.ctd<-dathidro$prof
-        dathidro<-dplyr::rename(dathidro,fecha.ctd=fecha) #dathidro$prof.ctd<-dathidro$prof
+        dathidro<-rename(dathidro,prof.ctd=prof) #dathidro$prof.ctd<-dathidro$prof
+        dathidro<-rename(dathidro,cable.ctd=cable) #dathidro$prof.ctd<-dathidro$prof
+        dathidro<-rename(dathidro,hora.ctd=hora) #dathidro$prof.ctd<-dathidro$prof
+        dathidro<-rename(dathidro,fecha.ctd=fecha) #dathidro$prof.ctd<-dathidro$prof
         dathidro$fecha.ctd<-as.Date(ifelse(dathidro$fecha.ctd < "1980-12-31", format(dathidro$fecha.ctd, "20%y-%m-%d"), format(dathidro$fecha.ctd)))
         #as.Date(ifelse(lan$fecha < "1980-12-31", format(lan$fecha, "20%y-%m-%d"), format(lan$fecha)))
         dathidro$lat.ctd<-gradec(dathidro$latitud)*ifelse(dathidro$nosu=="N",1,-1)
@@ -68,8 +68,8 @@ dathidro.camp<-function(camp,dns,year=TRUE,quarter=TRUE) {
     }
     if (any(is.na(dathidro$zona))) {message(paste0("Al menos una estación: ",paste(dathidro$estn[is.na(dathidro$zona)],collapse = ","),
                                                 " sin Zona ICES asignada, revise resultados",dathidro$camp[is.na(dathidro$zona)]))}
-    if (any(is.na(data.table::as.ITime(gsub("\\.",":",format(dathidro$hora,format="%H")))))) {message(paste0("Al menos una hora de largada (estn: ",
-                      paste(dathidro[is.na(data.table::as.ITime(gsub("\\.",":",format(dathidro$hora,format="%H")))),c("estn")],collapse=","),") con hora inválida"))
+    if (any(is.na(as.ITime(gsub("\\.",":",format(dathidro$hora,format="%H")))))) {message(paste0("Al menos una hora de largada (estn: ",
+                      paste(dathidro[is.na(as.ITime(gsub("\\.",":",format(dathidro$hora,format="%H")))),c("estn")],collapse=","),") con hora inválida"))
     dathidro$sali[dathidro$sali==0]<-NA
     dathidro$temp[dathidro$temp==0]<-NA
     #as.Date(ifelse(lan$fecha < "1980-12-31", format(lan$fecha, "20%y-%m-%d"), format(lan$fecha)))

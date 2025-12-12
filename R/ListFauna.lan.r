@@ -26,6 +26,6 @@ ListFauna.lan<- function(camp,dns="Porc",lan,gr=NA,out=TRUE) {
   for (i in 1:nrow(listsps)) {
     listsps$especie[i]=buscaesp(listsps$grupo[i],listsps$esp[i]) }
   listsps<-listsps[,c("grupo","esp","lance","especie","peso","numero")]
-  if (out) print(data.table::setorder(listsps,grupo,-peso))
-  else data.table::setorder(listsps,grupo,-peso)}
+  if (out) print(setorder(listsps,grupo,-peso))
+  else setorder(listsps,grupo,-peso)}
   }

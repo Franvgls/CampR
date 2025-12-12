@@ -12,14 +12,14 @@
 #' @export
 CAMPtoHLcrust<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
-    DB<-data.table::as.data.table(datlan.camp(camp,dns,redux=F,incl0 = F,incl2=incl2))
+    DB<-as.data.table(datlan.camp(camp,dns,redux=F,incl0 = F,incl2=incl2))
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
     on.exit(DBI::dbDisconnect(ch1), add = TRUE)
-    ntalls <-data.table::as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='2'")))
+    ntalls <-as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='2'")))
     names(ntalls)<-tolower(names(ntalls))
     ch2 <- DBI::dbConnect(odbc::odbc(), dsn = "Camp")
     on.exit(DBI::dbDisconnect(ch2), add = TRUE)
-    especies <-data.table::as.data.table(DBI::dbGetQuery(ch2,paste0("select * from ESPECIES where GRUPO='2'")))
+    especies <-as.data.table(DBI::dbGetQuery(ch2,paste0("select * from ESPECIES where GRUPO='2'")))
     #DBI::dbDisconnect(ch2)
     names(especies) <- tolower(names(especies))
     if (substr(dns,1,4)=="Cant" | substr(dns,1,4)=="Cnew") {
@@ -69,7 +69,7 @@ CAMPtoHLcrust<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
     if (substr(x=especies$especie[1],start=nchar(especies$especie[1])-3,stop=nchar(especies$especie[1]))==" sp.") {
       especies$especie[1]<-sub(" sp.","",buscaesp(especies$grupo[1],especies$esp[1]),fixed=T)
     }
-    if (is.na(especies$aphia[1])) especies$aphia[1]<-worrms::wm_name2id(as.character(especies$especie[1]))
+    if (is.na(especies$aphia[1])) especies$aphia[1]<-wm_name2id(as.character(especies$especie[1]))
     if (nrow(especies)>1) {
         for (i1 in 2:nrow(especies)) {
       if (is.na(especies$aphia[i1])) {
@@ -77,7 +77,7 @@ CAMPtoHLcrust<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
         if (substr(x=especies$especie[i1],start=nchar(especies$especie[i1])-3,stop=nchar(especies$especie[i1]))==" sp.") {
           especies$especie[i1]<-sub(" sp.","",buscaesp(especies$grupo[i1],especies$esp[i1]),fixed=T)
         }
-        especies$aphia[i1]<-worrms::wm_name2id(especies$especie[i1])
+        especies$aphia[i1]<-wm_name2id(especies$especie[i1])
       }
     }}
     ntalls$SubFact<-round(ntalls$peso_gr/ntalls$peso_m,4)
@@ -95,9 +95,9 @@ CAMPtoHLcrust<-function(camp,dns,inclSpecie=F,quart=T,incl2=F) {
     DB1<-merge(ntallsdumb,DB,all.x=T,by="lance")
     DB1$Sex<-as.character(factor(DB1$sexo,levels=as.character(1:3),labels=c("M","F","U")))
     if (inclSpecie==T) {
-      HL_north<-data.table::data.table(RecordType="HL",Quarter=DB1$quarter,Country="SPA",Ship=DB1$barco,Gear=DB1$Gear,SweepLngt=DB1$malletas,GearExp=DB1$GearExp,DoorType=DB1$DoorType,StNo=DB1$StNo,HaulNo=DB1$lance,Year=DB1$year,SpecCodeType="W",SpecCode=DB1$SpecCode,specie=DB1$Specie,SpecVal=1,Sex=DB1$Sex,TotalNo=round(DB1$NoMeas*DB1$SubFact,2),CatIdentifier=DB1$cate,NoMeas=DB1$NoMeas,SubFact=DB1$SubFact,SubWgt=DB1$peso_m,CatCatchWgt=DB1$peso_gr,LngtCode=DB1$LngtCode,LngtClass=DB1$talla,HLNoAtLngt=DB1$numer)
+      HL_north<-data.table(RecordType="HL",Quarter=DB1$quarter,Country="SPA",Ship=DB1$barco,Gear=DB1$Gear,SweepLngt=DB1$malletas,GearExp=DB1$GearExp,DoorType=DB1$DoorType,StNo=DB1$StNo,HaulNo=DB1$lance,Year=DB1$year,SpecCodeType="W",SpecCode=DB1$SpecCode,specie=DB1$Specie,SpecVal=1,Sex=DB1$Sex,TotalNo=round(DB1$NoMeas*DB1$SubFact,2),CatIdentifier=DB1$cate,NoMeas=DB1$NoMeas,SubFact=DB1$SubFact,SubWgt=DB1$peso_m,CatCatchWgt=DB1$peso_gr,LngtCode=DB1$LngtCode,LngtClass=DB1$talla,HLNoAtLngt=DB1$numer)
       }
-    else HL_north<-data.table::data.table(RecordType="HL",Quarter=DB1$quarter,Country="SPA",Ship=DB1$barco,Gear=DB1$Gear,SweepLngt=DB1$malletas,GearExp=DB1$GearExp,DoorType=DB1$DoorType,StNo=DB1$StNo,HaulNo=DB1$lance,Year=DB1$year,SpecCodeType="W",SpecCode=DB1$SpecCode,SpecVal=1,Sex=DB1$Sex,TotalNo=round(DB1$NoMeas*DB1$SubFact,2),CatIdentifier=DB1$cate,NoMeas=DB1$NoMeas,SubFact=DB1$SubFact,SubWgt=DB1$peso_m,CatCatchWgt=DB1$peso_gr,LngtCode=DB1$LngtCode,LngtClass=DB1$talla,HLNoAtLngt=DB1$numer)
+    else HL_north<-data.table(RecordType="HL",Quarter=DB1$quarter,Country="SPA",Ship=DB1$barco,Gear=DB1$Gear,SweepLngt=DB1$malletas,GearExp=DB1$GearExp,DoorType=DB1$DoorType,StNo=DB1$StNo,HaulNo=DB1$lance,Year=DB1$year,SpecCodeType="W",SpecCode=DB1$SpecCode,SpecVal=1,Sex=DB1$Sex,TotalNo=round(DB1$NoMeas*DB1$SubFact,2),CatIdentifier=DB1$cate,NoMeas=DB1$NoMeas,SubFact=DB1$SubFact,SubWgt=DB1$peso_m,CatCatchWgt=DB1$peso_gr,LngtCode=DB1$LngtCode,LngtClass=DB1$talla,HLNoAtLngt=DB1$numer)
     if (any(is.na(HL_north$SpecCode))) {message("Algunas especies no tienen código AphiaID, conversión incompleta, revise especies.dbf")}
     if (any(HL_north$SpecCode==c(-999))) {
       HL_north[HL_north$SpecCode==c(-999),]

@@ -24,7 +24,6 @@
 #' @export
 maparea<-function(ICESrect=FALSE,ICESlab=FALSE,ICESlabcex=.7,es=TRUE,leg=TRUE,dpth=TRUE,bw=FALSE,dens=0,
                   sectcol=FALSE,SACs=FALSE,filSAC=FALSE,graf=FALSE,xpng=1000,ypng=900,ppng=15) {
-  library(mapdata)
   if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = xpng,height = ypng, pointsize = ppng)
   maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=c(50.5,54.5),xlim=c(-15.5,-8.2),
 		fill=TRUE,col=ifelse(bw,gray(.7),"saddlebrown"),type="n")

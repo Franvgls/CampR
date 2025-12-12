@@ -10,18 +10,17 @@
 #' @examples # BuscaAphia(1,"P14","Porc")
 #' @export
 BuscaAphia <-function(gr = 1,dns="Camp",export = TRUE) {
-    require(dplyr)
     ch2 <- DBI::dbConnect(odbc::odbc(), dsn = dns)
     on.exit(DBI::dbDisconnect(ch2), add = TRUE)
-    especies <-data.table::as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
+    especies <-as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
     #DBI::dbDisconnect(ch2)
     names(especies) <- tolower(names(especies))
     especies <- subset(especies, especies$grupo == gr)
     especies$aphia<-as.numeric(especies$aphia)
     if (nrow(especies[especies$aphia>0 | is.na(especies$aphia),])==0) stop("Todas las especies tienen dato de AphiaID relleno")
     #    especies<-subset(especies,especies$esp %in% unique(ntalls[ntalls$grupo==2,"esp"]))
-    especies <- dplyr::arrange(especies, esp)
-    especies %>% dplyr::mutate_if(is.factor, as.character) -> especies
+    especies <- arrange(especies, esp)
+    especies %>% mutate_if(is.factor, as.character) -> especies
     especies<-especies[is.na(especies$aphia) | especies$aphia==0,c("grupo","esp","especie","aphia")]
     #especies$especie[1] <- buscaesp(especies$grupo[1], especies$esp[1])
     # if (substr(x = especies$especie[1],start = nchar(especies$especie[1]) - 3,

@@ -28,28 +28,26 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
   dumblan$rumb<-round(geosphere::bearingRhumb(dumblan[,c("longitud_l","latitud_l")],dumblan[c("longitud_v","latitud_v")]),1)
   dumblan$error.rumb<-round(dumblan$rumb-dumblan$rumbo)
   dumblan$date<-as.Date(paste0(dumblan$year,"-",lubridate::month(dumblan$fecha),"-",lubridate::day(dumblan$fecha)))
-  dumblan$time_l<-data.table::as.ITime(paste0(substr(dumblan$hora_l,1,2),":",substr(dumblan$hora_l,4,5)))
-  dumblan$time_v<-data.table::as.ITime(paste0(substr(dumblan$hora_v,1,2),":",substr(dumblan$hora_v,4,5)))
+  dumblan$time_l<-as.ITime(paste0(substr(dumblan$hora_l,1,2),":",substr(dumblan$hora_l,4,5)))
+  dumblan$time_v<-as.ITime(paste0(substr(dumblan$hora_v,1,2),":",substr(dumblan$hora_v,4,5)))
   dumblan$lon<-dumblan$longitud_l
   dumblan$lat<-dumblan$latitud_l
   dumblan<-as.data.frame(cbind(dumblan,suncalc::getSunlightTimes(data = dumblan[,c("date","lat","lon")],tz="GMT",keep=c("dawn","sunrise","solarNoon"))[,c("dawn","sunrise","solarNoon")]))
   dumblan$lon<-dumblan$longitud_v
   dumblan$lat<-dumblan$latitud_v
   dumblan<-as.data.frame(cbind(dumblan,suncalc::getSunlightTimes(data = dumblan[,c("date","lat","lon")],tz="GMT",keep=c("sunset","dusk"))[,c("sunset","dusk")]))
-  dumblan$daynight<-ifelse(data.table::as.ITime(dumblan$sunrise)<dumblan$time_l & dumblan$time_l<data.table::as.ITime(dumblan$sunset),"D","N")
-  dumblan$dawn<-data.table::as.ITime(dumblan$dawn)
-  dumblan$sunrise<-data.table::as.ITime(dumblan$sunrise)
-  dumblan$solarNoon<-data.table::as.ITime(dumblan$solarNoon)
-  dumblan$sunset<-data.table::as.ITime(dumblan$sunset)
-  dumblan$dusk<-data.table::as.ITime(dumblan$dusk)
+  dumblan$daynight<-ifelse(as.ITime(dumblan$sunrise)<dumblan$time_l & dumblan$time_l<as.ITime(dumblan$sunset),"D","N")
+  dumblan$dawn<-as.ITime(dumblan$dawn)
+  dumblan$sunrise<-as.ITime(dumblan$sunrise)
+  dumblan$solarNoon<-as.ITime(dumblan$solarNoon)
+  dumblan$sunset<-as.ITime(dumblan$sunset)
+  dumblan$dusk<-as.ITime(dumblan$dusk)
   dumblan$dayhour<-NA
   for (i in 1:nrow(dumblan)) { if (dumblan$time_l[i]<dumblan$dawn[i] | dumblan$time_v[i]>dumblan$dusk[i]) dumblan$dayhour[i]<-"N" }
   for (i in 1:nrow(dumblan)) { if (dumblan$time_l[i]>dumblan$dawn[i] & dumblan$time_l[i]<dumblan$sunrise[i]) dumblan$dayhour[i]<-"S" }
   for (i in 1:nrow(dumblan)) { if (dumblan$time_l[i]>dumblan$sunrise[i] & dumblan$time_l[i]<dumblan$solarNoon[i]) dumblan$dayhour[i]<-"M" }
   for (i in 1:nrow(dumblan)) { if (dumblan$time_l[i]>dumblan$solarNoon[i] & dumblan$time_l[i]<dumblan$sunset[i]) dumblan$dayhour[i]<-"T" }
   for (i in 1:nrow(dumblan)) { if (dumblan$time_l[i]>dumblan$sunset[i] & dumblan$time_v[i]<dumblan$dusk[i]) dumblan$dayhour[i]<-"A" }
-  # if (out.dat) return(dumblan)
-  # else return(dplyr::filter(dumblan,daynight=="N")[,c("date","lance","daynight","sunrise","time_l","sunset","time_v")])
   dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error | abs(dumblan$error.rumb)>pc.error,c("camp","lance","recorrido","dist.hf","vel.dist","velocidad","error.dist","error.vel","error.rumb")]
   op<-par(no.readonly = T)
   if (plots) {
@@ -57,17 +55,17 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
     par(mfrow=c(1,3),oma=c(0,0,2,0))
     ylims<-hablar::max_(abs(temp$error.dist))*1.1
     plot(error.dist~lance,temp,cex=sqrt(abs(error.dist)),pch=21,cex.lab=1*esc.mult,cex.axis=1*esc.mult,
-         bg= dplyr::if_else(error.dist<0,"red","blue"),type="o",ylim=c(-ylims,ylims),xlab=ifelse(es,"lance","haul"),ylab=ifelse(es,"error.dist","distance error"))
+         bg= if_else(error.dist<0,"red","blue"),type="o",ylim=c(-ylims,ylims),xlab=ifelse(es,"lance","haul"),ylab=ifelse(es,"error.dist","distance error"))
     mtext(paste(ifelse(es,"Campaña","Survey"),camp),outer =T,cex=1.1*esc.mult,font=2)
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
     title(main=ifelse(es,"Error distancia-puntos","Distance points error"),cex.main=1.1*esc.mult)
     ylims<-hablar::max_(abs(temp$error.vel))*1.1
-    plot(error.vel~lance,temp,cex=sqrt(abs(error.vel)),pch=21,bg=dplyr::if_else(error.vel<0,"red","blue"),type="o",
+    plot(error.vel~lance,temp,cex=sqrt(abs(error.vel)),pch=21,bg=if_else(error.vel<0,"red","blue"),type="o",
          ylim=c(-ylims,ylims),cex.axis=1*esc.mult,cex.lab=1*esc.mult,ylab=ifelse(es,"error.vel","speed error"),xlab=ifelse(es,"lance","haul"))
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
     title(main=ifelse(es,"Error distancia-velocidad","Distance-speed error"),cex.main=1.1*esc.mult)
     ylims<-hablar::max_(abs(temp$error.rumb))*1.1
-    plot(error.rumb~lance,temp,cex=sqrt(abs(error.rumb)),pch=21,bg=dplyr::if_else(error.rumb<0,"red","blue"),type="o",ylim=c(-ylims,ylims),
+    plot(error.rumb~lance,temp,cex=sqrt(abs(error.rumb)),pch=21,bg=if_else(error.rumb<0,"red","blue"),type="o",ylim=c(-ylims,ylims),
          cex.axis=1*esc.mult,cex.lab=1*esc.mult,xlab=ifelse(es,"lance","haul"),ylab=ifelse(es,"error.rumb","tow rhumb error"))
     abline(h=c(-1,0,1),lty=c(3,2,3),lwd=c(.5,1,.5))
     title(main=ifelse(es,"Error rumbo puntos","tow direction points"),cex.main=1.1*esc.mult)
@@ -77,7 +75,7 @@ qcdistlan.camp<-function(camp,dns="Cant",todos=FALSE,pc.error=2,error.rb=TRUE,pl
   if (todos & error.rb) return(dumblan[order(dumblan$camp,dumblan$lance),c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","vel.dist","error.dist","error.vel","rumbo","error.rumb","sunrise","time_l","sunset","time_v","dusk","daynight")])
   if (!todos & error.rb) {lt<-list(lances=(dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error*3 | abs(dumblan$error.rumb)>pc.error*3,
                        c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","rumbo","rumb","vel.dist","error.dist","error.vel","error.rumb")]),
-                          daynight=dplyr::filter(dumblan,daynight=="N")[,c("date","lance","daynight","sunrise","time_l","sunset","time_v")])
+                          daynight=filter(dumblan,daynight=="N")[,c("date","lance","daynight","sunrise","time_l","sunset","time_v")])
                           return(lt)}
   if (!error.rb) return(dumblan[abs(dumblan$error.dist)>pc.error | abs(dumblan$error.vel)>pc.error*3,
                                c("camp","lance","recorrido","dist.hf","dist.vel","velocidad","mins","vel.dist","error.dist","error.vel")])

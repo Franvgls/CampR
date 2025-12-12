@@ -43,7 +43,6 @@ mapporco<-function(xlims=c(-15.5,-10.5),ylims=c(50.5,54.5),lwdl=1,latlonglin=TRU
   if (!is.logical(graf)) png(filename=paste0(graf,".png"),width = 950,height = 1200, pointsize = 20)
   if (is.logical(graf)) par(mar=c(2,2.5,2, 2.5) + 0.3,xaxs="i",yaxs="i")
   if (!ax) {par(mar=c(0,0,0,0),oma=c(0,0,0,0),omd=c(0,1,0,1))}
-  library(mapdata)
 #  maps::map("worldHires",c("ireland","UK:Northern Ireland"),ylim=ylims,xlim=xlims,
 #            fill=TRUE,col=ifelse(bw,gray(.7),"saddlebrown"),type="n")
   maps::map(Porc.map,xlim=xlims,ylim=ylims,type="n")

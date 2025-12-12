@@ -49,7 +49,7 @@ armap.camp<-function(camp,dns="Porc",ti=FALSE,lwdl=1,col=2,argr=2,cuadr=FALSE,cu
 	on.exit(DBI::dbDisconnect(ch1), add = TRUE)
 	if (DBI::dbExistsTable(ch1,paste0("HIDRO",camp))) {
 	  hidro<-DBI::dbReadTable(ch1,paste0("HIDRO",camp))
-    hidro<-dplyr::rename_with(hidro,tolower)
+    hidro<-rename_with(hidro,tolower)
 	  hidro<-dplyr::select(hidro,estn,latitud,longitud,eswe)
 	  if(nrow(hidro)==0) message("Fichero de CTDs sin datos")
 	  }

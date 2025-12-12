@@ -47,7 +47,6 @@ MatchHidro.ctd<-function(camp,dns="Porc",plot=TRUE,subtit=TRUE,bw=FALSE,ti=TRUE,
 }
 #
 #     dtln<-datlan.camp(camp,dns,redux = T))
-#   dtstn<-foreign::read.dbf()
 #
 #
 #

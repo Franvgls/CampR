@@ -30,7 +30,6 @@
 #' @export
 dtall.campa<- function(gr,esp,camp,dns,cor.time=TRUE,cor.5=FALSE,ti=FALSE,sub=NA,leg=TRUE,cexleg=1,bw=TRUE,es=TRUE,sex=FALSE,plot=T,idi="l",clms=2,
                        layout=NA,excl.sect=NA,ymax=NA,out.dat=FALSE,years=TRUE,verbose=TRUE) {
-  library(lattice)
   options(scipen=2)
   if (length(gr)>1) stop("No tiene sentido mezclar distribuciones de tallas de especies en distintos clases taxonómicas")
   esp<-format(esp,width=3,justify="r")

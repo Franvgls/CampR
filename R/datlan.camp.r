@@ -65,13 +65,6 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,y
     area<-as.data.frame(cbind(sector=
                                 as.character(substr(names(dumb[,21:45]),2,3)),arsect=as.numeric(t(dumb[,21:45]))))
     area<-area[!is.na(area$arsect),]
-    # if(outhidro) {datos<-dplyr::full_join(lan,dathidro[,c("camp","lance","hora.ctd","fecha.ctd","lat.ctd","long.ctd","sonda","cable.ctd",
-    #                          "prof.ctd","temp0","sali0","sigma0","temp50","sali50","sigma50","temp100","sali100","sigma100")])}
-    # if (outhidro) datos<-dplyr::full_join(lan,dathidro,by=c("camp","lance","temp","sali","estn","zona"))
-    #datos$arsect<-as.numeric(as.character(datos$arsect))
-    #browser()
-    #datos<-datos[,c(2,1,3:ncol(datos))]
-    #names(datos)<-tolower(names(datos))
     if (any(!lan$nsl %in% c("N","S"))) message(paste("En el lance",lan[!lan$nsl %in% c("N","S"),"lance"],
                                                            "el campo nsl que debe ser N o S y es",lan[!lan$nsl %in% c("N","S"),"nsl"]))
     if (any(!lan$ewl %in% c("W","E"))) message(paste("En la estación",paste(lan[!lan$ewl %in% c("E","W"),"ewl"],collapse = ","),
@@ -105,10 +98,10 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,y
     if (any(format(lan$hora_l,format="%H")>format(lan$hora_v,format="%H"))) {message(paste0("Al menos un lance ",
                       paste(lan[format(lan$hora_l,format="%H")>format(lan$hora_v,format="%H"),c("lance")],collapse = ","),
                                             " con hora de virada antes de hora de largada"))}
-    if (any(is.na(data.table::as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))))) {message(paste0("Al menos una hora de largada (lance: ",
-                      paste(lan[is.na(data.table::as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))),c("lance")],collapse=","),") con hora inválida"))}
-    if (any(is.na(data.table::as.ITime(gsub("\\.",":",format(lan$hora_v,format="%H")))))) {message(paste0("Al menos una hora de virada (lance: ",
-                      paste(lan[is.na(data.table::as.ITime(gsub("\\.",":",lan$hora_v))),c("lance")],collapse = ","),") con hora inválida"))}
+    if (any(is.na(as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))))) {message(paste0("Al menos una hora de largada (lance: ",
+                      paste(lan[is.na(as.ITime(gsub("\\.",":",format(lan$hora_l,format="%H")))),c("lance")],collapse=","),") con hora inválida"))}
+    if (any(is.na(as.ITime(gsub("\\.",":",format(lan$hora_v,format="%H")))))) {message(paste0("Al menos una hora de virada (lance: ",
+                      paste(lan[is.na(as.ITime(gsub("\\.",":",lan$hora_v))),c("lance")],collapse = ","),") con hora inválida"))}
     #lan<-lan[,c(1:18,23:ncol(lan))]
     lan$dista_p[lan$dista_p==0]<-NA
     lan$abert_v[lan$abert_v==0]<-NA
@@ -130,15 +123,13 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,y
     #barco<-dumb$BARCO
     if (!incl0) {lan<-lan[c(lan$validez!=0),]}
     if (!incl2) {lan<-lan[c(as.numeric(lan$validez)<=1),]}
-    datos<-dplyr::left_join(lan,area,by="sector")
+    datos<-left_join(lan,area,by="sector")
     datos$arsect<-as.numeric(as.character(datos$arsect))
-    #if(quarter==T) datos$quarter=substr(quarters(as.Date(datos$fecha)),2,2)
-    #datos<-dplyr::select(datos,-camp)
     datos[order(datos$lance),]
     }
   datos<-data.frame(camp=camp[1],foop(camp[1],dns=dns,incl2=incl2,incl0=incl0)) #,outhidro=outhidro
   if (length(camp)>1) {
-    for (i in camp[2:length(camp)]) datos<-dplyr::bind_rows(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0),camp=i)) #,outhidro=outhidro
+    for (i in camp[2:length(camp)]) datos<-bind_rows(datos,data.frame(foop(i,dns=dns,incl2=incl2,incl0=incl0),camp=i)) #,outhidro=outhidro
   }
 #  if (length(datos$camp)==0) {datos$camp<-camp}
   if (any(is.na(datos$zona))) {message(paste0("Al menos un lance: ",datos$lance[is.na(datos$zona)],
@@ -149,17 +140,14 @@ datlan.camp<-function(camp,dns,incl2=TRUE,incl0=FALSE,excl.sect=NA,redux=FALSE,y
     #		  datos$sector<-factor(as.character(datos$sector))
   }
   datos$sector<-as.character(datos$sector)
-  dplyr::arrange(datos,year,lance)
+  arrange(datos,year,lance)
   if (redux) {
     datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l"))
-    datos<-dplyr::relocate(datos,c("camp","lance","validez","lat","long","prof"))
+    datos<-relocate(datos,c("camp","lance","validez","lat","long","prof"))
     }
   if (!redux & !bio) {
-    #datos<-dplyr::select(datos,-c("long","lat","prof"))
-    #datos$camp<-camp
-    datos<-dplyr::relocate(datos,c("camp","lance","validez"))
+    datos<-relocate(datos,c("camp","lance","validez"))
     }
-  #if (outhidro & redux) datos<-dplyr::select(datos,-c("longitud_v","longitud_l","latitud_v","latitud_l","prof_v","prof_l"))
   if (bio) datos<-datos[,c("camp","lance","sector","validez","lat","long","prof","estrato","fecha","zona")]
   if (!is.null(datos$camp.1)) {datos<-dplyr::select(datos,-camp.1)}
   return(datos)

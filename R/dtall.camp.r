@@ -33,7 +33,6 @@
 #' @export
 dtall.camp<- function(gr,esp,camp,dns,cor.time=TRUE,ti=FALSE,sub=NA,leg=TRUE,cexleg=1,bw=TRUE,es=TRUE,sex=TRUE,plot=T,idi="l",clms=2,
   layout=NA,excl.sect=NA,ymax=NA,out.dat=FALSE,years=TRUE,verbose=TRUE,graf=FALSE,xpng=1200,ypng=800,ppng=15) {
-  library(lattice)
   options(scipen=2)
   if (length(gr)>1) stop("No tiene sentido mezclar distribuciones de tallas de especies en distintos clases taxonómicas")
   esp<-format(esp,width=3,justify="r")

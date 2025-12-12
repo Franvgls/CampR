@@ -18,5 +18,5 @@ ListFauna.camps<- function(gr="1",camps,dns,cor.time=TRUE,excl.sect=NA) {
       dumb<-rbind(dumb,cbind(camp=i,ListFauna.camp(gr,i,dns,cor.time=cor.time,excl.sect)))
     }
   }
-  dplyr::arrange(dumb,camp,-peso)
+  arrange(dumb,camp,-peso)
 }

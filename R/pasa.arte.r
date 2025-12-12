@@ -11,7 +11,6 @@
 #' @export
 pasa.arte<-function(camp,lan=NA,FileArte="Arte_",folder="c:/gps/mrk/",gps=FALSE,graphs=TRUE) {
   require(grid)
-  require(lattice)
   # load file, change accordingly to your pescawin config
   DatArte<-read.csv(paste0(folder,FileArte,camp,".csv"),sep=",",head=T)
   if (!any(is.na(lan))) {DatArte<-dplyr::filter(DatArte,Lance %in% lan)}
@@ -46,7 +45,6 @@ pasa.arte<-function(camp,lan=NA,FileArte="Arte_",folder="c:/gps/mrk/",gps=FALSE,
   # DatArte$Puertas[is.na(DatArte$Puertas) & !is.na(DatArte$Calones)] <- DatArte$Calones[is.na(DatArte$Puertas) & !is.na(DatArte$Calones)]*5
   #par(ask=T)
   if (graphs) {
-    library(lattice)
     trellis.par.set(col.whitebg())
     #grafs for check, can be reduced to less hauls setting subset to lance>X
     #par(ask=T)

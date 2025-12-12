@@ -50,8 +50,6 @@ if (out.dat) dumbp95
 }
 
 add_axes <- function() {
-  library(grid)
-  library(lattice)
   l <- trellis.currentLayout()
   pan <- which(l[nrow(l), ]==0)
   if(length(pan) > 0) {

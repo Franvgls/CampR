@@ -24,7 +24,7 @@ hidrotodec<- function(camp,dns,year=T) {
   dathidro$lat<-gradec(dathidro$LATITUD)*ifelse(dathidro$NOSU=="N",1,-1)
   dathidro$camp<-camp
   dathidro<-dathidro[,c(1,25,5,26,3,6:23,27)]
-  dathidro<-dplyr::rename_with(dathidro,tolower)
+  dathidro<-rename_with(dathidro,tolower)
   dathidro$lance<-as.numeric(dathidro$lance)
   dathidro$fecha<-as.Date(ifelse(dathidro$fecha < "1980-12-31", format(dathidro$fecha, "20%y-%m-%d"), format(dathidro$fecha)))
   if (year) dathidro$year<-camptoyear(camp)

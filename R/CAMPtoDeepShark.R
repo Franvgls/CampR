@@ -13,33 +13,32 @@
 #' @export
 CAMPtoDeepShark <-
   function(camp,dns,inclSpecie = FALSE,quart = TRUE,incl2 = FALSE,export = FALSE) {
-    require(dplyr)
     if (length(camp) > 1) {
       stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")
     }
     sharks<-read.csv("c:/users/francisco.velasco.ST/documents/FVG/ACOM/data calls/2019/deepseasharks/Shark_species.csv")
-    DB <-data.table::as.data.table(datlan.camp(camp,dns,redux = F,incl0 = F,incl2 = incl2))
+    DB <-as.data.table(datlan.camp(camp,dns,redux = F,incl0 = F,incl2 = incl2))
     ch1<-DBI::dbConnect(odbc::odbc(), dns)
     on.exit(DBI::dbDisconnect(ch1), add = TRUE)
-    ntalls <-data.table::as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='1'")))
+    ntalls <-as.data.table(DBI::dbGetQuery(ch1,paste0("select * from NTALL",camp," where GRUPO='1'")))
     #DBI::dbDisconnect(ch1)
     names(ntalls) <- tolower(names(ntalls))
     ch2 <- DBI::dbConnect(odbc::odbc(), dsn = "Camp")
     on.exit(DBI::dbDisconnect(ch2), add = TRUE)
-    especies <-data.table::as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
+    especies <-as.data.table(DBI::dbReadTable(ch2, "ESPECIES"))
     #DBI::dbDisconnect(ch2)
     names(especies) <- tolower(names(especies))
     especies <- subset(especies, especies$grupo == 1)
     #    especies<-subset(especies,especies$esp %in% unique(ntalls[ntalls$grupo==2,"esp"]))
-    especies <- dplyr::arrange(especies, esp)
-    especies %>% dplyr::mutate_if(is.factor, as.character) -> especies
+    especies <- arrange(especies, esp)
+    especies %>% mutate_if(is.factor, as.character) -> especies
     especies$especie[1] <- buscaesp(especies$grupo[1], especies$esp[1])
     if (substr(x = especies$especie[1],start = nchar(especies$especie[1]) - 3,
                stop = nchar(especies$especie[1])) == " sp.") {
       especies$especie[1] <-sub(" sp.","",buscaesp(especies$grupo[1], especies$esp[1]),
           perl = TRUE,fixed = TRUE)
       }
-    if (is.na(especies$aphia[1])) especies$aphia[1] <-worrms::wm_name2id(as.character(especies$especie[1]))
+    if (is.na(especies$aphia[1])) especies$aphia[1] <-wm_name2id(as.character(especies$especie[1]))
     if (export) {
       for (i1 in 2:nrow(especies)) {
         if (is.na(especies$aphia[i1])) {
@@ -49,7 +48,7 @@ CAMPtoDeepShark <-
             especies$especie[i1] <-sub(" sp.","",buscaesp(especies$grupo[i1], especies$esp[i1]),
                 perl = TRUE,useBytes = TRUE,fixed = TRUE)
           }
-          especies$aphia[i1] <- worrms::wm_name2id(especies$especie[i1])
+          especies$aphia[i1] <- wm_name2id(especies$especie[i1])
         }
       }
       write.csv(especies, "c:/camp/peces.csv", row.names = F)
@@ -128,7 +127,7 @@ CAMPtoDeepShark <-
     ntallsdumb<-dplyr::filter(ntallsdumb,SpecCode %in% sharks$AphiaID)
     DB1 <-
       merge(ntallsdumb,
-            data.table::as.data.table(DB),
+            as.data.table(DB),
             all.x = T,
             by = "lance")
     DB1$Sex <-
@@ -138,7 +137,7 @@ CAMPtoDeepShark <-
         labels = c("M", "F", "U")
       ))
     HL_north <-
-        data.table::data.table(
+        data.table(
           Country = "ES",
           Year = DB1$year,
           Month = substr(DB1$fecha,4,5),

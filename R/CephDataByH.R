@@ -16,7 +16,7 @@ CephDataByH<-function(gr=3,esp,camp,dns,quarter=FALSE,incl2=FALSE,incl0=FALSE) {
     if (length(camp)>1) {stop("seleccionadas más de una campaña, no se pueden sacar resultados de más de una")}
     if (gr!=3) {stop("Función para dar salidas de Cefalópodos, no utilizar para otros grupos")}
     if (any(!esp %in% cefsps$CampCode)) {(stop("Especie de cefalópodo no contemplada, si quiere revise cefsps en los datos incluidos en la librería"))}
-    DB1<-data.table::as.data.table(maphist(3,esp,camp,dns,cor.time = T,incl2=incl2,plot = F,out.dat = T))
+    DB1<-as.data.table(maphist(3,esp,camp,dns,cor.time = T,incl2=incl2,plot = F,out.dat = T))
     dlan<-datlan.camp(camp,dns,redux = F,bio=F,incl2 = T)
     dlan<-dplyr::rename(dlan,lan=lance,ICESDivision=zona)
     dlan$ICESDivision<-paste0("27.",dlan$ICESDivision)
@@ -24,7 +24,7 @@ CephDataByH<-function(gr=3,esp,camp,dns,quarter=FALSE,incl2=FALSE,incl0=FALSE) {
     DB1<-dplyr::left_join(DB1,dplyr::select(dlan,lan,ICESDivision),by="lan")
     DB1<-dplyr::rename(DB1,HaulNo = lan)
     DB1$HaulNo<-formatC(DB1$HaulNo,width = 3)
-    DB<-data.table::as.data.table(CAMPtoHH(camp,dns,incl2 = T))
+    DB<-as.data.table(CAMPtoHH(camp,dns,incl2 = T))
     DB<-dplyr::select(DB,"Survey","Quarter","HaulNo","Year","Month","HaulLat","HaulLong","StatRec")
     DB$HaulNo<-formatC(DB$HaulNo,width = 3)
     DB<-dplyr::left_join(DB1,DB,by="HaulNo")
