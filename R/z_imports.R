@@ -5,7 +5,7 @@
 
 # --- DATOS ---
 #' @import data.table
-#' @importFrom dplyr %>% mutate_if arrange filter mutate select rename group_by summarize
+#' @importFrom dplyr %>% mutate_if arrange filter mutate select rename group_by summarize relocate left_join
 # --- CONEXIONES ---
 #' @importFrom DBI dbConnect dbDisconnect dbGetQuery dbReadTable
 #' @importFrom odbc odbc
